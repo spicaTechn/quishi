@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/home',function(){
 	return view('welcome');
 });
+
+Route::get('/quishi', 'MainPageController@index');
+
