@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('front.layout.master')
 @section('content')
 <div class="banner-bg" style="background: url(images/banner.jpg) no-repeat center; background-size: cover;">
     <div class="most-search-job">

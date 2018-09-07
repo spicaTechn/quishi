@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <!-- Required meta tags -->
-    @include('inc.head')
+    @include('front.inc.head')
 </head>
 <body>
-    @include('inc.header')
+    @include('front.inc.header')
     <!-- end header -->
 
     @yield('content')
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    @include('inc.footer')
+    @include('front.inc.footer')
 </body>
 </html>
