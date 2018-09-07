@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainPageController@index');
 
-Route::get('/home',function(){
-	return view('welcome');
-});
 
-Route::get('/quishi', 'MainPageController@index');
 
