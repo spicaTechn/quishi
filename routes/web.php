@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'MainPageController@index');
+Route::get('/', 'Front\MainPageController@index');
 
 
 
