@@ -99,15 +99,15 @@ class CareerAdvisorController extends Controller
     }
     public function profileSetupOne()
     {
-        return view('front.career-advisor.profole-setup-1');
+        return view('front.career-advisor.profile-setup-1');
     }
     public function profileSetupTwo()
     {
-        return view('front.career-advisor.profole-setup-2');
+        return view('front.career-advisor.profile-setup-2');
     }
     public function profileSetupThree()
     {
-        return view('front.career-advisor.profole-setup-3');
+        return view('front.career-advisor.profile-setup-3');
     }
     public function questionAdminReview()
     {
