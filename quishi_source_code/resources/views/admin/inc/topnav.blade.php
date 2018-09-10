@@ -10,7 +10,7 @@
                             <i class="ti-search"></i>
                         </a>
                         <a href="#" class="dashboard-logo">
-                            <img class="img-fluid" src="{{ asset('/admin/assets/images/logo-for-web.png') }}" alt="{{$site_title}}"/>
+                            <img class="img-fluid" src="{{ asset('/admin_assets/assets/images/logo-for-web.png') }}" alt="{{$site_title}}"/>
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
@@ -34,12 +34,12 @@
                             
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                        <img src="{{asset('/admin/assets/images/avatar-4.jpg')}}" class="img-radius" alt="User-Profile-Image">
+                                        <img src="{{asset('/admin_assets/assets/images/avatar-4.jpg')}}" class="img-radius" alt="User-Profile-Image">
                                         <i class="ti-angle-down"></i>
                                     </a>
                                 <ul class="show-notification profile-notification">
                                     <li>
-                                        <a href="{{url('/admin/users/userProfile')}}">
+                                        <a href="{{url('/admin_assets/users/userProfile')}}">
                                                 <i class="ti-user"></i> Profile
                                             </a>
                                     </li>
