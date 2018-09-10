@@ -1,5 +1,5 @@
 
-<header>
+<header class="inner-header">
     <div class="login-menu login-menu-xs">
         <ul>
             <li class="nav-item"><a href="#" class="nav-link"> Sign In <i class="icon-power"></i></a></li>
