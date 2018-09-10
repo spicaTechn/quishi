@@ -12,7 +12,18 @@
 */
 
 Route::get('/', 'Front\MainPageController@index');
+
 Route::get('/about', 'Front\AboutPageController@index');
 Route::get('/contact', 'Front\ContactPageController@index');
 
 
+//route to the dashboard
+Route::get('/admin', 'Admin\DashboardController@index');
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
