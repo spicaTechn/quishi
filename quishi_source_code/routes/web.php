@@ -13,5 +13,8 @@
 
 Route::get('/', 'Front\MainPageController@index');
 
+//route to the dashboard
+Route::get('/admin', 'Admin\DashboardController@index');
+
 
 
