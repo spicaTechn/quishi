@@ -1,6 +1,6 @@
 @extends('front.layout.master')
 @section('content')
-<div class="banner-bg" style="background: url(images/banner.jpg) no-repeat center; background-size: cover;">
+<div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="most-search-job">
         <ul>
             <li>Graphics Designer</li>
@@ -48,7 +48,7 @@
             <div class="col-lg-4">
                 <div class="trending-profiles-section">
                     <div class="profile-image">
-                        <img src="images/profile/1.jpg">
+                        <img src="{{asset('/front')}}/images/profile/1.jpg">
                     </div>
                     <div class="profile-desination">
                         <h3>Felicity Smoak</h3>
@@ -88,7 +88,7 @@
             <div class="col-lg-4">
                 <div class="trending-profiles-section">
                     <div class="profile-image">
-                        <img src="images/profile/2.jpg">
+                        <img src="{{asset('/front')}}/images/profile/2.jpg">
                     </div>
                     <div class="profile-desination">
                         <h3>Felicity Smoak</h3>
@@ -128,7 +128,7 @@
             <div class="col-lg-4">
                 <div class="trending-profiles-section">
                     <div class="profile-image">
-                        <img src="images/profile/3.jpg">
+                        <img src="{{asset('/front')}}/images/profile/3.jpg">
                     </div>
                     <div class="profile-desination">
                         <h3>Felicity Smoak</h3>
@@ -179,7 +179,7 @@
             <div class="col-md-6">
                 <div class="home-blog-section">
                     <div class="blog-image">
-                        <img src="images/blog1.jpg" alt="#">
+                        <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
                     </div>
                     <div class="blog-conten">
                         <h4>Praesent malesuada semi to.</h4>
@@ -192,7 +192,7 @@
             <div class="col-md-6">
                 <div class="home-blog-section">
                     <div class="blog-image">
-                        <img src="images/blog2.jpg" alt="#">
+                        <img src="{{asset('/front')}}/images/blog2.jpg" alt="#">
                     </div>
                     <div class="blog-conten">
                         <h4>Praesent malesuada semi to.</h4>
@@ -213,7 +213,7 @@
             <div class="col-md-4">
                 <div class="about-inner-section">
                     <div class="about-icon-section">
-                        <img src="images/icons/expert.png" alt="expert">
+                        <img src="{{asset('/front')}}/images/icons/expert.png" alt="expert">
                     </div>
                     <div class="about-content-section">
                         <h4>TALK TO AN EXPERT</h4>
@@ -226,7 +226,7 @@
             <div class="col-md-4">
                 <div class="about-inner-section">
                     <div class="about-icon-section">
-                        <img src="images/icons/career-review.png" alt="career-review">
+                        <img src="{{asset('/front')}}/images/icons/career-review.png" alt="career-review">
                     </div>
                     <div class="about-content-section">
                         <h4>CAREER REVIEWS</h4>
@@ -239,7 +239,7 @@
             <div class="col-md-4">
                 <div class="about-inner-section">
                     <div class="about-icon-section">
-                        <img src="images/icons/about-quishi.png" alt="quishi icon">
+                        <img src="{{asset('/front')}}/images/icons/about-quishi.png" alt="quishi icon">
                     </div>
                     <div class="about-content-section">
                         <h4>ABOUT US</h4>
