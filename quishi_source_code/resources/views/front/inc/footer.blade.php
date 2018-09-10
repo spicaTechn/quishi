@@ -23,7 +23,7 @@
                             <div class="footer-section">
                                 <h4>Donate</h4>
                                 <div class="donate-image">
-                                    <img src="images/paypal.png" alt="paypals">
+                                    <img src="{{asset('/front')}}/images/paypal.png" alt="paypals">
                                 </div>
                             </div>
                         </div>
