@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\CareerAdvisor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CareerAdvisotController extends Controller
+class CareerAdvisorController extends Controller
 {
     /**
      * Display a listing of the resource.
