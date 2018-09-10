@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('./front.layout.master')
 @section('content')
 <div class="about-section">
     <div class="container">
