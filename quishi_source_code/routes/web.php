@@ -13,6 +13,6 @@
 
 Route::get('/', 'Front\MainPageController@index');
 Route::get('/about', 'Front\AboutPageController@index');
-
+Route::get('/contact', 'Front\ContactPageController@index');
 
 
