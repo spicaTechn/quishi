@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\CareerAdvisor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CareerAdvisotController extends Controller
+class CareerAdvisorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,7 @@ class CareerAdvisotController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -81,5 +82,39 @@ class CareerAdvisotController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function profile()
+    {
+        return view('front.career-advisor.my-profile');
+    }
+
+    public function profileLogin()
+    {
+        return view('front.career-advisor.my-profile-login');
+    }
+    public function profileAccount()
+    {
+        return view('front.career-advisor.profile-account');
+    }
+    public function profileSetupOne()
+    {
+        return view('front.career-advisor.profile-setup-1');
+    }
+    public function profileSetupTwo()
+    {
+        return view('front.career-advisor.profile-setup-2');
+    }
+    public function profileSetupThree()
+    {
+        return view('front.career-advisor.profile-setup-3');
+    }
+    public function questionAdminReview()
+    {
+        return view('front.career-advisor.question-admin-review');
+    }
+    public function questionAnsEdit()
+    {
+        return view('front.career-advisor.question-ans-edit');
     }
 }
