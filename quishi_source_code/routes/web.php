@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'Front\MainPageController@index');
-ROute::get('/about', 'Front\AboutPageController@index');
+Route::get('/about', 'Front\AboutPageController@index');
 
 
 
