@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-6">
                 <div class="about-image">
-                    <img src="{{assets('/front')}}/images/career.jpg" alt="career">
+                    <img src="{{asset('/front')}}/images/career.jpg" alt="career">
                 </div>
             </div>
         </div>
