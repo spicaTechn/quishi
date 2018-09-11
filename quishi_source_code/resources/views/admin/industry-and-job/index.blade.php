@@ -22,20 +22,20 @@
                      <div class="card px-4 py-4 industry-jobs-tab">
                         <div class="card-header">
                            <div class="card-header-left">
-                              <h5>Manage industry and jobs</h5>
+                              <h5>{{ __('Manage industry and jobs')}}</h5>
                            </div>
                            <div class="card-header-right"> 
-                              <button class="btn btn-grd-primary add-btn">Add new Industry / Job</button>
+                              <button class="btn btn-grd-primary add-btn">{{ __('Add new Industry / Job')}}</button>
                            </div>
                         </div>
                         <div class="card-block">
                            <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
                               <li class="nav-item">
-                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#industry" role="tab" aria-controls="industry" aria-selected="true">Industry</a>
+                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#industry" role="tab" aria-controls="industry" aria-selected="true">{{ __('Industry')}}</a>
                                  <div class="slide"></div>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="true">Jobs</a>
+                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="true">{{ __('Jobs')}}</a>
                                  <div class="slide"></div>
                               </li>
                            </ul>
@@ -46,83 +46,14 @@
                                        <table class="table table-striped table-bordered nowrap hover tbl-industry">
                                           <thead>
                                              <tr>
-                                                <th>S.N</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th>No of jobs</th>
-                                                <th>Action</th>
+                                                <th>{{ __('S.N')}}</th>
+                                                <th>{{ __('Title')}}</th>
+                                                <th>{{ __('Description')}}</th>
+                                                <th>{{ __('No of jobs')}}</th>
+                                                <th>{{ __('Action')}}</th>
                                              </tr>
                                           </thead>
                                           <tbody>
-                                             <tr>
-                                                <td>1</td>
-                                                <td>IT and telecommunications</td>
-                                                <td>this is information technology industry</td>
-                                                <td>61</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-industry-id="1">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-industry-id="1">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td>2</td>
-                                                <td>Business management</td>
-                                                <td>Business is the secret of mine</td>
-                                                <td>65</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-industry-id="2">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-industry-id="2">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td>3</td>
-                                                <td>Finance and banking</td>
-                                                <td>money things is here</td>
-                                                <td>200</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-industry-id="3">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-industry" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-industry-id="3">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
                                           </tbody>
                                        </table>
                                     </div>
@@ -134,83 +65,15 @@
                                        <table class="table table-striped table-bordered nowrap hover tbl-jobs">
                                           <thead>
                                              <tr>
-                                                <th>S.N</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th>No of jobs</th>
-                                                <th>Action</th>
+                                                <th>{{ __('S.N')}}</th>
+                                                <th>{{ __('Title')}}</th>
+                                                <th>{{ __('Description')}}</th>
+                                                <th>{{ __('Usage')}}</th>
+                                                <th>{{ __('Action')}}</th>
                                              </tr>
                                           </thead>
                                           <tbody>
-                                             <tr>
-                                                <td>1</td>
-                                                <td>IT and telecommunications</td>
-                                                <td>this is information technology industry</td>
-                                                <td>61</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-job-id="1">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-job-id="1">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td>2</td>
-                                                <td>Business management</td>
-                                                <td>Business is the secret of mine</td>
-                                                <td>65</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-job-id="2">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-job-id="2">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td>3</td>
-                                                <td>Finance and banking</td>
-                                                <td>money things is here</td>
-                                                <td>200</td>
-                                                <td>
-                                                   <a href="#" class="m-r-15 text-muted edit-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" 
-                                                      title="" 
-                                                      data-original-title="Edit"
-                                                      data-job-id="3">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-job" 
-                                                      data-toggle="tooltip" 
-                                                      data-placement="top" title="" 
-                                                      data-original-title="Delete" 
-                                                      data-job-id="3">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                                </td>
-                                             </tr>
+                                             
                                           </tbody>
                                        </table>
                                     </div>
@@ -242,6 +105,7 @@
 					</button>
 	            </div>
 	            <div class="modal-body">
+                  @csrf
                 	<div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
                             <h4 class="sub-title">Title *</h4>
@@ -252,9 +116,7 @@
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
                             <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as Job</small></h4>
-                            <select class="form-control" name="parent_id">
-                            	<option value="parent1">Parent 1</option>
-                            	<option value="parent1">Parent 2</option>
+                            <select class="form-control parent-industry" name="parent_id">
                             </select>
                         </div> 
                     </div>
@@ -262,13 +124,14 @@
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
                             <h4 class="sub-title">Description</h4>
-                            <textarea class="form-control" name="description"></textarea>
+                            <textarea class="form-control description" name="description"></textarea>
                         </div> 
                     </div>
+                    <input type="hidden" name="industry_id" class="industry_id" value=""/>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-	                <button type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+	                <button type="submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
 	            </div>
             </form>
         </div>
@@ -300,8 +163,9 @@
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
 $(document).ready(function () {
+    var save_method, uri;
 	// Page industry and jobs
-	$(".industry-jobs-tab").tabs({
+	 $(".industry-jobs-tab").tabs({
 	    activate: function (event, ui) {        
           $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust()
@@ -315,7 +179,7 @@ $(document).ready(function () {
 	});   
 
 	// datatable for subscription request
-    $('.tbl-industry').DataTable({
+    var industry_table = $('.tbl-industry').DataTable({
         dom: 'Bfrtip',
         LengthChange: true,
         buttons:[
@@ -336,17 +200,58 @@ $(document).ready(function () {
         ],
         destroy : true,
         order : [[ 0, "asc" ]], //or asc 
-        columnDefs: [{"targets":0, "type":"date-eu"}],
+        //columnDefs: [{"targets":0, "type":"date-eu"}],
+        serverSide : true,
+        processing : true,
+        ajax       : {
+                        url  : "{{route('admin.industry.getIndustry')}}",
+                        type : 'GET',
+        },
+        columns   : [
+                     
+              {
+               "data": "id",
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+              },
+              {"data" :"title","name":"title"},
+              {"data":'description', "name":"description"},
+              {"data":"usage",'name':"usage"},
+              {"data":"action" , "name" :"action"},
+          
+        ]
+
     });
 
     // datatable for active subscription
-    $('.tbl-jobs').DataTable({
-      	dom: 'Bfrtip',
-        buttons:[
-            'excel',
-            'print'
-        ],
-        destroy:true
+    var job_table = $('.tbl-jobs').DataTable({
+        dom                   : 'Bfrtip',
+        buttons               :[
+                                 'excel',
+                                 'print'
+                               ],
+        destroy               :true,
+        processing            :true,
+        serverSide            :true,
+        ajax                  : {
+                                 url :"{{route('admin.jobs.getJobs')}}",
+                                 type : "GET",
+
+                                },
+        columns:[
+        {
+            "data": "id",
+             render: function (data, type, row, meta) {
+                 return meta.row + meta.settings._iDisplayStart + 1;
+             }
+        },
+        {"data" :"title","name":"title"},
+        {"data":'description', "name":"description"},
+        {"data":"usage",'name':"usage"},
+        {"data":"action" , "name" :"action"},
+        
+        ]
         
     });
 
@@ -395,16 +300,16 @@ $(document).ready(function () {
             e.preventDefault();
 
             // find if the action is save or update
-            /*if(save_method == 'add')
+            if(save_method == 'add')
             {
-                URI = "https://foodmario.com/admin/types";
+                URI = "{{route('admin.add.industryJobs')}}";
             }else{
-                var type_id = $('#type_id').val();
-                URI = "https://foodmario.com/admin/types" +"/" +  type_id;
+                var industry_id  = $(".industry_id").val();
+                URI = "{{URL::to('admin/industryJobs')}}" + "/" + industry_id;
             }
 
             // get the input values
-            result = new FormData($("#type-form")[0]);
+            result = new FormData($("#industry-jobs-form")[0]);
 
             $.ajax({
             //make the ajax request to either add or update the 
@@ -418,51 +323,99 @@ $(document).ready(function () {
             {
                 if(data.status == "success"){
                     //hide the modal
-                     $('#type-add-modal').modal('hide');
+                     $('#add-edit-industry').modal('hide');
+                     var submit_type = $('.parent-industry').val();
+                     var submit_msg = '';
+                     if(submit_type == 0){
+                        submit_msg = "Industry";
+
+                     }else{
+                        submit_msg = "Job";
+                     }
                      // $('#category-form')[0].reset();
                      // $('#category-form').data('formValidation').resetForm(true);
 
                      if(save_method == "add"){
                         swal({
-                          title: "New type has been added!",
-                          text: "A new type has been added to Food Mario",
+                          title: "New " + submit_msg + "  has been added!",
+                          text: "A new  " + submit_msg + "   has been added to Quishi",
                           type: "success",
                           closeOnConfirm: true,
                         });
                      }else{
                         swal({
-                          title: "Type has been Updated!",
-                          text: "Type has been updated to Food Mario",
+                          title: submit_msg + " has been Updated!",
+                          text: submit_msg + "  has been updated to Quishi",
                           type: "success",
                           closeOnConfirm: true,
                         });
                      } // check for the form submission type
-                    table.ajax.reload();
+                    //table.ajax.reload();
+
+                    if(submit_msg == "Industry"){
+                     industry_table.ajax.reload();
+                    }else{
+                      job_table.ajax.reload();
+                    }
                     
-                    var image="https://foodmario.com/images/food_icon.png";
-                     $("#type-image").attr('src',image);
-                    $('#type-form')[0].reset();
-                    $('#type-form').data('formValidation').resetForm(true);
+                    //var image="https://foodmario.com/images/food_icon.png";
+                    //$("#type-image").attr('src',image);
+                   resetFormOnClose();
                 }
             },
             error:function(event)
             {
-                console.log('Cannot add new user into the food mario system. Please try again later on..');
+                console.log('Cannot add new user into the quishi system. Please try again later on..');
             }
             
-        });*/
+        });
     }); // end formvalidation.io code
 
     // On click add new industry or job
     $( ".add-btn" ).on( "click", function() {
-	  $('#add-edit-industry').modal('show');
+         save_method = 'add';
+         var parent_industry = "{{route('admin.industry')}}";
+         //make the ajax request to get the 
+         $.get(parent_industry,function(data){
+            $('.parent-industry').html(data.result);
+         });
+	     $('#add-edit-industry').modal('show');
 	}); // end add new button click
+
+
+
+    //reset the form validaton and from when the modal was closing
+    function resetFormOnClose(){
+      $('.modal').on('hidden.bs.modal', function(){
+         $(this).find('form').data('formValidation').resetForm(true);
+         $(this).find('form')[0].reset();
+
+      });
+    }
+    
 
 	// On edit industry
 	$("body").on('click','.edit-industry', function(e){
         e.preventDefault();
-        industry_id=$(this).attr('data-industry-id');
-        alert(industry_id);
+        save_method = 'edit';
+        industry_id = $(this).attr('data-industry-id');
+        //get the details from the db and make ready the modal to popup
+        $.get("{{URL::to('admin/industryJobs')}}" + "/" + industry_id,function(data){
+            //prepare the modal to show
+            $(".fullname").val(data.result.title);
+            //$(".parent-industry").val(data.result.parent);
+             var parent_industry = "{{route('admin.industry')}}";
+
+             $.get(parent_industry,function(data){
+               $('.parent-industry').html(data.result);
+             });
+
+            $(".parent-industry").val(data.result.parent);
+            $('.description').val(data.result.description);
+            $('.industry_id').val(data.result.id);
+        });
+        $('.modal-title').html('Edit Industry / Job');
+        $('#add-edit-industry').modal('show');
 
     });// end edit industry click
 

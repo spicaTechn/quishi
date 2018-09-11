@@ -15,7 +15,7 @@
             </li>
             
             <!--Industry and jobs menu link-->
-            <li class="{{Request::is('admin.industry-and-job') ? 'active ' : '' }}">
+            <li class="{{Request::is('admin.industryJobs') ? 'active ' : '' }}">
                 <a href="{{ route('admin.industryJobs') }}">
                     <span class="pcoded-micon"><i class="ti-package"></i><b>I</b></span>
                     <span class="pcoded-mtext" >Industry & jobs</span>

@@ -28,16 +28,51 @@ Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@ques
 
 
 //route to the dashboard
+//we have make this access only for the logged in user of the having the super admin role
 Route::get('/admin', [
         'as'        =>'admin.dashboard',
         'uses'      =>'Admin\DashboardController@index'
 ]);
 
-Route::get('/admin/industry-and-jobs', [
+Route::get('/admin/industryJobs', [
         'as'        =>'admin.industryJobs',
-        'uses'      =>'Admin\IndustryController@index'
+        'uses'      =>'Admin\Industry\IndustryController@index'
 ]);
 
+Route::post('/admin/industryJobs',[
+		'as'        => 'admin.add.industryJobs',
+		'uses'		=> 'Admin\Industry\IndustryController@store'
+]);
+//show the careers by id
+
+
+Route::get('/admin/industry',[
+	'as'		=> 'admin.industry',
+	'uses'		=> 'Admin\Industry\IndustryController@getCareerIndustry'
+]);
+
+Route::get('/admin/industryJobs/{id}',[
+	'as'        => 'admin.get.industryJobs',
+	'uses'		=> 'Admin\Industry\IndustryController@show'
+]);
+
+
+Route::post('/admin/industryJobs/{id}',[
+	'as'		=> 'admin.update.industryJobs',
+	'uses'		=> 'Admin\Industry\IndustryController@update'
+]);
+
+
+//route related to the industry datatable
+Route::get('/admin/industry/getIndustry',[
+	'as'         => 'admin.industry.getIndustry',
+	'uses'	     => 'Admin\Industry\IndustryController@getIndustry'
+]);
+
+Route::get('/admin/jobs/getJobs',[
+	'as'		=> 'admin.jobs.getJobs',
+	'uses'      => 'Admin\Industry\IndustryController@getJobs'
+]);
 
 
 
