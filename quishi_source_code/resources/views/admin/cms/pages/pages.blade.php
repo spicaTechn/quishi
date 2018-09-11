@@ -1,0 +1,532 @@
+@extends('admin.layout.master')
+@section('page_specific_css')
+<!--Load the datatable css-->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<!-- Load the sweetalert css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
+<!-- Load the formvalidation css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
+
+<!-- Data Table Css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css') }}">
+
+<!-- File Input css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/file-input/css/fileinput.css') }}">
+@endsection
+@section('content')
+<div class="pcoded-content">
+<div class="pcoded-inner-content">
+<div class="main-body">
+   <div class="page-wrapper">
+      <div class="page-body">
+         <div class="row">
+            <div class="col-sm-12">
+               <!-- HTML5 Export Buttons table start -->
+               <div class="card px-4 py-4 industry-jobs-tab">
+                  <div class="card-header">
+                     <div class="card-header-left">
+                        <h5>Manage Pages</h5>
+                     </div>
+                     <!-- <div class="card-header-right">
+                        <button class="btn btn-grd-primary add-btn">Add new Industry / Job</button>
+                     </div> -->
+                  </div>
+                  <div class="card-block">
+                     <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                           <div class="slide"></div>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">About US</a>
+                           <div class="slide"></div>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Contact US</a>
+                           <div class="slide"></div>
+                        </li>
+                     </ul>
+
+
+                     <div class="tab-content" >
+                        <!-- Home Tab -->
+                        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                           <div class="card-block">
+
+                           </div>
+                        </div>
+                        <!-- End Home  Tap -->
+
+
+                        <!-- About US Tap -->
+                        <div class="tab-pane fade show" id="about" role="tabpanel" aria-labelledby="about-tab">
+                           <div class="card-block">
+                              <h4>Top Section</h4>
+                              <br>
+                              <form name="about-us" id="about-us" enctype="multipart/form-data">
+                              <input type="hidden" name="about_id" id="about_id" value=""/>
+                              <div class="row">
+                                <div class="col-sm-12 col-xl-12 m-b-30">
+                                     <h4 class="sub-title">Title *</h4>
+                                     <input type="text" class="form-control about_title" name="about_title" placeholder="Title">
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Description *</h4>
+                                     <textarea style="height: 350px;"  class="form-control about_description" name="about_description" placeholder="Description"></textarea>
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Image *</h4>
+                                     <div class="fileinput fileinput-new" data-provides="fileinput">
+                                         <div class="fileinput-new thumbnail" style="max-width: 100%; max-height: 350px;" data-trigger="fileinput">
+                                          <img src="{{asset('/front')}}/images/blog1.jpg">
+                                         </div>
+                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100%; max-height:350px;">
+                                         </div>
+                                         <div>
+                                           <span class="btn btn-file btn-block btn-primary btn-sm">
+                                             <span class="fileinput-new">Select Profile Image</span>
+                                             <span class="fileinput-exists">Change</span>
+                                             <input name="about-image" accept="image/*" type="file">
+                                           </span>
+                                           <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                              </div>
+                              <button class="btn btn-grd-primary updateAbout">Update</button>
+                              </form>
+                           </div>
+
+                           <br><br>
+
+                           <div class="card-block">
+                            <div class="row">
+                               <div class="col-md-6">
+                                  <h4>Our Team</h4>
+                               </div>
+                               <div class="col-md-6">
+                                  <h4 style="float: right;">
+                                     <button class="btn btn-grd-primary our-team-edit-btn">Edit Our Team</button>
+                                  </h4>
+                               </div>
+                            </div>
+                            <div class="dt-responsive table-responsive">
+                                <table id="our_team" class="table table-striped table-bordered our_team">
+                                    <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Description</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                              <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
+                                            </td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
+                                            </td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
+                                            </td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
+                                            </td>
+                                            <td>Senior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           </div>
+                        </div>
+                        <!--End About US Tap -->
+
+
+                        <!-- Contact US Tap -->
+                        <div class="tab-pane fade pt-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                           <div class="card-block">
+                              <div class="card-block">
+                              <form>
+                              <div class="row">
+                                <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Address *</h4>
+                                     <input type="text" class="form-control address" name="address" placeholder="Address">
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Phone *</h4>
+                                     <input type="text" class="form-control phone_number" name="phone_number" placeholder="Phone">
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Email *</h4>
+                                     <input type="text" class="form-control email" name="email" placeholder="Email">
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Facebook *</h4>
+                                     <input type="text" class="form-control facebook" name="facebook" placeholder="Facebook Link">
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Twitter *</h4>
+                                     <input type="text" class="form-control twitter" name="twitter" placeholder="Twitter Link">
+                                 </div><div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Google Plus *</h4>
+                                     <input type="text" class="form-control google_plus" name="google_plus" placeholder="Google Plus Link">
+                                 </div><div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">Instragram *</h4>
+                                     <input type="text" class="form-control instragram" name="instragram" placeholder="Instragram Link">
+                                 </div>
+                              </div>
+                              <button type="submit" class="btn btn-grd-primary">Update</button>
+                              </form>
+                           </div>
+                           </div>
+                        </div>
+                         <!-- End Contact US Tap -->
+                     </div>
+                     <!-- tab-content -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Page-body end -->
+   </div>
+</div>
+</div>
+</div>
+@endsection
+@section('form_modal')
+<!-- add modal -->
+<div class="modal fade" id="edit-our-team" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        	<form name="our-team" id="our-team">
+	            <div class="modal-header">
+	                <h4 class="modal-title"><span>Edit Our Team</span></h4>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+	            </div>
+	            <div class="modal-body">
+                  <div class="row">
+                     <div class="col-sm-5 col-xl-5 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Title *</h4>
+                               <input type="text" class="form-control team_title" name="team_title[]" placeholder="Title">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Position *</h4>
+                               <input type="text" class="form-control team_position" name="team_position[]" placeholder="Position">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Description *</h4>
+                               <input type="text" class="form-control team_description" name="team_description[]" placeholder="Description">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-5 col-xl-5 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Image *</h4>
+                               <div class="fileinput fileinput-new" data-provides="fileinput">
+                                   <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
+                                   <img src="{{asset('/front')}}/images/blog1.jpg">
+                                   </div>
+                                   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height:217px;">
+                                   </div>
+                                   <div>
+                                     <span class="btn btn-file btn-block btn-primary btn-sm">
+                                       <span class="fileinput-new">Select Profile Image</span>
+                                       <span class="fileinput-exists">Change</span>
+                                       <input name="team_image[]" class="form-control team_image" accept="image/*" type="file">
+                                     </span>
+                                     <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-2 col-xl-2 m-b-30" style="line-height: 50%;">
+                        <button type="button" class="btn btn-primary waves-effect waves-light add-field">+</button>
+                     </div>
+                  </div>
+	            </div>
+	            <!-- <div class="modal-footer">
+	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+	                <button type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+	            </div> -->
+
+               <div class="modal-body d-none" name="our-team-add-field" id="our-team-add-field">
+                  <div class="row">
+                     <div class="col-sm-5 col-xl-5 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Title *</h4>
+                               <input type="text" class="form-control team_title" name="team_title[]" placeholder="Title">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Position *</h4>
+                               <input type="text" class="form-control team_position" name="team_position[]" placeholder="Position">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Description *</h4>
+                               <input type="text" class="form-control team_description" name="team_description[]" placeholder="Description">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-5 col-xl-5 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Image *</h4>
+                               <div class="fileinput fileinput-new" data-provides="fileinput">
+                                   <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
+                                   <img src="{{asset('/front')}}/images/blog1.jpg">
+                                   </div>
+                                   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height:217px;">
+                                   </div>
+                                   <div>
+                                     <span class="btn btn-file btn-block btn-primary btn-sm">
+                                       <span class="fileinput-new">Select Profile Image</span>
+                                       <span class="fileinput-exists">Change</span>
+                                       <input name="team_image[]" class="form-control team_image" accept="image/*" type="file">
+                                     </span>
+                                     <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-2 col-xl-2 m-b-30" style="line-height: 50%;">
+                        <button type="button" class="btn btn-primary waves-effect waves-light remove-field">-</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                   <button type="submit" class="btn btn-primary waves-effect waves-light ourTeamSave">Save changes</button>
+               </div>
+         </form>
+        </div>
+    </div>
+</div>
+<!-- end add modal -->
+@endsection
+@section('page_specific_js')
+<script src="{{ asset('/admin_assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/js/jszip.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/extensions/buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/extensions/buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/extensions/buttons/js/jszip.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/assets/pages/data-table/extensions/buttons/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('/admin_assets/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- Sweetalert -->
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<!-- Formvalidation -->
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
+
+<!-- Page wise Javascript code -->
+<script type="text/javascript">
+   $(document).ready(function () {
+      // loading edit our team modal
+      $( ".our-team-edit-btn" ).on( "click", function() {
+        $('#edit-our-team').modal('show');
+      });
+
+
+      // adding dynamic fiel of our team
+      $('body').on('click', '.add-field', function() {
+            var $template = $('#our-team-add-field'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('d-none')
+                                .removeAttr('id')
+                                .insertBefore($template),
+
+                $team_title         = $clone.find('[name="team_title[]"]');
+                $team_position      = $clone.find('[name="team_position[]"]');
+                $team_description   = $clone.find('[name="team_description[]"]');
+                $team_image         = $clone.find('[name="team_image[]"]');
+      });
+      // Remove button click handler
+        $('body').on('click', '.remove-field', function() {
+            var $row    = $(this).parents('.row');
+            // Remove element containing the option
+            $row.remove();
+        });
+
+
+      // Fomvalidation setup about us top section
+      $('#about-us').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+        })
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                'about_title': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The title is required'
+                        }
+                    }
+                },
+                'about_description': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The description is required'
+                           },
+                        stringLength: {
+                            message: 'Type description must be less than 200 characters',
+                            max: function (value, validator, $field) {
+                                return 200 - (value.match(/\r/g) || []).length;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        .on('success.form.fv', function(e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                 var about_id = $('#about_id').val();
+                 URI = "{{url('/admin/cms/pages/aboutUpdate')}}" +"/" +  about_id;
+
+                // get the input values
+                result = new FormData($("#about-us")[0]);
+
+                $.ajax({
+                //make the ajax request to either add or update the
+                url:URI,
+                data:result,
+                dataType:"Json",
+                contentType: false,
+                processData: false,
+                type:"POST",
+                success:function(data)
+                {
+                    if(data.status == "success"){
+
+                        $('#about-us')[0].reset();
+                        $('#about-us').data('formValidation').resetForm(true);
+                        console.log(data);
+                    }
+                },
+                error:function(event)
+                {
+                    console.log('Cannot update about data in quishi. Please try again later on..');
+                }
+
+            });
+        });
+
+
+        // Fomvalidation setup about us our team
+
+        $('#our-team').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+           })
+           .formValidation({
+               framework: 'bootstrap',
+               icon: {
+                   valid: 'fa fa-check',
+                   invalid: 'fa fa-times',
+                   validating: 'fa fa-refresh'
+               },
+               fields: {
+                   'team_title[]': {
+                       validators: {
+                           notEmpty: {
+                               message: 'The title is required'
+                           }
+                       }
+                   },
+                   'team_position[]': {
+                       validators: {
+                           notEmpty: {
+                               message: 'The position is required'
+                           }
+                       }
+                   },
+                   'team_description[]': {
+                       validators: {
+                           notEmpty: {
+                                  message: 'The description is required'
+                              },
+                           stringLength: {
+                               message: 'Type description must be less than 200 characters',
+                               max: function (value, validator, $field) {
+                                   return 200 - (value.match(/\r/g) || []).length;
+                               }
+                           }
+                       }
+                   }
+               }
+           });
+
+
+   });
+</script>
+@endsection

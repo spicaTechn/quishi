@@ -38,6 +38,16 @@ Route::get('/admin/industry-and-jobs', [
         'uses'      =>'Admin\IndustryController@index'
 ]);
 
+// Route for pages(about, contact etc)
+Route::get('/admin/cms/pages', [
+	'as'		=>	'admin.cms.pages',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
+]);
+// Route to store about page top section content to quishi
+Route::post('/admin/cms/pages/aboutUpdate/{about}', [
+	'as'		=>	'admin.cms.pages.aboutUpdate',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+]);
 
 
 
