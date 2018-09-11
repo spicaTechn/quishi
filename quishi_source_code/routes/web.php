@@ -18,8 +18,15 @@ Route::get('/contact', 'Front\ContactPageController@index');
 
 
 //route to the dashboard
-Route::get('/admin', 'Admin\DashboardController@index');
+Route::get('/admin', [
+        'as'        =>'admin.dashboard',
+        'uses'      =>'Admin\DashboardController@index'
+]);
 
+Route::get('/admin/industry-and-jobs', [
+        'as'        =>'admin.industryJobs',
+        'uses'      =>'Admin\IndustryController@index'
+]);
 
 
 

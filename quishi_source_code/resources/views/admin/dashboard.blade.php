@@ -117,9 +117,9 @@
 @endsection
 @section('page_specific_js')
 	<!-- am chart -->
-    <script src="{{ asset('/admin/assets/pages/widget/amchart/amcharts.min.js') }}"></script>
-    <script src="{{ asset('/admin/assets/pages/widget/amchart/serial.min.js') }}"></script>
+    <script src="{{ asset('/admin_assets/assets/pages/widget/amchart/amcharts.min.js') }}"></script>
+    <script src="{{ asset('/admin_assets/assets/pages/widget/amchart/serial.min.js') }}"></script>
     <!-- Chart js -->
-    <script type="text/javascript" src="{{ asset('/admin/bower_components/chart.js/js/Chart.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/admin/assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/chart.js/js/Chart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/admin_assets/assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
 @endsection

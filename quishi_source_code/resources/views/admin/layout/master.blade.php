@@ -2,4 +2,5 @@
 @include('admin.inc.topnav')
 @include('admin.inc.mainnav')
 @yield('content')
+@yield('form_modal')
 @include('admin.inc.footer')

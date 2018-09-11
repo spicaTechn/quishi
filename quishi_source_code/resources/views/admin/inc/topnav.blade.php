@@ -10,7 +10,7 @@
                             <i class="ti-search"></i>
                         </a>
                         <a href="#" class="dashboard-logo">
-                            <img class="img-fluid" src="{{ asset('/admin_assets/assets/images/logo-for-web.png') }}" alt="{{$site_title}}"/>
+                            <img class="img-fluid" src="{{ asset('/admin_assets/assets/images/logo.png') }}" alt="{{$site_title}}"/>
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>

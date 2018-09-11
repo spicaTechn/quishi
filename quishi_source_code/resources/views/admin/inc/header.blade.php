@@ -38,7 +38,6 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/assets/css/jquery.mCustomScrollbar.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/admin_assets/assets/css/sweetalert.css')}}">
 
     @yield('page_specific_css')
 </head>

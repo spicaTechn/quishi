@@ -4,9 +4,10 @@
     <div class="pcoded-inner-navbar main-menu">
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Navigation</div>
         <ul class="pcoded-item pcoded-left-item">
+
             <!--Dahboard menu link-->
-            <li class="active">
-                <a href="index.html">
+            <li class="{{Request::is('admin') ? 'active ' : '' }}">
+                <a href="{{ route('admin.dashboard') }}">
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" >Dashboard</span>
                     <span class="pcoded-mcaret"></span>
@@ -14,8 +15,8 @@
             </li>
             
             <!--Industry and jobs menu link-->
-            <li class="">
-                <a href="index.html">
+            <li class="{{Request::is('admin.industry-and-job') ? 'active ' : '' }}">
+                <a href="{{ route('admin.industryJobs') }}">
                     <span class="pcoded-micon"><i class="ti-package"></i><b>I</b></span>
                     <span class="pcoded-mtext" >Industry & jobs</span>
                     <span class="pcoded-mcaret"></span>
@@ -39,6 +40,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+
             <!-- CMS menu link-->
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
@@ -63,6 +65,7 @@
                     </li>
                 </ul>
             </li>
+
             <!--Education menu link-->
             <li class="">
                 <a href="index.html">
@@ -71,6 +74,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>
