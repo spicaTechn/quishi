@@ -63,7 +63,7 @@ Route::post('/admin/industryJobs/{id}',[
 ]);
 
 
-//route related to the industry datatable
+// route related to the industry datatable
 Route::get('/admin/industry/getIndustry',[
 	'as'         => 'admin.industry.getIndustry',
 	'uses'	     => 'Admin\Industry\IndustryController@getIndustry'
@@ -74,7 +74,12 @@ Route::get('/admin/jobs/getJobs',[
 	'uses'      => 'Admin\Industry\IndustryController@getJobs'
 ]);
 
+// Route related to question
 
+Route::get('/admin/question', [
+        'as'        =>'admin.question',
+        'uses'      =>'Admin\Question\QuestionController@index'
+]);
 
 Auth::routes();
 
