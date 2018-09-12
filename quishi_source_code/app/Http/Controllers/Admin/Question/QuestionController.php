@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Question;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IndustryController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,11 @@ class IndustryController extends Controller
     public function index()
     {
         //
-        return view('admin.industry-and-job.index')
-                ->with(array('site_title'=>'Quishi', 'page_title'=>'Industry and jobs'));
+        return view('admin.question.index')
+                ->with([
+                        'site_title'                =>'Quishi',
+                        'page_title'                =>'Question',
+                    ]);
     }
 
     /**
