@@ -68,7 +68,21 @@ class IndustryController extends Controller
         //
 
         $career_details = Career::findOrFail($id);
-        return response()->json(array('result'=> $career_details),200);
+        //get the parent category 
+        $parent_job_category = $this->career->getParentCareer();
+        $return_html         = "<option value='0'>None</option>";
+        if($parent_job_category->count() > 0){
+            foreach($parent_job_category as $parent_job){
+                if($parent_job->id == $career_details->parent){
+                    $return_html .= '<option value="'.$parent_job->id .'" selected="selected">'.ucwords($parent_job->title).'</option>';
+                }else{
+                    $return_html .= '<option value="'.$parent_job->id .'">'.ucwords($parent_job->title).'</option>';
+                }
+            }
+           
+        }
+
+        return response()->json(array('result'=> $career_details,'return_option'=>$return_html),200);
     }
 
     /**
@@ -110,6 +124,27 @@ class IndustryController extends Controller
     public function destroy($id)
     {
         //
+
+        $career_industry        =  Career::findOrFail($id);
+        $parent_id              = $career_industry->parent;
+        //check if has child or not
+        $career_job             = Career::where('parent',$career_industry->id)->get();
+       
+        if($career_job->count() > 0 )
+        {
+            //the industry has parent don't allow to delete the parent industry
+            return response()->json(array('status'=>'error','message'=>'The industry cannot be deleted because it contains the job in it'),200);
+        }else{
+             //to do check the job has the user or not before deleting it
+            if($career_industry->parent == 0)
+                $message = "Industry";
+            else
+                $message = "Job";
+            $career_industry->delete();
+            return response()->json(array('status'=>'success','message'=> $message .' has been deleted successfully!' ),200);
+        }
+        //delete the parent 
+
     }
 
 
@@ -150,14 +185,14 @@ class IndustryController extends Controller
                                                       data-placement="top" 
                                                       title="" 
                                                       data-original-title="Edit"
-                                                      data-job-id="'.$job->id.'">
+                                                      data-industry-id="'.$job->id.'">
                                                    <i class="icofont icofont-ui-edit" ></i>
                                                    </a>
                                                    <a href="#" class="text-muted delete-job" 
                                                       data-toggle="tooltip" 
                                                       data-placement="top" title="" 
                                                       data-original-title="Delete" 
-                                                      data-job-id="'.$job->id.'">
+                                                      data-industry-id="'.$job->id.'">
                                                    <i class="icofont icofont-delete-alt"></i>
                                                    </a>';
                                 return $return_html;

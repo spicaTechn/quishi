@@ -64,6 +64,14 @@ Route::post('/admin/industryJobs/{id}',[
 
 
 // route related to the industry datatable
+
+Route::delete('/admin/industryJobs/{id}',[
+	'as'	    => 'admin.delete.industryJobs',
+	'uses'		=> 'Admin\Industry\IndustryController@destroy'
+]);
+
+//route related to the industry datatable
+
 Route::get('/admin/industry/getIndustry',[
 	'as'         => 'admin.industry.getIndustry',
 	'uses'	     => 'Admin\Industry\IndustryController@getIndustry'
@@ -75,6 +83,7 @@ Route::get('/admin/jobs/getJobs',[
 ]);
 
 // Route related to question
+
 
 Route::get('/admin/question', [
         'as'        =>'admin.question',
