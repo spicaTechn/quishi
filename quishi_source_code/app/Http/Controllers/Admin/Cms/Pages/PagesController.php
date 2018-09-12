@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\Cms\Pages;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\About;
+use App\Page;
+use App\PageDetail;
 
 class PagesController extends Controller
 {
@@ -13,11 +14,21 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public $image_path='front/images/pages';
+
     public function index()
     {
         //
+        $about = Page::where('slug','about-us')->first();
+        // echo "<pre>"; print_r($about->page_detail); echo "</pre>";
+        // exit;
         return view('admin.cms.pages.pages')
-                ->with(array('site_title'=>'Quishi', 'page_title'=>'Pages'));
+                ->with(array(
+                    'site_title'=>'Quishi',
+                    'page_title'=>'Pages',
+                    'about' => $about)
+                );
     }
 
     /**
@@ -88,11 +99,25 @@ class PagesController extends Controller
 
 
     // updating about page top section
-    public function aboutUpdate(Request $request, $about)
+    public function aboutUpdate(Request $request, $id)
     {
-        $this->about        =   About::find($about);
-        $about_title        =   $this->about->about_title = $request->input('about_title');
-        $about_description  =   $this->about->about_description = $request->input('about_description');
+        $this->about        =   Page::find($id);
+        // echo "<pre>"; print_r($about->page_detail()); echo "</pre>";exit;
+        $title              =   $this->about->title     = $request->input('about_title');
+        $content            =   $this->about->content   = $request->input('about_description');
+        if ($request->hasFile('about-image')) {
+                $image = $request->file('about-image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = $this->image_path;
+                $image->move($destinationPath, $name);
+                foreach ($this->about->page_detail as $page_detail) {
+                    $page_detail->meta_key = 'about-image';
+                    $page_detail->meta_value = $name;
+                    $page_detail->save();
+                }
+
+
+        }
 
         $this->about->save();
 

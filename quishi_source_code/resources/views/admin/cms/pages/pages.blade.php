@@ -64,26 +64,30 @@
                            <div class="card-block">
                               <h4>Top Section</h4>
                               <br>
+
                               <form name="about-us" id="about-us" enctype="multipart/form-data">
                               <input type="hidden" name="about_id" id="about_id" value=""/>
                               <div class="row">
                                 <div class="col-sm-12 col-xl-12 m-b-30">
                                      <h4 class="sub-title">Title *</h4>
-                                     <input type="text" class="form-control about_title" name="about_title" placeholder="Title">
+                                     <input type="text" class="form-control about_title" name="about_title" placeholder="Title" value="{{ $about->title }}">
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Description *</h4>
-                                     <textarea style="height: 350px;"  class="form-control about_description" name="about_description" placeholder="Description"></textarea>
+                                     <textarea style="height: 350px;"  class="form-control about_description" name="about_description" placeholder="Description">{{ $about->content}}</textarea>
                                  </div>
+                                @foreach($about->page_detail as $page_details)
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Image *</h4>
                                      <div class="fileinput fileinput-new" data-provides="fileinput">
-                                         <div class="fileinput-new thumbnail" style="max-width: 100%; max-height: 350px;" data-trigger="fileinput">
-                                          <img src="{{asset('/front')}}/images/blog1.jpg">
+                                         <div class="fileinput-new thumbnail" style="max-width:359px; max-height: 350px;" data-trigger="fileinput">
+
+                                          <img src="{{asset('/front')}}/images/pages/{{ $page_details->meta_value }}">
+
                                          </div>
-                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100%; max-height:350px;">
+                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width:359px; max-height:350px;">
                                          </div>
                                          <div>
                                            <span class="btn btn-file btn-block btn-primary btn-sm">
@@ -95,9 +99,12 @@
                                          </div>
                                      </div>
                                  </div>
+                                 @endforeach
+
                               </div>
-                              <button class="btn btn-grd-primary updateAbout">Update</button>
+                              <button class="btn btn-grd-primary updateAbout" data-about-id="{{ $about->id }}">Update</button>
                               </form>
+
                            </div>
 
                            <br><br>
@@ -109,7 +116,7 @@
                                </div>
                                <div class="col-md-6">
                                   <h4 style="float: right;">
-                                     <button class="btn btn-grd-primary our-team-edit-btn">Edit Our Team</button>
+                                     <button class="btn btn-grd-primary our-team-add-btn">Add Our Team</button>
                                   </h4>
                                </div>
                             </div>
@@ -121,6 +128,7 @@
                                         <th>Name</th>
                                         <th>Position</th>
                                         <th>Description</th>
+                                        <th>Action</th>
 
                                     </tr>
                                     </thead>
@@ -132,6 +140,23 @@
                                             <td>System Architect</td>
                                             <td>Edinburgh</td>
                                             <td>61</td>
+                                            <td>
+                                                <a href="#" class="m-r-15 text-muted edit-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title=""
+                                                      data-original-title="Edit"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-ui-edit" ></i>
+                                                   </a>
+                                                   <a href="#" class="text-muted delete-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top" title=""
+                                                      data-original-title="Delete"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-delete-alt"></i>
+                                                   </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -140,6 +165,23 @@
                                             <td>Accountant</td>
                                             <td>Tokyo</td>
                                             <td>63</td>
+                                            <td>
+                                                <a href="#" class="m-r-15 text-muted edit-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title=""
+                                                      data-original-title="Edit"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-ui-edit" ></i>
+                                                   </a>
+                                                   <a href="#" class="text-muted delete-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top" title=""
+                                                      data-original-title="Delete"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-delete-alt"></i>
+                                                   </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -148,6 +190,23 @@
                                             <td>Junior Technical Author</td>
                                             <td>San Francisco</td>
                                             <td>66</td>
+                                            <td>
+                                                <a href="#" class="m-r-15 text-muted edit-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title=""
+                                                      data-original-title="Edit"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-ui-edit" ></i>
+                                                   </a>
+                                                   <a href="#" class="text-muted delete-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top" title=""
+                                                      data-original-title="Delete"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-delete-alt"></i>
+                                                   </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -156,6 +215,23 @@
                                             <td>Senior Javascript Developer</td>
                                             <td>Edinburgh</td>
                                             <td>22</td>
+                                            <td>
+                                              <a href="#" class="m-r-15 text-muted edit-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title=""
+                                                      data-original-title="Edit"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-ui-edit" ></i>
+                                                   </a>
+                                                   <a href="#" class="text-muted delete-our-team"
+                                                      data-toggle="tooltip"
+                                                      data-placement="top" title=""
+                                                      data-original-title="Delete"
+                                                      data-our-team-id="1">
+                                                   <i class="icofont icofont-delete-alt"></i>
+                                                   </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -221,39 +297,39 @@
 @endsection
 @section('form_modal')
 <!-- add modal -->
-<div class="modal fade" id="edit-our-team" role="dialog">
+<div class="modal fade" id="add-our-team" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         	<form name="our-team" id="our-team">
 	            <div class="modal-header">
-	                <h4 class="modal-title"><span>Edit Our Team</span></h4>
+	                <h4 class="modal-title"><span>Add Our Team</span></h4>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 	            </div>
-	            <div class="modal-body">
+	            <div class="modal-body" name="our-team-add-field" id="our-team-add-field">
                   <div class="row">
-                     <div class="col-sm-5 col-xl-5 m-b-30">
+                     <div class="col-sm-6 col-xl-6 m-b-30">
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Title *</h4>
-                               <input type="text" class="form-control team_title" name="team_title[]" placeholder="Title">
+                               <input type="text" class="form-control team_title" name="team_title" placeholder="Title">
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Position *</h4>
-                               <input type="text" class="form-control team_position" name="team_position[]" placeholder="Position">
+                               <input type="text" class="form-control team_position" name="team_position" placeholder="Position">
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <input type="text" class="form-control team_description" name="team_description[]" placeholder="Description">
+                               <input type="text" class="form-control team_description" name="team_description" placeholder="Description">
                            </div>
                         </div>
                      </div>
-                     <div class="col-sm-5 col-xl-5 m-b-30">
+                     <div class="col-sm-6 col-xl-6 m-b-30">
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Image *</h4>
@@ -267,7 +343,7 @@
                                      <span class="btn btn-file btn-block btn-primary btn-sm">
                                        <span class="fileinput-new">Select Profile Image</span>
                                        <span class="fileinput-exists">Change</span>
-                                       <input name="team_image[]" class="form-control team_image" accept="image/*" type="file">
+                                       <input name="team_image" class="form-control team_image" accept="image/*" type="file
                                      </span>
                                      <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
                                    </div>
@@ -275,65 +351,10 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-sm-2 col-xl-2 m-b-30" style="line-height: 50%;">
-                        <button type="button" class="btn btn-primary waves-effect waves-light add-field">+</button>
-                     </div>
+
                   </div>
 	            </div>
-	            <!-- <div class="modal-footer">
-	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-	                <button type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button>
-	            </div> -->
 
-               <div class="modal-body d-none" name="our-team-add-field" id="our-team-add-field">
-                  <div class="row">
-                     <div class="col-sm-5 col-xl-5 m-b-30">
-                        <div class="row">
-                           <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Title *</h4>
-                               <input type="text" class="form-control team_title" name="team_title[]" placeholder="Title">
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Position *</h4>
-                               <input type="text" class="form-control team_position" name="team_position[]" placeholder="Position">
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Description *</h4>
-                               <input type="text" class="form-control team_description" name="team_description[]" placeholder="Description">
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-5 col-xl-5 m-b-30">
-                        <div class="row">
-                           <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Image *</h4>
-                               <div class="fileinput fileinput-new" data-provides="fileinput">
-                                   <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
-                                   <img src="{{asset('/front')}}/images/blog1.jpg">
-                                   </div>
-                                   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height:217px;">
-                                   </div>
-                                   <div>
-                                     <span class="btn btn-file btn-block btn-primary btn-sm">
-                                       <span class="fileinput-new">Select Profile Image</span>
-                                       <span class="fileinput-exists">Change</span>
-                                       <input name="team_image[]" class="form-control team_image" accept="image/*" type="file">
-                                     </span>
-                                     <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
-                                   </div>
-                               </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-2 col-xl-2 m-b-30" style="line-height: 50%;">
-                        <button type="button" class="btn btn-primary waves-effect waves-light remove-field">-</button>
-                     </div>
-                  </div>
-               </div>
                <div class="modal-footer">
                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
                    <button type="submit" class="btn btn-primary waves-effect waves-light ourTeamSave">Save changes</button>
@@ -345,6 +366,9 @@
 <!-- end add modal -->
 @endsection
 @section('page_specific_js')
+<!-- file input js -->
+<script src="{{ asset('/admin_assets/bower_components/file-input/js/fileinput.js') }}"></script>
+<!-- Datatable -->
 <script src="{{ asset('/admin_assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('/admin_assets/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('/admin_assets/assets/pages/data-table/js/jszip.min.js') }}"></script>
@@ -367,32 +391,42 @@
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
    $(document).ready(function () {
+
+      //
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+
+
       // loading edit our team modal
-      $( ".our-team-edit-btn" ).on( "click", function() {
-        $('#edit-our-team').modal('show');
+      $( ".our-team-add-btn" ).on( "click", function() {
+        $('#add-our-team').modal('show');
       });
 
 
       // adding dynamic fiel of our team
-      $('body').on('click', '.add-field', function() {
-            var $template = $('#our-team-add-field'),
-                $clone    = $template
-                                .clone()
-                                .removeClass('d-none')
-                                .removeAttr('id')
-                                .insertBefore($template),
+        // $('body').on('click', '.add-field', function() {
+        //       var $template = $('#our-team-add-field'),
+        //           $clone    = $template
+        //                           .clone()
+        //                           .removeClass('d-none')
+        //                           .removeAttr('id')
+        //                           .insertBefore($template),
 
-                $team_title         = $clone.find('[name="team_title[]"]');
-                $team_position      = $clone.find('[name="team_position[]"]');
-                $team_description   = $clone.find('[name="team_description[]"]');
-                $team_image         = $clone.find('[name="team_image[]"]');
-      });
+        //           $team_title         = $clone.find('[name="team_title[]"]');
+        //           $team_position      = $clone.find('[name="team_position[]"]');
+        //           $team_description   = $clone.find('[name="team_description[]"]');
+        //           $team_image         = $clone.find('[name="team_image[]"]');
+        // });
       // Remove button click handler
-        $('body').on('click', '.remove-field', function() {
-            var $row    = $(this).parents('.row');
-            // Remove element containing the option
-            $row.remove();
-        });
+        // $('body').on('click', '.remove-field', function() {
+        //     var $row    = $(this).parents('.row');
+        //     // Remove element containing the option
+        //     $row.remove();
+        // });
 
 
       // Fomvalidation setup about us top section
@@ -428,47 +462,58 @@
                         notEmpty: {
                                message: 'The description is required'
                            },
-                        stringLength: {
-                            message: 'Type description must be less than 200 characters',
-                            max: function (value, validator, $field) {
-                                return 200 - (value.match(/\r/g) || []).length;
-                            }
-                        }
+                        // stringLength: {
+                        //     message: 'Type description must be less than 500 characters',
+                        //     max: function (value, validator, $field) {
+                        //         return 200 - (value.match(/\r/g) || []).length;
+                        //     }
+                        // }
                     }
                 }
             }
-        })
-        .on('success.form.fv', function(e) {
-                // Prevent form submission
-                e.preventDefault();
+        });
 
-                 var about_id = $('#about_id').val();
-                 URI = "{{url('/admin/cms/pages/aboutUpdate')}}" +"/" +  about_id;
+        // update the about top section content
+        $('body').on('click','.updateAbout', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+            var about_id = $(this).attr('data-about-id');
+            //alert(about_id);
+            URI = "{{url('/admin/cms/pages/aboutUpdate')}}" +"/" +  about_id;
 
                 // get the input values
-                result = new FormData($("#about-us")[0]);
+            var result = new FormData($("#about-us")[0]);
 
-                $.ajax({
-                //make the ajax request to either add or update the
-                url:URI,
-                data:result,
-                dataType:"Json",
-                contentType: false,
-                processData: false,
-                type:"POST",
-                success:function(data)
-                {
-                    if(data.status == "success"){
-
-                        $('#about-us')[0].reset();
-                        $('#about-us').data('formValidation').resetForm(true);
-                        console.log(data);
-                    }
-                },
-                error:function(event)
-                {
-                    console.log('Cannot update about data in quishi. Please try again later on..');
-                }
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      setTimeout(function() {
+                                swal({
+                                  title: "About content has been updated!",
+                                  text: "A  about content has been updated to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#about-us')[0].reset();
+                      $('#about-us').data('formValidation').resetForm(true);
+                      console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update about data in quishi. Please try again later on..');
+              }
 
             });
         });
@@ -496,21 +541,21 @@
                    validating: 'fa fa-refresh'
                },
                fields: {
-                   'team_title[]': {
+                   'team_title': {
                        validators: {
                            notEmpty: {
                                message: 'The title is required'
                            }
                        }
                    },
-                   'team_position[]': {
+                   'team_position': {
                        validators: {
                            notEmpty: {
                                message: 'The position is required'
                            }
                        }
                    },
-                   'team_description[]': {
+                   'team_description': {
                        validators: {
                            notEmpty: {
                                   message: 'The description is required'

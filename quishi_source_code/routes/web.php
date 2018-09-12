@@ -44,7 +44,7 @@ Route::get('/admin/cms/pages', [
 	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
 ]);
 // Route to store about page top section content to quishi
-Route::post('/admin/cms/pages/aboutUpdate/{about}', [
+Route::post('/admin/cms/pages/aboutUpdate/{id}', [
 	'as'		=>	'admin.cms.pages.aboutUpdate',
 	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
 ]);
