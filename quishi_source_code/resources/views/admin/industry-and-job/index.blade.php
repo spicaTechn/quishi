@@ -416,7 +416,7 @@ $(document).ready(function () {
     });// end edit industry click
 
 	// On delete industry
-	$("body").on('click','.delete-industry', function(e){
+	$("body").on('click','.delete-industry,.delete-job', function(e){
         e.preventDefault();
         industry_id=$(this).attr('data-industry-id');
         //alert(industry_id);
@@ -436,27 +436,28 @@ $(document).ready(function () {
             if(isConfirm){
                 //make ajax request 
                 $.ajax({
-                    url:"{{route('admin.delete.industryJobs')}}" + "/" + industry_id,
-                    type:"GET",
+                    url:"{{URL::to('admin/industryJobs')}}" + "/" + industry_id,
+                    type:"DELETE",
                     dataType:"Json",
-                    data:{_token:_token},
+                    data:{_token:"{{csrf_token()}}"},
                     success:function(data){
                         if(data.status == "success")
                         {
-                            swal("Deleted!", "industry has been deleted.", "success");
-                            table.ajax.reload();
+                            swal("Deleted!", data.message, "success");
+                             industry_table.ajax.reload();
+                             job_table.ajax.reload();
                         }else{
-                            swal('Not allowed!!','The industy cannot be deleted because its contains jobs.','error');
+                            swal('Not allowed!!',data.message,'error');
                         }
                     },
                     error:function(jqXHR,textStatus,errorThrown)
                     {
                         if(jqXHR.status == '404')
                         {
-                            swal('Not found in server','The type does not exists','error');
+                            swal('Not found in server','The industry does not exists','error');
                         }else if(jqXHR.status == '201')
                         {
-                            swal('Not allowed!!','The type cannot be deleted because its contains jobs.','error');
+                            swal('Not allowed!!','The industry cannot be deleted because its contains jobs.','error');
                         }
                     }
                 });
@@ -467,66 +468,6 @@ $(document).ready(function () {
         });
 
     });	// end delete industry click
-
-    // On edit job
-	$("body").on('click','.edit-job', function(e){
-        e.preventDefault();
-        job_id=$(this).attr('data-job-id');
-        //alert(job_id);
-
-    }); // end edit job click
-
-	// On delete job
-	$("body").on('click','.delete-job', function(e){
-        e.preventDefault();
-        job_id=$(this).attr('data-job-id');
-
-        //show the alert notification
-        swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this job!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel please!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },function(isConfirm){
-            if(isConfirm){
-                //make ajax request 
-                /*$.ajax({
-                    url:"https://foodmario.com/admin/types" + "/" + job_id,
-                    type:"GET",
-                    dataType:"Json",
-                    data:{_token:_token},
-                    success:function(data){
-                        if(data.status == "success")
-                        {
-                            swal("Deleted!", "industry has been deleted.", "success");
-                            table.ajax.reload();
-                        }else{
-                            swal('Not allowed!!','The industy cannot be deleted because its contains jobs.','error');
-                        }
-                    },
-                    error:function(jqXHR,textStatus,errorThrown)
-                    {
-                        if(jqXHR.status == '404')
-                        {
-                            swal('Not found in server','The type does not exists','error');
-                        }else if(jqXHR.status == '201')
-                        {
-                            swal('Not allowed!!','The jobs cannot be deleted because its contains career advisor.','error');
-                        }
-                    }
-                });*/
-            }
-            else {
-                swal.close();
-            }
-        });
-
-    }); // end delete job click
 
 });// end document.ready function
 

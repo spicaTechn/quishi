@@ -124,6 +124,27 @@ class IndustryController extends Controller
     public function destroy($id)
     {
         //
+
+        $career_industry        =  Career::findOrFail($id);
+        $parent_id              = $career_industry->parent;
+        //check if has child or not
+        $career_job             = Career::where('parent',$career_industry->id)->get();
+       
+        if($career_job->count() > 0 )
+        {
+            //the industry has parent don't allow to delete the parent industry
+            return response()->json(array('status'=>'error','message'=>'The industry cannot be deleted because it contains the job in it'),200);
+        }else{
+             //to do check the job has the user or not before deleting it
+            if($career_industry->parent == 0)
+                $message = "Industry";
+            else
+                $message = "Job";
+            $career_industry->delete();
+            return response()->json(array('status'=>'success','message'=> $message .' has been deleted successfully!' ),200);
+        }
+        //delete the parent 
+
     }
 
 
