@@ -68,7 +68,21 @@ class IndustryController extends Controller
         //
 
         $career_details = Career::findOrFail($id);
-        return response()->json(array('result'=> $career_details),200);
+        //get the parent category 
+        $parent_job_category = $this->career->getParentCareer();
+        $return_html         = "<option value='0'>None</option>";
+        if($parent_job_category->count() > 0){
+            foreach($parent_job_category as $parent_job){
+                if($parent_job->id == $career_details->parent){
+                    $return_html .= '<option value="'.$parent_job->id .'" selected="selected">'.ucwords($parent_job->title).'</option>';
+                }else{
+                    $return_html .= '<option value="'.$parent_job->id .'">'.ucwords($parent_job->title).'</option>';
+                }
+            }
+           
+        }
+
+        return response()->json(array('result'=> $career_details,'return_option'=>$return_html),200);
     }
 
     /**
@@ -150,14 +164,14 @@ class IndustryController extends Controller
                                                       data-placement="top" 
                                                       title="" 
                                                       data-original-title="Edit"
-                                                      data-job-id="'.$job->id.'">
+                                                      data-industry-id="'.$job->id.'">
                                                    <i class="icofont icofont-ui-edit" ></i>
                                                    </a>
                                                    <a href="#" class="text-muted delete-job" 
                                                       data-toggle="tooltip" 
                                                       data-placement="top" title="" 
                                                       data-original-title="Delete" 
-                                                      data-job-id="'.$job->id.'">
+                                                      data-industry-id="'.$job->id.'">
                                                    <i class="icofont icofont-delete-alt"></i>
                                                    </a>';
                                 return $return_html;

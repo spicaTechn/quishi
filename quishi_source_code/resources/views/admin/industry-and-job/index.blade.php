@@ -274,7 +274,8 @@ $(document).ready(function () {
                 valid: 'fa fa-check',
                 invalid: 'fa fa-times',
                 validating: 'fa fa-refresh'
-            }, 
+            },
+            excluded: 'disabled', 
             fields: {
                 'title': {
                     validators: {
@@ -352,11 +353,10 @@ $(document).ready(function () {
                      } // check for the form submission type
                     //table.ajax.reload();
 
-                    if(submit_msg == "Industry"){
+                    
                      industry_table.ajax.reload();
-                    }else{
-                      job_table.ajax.reload();
-                    }
+                     job_table.ajax.reload();
+                    
                     
                     //var image="https://foodmario.com/images/food_icon.png";
                     //$("#type-image").attr('src',image);
@@ -385,17 +385,17 @@ $(document).ready(function () {
 
 
     //reset the form validaton and from when the modal was closing
-    function resetFormOnClose(){
+   
       $('.modal').on('hidden.bs.modal', function(){
          $(this).find('form').data('formValidation').resetForm(true);
          $(this).find('form')[0].reset();
 
       });
-    }
     
+  
 
 	// On edit industry
-	$("body").on('click','.edit-industry', function(e){
+	$("body").on('click','.edit-industry,.edit-job', function(e){
         e.preventDefault();
         save_method = 'edit';
         industry_id = $(this).attr('data-industry-id');
@@ -405,14 +405,10 @@ $(document).ready(function () {
             $(".fullname").val(data.result.title);
             //$(".parent-industry").val(data.result.parent);
              var parent_industry = "{{route('admin.industry')}}";
-
-             $.get(parent_industry,function(data){
-               $('.parent-industry').html(data.result);
-             });
-
-            $(".parent-industry").val(data.result.parent);
+           
             $('.description').val(data.result.description);
             $('.industry_id').val(data.result.id);
+            $(".parent-industry").html(data.return_option);
         });
         $('.modal-title').html('Edit Industry / Job');
         $('#add-edit-industry').modal('show');
@@ -439,8 +435,8 @@ $(document).ready(function () {
         },function(isConfirm){
             if(isConfirm){
                 //make ajax request 
-                /*$.ajax({
-                    url:"https://foodmario.com/admin/types" + "/" + industry_id,
+                $.ajax({
+                    url:"{{route('admin.delete.industryJobs')}}" + "/" + industry_id,
                     type:"GET",
                     dataType:"Json",
                     data:{_token:_token},
@@ -463,7 +459,7 @@ $(document).ready(function () {
                             swal('Not allowed!!','The type cannot be deleted because its contains jobs.','error');
                         }
                     }
-                });*/
+                });
             }
             else {
                 swal.close();
@@ -476,7 +472,7 @@ $(document).ready(function () {
 	$("body").on('click','.edit-job', function(e){
         e.preventDefault();
         job_id=$(this).attr('data-job-id');
-        alert(job_id);
+        //alert(job_id);
 
     }); // end edit job click
 
