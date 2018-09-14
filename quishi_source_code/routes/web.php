@@ -104,11 +104,17 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	        'uses'      =>'Admin\Question\QuestionController@index'
 	]);
 
+
 	//get the industry jobs like Graphics Designer - IT and Telecommunicatons
 	Route::get('/jobs/getParentChildJobs',[
 		'as'			=> 'admin.getIndustryJobs',
 		'uses'          => 'Admin\Industry\IndustryController@getIndustryJobs'
 
+
+	// Route related to education
+	Route::get('/education', [
+	        'as'        =>'admin.education',
+	        'uses'      =>'Admin\Education\EducationController@index'
 	]);
 });
 
