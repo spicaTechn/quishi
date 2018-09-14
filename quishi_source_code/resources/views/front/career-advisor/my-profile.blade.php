@@ -4,11 +4,11 @@
     <div class="container">
         <div class="profile-sidemenu">
             <ul>
-                <li class="active"><a href="#"> <i class="ti-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="{{route('profile')}}"> <i class="ti-dashboard"></i> Dashboard</a></li>
                 <li><a href="#"><i class="ti-write"></i> My answers</a></li>
                 <li><a href="#"><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">3</span></a></li>
                 <li><a href="#"><i class="ti-user"></i> My account</a></li>
-                <li><a href="#"><i class="ti-user"></i> Logout</a></li>
+                <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-user"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
             </ul>
         </div>
         <div class="profile-main-section">

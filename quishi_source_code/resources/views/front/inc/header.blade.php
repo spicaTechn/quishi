@@ -2,8 +2,8 @@
 <header class="inner-header">
     <div class="login-menu login-menu-xs">
         <ul>
-            <li class="nav-item"><a href="#" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+            <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+            <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
         </ul>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -27,7 +27,7 @@
                         <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
                         
                     @else
-                        <li class="nav-item logdin"><a href="#" class="nav-link"><img src="{{asset('/front')}}/images/blog1.jpg"> Hi {{auth()->user()->name}} </a></li>
+                        <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{asset('/front')}}/images/blog1.jpg"> Hi {{auth()->user()->name}} </a></li>
                     @endguest
                 </ul>
             </div>

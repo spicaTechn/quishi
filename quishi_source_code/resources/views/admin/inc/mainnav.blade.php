@@ -13,7 +13,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            
+
             <!--Industry and jobs menu link-->
             <li class="{{Request::is('admin.industryJobs') ? 'active ' : '' }}">
                 <a href="{{ route('admin.industryJobs') }}">
@@ -22,7 +22,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            
+
             <!--Questions menu link-->
             <li class="">
                 <a href="index.html">
@@ -31,7 +31,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            
+
             <!--Users menu link-->
             <li class="">
                 <a href="index.html">
@@ -50,7 +50,7 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href="session-timeout.html">
+                        <a href="{{route('admin.cms.pages')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" >Pages</span>
                             <span class="pcoded-mcaret"></span>

@@ -7,34 +7,46 @@
                         <div class="login-left-part">
                             <h3>{{ __('Login')}}</h3>
                             
-                            <form>
+                            <form method="post" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                             	@csrf
                                 <div class="form-group">
                                     <i class="icon-user"></i>
-                                    <input type="text" name="" class="form-control" placeholder="User Name">
+                                    <input type="email"  name="email" class="form-control {{$errors->has('email') ? 'is-invalid':''}}" placeholder="Email Address" required autofocus="" value="{{old('email')}}">
+
+                                    @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <i class="icon-key"></i>
-                                    <input type="password" name="" class="form-control" placeholder="Password">
+                                    <input type="password" id="password" name="password" class="form-control{{$errors->has('password') ? 'is-invalid' : ''}}" placeholder="Password" required="required">
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="forget-row">
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <input type="checkbox" name="remember" class="custom-control-input" id="customCheck1" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="customCheck1">{{ __('Remember Me')}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <!-- <a href="#">Forget Password?</a> -->
-                                        <button class="btn btn-default">{{ __('login')}}</button>
+                                        <button  type="submit" class="btn btn-default">{{ __('login')}}</button>
                                     </div>
                                 </div>
                                 <div class="forget-row new-user">
                                     <div class="form-group">
-                                        <p>New user? <a href="{{URL::to('register')}}"> {{ __('register now')}}</a></p>
+                                        <p>{{ __('New user?')}}' <a href="{{URL::to('register')}}"> {{ __('register now')}}</a></p>
                                     </div>
                                     <div class="form-group">
-                                        <p><a href="#">{{ _('Forget Password?')}}</a></p>
+                                        <p><a href="{{ route('password.request') }}">{{ _('Forget Password?')}}</a></p>
                                         
                                     </div>
                                 </div>
