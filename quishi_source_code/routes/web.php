@@ -90,6 +90,14 @@ Route::get('/admin/question', [
         'uses'      =>'Admin\Question\QuestionController@index'
 ]);
 
+// Route related to users
+
+
+Route::get('/admin/user', [
+        'as'        =>'admin.user',
+        'uses'      =>'Admin\User\UserController@index'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

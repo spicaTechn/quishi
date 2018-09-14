@@ -220,7 +220,10 @@ $(document).ready(function () {
               {"data":"usage",'name':"usage"},
               {"data":"action" , "name" :"action"},
           
-        ]
+        ],
+        "fnInitComplete": function(oSettings, json) {
+          tool_tip();
+        }
 
     });
 
@@ -251,7 +254,10 @@ $(document).ready(function () {
         {"data":"usage",'name':"usage"},
         {"data":"action" , "name" :"action"},
         
-        ]
+        ],
+        "fnInitComplete": function(oSettings, json) {
+          tool_tip();
+        }
         
     });
 
@@ -471,5 +477,8 @@ $(document).ready(function () {
 
 });// end document.ready function
 
+function tool_tip() {
+     $('[data-toggle="tooltip"]').tooltip()
+}
 </script>
 @endsection

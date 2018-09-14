@@ -38,55 +38,65 @@
                      <div class="card px-4 py-4">
                         <div class="card-header">
                            <div class="card-header-left">
-                              <h5>{{ __('Manage questions for career advisor')}}</h5>
-                           </div>
-                           <div class="card-header-right"> 
-                              <button class="btn btn-grd-primary add-btn">{{ __('Add new Question')}}</button>
+                              <h5>{{ __('Manage users')}}</h5>
                            </div>
                         </div>
                         <div class="card-block">
                             <div class="dt-responsive table-responsive">
-                                <table class="table table-striped table-bordered nowrap hover tbl-questions">
+                                <table class="table table-striped table-bordered nowrap hover tbl-users">
                                   <thead>
                                      <tr>
                                         <th>{{ __('S.N')}}</th>
-                                        <th>{{ __('Question')}}</th>
-                                        <th>{{ __('Industry')}}</th>
+                                        <th>{{ __('Image')}}</th>
+                                        <th>{{ __('Name')}}</th>
+                                        <th>{{ __('Email')}}</th>
                                         <th>{{ __('Job title')}}</th>
-                                        <th>{{ __('Type')}}</th>
                                         <th>{{ __('Status')}}</th>
-                                        <th>{{ __('Total answers')}}</th>
+                                        <th>{{ __('Total views')}}</th>
+                                        <th>{{ __('Total likes')}}</th>
                                         <th>{{ __('Action')}}</th>
                                      </tr>
                                   </thead>
                                   <tbody>
                                     <tr>
                                       <td>1</td>
-                                      <td>How is your normal working day lokk like ?</td>
-                                      <td>All</td>
-                                      <td>None</td>
-                                      <td>Mandetory</td>
+                                      <td><img src="{{ asset('/admin_assets/assets/images/widget/user2.png') }}"></td>
+                                      <td>John Deo</td>
+                                      <td>johndeo@gmail.com</td>
+                                      <td>PHP Developer</td>
                                       <td>Active</td>
-                                      <td>100</td>
+                                      <td>1000 K</td>
+                                      <td>200 K</td>
                                       <td>
+
                                         <a href="#" 
-                                          class="m-r-15 text-muted edit-question" 
+                                          class="m-r-15 text-muted view-user" 
                                           data-toggle="tooltip" 
                                           data-placement="top" 
                                           title="" 
-                                          data-original-title="Edit" 
-                                          data-industry-id="1">
-                                          <i class="icofont icofont-ui-edit"></i>
+                                          data-original-title="View More" 
+                                          data-user-id="1">
+                                          <i class="icofont icofont-business-man-alt-3"></i>
                                         </a>
 
                                         <a href="#" 
-                                          class="text-muted delete-question" 
+                                          class="m-r-15 text-muted deactivate-user" 
                                           data-toggle="tooltip" 
                                           data-placement="top" 
                                           title="" 
-                                          data-original-title="Delete" 
-                                          data-industry-id="1">
-                                          <i class="icofont icofont-delete-alt"></i>
+                                          data-original-title="Deactivate" 
+                                          data-user-id="1">
+                                          <i class="icofont icofont-ui-lock"></i>
+                                        </a>
+
+                                        <a href="#" 
+                                          class="text-muted activate-user" 
+                                          data-toggle="tooltip" 
+                                          data-placement="top" 
+                                          title="" 
+                                          data-original-title="Activate" 
+                                          data-user-id="1">
+                                          <i class="icofont icofont-ui-check"></i>
                                         </a>
                                       </td>
                                     </tr>
@@ -200,7 +210,7 @@ $(document).ready(function () {
     var save_method, uri;   
 
 	// datatable for Questions
-    var question_table = $('.tbl-questions').DataTable({
+    var user_table = $('.tbl-users').DataTable({
         dom: 'Bfrtip',
         LengthChange: true,
         buttons:[
@@ -215,7 +225,7 @@ $(document).ready(function () {
                           .css( 'font-size', 'inherit' );
                   },
                   exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6]
+                    columns: [ 0,1,2,3,4,5,6,7]
                   }
               }
         ],
@@ -387,7 +397,7 @@ $(document).ready(function () {
                     //table.ajax.reload();
 
                     if(submit_msg == "Industry"){
-                     question_table.ajax.reload();
+                     user_table.ajax.reload();
                     }
                    //resetFormOnClose();
                 }
