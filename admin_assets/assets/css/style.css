@@ -23,6 +23,7 @@ File: style.css
 	- Responsive media class
 
 ============= */
+
 /**  =====================
       Custom css start
 ==========================  **/
@@ -25004,6 +25005,10 @@ body.dark #styleSelector {
 .pcoded[layout-type="dark"] #styleSelector .form-control,
 body.dark #styleSelector .form-control {
   color: #303548;
+}
+
+table {
+    width: 100% !important;
 }
 
 /*# sourceMappingURL=style.css.map */
