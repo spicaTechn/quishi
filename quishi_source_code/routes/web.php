@@ -99,9 +99,16 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
 
 	// Route related to question
-	Route::get('/question', [
+	Route::get('/questions', [
 	        'as'        =>'admin.question',
 	        'uses'      =>'Admin\Question\QuestionController@index'
+	]);
+
+	//get the industry jobs like Graphics Designer - IT and Telecommunicatons
+	Route::get('/jobs/getParentChildJobs',[
+		'as'			=> 'admin.getIndustryJobs',
+		'uses'          => 'Admin\Industry\IndustryController@getIndustryJobs'
+
 	]);
 });
 

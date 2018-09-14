@@ -222,4 +222,59 @@ class IndustryController extends Controller
                })
                ->make(true);
     }
+
+
+    /**
+    * gets parent industry and jobs like Graphics Designer - IT and telecommunication
+    *
+    * @param void
+    * @return json object
+    *
+    */
+
+
+    public function getIndustryJobs(Request $request){
+        //return jobs array
+        $return_jobs = array();
+        $career_details = Career::where('status','1')
+                                ->where('parent','>',0)
+                                ->where(function($query) use($request){
+                                    if($request->has('q')){
+                                        //only use the like if request has q
+                                        $search=$request->input('q');
+                                        return $query->where('title','like',"%{$search}%");
+                                    }
+                                })->select('id','title','parent')
+                                ->get();
+        
+        if($request->has('q')){
+            $i = 0;
+        }else{
+            $return_jobs[0]['id']   = 'all';
+            $return_jobs[0]['title'] = 'All';
+            $return_jobs[0]['parent_title'] = $career_details->count() .' Jobs'; 
+            $i  = 1;
+        }
+        
+        if($career_details->count() > 0){
+            //there are career listed 
+            foreach($career_details as $career){
+                $return_jobs[$i]['id']              = $career->id;
+                $return_jobs[$i]['title']           = ucwords($career->title);
+
+                //get the parent title by the parent id
+                $career_parent = career::where('id',$career->parent)
+                                        ->select('title')
+                                        ->first();
+                //add the parent title in the return jobs array
+                if($career_parent)
+                    $return_jobs[$i]['parent_title']    = ucwords($career_parent->title);
+
+                $i++;
+            }
+
+        }
+
+       return response()->json(array('status'=>'success','result'=>$return_jobs),200);
+    }
 }

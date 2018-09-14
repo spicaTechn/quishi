@@ -14,7 +14,7 @@ class Career extends Model
 
 
    public function parent() {
-    return $this->belongsToOne(static::class, 'parent');
+    return $this->belongsTo(static::class, 'parent');
   }
 
   //each category might have multiple children

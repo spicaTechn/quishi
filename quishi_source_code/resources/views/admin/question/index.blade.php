@@ -11,20 +11,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
 <!--Select 2-->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
-<style type="text/css">
-  .select2-container--default 
-  .select2-selection--single 
-  .select2-selection__rendered {
-    background-color: #fff !important;
-    padding: 2px 30px 8px 20px !important;
-  }
 
-.select2-container--default 
-.select2-selection--multiple 
-.select2-selection__choice {
-    background-color: #181b25 !important;
-  }
-</style>
 @endsection
 @section('content')
 <div class="pcoded-content">
@@ -128,11 +115,8 @@
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
                             <h4 class="sub-title">Select Job <small>choose all if you want to show this question to everybody</small></h4>
-                            <select class="form-control form-control-default open parent-job" name="job_id" multiple="">
-                                <option>All</option>
-                                <option>Graphic design - IT and Commnication</option>
-                                <option>Web Design - IT and commnication</option>
-                                <option>Cashier - Finanace and banking</option>
+                            <select class="form-control form-control-default open parent-job" name="parent-job[]" multiple="">
+            
                             </select>
                         </div> 
                     </div>
@@ -192,7 +176,7 @@
 <!-- Select 2 -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
 <!-- caretTo -->
-<script type="text/javascript" src="{{ asset('/admin_assets/assets/js/caretTo.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('/admin_assets/assets/js/caretTo.js') }}"></script> -->
 
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
@@ -257,38 +241,37 @@ $(document).ready(function () {
       $("input[name='question']").caret('?'); // move cursor before question mark
     });
 
-    
-
-
     $('.parent-job').select2({
-        placeholder: 'Select job title',
-        dropdownParent: $('#add-edit-question'),
-        // ajax request to pull the category list
-          /*ajax: {
-              url:"{{url('/admin/categories/getCatgeoryAjax')}}",
-              type:"GET",
-              dataType:"Json",
-              data: function (params) {
-                return {
-                  _token:_token,
-                  q: params.term, // search term
-                };
-              },
-              delay: 250,
-              processResults: function (data) {
-              return {
-                results:  $.map(data.result, function (category) {
-                      return {
-                          text: category.category_name,
-                          id: category.id
-                      }
-                  })
-              };
-            },
-            cache: true
-          }*/
-      });
+            placeholder: 'Select job title..',
+            dropdownParent: $('#add-edit-question'),
+            // ajax request to pull the category list
+              ajax: {
+                  url:"{{route('admin.getIndustryJobs')}}",
+                  type:"GET",
+                  dataType:"Json",
+                  data: function (params) {
+                    return {
+                      q: params.term, // search term
+                    };
+                  },
+                  delay: 250,
+                  processResults: function (data) {
+                  return {
+                    results:  $.map(data.result, function (job) {
+                          return {
+                              text: job.title + ' - ' + job.parent_title,
+                              id: job.id
+                          }
+                      })
+                  };
+                },
+                cache: true,
 
+              }
+          });
+
+    
+    
     // Fomvalidation setup
     $('#industry-jobs-form').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
@@ -403,11 +386,13 @@ $(document).ready(function () {
     // On click add new industry or job
     $( ".add-btn" ).on( "click", function() {
          save_method = 'add';
-         var parent_industry = "{{route('admin.industry')}}";
+         //var parent_industry = "{{route('admin.industry')}}";
          //make the ajax request to get the 
-         $.get(parent_industry,function(data){
-            $('.parent-industry').html(data.result);
-         });
+         // $.get(parent_industry,function(data){
+         //    $('.parent-industry').html(data.result);
+         // });
+         
+
 	     $('#add-edit-question').modal('show');
 	}); // end add new button click
 
