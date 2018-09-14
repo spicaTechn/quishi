@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\UserProfile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    //a user have one user_profile 
+
+    public function user_profile(){
+        return $this->hasOne('App\Model\UserProfile');
+    }
 }
