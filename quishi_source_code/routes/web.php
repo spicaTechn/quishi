@@ -103,6 +103,12 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	        'as'        =>'admin.question',
 	        'uses'      =>'Admin\Question\QuestionController@index'
 	]);
+
+	// Route related to education
+	Route::get('/education', [
+	        'as'        =>'admin.education',
+	        'uses'      =>'Admin\Education\EducationController@index'
+	]);
 });
 
 
