@@ -105,9 +105,25 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
+	Route::post('/questions',[
+		'as'		=> 'admin.add.question',
+		'uses'		=>  'Admin\Question\QuestionController@store'
+	]);
+
+
+	Route::post('/questions/{id}',[
+		'as'		=> 'update.question',
+		'uses'		=> 'Admin\Question\QuestionController@update'
+	]);
+
 	Route::get('/questions/getQuestions',[
 		'as'           => 'admin.question.getQuestions',
 		'uses'         => 'Admin\Question\QuestionController@getQuestions'
+	]);
+
+	Route::get('/questions/{id}', [
+	        'as'        =>'show.question',
+	        'uses'      =>'Admin\Question\QuestionController@show'
 	]);
 
 

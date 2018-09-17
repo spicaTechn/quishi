@@ -38,7 +38,6 @@
                                      <tr>
                                         <th>{{ __('S.N')}}</th>
                                         <th>{{ __('Question')}}</th>
-                                        <th>{{ __('Industry')}}</th>
                                         <th>{{ __('Job title')}}</th>
                                         <th>{{ __('Type')}}</th>
                                         <th>{{ __('Status')}}</th>
@@ -47,36 +46,7 @@
                                      </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>1</td>
-                                      <td>How is your normal working day lokk like ?</td>
-                                      <td>All</td>
-                                      <td>None</td>
-                                      <td>Mandetory</td>
-                                      <td>Active</td>
-                                      <td>100</td>
-                                      <td>
-                                        <a href="#" 
-                                          class="m-r-15 text-muted edit-question" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="Edit" 
-                                          data-industry-id="1">
-                                          <i class="icofont icofont-ui-edit"></i>
-                                        </a>
-
-                                        <a href="#" 
-                                          class="text-muted delete-question" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="Delete" 
-                                          data-industry-id="1">
-                                          <i class="icofont icofont-delete-alt"></i>
-                                        </a>
-                                      </td>
-                                    </tr>
+                                    
                                   </tbody>
                                 </table>
                             </div>
@@ -127,13 +97,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="question-type" value="1">
+                                        <input type="radio" name="question-type" class="question-type" value="1">
                                         <i class="helper"></i>{{ __('Mandatory') }}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="question-type" value="2">
+                                        <input type="radio" name="question-type" class="question-type" value="0">
                                         <i class="helper"></i>{{ __('Optional') }}
                                     </label>
                                 </div>
@@ -223,8 +193,16 @@ $(document).ready(function () {
                 }
               },
               {"data" :"title","name":"title"},
-              {"data":'description', "name":"description"},
-              {"data":"usage",'name':"usage"},
+              {"data"         :"job_title",
+                render:function(data)
+                {
+                    return data.split(',').join('<br>');
+                }
+                ,"name":"careers.title"
+              },
+              {"data":"type",'name':"type"},
+              {'data':'status','name':'status'},
+              {'data':'total_answer','name':'total_answer'},
               {"data":"action" , "name" :"action"},
           
         ]
@@ -324,7 +302,7 @@ $(document).ready(function () {
             // find if the action is save or update
             if(save_method == 'add')
             {
-                URI = "{{--{{route('admin.add.question')}}--}}";
+                URI = "{{route('admin.add.question')}}";
             }else{
                 var question_id  = $(".question_id").val();
                 URI = "{{URL::to('admin/question')}}" + "/" + question_id;
@@ -346,33 +324,28 @@ $(document).ready(function () {
                 if(data.status == "success"){
                     //hide the modal
                      $('#add-edit-question').modal('hide');
-                     var submit_type = $('.parent-industry').val();
-                     var submit_msg = '';
-                     submit_msg = "Question";
+
                      // $('#category-form')[0].reset();
                      // $('#category-form').data('formValidation').resetForm(true);
 
                      if(save_method == "add"){
                         swal({
-                          title: "New " + submit_msg + "  has been added!",
-                          text: "A new  " + submit_msg + "   has been added to Quishi",
+                          title: "New question  has been added!",
+                          text: "A new  question  has been added to Quishi",
                           type: "success",
                           closeOnConfirm: true,
                         });
                      }else{
                         swal({
-                          title: submit_msg + " has been Updated!",
-                          text: submit_msg + "  has been updated to Quishi",
+                          title: "Question has been Updated!",
+                          text: "Question has been updated to Quishi",
                           type: "success",
                           closeOnConfirm: true,
                         });
                      } // check for the form submission type
                     //table.ajax.reload();
-
-                    if(submit_msg == "Industry"){
                      question_table.ajax.reload();
-                    }
-                   //resetFormOnClose();
+                   
                 }
             },
             error:function(event)
@@ -385,16 +358,55 @@ $(document).ready(function () {
 
     // On click add new industry or job
     $( ".add-btn" ).on( "click", function() {
-         save_method = 'add';
-         //var parent_industry = "{{route('admin.industry')}}";
-         //make the ajax request to get the 
-         // $.get(parent_industry,function(data){
-         //    $('.parent-industry').html(data.result);
-         // });
-         
-
 	     $('#add-edit-question').modal('show');
-	}); // end add new button click
+	 }); // end add new button click
+
+  //edit question 
+
+  // On edit industry
+  $("body").on('click','.edit-question', function(e){
+        e.preventDefault();
+        save_method = 'edit';
+        question_id = $(this).attr('data-question-id');
+        //get the details from the db and make ready the modal to popup
+        $.get("{{URL::to('admin/questions')}}" + "/" + question_id,function(data){
+            //prepare the modal to show
+            $(".question").val(data.result.title);
+            //$(".parent-industry").val(data.result.parent);
+             //var parent_industry = "{{route('admin.industry')}}";
+           $.each($(".question-type"),function(index,value){
+             if($(this).val()  == data.result.type)
+             {
+              $(this).attr('checked',true);
+             }
+           });
+            $.map(data.career, function (career) {
+                       
+              if(data.result.assigned_type == 1){
+                var select2=$(".parent-job").data('select2').trigger("select", { 
+                      data: 
+                          { 
+                              id: 'all',
+                              text:'All' 
+                          } 
+                  });
+              }else{
+                var select2=$(".parent-job").data('select2').trigger("select", { 
+                      data: 
+                          { 
+                              id: career.id,
+                              text:career.title 
+                          } 
+                  });
+              }     
+              
+          });
+        });
+        $('.modal-title').html('Edit Question');
+        $('#add-edit-question').modal('show');
+
+    });// end edit industry click
+
 
   //reset the form validaton and from when the modal was closing
   $('.modal').on('hidden.bs.modal', function(){
