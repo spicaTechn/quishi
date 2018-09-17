@@ -87,4 +87,13 @@ class QuestionController extends Controller
     {
         //
     }
+
+
+
+    /**
+    * function to get the data
+    *
+    *
+    *
+    **/
 }

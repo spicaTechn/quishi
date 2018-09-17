@@ -98,7 +98,7 @@
         <div class="modal-content">
         	<form name="industry-jobs-form" id="industry-jobs-form">
 	            <div class="modal-header">
-	                <h4 class="modal-title"><span>Add</span> Question</h4>
+	                <h4 class="modal-title"><span>{{ __('Add') }}</span> {{ __('Question')  }}</h4>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         						<span aria-hidden="true">&times;</span>
         					</button>
@@ -107,14 +107,14 @@
                   @csrf
                 	<div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Enter question here *</h4>
+                            <h4 class="sub-title">{{ __('Enter question here *') }}</h4>
                             <input type="text" class="form-control question" id="question" name="question"  placeholder="question">
                         </div> 
                     </div>
 
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select Job <small>choose all if you want to show this question to everybody</small></h4>
+                            <h4 class="sub-title">{{ __('Select Job')}} <small>{{ __('choose all if you want to show this question to everybody') }}</small></h4>
                             <select class="form-control form-control-default open parent-job" name="parent-job[]" multiple="">
             
                             </select>
@@ -123,18 +123,18 @@
 
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select question type</h4>
+                            <h4 class="sub-title">{{ __('Select question type') }}</h4>
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="question-type" value="1">
-                                        <i class="helper"></i>Mandatory
+                                        <i class="helper"></i>{{ __('Mandatory') }}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="question-type" value="2">
-                                        <i class="helper"></i>Optional
+                                        <i class="helper"></i>{{ __('Optional') }}
                                     </label>
                                 </div>
                             </div>
@@ -144,8 +144,8 @@
                     <input type="hidden" name="question_id" class="question_id" value=""/>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-	                <button type="submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">{{ __('Close')}}</button>
+	                <button type="submit" class="btn btn-primary waves-effect waves-light ">{{ __('Save changes')}}</button>
 	            </div>
             </form>
         </div>
@@ -208,10 +208,10 @@ $(document).ready(function () {
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
         },
-        /*serverSide : true,
+        serverSide : true,
         processing : true,
         ajax       : {
-                        url  : "{{route('admin.industry.getIndustry')}}",
+                        url  : "{{route('admin.question.getQuestions')}}",
                         type : 'GET',
         },
         columns   : [
@@ -227,7 +227,7 @@ $(document).ready(function () {
               {"data":"usage",'name':"usage"},
               {"data":"action" , "name" :"action"},
           
-        ]*/
+        ]
 
     });
 
