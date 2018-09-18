@@ -17,7 +17,7 @@ class CreateCareerQuestionTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('career_id');
             $table->unsignedInteger('question_id');
-            $table->foreign('career_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('career_id')->references('id')->on('careers')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();
         });

@@ -19,37 +19,36 @@
                <div class="row">
                   <div class="col-sm-12">
                      <!-- HTML5 Export Buttons table start -->
-                     <div class="card px-4 py-4 industry-jobs-tab">
+                     <div class="card px-4 py-4 major-category-major-tab">
                         <div class="card-header">
                            <div class="card-header-left">
-                              <h5>{{ __('Manage industry and jobs')}}</h5>
+                              <h5>{{ __('Manage education')}}</h5>
                            </div>
                            <div class="card-header-right"> 
-                              <button class="btn btn-grd-primary add-btn">{{ __('Add new Industry / Job')}}</button>
+                              <button class="btn btn-grd-primary add-btn">{{ __('Add new education title')}}</button>
                            </div>
                         </div>
                         <div class="card-block">
                            <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
                               <li class="nav-item">
-                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#industry" role="tab" aria-controls="industry" aria-selected="true">{{ __('Industry')}}</a>
+                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#major-category" role="tab" aria-controls="major-category" aria-selected="true">{{ __('Major Category')}}</a>
                                  <div class="slide"></div>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="true">{{ __('Jobs')}}</a>
+                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#major" role="tab" aria-controls="major" aria-selected="true">{{ __('major')}}</a>
                                  <div class="slide"></div>
                               </li>
                            </ul>
                            <div class="tab-content" >
-                              <div class="tab-pane fade show active" id="industry" role="tabpanel" aria-labelledby="home-tab">
+                              <div class="tab-pane fade show active" id="major-category" role="tabpanel" aria-labelledby="home-tab">
                                  <div class="card-block">
                                     <div class="dt-responsive table-responsive">
-                                       <table class="table table-striped table-bordered nowrap hover tbl-industry">
+                                       <table class="table table-striped table-bordered nowrap hover tbl-major-category">
                                           <thead>
                                              <tr>
                                                 <th>{{ __('S.N')}}</th>
+                                                <th>{{ __('Code')}}</th>
                                                 <th>{{ __('Title')}}</th>
-                                                <th>{{ __('Description')}}</th>
-                                                <th>{{ __('No of jobs')}}</th>
                                                 <th>{{ __('Action')}}</th>
                                              </tr>
                                           </thead>
@@ -59,16 +58,16 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="tab-pane fade pt-3" id="jobs" role="tabpanel" aria-labelledby="profile-tab">
+                              <div class="tab-pane fade pt-3" id="major" role="tabpanel" aria-labelledby="profile-tab">
                                  <div class="card-block">
                                     <div class="dt-responsive table-responsive">
-                                       <table class="table table-striped table-bordered nowrap hover tbl-jobs">
+                                       <table class="table table-striped table-bordered nowrap hover tbl-major">
                                           <thead>
                                              <tr>
                                                 <th>{{ __('S.N')}}</th>
                                                 <th>{{ __('Title')}}</th>
-                                                <th>{{ __('Description')}}</th>
-                                                <th>{{ __('Usage')}}</th>
+                                                <th>{{ __('Major Category')}}</th>
+                                                <th>{{ __('No of users')}}</th>
                                                 <th>{{ __('Action')}}</th>
                                              </tr>
                                           </thead>
@@ -94,12 +93,12 @@
 @endsection
 @section('form_modal')
 <!-- add modal -->
-<div class="modal fade" id="add-edit-industry" role="dialog">
+<div class="modal fade" id="add-edit-major-category" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-        	<form name="industry-jobs-form" id="industry-jobs-form">
+        	<form name="major-category-major-form" id="major-category-major-form">
 	            <div class="modal-header">
-	                <h4 class="modal-title"><span>Add</span> Industry / Job <small>Field denoted as * mark is required field</small></h4>
+	                <h4 class="modal-title"><span>Add</span> major subject <small>Field denoted as * mark is required field</small></h4>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -116,7 +115,7 @@
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
                             <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as Job</small></h4>
-                            <select class="form-control parent-industry" name="parent_id">
+                            <select class="form-control parent-major-category" name="parent_id">
                             </select>
                         </div> 
                     </div>
@@ -127,7 +126,7 @@
                             <textarea class="form-control description" name="description"></textarea>
                         </div> 
                     </div>
-                    <input type="hidden" name="industry_id" class="industry_id" value=""/>
+                    <input type="hidden" name="major-category_id" class="major-category_id" value=""/>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
@@ -164,8 +163,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
     var save_method, uri;
-	// Page industry and jobs
-	 $(".industry-jobs-tab").tabs({
+	// Page major-category and major
+	 $(".major-category-major-tab").tabs({
 	    activate: function (event, ui) {        
           $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust()
@@ -179,7 +178,7 @@ $(document).ready(function () {
 	});   
 
 	// datatable for subscription request
-    var industry_table = $('.tbl-industry').DataTable({
+    var major-category_table = $('.tbl-major-category').DataTable({
         dom: 'Bfrtip',
         LengthChange: true,
         buttons:[
@@ -204,7 +203,7 @@ $(document).ready(function () {
         serverSide : true,
         processing : true,
         ajax       : {
-                        url  : "{{route('admin.industry.getIndustry')}}",
+                        url  : "{{route('admin.major-category.getmajor-category')}}",
                         type : 'GET',
         },
         columns   : [
@@ -228,7 +227,7 @@ $(document).ready(function () {
     });
 
     // datatable for active subscription
-    var job_table = $('.tbl-jobs').DataTable({
+    var job_table = $('.tbl-major').DataTable({
         dom                   : 'Bfrtip',
         buttons               :[
                                  'excel',
@@ -238,7 +237,7 @@ $(document).ready(function () {
         processing            :true,
         serverSide            :true,
         ajax                  : {
-                                 url :"{{route('admin.jobs.getJobs')}}",
+                                 url :"{{route('admin.major.getmajor')}}",
                                  type : "GET",
 
                                 },
@@ -262,7 +261,7 @@ $(document).ready(function () {
     });
 
     // Fomvalidation setup
-    $('#industry-jobs-form').on('init.field.fv', function(e, data) {
+    $('#major-category-major-form').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
                 $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
@@ -309,14 +308,14 @@ $(document).ready(function () {
             // find if the action is save or update
             if(save_method == 'add')
             {
-                URI = "{{route('admin.add.industryJobs')}}";
+                URI = "{{route('admin.add.major-categorymajor')}}";
             }else{
-                var industry_id  = $(".industry_id").val();
-                URI = "{{URL::to('admin/industryJobs')}}" + "/" + industry_id;
+                var major-category_id  = $(".major-category_id").val();
+                URI = "{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id;
             }
 
             // get the input values
-            result = new FormData($("#industry-jobs-form")[0]);
+            result = new FormData($("#major-category-major-form")[0]);
 
             $.ajax({
             //make the ajax request to either add or update the 
@@ -330,11 +329,11 @@ $(document).ready(function () {
             {
                 if(data.status == "success"){
                     //hide the modal
-                     $('#add-edit-industry').modal('hide');
-                     var submit_type = $('.parent-industry').val();
+                     $('#add-edit-major-category').modal('hide');
+                     var submit_type = $('.parent-major-category').val();
                      var submit_msg = '';
                      if(submit_type == 0){
-                        submit_msg = "Industry";
+                        submit_msg = "major-category";
 
                      }else{
                         submit_msg = "Job";
@@ -360,7 +359,7 @@ $(document).ready(function () {
                     //table.ajax.reload();
 
                     
-                     industry_table.ajax.reload();
+                     major-category_table.ajax.reload();
                      job_table.ajax.reload();
                     
                     
@@ -377,15 +376,15 @@ $(document).ready(function () {
         });
     }); // end formvalidation.io code
 
-    // On click add new industry or job
+    // On click add new major-category or job
     $( ".add-btn" ).on( "click", function() {
          save_method = 'add';
-         var parent_industry = "{{route('admin.industry')}}";
+         var parent_major-category = "{{route('admin.major-category')}}";
          //make the ajax request to get the 
-         $.get(parent_industry,function(data){
-            $('.parent-industry').html(data.result);
+         $.get(parent_major-category,function(data){
+            $('.parent-major-category').html(data.result);
          });
-	     $('#add-edit-industry').modal('show');
+	     $('#add-edit-major-category').modal('show');
 	}); // end add new button click
 
 
@@ -400,37 +399,37 @@ $(document).ready(function () {
     
   
 
-	// On edit industry
-	$("body").on('click','.edit-industry,.edit-job', function(e){
+	// On edit major-category
+	$("body").on('click','.edit-major-category,.edit-job', function(e){
         e.preventDefault();
         save_method = 'edit';
-        industry_id = $(this).attr('data-industry-id');
+        major-category_id = $(this).attr('data-major-category-id');
         //get the details from the db and make ready the modal to popup
-        $.get("{{URL::to('admin/industryJobs')}}" + "/" + industry_id,function(data){
+        $.get("{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id,function(data){
             //prepare the modal to show
             $(".fullname").val(data.result.title);
-            //$(".parent-industry").val(data.result.parent);
-             var parent_industry = "{{route('admin.industry')}}";
+            //$(".parent-major-category").val(data.result.parent);
+             var parent_major-category = "{{route('admin.major-category')}}";
            
             $('.description').val(data.result.description);
-            $('.industry_id').val(data.result.id);
-            $(".parent-industry").html(data.return_option);
+            $('.major-category_id').val(data.result.id);
+            $(".parent-major-category").html(data.return_option);
         });
-        $('.modal-title').html('Edit Industry / Job');
-        $('#add-edit-industry').modal('show');
+        $('.modal-title').html('Edit major-category / Job');
+        $('#add-edit-major-category').modal('show');
 
-    });// end edit industry click
+    });// end edit major-category click
 
-	// On delete industry
-	$("body").on('click','.delete-industry,.delete-job', function(e){
+	// On delete major-category
+	$("body").on('click','.delete-major-category,.delete-job', function(e){
         e.preventDefault();
-        industry_id=$(this).attr('data-industry-id');
-        //alert(industry_id);
+        major-category_id=$(this).attr('data-major-category-id');
+        //alert(major-category_id);
 
         //show the alert notification
         swal({
             title: "Are you sure?",
-            text: "You will not be able to recover industry!",
+            text: "You will not be able to recover major-category!",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -442,7 +441,7 @@ $(document).ready(function () {
             if(isConfirm){
                 //make ajax request 
                 $.ajax({
-                    url:"{{URL::to('admin/industryJobs')}}" + "/" + industry_id,
+                    url:"{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id,
                     type:"DELETE",
                     dataType:"Json",
                     data:{_token:"{{csrf_token()}}"},
@@ -450,7 +449,7 @@ $(document).ready(function () {
                         if(data.status == "success")
                         {
                             swal("Deleted!", data.message, "success");
-                             industry_table.ajax.reload();
+                             major-category_table.ajax.reload();
                              job_table.ajax.reload();
                         }else{
                             swal('Not allowed!!',data.message,'error');
@@ -460,10 +459,10 @@ $(document).ready(function () {
                     {
                         if(jqXHR.status == '404')
                         {
-                            swal('Not found in server','The industry does not exists','error');
+                            swal('Not found in server','The major-category does not exists','error');
                         }else if(jqXHR.status == '201')
                         {
-                            swal('Not allowed!!','The industry cannot be deleted because its contains jobs.','error');
+                            swal('Not allowed!!','The major-category cannot be deleted because its contains major.','error');
                         }
                     }
                 });
@@ -473,7 +472,7 @@ $(document).ready(function () {
             }
         });
 
-    });	// end delete industry click
+    });	// end delete major-category click
 
 });// end document.ready function
 
