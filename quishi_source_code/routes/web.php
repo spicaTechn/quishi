@@ -117,10 +117,45 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
+// Route for pages(about, contact etc)
+Route::get('/cms/pages', [
+	'as'		=>	'admin.cms.pages',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
+]);
+// Route to store about page top section content to quishi
+Route::post('/cms/pages/aboutUpdate/{about}', [
+	'as'		=>	'admin.cms.pages.aboutUpdate',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+]);
+
+// Route to get about us our team
+Route::get('/cms/pages/editOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.editOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
+]);
+Route::post('/cms/pages/updateOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.updateOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
+]);
+Route::post('/cms/pages/deleteOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.deleteOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
+]);
+
+// Route to store about us our team
+Route::post('/cms/pages/ourTeam', [
+	'as'		=>	'admin.cms.pages.ourTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@store'
+]);
+
+// route related to the industry datatable
+
+
 	Route::delete('/questions/{id}',[
 		'as'	 => 'delete.questions',
 		'uses'   => 'Admin\Question\QuestionController@destroy'
 	]);
+
 
 	Route::get('/questions/getQuestions',[
 		'as'           => 'admin.question.getQuestions',

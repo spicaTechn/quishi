@@ -66,6 +66,7 @@
                               <br>
 
                               <form name="about-us" id="about-us" enctype="multipart/form-data">
+                                @csrf
                               <input type="hidden" name="about_id" id="about_id" value=""/>
                               <div class="row">
                                 <div class="col-sm-12 col-xl-12 m-b-30">
@@ -76,15 +77,15 @@
                               <div class="row">
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Description *</h4>
-                                     <textarea style="height: 350px;"  class="form-control about_description" name="about_description" placeholder="Description">{{ $about->content}}</textarea>
+                                     <textarea style="height: 350px;"  class="form-control about_description" name="about_description" placeholder="Description">{{ $about->content }}</textarea>
                                  </div>
-                                @foreach($about->page_detail as $page_details)
+
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Image *</h4>
                                      <div class="fileinput fileinput-new" data-provides="fileinput">
                                          <div class="fileinput-new thumbnail" style="max-width:359px; max-height: 350px;" data-trigger="fileinput">
 
-                                          <img src="{{asset('/front')}}/images/pages/{{ $page_details->meta_value }}">
+                                          <img src="{{asset('/front')}}/images/pages/{{ $about_image->meta_value }}">
 
                                          </div>
                                          <div class="fileinput-preview fileinput-exists thumbnail" style="max-width:359px; max-height:350px;">
@@ -99,7 +100,7 @@
                                          </div>
                                      </div>
                                  </div>
-                                 @endforeach
+
 
                               </div>
                               <button class="btn btn-grd-primary updateAbout" data-about-id="{{ $about->id }}">Update</button>
@@ -121,9 +122,10 @@
                                </div>
                             </div>
                             <div class="dt-responsive table-responsive">
-                                <table id="our_team" class="table table-striped table-bordered our_team">
+                                <table id="our_team_table" class="table table-striped table-bordered our_team_table">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Position</th>
@@ -133,106 +135,42 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                      <?php $i=1; ?>
+                                      @foreach($about_our_team_unserializes as $value)
+
                                         <tr>
+                                            <td>{{ $i }}</td>
                                             <td>
-                                              <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
+                                              <img src="{{asset('/front')}}/images/pages/{{ $value['image'] }}" style="height: 40px; width: 40px;">
                                             </td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
+                                            <td>{{ $value['title'] }}</td>
+                                            <td>{{ $value['position'] }}</td>
+                                            <td>{{ $value['description'] }}</td>
                                             <td>
+
                                                 <a href="#" class="m-r-15 text-muted edit-our-team"
                                                       data-toggle="tooltip"
                                                       data-placement="top"
                                                       title=""
                                                       data-original-title="Edit"
-                                                      data-our-team-id="1">
+                                                      data-our-team-id="{{ $page_detail_id }}"
+                                                      data-serialize-id="{{ $value['id'] }}"
+                                                      >
                                                    <i class="icofont icofont-ui-edit" ></i>
                                                    </a>
                                                    <a href="#" class="text-muted delete-our-team"
                                                       data-toggle="tooltip"
                                                       data-placement="top" title=""
                                                       data-original-title="Delete"
-                                                      data-our-team-id="1">
+                                                      data-our-team-id="{{ $page_detail_id }}"
+                                                      data-serialize-id="{{ $value['id'] }}"
+                                                      >
                                                    <i class="icofont icofont-delete-alt"></i>
                                                    </a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
-                                            </td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>
-                                                <a href="#" class="m-r-15 text-muted edit-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top"
-                                                      title=""
-                                                      data-original-title="Edit"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top" title=""
-                                                      data-original-title="Delete"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
-                                            </td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>
-                                                <a href="#" class="m-r-15 text-muted edit-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top"
-                                                      title=""
-                                                      data-original-title="Edit"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top" title=""
-                                                      data-original-title="Delete"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               <img src="{{asset('/front')}}/images/blog1.jpg" style="height: 40px; width: 40px;">
-                                            </td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>
-                                              <a href="#" class="m-r-15 text-muted edit-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top"
-                                                      title=""
-                                                      data-original-title="Edit"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-ui-edit" ></i>
-                                                   </a>
-                                                   <a href="#" class="text-muted delete-our-team"
-                                                      data-toggle="tooltip"
-                                                      data-placement="top" title=""
-                                                      data-original-title="Delete"
-                                                      data-our-team-id="1">
-                                                   <i class="icofont icofont-delete-alt"></i>
-                                                   </a>
-                                            </td>
-                                        </tr>
+                                        <?php $i++; ?>
+                                      @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -300,12 +238,15 @@
 <div class="modal fade" id="add-our-team" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-        	<form name="our-team" id="our-team">
+        	<form role="form" name="our-team" id="our-team" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="team_id" class="team_id" value=""/>
+            <input type="hidden" name="individual_id" class="individual_id" value=""/>
 	            <div class="modal-header">
 	                <h4 class="modal-title"><span>Add Our Team</span></h4>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+        						<span aria-hidden="true">&times;</span>
+        					</button>
 	            </div>
 	            <div class="modal-body" name="our-team-add-field" id="our-team-add-field">
                   <div class="row">
@@ -335,7 +276,7 @@
                                <h4 class="sub-title">Image *</h4>
                                <div class="fileinput fileinput-new" data-provides="fileinput">
                                    <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
-                                   <img src="{{asset('/front')}}/images/blog1.jpg">
+                                   <img src="{{asset('/front')}}/images/blog1.jpg" id="team_image">
                                    </div>
                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height:217px;">
                                    </div>
@@ -343,7 +284,7 @@
                                      <span class="btn btn-file btn-block btn-primary btn-sm">
                                        <span class="fileinput-new">Select Profile Image</span>
                                        <span class="fileinput-exists">Change</span>
-                                       <input name="team_image" class="form-control team_image" accept="image/*" type="file
+                                       <input name="team_image" id="team_image" class="form-control team_image" accept="image/*" type="file" />
                                      </span>
                                      <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
                                    </div>
@@ -355,14 +296,89 @@
                   </div>
 	            </div>
 
+
                <div class="modal-footer">
                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-                   <button type="submit" class="btn btn-primary waves-effect waves-light ourTeamSave">Save changes</button>
+                   <button type="submit"  class="btn btn-primary waves-effect waves-light ourTeamSave">Save changes</button>
                </div>
          </form>
         </div>
     </div>
 </div>
+
+<!-- edit modal -->
+<div class="modal fade" id="edit-our-team" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <form role="form" name="update-our-team" id="update-our-team">
+            @csrf
+            <input type="hidden" name="team_id" class="team_id" value=""/>
+            <input type="hidden" name="individual_id" class="individual_id" value=""/>
+              <div class="modal-header">
+                  <h4 class="modal-title"><span>Add Our Team</span></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body" name="our-team-add-field" id="our-team-add-field">
+                  <div class="row">
+                     <div class="col-sm-6 col-xl-6 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Title *</h4>
+                               <input type="text" class="form-control team_title" name="team_title" placeholder="Title" value="" />
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Position *</h4>
+                               <input type="text" class="form-control team_position" name="team_position" placeholder="Position" value="" />
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Description *</h4>
+                               <input type="text" class="form-control team_description" name="team_description" placeholder="Description" value="" />
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6 col-xl-6 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Image *</h4>
+                               <div class="fileinput fileinput-new" data-provides="fileinput">
+                                   <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
+                                   <img src="{{asset('/front')}}/images/blog1.jpg" id="our_team_image">
+                                   </div>
+                                   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 180px; max-height:180px;">
+                                   </div>
+                                   <div>
+                                     <span class="btn btn-file btn-block btn-primary btn-sm">
+                                       <span class="fileinput-new">Select Profile Image</span>
+                                       <span class="fileinput-exists">Change</span>
+                                       <input name="our_team_image" id="our_team_image" class="form-control our_team_image" accept="image/*" type="file" style="height: 180px; width: 180px;" />
+                                     </span>
+                                     <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+              </div>
+
+
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                   <button type="submit"  class="btn btn-primary waves-effect waves-light updateOurTeam">Save changes</button>
+               </div>
+         </form>
+        </div>
+    </div>
+</div>
+
+
 <!-- end add modal -->
 @endsection
 @section('page_specific_js')
@@ -393,40 +409,7 @@
    $(document).ready(function () {
 
       //
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
 
-
-
-      // loading edit our team modal
-      $( ".our-team-add-btn" ).on( "click", function() {
-        $('#add-our-team').modal('show');
-      });
-
-
-      // adding dynamic fiel of our team
-        // $('body').on('click', '.add-field', function() {
-        //       var $template = $('#our-team-add-field'),
-        //           $clone    = $template
-        //                           .clone()
-        //                           .removeClass('d-none')
-        //                           .removeAttr('id')
-        //                           .insertBefore($template),
-
-        //           $team_title         = $clone.find('[name="team_title[]"]');
-        //           $team_position      = $clone.find('[name="team_position[]"]');
-        //           $team_description   = $clone.find('[name="team_description[]"]');
-        //           $team_image         = $clone.find('[name="team_image[]"]');
-        // });
-      // Remove button click handler
-        // $('body').on('click', '.remove-field', function() {
-        //     var $row    = $(this).parents('.row');
-        //     // Remove element containing the option
-        //     $row.remove();
-        // });
 
 
       // Fomvalidation setup about us top section
@@ -477,7 +460,7 @@
         $('body').on('click','.updateAbout', function(e) {
             // Prevent form submission
             e.preventDefault();
-            var about_id = $(this).attr('data-about-id');
+            var about_id = $(this).attr('.team_id');
             //alert(about_id);
             URI = "{{url('/admin/cms/pages/aboutUpdate')}}" +"/" +  about_id;
 
@@ -507,7 +490,7 @@
                       }, 1000);
                       $('#about-us')[0].reset();
                       $('#about-us').data('formValidation').resetForm(true);
-                      console.log(data);
+                      //console.log(data);
                   }
               },
               error:function(event)
@@ -519,9 +502,175 @@
         });
 
 
-        // Fomvalidation setup about us our team
+        // loading add our team modal
+        $( ".our-team-add-btn" ).on( "click", function() {
+          save_method = 'add';
+          // $('#our-team')[0].reset();
+          // $('#our-team').data('formValidation').resetForm(true);
+          $('#add-our-team').modal('show');
+        });
 
+        // Fomvalidation setup about us our team
         $('#our-team').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+           })
+           .formValidation({
+               framework: 'bootstrap',
+               icon: {
+                   valid: 'fa fa-check',
+                   invalid: 'fa fa-times',
+                   validating: 'fa fa-refresh'
+               },
+               fields: {
+                   'team_title': {
+                       validators: {
+                           notEmpty: {
+                               message: 'The title is required'
+                           }
+                       }
+                   },
+                   'team_position': {
+                       validators: {
+                           notEmpty: {
+                               message: 'The position is required'
+                           }
+                       }
+                   },
+                   'team_image': {
+                       validators: {
+                           notEmpty: {
+                               message: 'The image is required'
+                           }
+                       }
+                   },
+
+                   'team_description': {
+                       validators: {
+                           notEmpty: {
+                                  message: 'The description is required'
+                              },
+                           stringLength: {
+                               message: 'Type description must be less than 200 characters',
+                               max: function (value, validator, $field) {
+                                   return 200 - (value.match(/\r/g) || []).length;
+                               }
+                           }
+                       }
+                   }
+               }
+           })
+           .on('success.form.fv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // find if the action is save or update
+            if(save_method == 'add')
+            {
+                URI = "{{route('admin.cms.pages.ourTeam')}}";
+            }
+            // else{
+            //     var team_id  = $(".team_id").val();
+            //     var team_update_id = $(this).attr('data-serialize-id');
+            //     URI = "{{url('/admin/cms/pages/updateOurTeam')}}" +"/" +  team_id;
+            // }
+
+            // get the input values
+            result = new FormData($("#our-team")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+            url:URI,
+            data:result,
+            dataType:"Json",
+            contentType: false,
+            processData: false,
+            type:"POST",
+            success:function(data)
+            {
+                if(data.status == "success"){
+                    //hide the modal
+                     $('#add-our-team').modal('hide');
+                     if(save_method == "add")
+                     {
+                      setTimeout(function()
+                        {
+                                swal({
+                                  title: "Team Member  has been added to Quishi!",
+                                  text: "A  team member has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#our-team')[0].reset();
+                      $('#our-team').data('formValidation').resetForm(true);
+                     }
+
+                }
+            },
+            error:function(event)
+            {
+                console.log('Cannot add new user into the quishi system. Please try again later on..');
+            }
+
+          });
+        });
+
+        // our team edit button click
+        $( ".edit-our-team" ).on( "click", function(e) {
+            e.preventDefault();
+            var hidden_id = $(this).attr('data-our-team-id');
+            //console.log(hidden_id);
+            var team_edit_id = $(this).attr('data-serialize-id');
+            //console.log(team_edit_id);
+            //$('#edit-our-team').modal('show');
+
+            $.ajax({
+                url:"{{url('')}}" + "/admin/cms/pages/editOurTeam/" + hidden_id,
+                type:"GET",
+                dataType:"json",
+                data: {'edit_id':team_edit_id,'hidden_id':hidden_id},
+                success:function(data){
+                    //check for the success status only
+                    if(data.status == "success"){
+                        //insert the data in the modal
+                        //alert(data.result.image);
+                        $(".team_id").val(hidden_id);
+                        $(".individual_id").val(team_edit_id);
+                        $(".team_title").val(data.result.title);
+                        $(".team_position").val(data.result.position);
+                        $(".team_description").val(data.result.description);
+
+                        var image="{{asset('/front')}}/images/pages" + "/" +data.result.image;
+                        $("#our_team_image").attr('src',image);
+
+                         $('#edit-our-team').modal('show'); // show bootstrap modal
+                         $('.modal-title').text('Update Team'); // Set Title to Bootstrap modal title
+                        //console.log(data.result);
+                    }
+
+                },
+                error:function(event){
+                        console.log('Cannot get the particular team');
+                }
+            });
+
+        });
+
+
+
+        // validating edit form before updating data to database
+        $('#update-our-team').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
                 $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
@@ -569,7 +718,127 @@
                        }
                    }
                }
-           });
+          }).on('success.form.fv', function(e) {
+            e.preventDefault();
+            var team_id = $('.team_id').val();
+            var URI = "{{URL::to('/admin/cms/pages/updateOurTeam')}}" +"/" +  team_id;
+            var result = new FormData($("#update-our-team")[0]);
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              cache    : false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      //console.log(data);
+                      $('#edit-our-team').modal('hide');
+                      setTimeout(function() {
+                                swal({
+                                  title: "Team Member  has been updated to Quishi!",
+                                  text: "A  team member has been update to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#update-our-team')[0].reset();
+                      $('#update-our-team').data('formValidation').resetForm(true);
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update about data in quishi. Please try again later on..');
+              }
+
+            });
+          });
+
+
+
+        // our team delete button click
+        $( ".delete-our-team" ).on( "click", function(e) {
+
+          //alert(id);
+            e.preventDefault();
+            var delete_id = $(this).attr('data-our-team-id');
+            //alert(delete_id);
+            var individual_id = $(this).attr('data-serialize-id');
+            var _token="{{csrf_token()}}";
+            //show the alert notification
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to your team!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },function(isConfirm){
+                if(isConfirm){
+                    //make ajax request
+                    $.ajax({
+                        url:"{{url('/admin/cms/pages/deleteOurTeam')}}" + "/" + delete_id,
+                        type:"POST",
+                        dataType:"Json",
+                        data:{_token:_token,individual_id:individual_id},
+                        success:function(data){
+                            if(data.status == "success")
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Team Member  has been deleted from Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                            else
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Team Member  has not been updated to Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    swal("Cancelled", "Your team is safe :)", "error");
+                }
+            });
+        });
+
+
+
+        // reset form when modal closed
+        $('#add-our-team').on('hidden.bs.modal', function(e) {
+             $(this).find('form')[0].reset();
+        })
+
+        $('#edit-our-team').on('hidden.bs.modal', function(e) {
+              $('#update-our-team')[0].reset();
+              $('#update-our-team').data('formValidation').resetForm(true);
+        })
 
 
    });
