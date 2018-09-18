@@ -2000,3 +2000,8 @@ p {
     border-radius: 50%;
 }
 
+
+.invalid-feedback{
+    display:    block !important;  
+}
+

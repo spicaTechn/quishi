@@ -13,5 +13,6 @@
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     @include('front.inc.footer')
+    @yield('page_specific_scripts')
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\CareerAdvisor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class CareerAdvisorController extends Controller
 {
@@ -101,9 +102,30 @@ class CareerAdvisorController extends Controller
     {
         return view('front.career-advisor.profile-setup-1');
     }
-    public function profileSetupTwo()
+
+
+    /**
+    * function to store the user information if the data was set
+    *
+    *
+    *
+    **/
+
+    public function profileSetupTwo(Request $request)
     {
+        if($request->has('_token')):
+            //need to store the first setup data in the db
+            $validator = Validator::make($request->all(), [
+            'name'          => 'required|max:255',
+            'address'       => 'required',
+            'age_group'     => 'required'
+            ])->validate();
+            return view('front.career-advisor.profile-setup-2');
+
+        endif;
         return view('front.career-advisor.profile-setup-2');
+
+        
     }
     public function profileSetupThree()
     {

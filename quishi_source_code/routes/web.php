@@ -18,13 +18,13 @@ Route::get('/contact', 'Front\ContactPageController@index');
 
 // Route for profile
 
-Route::group(['middleware'=>array('auth','userType')],function(){
-	Route::get('/profile', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile');
+Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){
+	Route::get('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\CareerAdvisorController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\CareerAdvisorController@profileAccount');
-	Route::get('/profileSetupOne', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne');
-	Route::get('/profileSetupTwo', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo');
-	Route::get('/profileSetupThree', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree');
+	Route::get('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
+	Route::any('/setup/step2', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo')->name('profile.setup.step2');
+	Route::get('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
 	Route::get('/questionAdminReview', 'Front\CareerAdvisor\CareerAdvisorController@questionAdminReview');
 	Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@questionAnsEdit');
 });
@@ -154,9 +154,6 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
 Auth::routes();
 
-
-
-
 Route::get('/home', function(){
 	return redirect()->route('profile');
 });
@@ -164,12 +161,7 @@ Route::get('/home', function(){
 
 // Route related to users
 
-
-
-
 Auth::routes();
-
-
 
 Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
