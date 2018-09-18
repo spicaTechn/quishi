@@ -8,6 +8,7 @@ class Page extends Model
 {
     //
     protected $table = 'pages';
+    protected $fillable = ['page_id','meta_key', 'meta_value'];
 
     public function page_detail()
     {

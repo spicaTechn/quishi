@@ -68,9 +68,29 @@ Route::get('/admin/cms/pages', [
 	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
 ]);
 // Route to store about page top section content to quishi
-Route::post('/admin/cms/pages/aboutUpdate/{id}', [
+Route::post('/admin/cms/pages/aboutUpdate/{about}', [
 	'as'		=>	'admin.cms.pages.aboutUpdate',
 	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+]);
+
+// Route to get about us our team
+Route::get('/admin/cms/pages/editOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.editOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
+]);
+Route::post('/admin/cms/pages/updateOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.updateOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
+]);
+Route::post('/admin/cms/pages/deleteOurTeam/{id}', [
+	'as'		=>	'admin.cms.pages.deleteOurTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
+]);
+
+// Route to store about us our team
+Route::post('/admin/cms/pages/ourTeam', [
+	'as'		=>	'admin.cms.pages.ourTeam',
+	'uses'		=>	'Admin\Cms\Pages\PagesController@store'
 ]);
 
 // route related to the industry datatable
