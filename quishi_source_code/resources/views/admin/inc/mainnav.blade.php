@@ -15,7 +15,7 @@
             </li>
 
             <!--Industry and jobs menu link-->
-            <li class="{{Request::is('admin.industryJobs') ? 'active ' : '' }}">
+            <li class="{{Request::is('admin/industryJobs*') ? 'active ' : '' }}">
                 <a href="{{ route('admin.industryJobs') }}">
                     <span class="pcoded-micon"><i class="ti-package"></i><b>I</b></span>
                     <span class="pcoded-mtext" >{{ __('Industry & jobs')}}</span>
@@ -24,7 +24,7 @@
             </li>
 
             <!--Questions menu link-->
-            <li class="">
+            <li class="{{Request::is('admin/questions*') ? 'active' : ''}}">
                 <a href="{{route('admin.question')}}">
                     <span class="pcoded-micon"><i class="ti-help"></i><b>D</b></span>
                     <span class="pcoded-mtext" >{{__('Questions')}}</span>
@@ -33,8 +33,8 @@
             </li>
 
             <!--Users menu link-->
-            <li class="">
-                <a href="index.html">
+            <li class="{{Request::is('admin/users*') ? 'active' : ''}}">
+                <a href="{{route('admin.users')}}">
                     <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
                     <span class="pcoded-mtext" >{{ __('Users')}}</span>
                     <span class="pcoded-mcaret"></span>

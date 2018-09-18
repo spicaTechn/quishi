@@ -116,6 +116,12 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'		=> 'Admin\Question\QuestionController@update'
 	]);
 
+
+	Route::delete('/questions/{id}',[
+		'as'	 => 'delete.questions',
+		'uses'   => 'Admin\Question\QuestionController@destroy'
+	]);
+
 	Route::get('/questions/getQuestions',[
 		'as'           => 'admin.question.getQuestions',
 		'uses'         => 'Admin\Question\QuestionController@getQuestions'
@@ -134,9 +140,14 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
     ]);
 	// Route related to education
-	Route::get('/education', [
-	        'as'        =>'admin.education',
+	Route::get('/educations', [
+	        'as'        =>'admin.educations',
 	        'uses'      =>'Admin\Education\EducationController@index'
+	]);
+
+	Route::get('/users', [
+        'as'        =>'admin.users',
+        'uses'      =>'Admin\User\UserController@index'
 	]);
 });
 
@@ -154,10 +165,7 @@ Route::get('/home', function(){
 // Route related to users
 
 
-Route::get('/admin/user', [
-        'as'        =>'admin.user',
-        'uses'      =>'Admin\User\UserController@index'
-]);
+
 
 Auth::routes();
 

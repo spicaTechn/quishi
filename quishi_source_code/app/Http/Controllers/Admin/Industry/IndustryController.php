@@ -252,7 +252,7 @@ class IndustryController extends Controller
         }else{
             $return_jobs[0]['id']   = 'all';
             $return_jobs[0]['title'] = 'All';
-            $return_jobs[0]['parent_title'] = $career_details->count() .' Jobs'; 
+            $return_jobs[0]['parent_title'] ='All'; 
             $i  = 1;
         }
         

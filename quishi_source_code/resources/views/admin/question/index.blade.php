@@ -198,7 +198,7 @@ $(document).ready(function () {
                 {
                     return data.split(',').join('<br>');
                 }
-                ,"name":"careers.title"
+                ,"name":"job_title"
               },
               {"data":"type",'name':"type"},
               {'data':'status','name':'status'},
@@ -219,7 +219,9 @@ $(document).ready(function () {
       $("input[name='question']").caret('?'); // move cursor before question mark
     });
 
-    $('.parent-job').select2({
+    $( ".add-btn" ).on( "click", function() {
+        save_method = 'add';
+       $('.parent-job').select2({
             placeholder: 'Select job title..',
             dropdownParent: $('#add-edit-question'),
             // ajax request to pull the category list
@@ -237,8 +239,10 @@ $(document).ready(function () {
                   return {
                     results:  $.map(data.result, function (job) {
                           return {
-                              text: job.title + ' - ' + job.parent_title,
-                              id: job.id
+                                
+                                  text: job.title + ' - ' + job.parent_title,
+                                  id: job.id
+
                           }
                       })
                   };
@@ -248,6 +252,9 @@ $(document).ready(function () {
               }
           });
 
+       $('#add-edit-question').modal('show');
+   }); // end add new button click
+    
     
     
     // Fomvalidation setup
@@ -305,7 +312,7 @@ $(document).ready(function () {
                 URI = "{{route('admin.add.question')}}";
             }else{
                 var question_id  = $(".question_id").val();
-                URI = "{{URL::to('admin/question')}}" + "/" + question_id;
+                URI = "{{URL::to('admin/questions')}}" + "/" + question_id;
             }
 
             // get the input values
@@ -357,9 +364,7 @@ $(document).ready(function () {
     }); // end formvalidation.io code
 
     // On click add new industry or job
-    $( ".add-btn" ).on( "click", function() {
-	     $('#add-edit-question').modal('show');
-	 }); // end add new button click
+
 
   //edit question 
 
@@ -372,22 +377,18 @@ $(document).ready(function () {
         $.get("{{URL::to('admin/questions')}}" + "/" + question_id,function(data){
             //prepare the modal to show
             $(".question").val(data.result.title);
+            $('.question_id').val(data.result.id);
             //$(".parent-industry").val(data.result.parent);
              //var parent_industry = "{{route('admin.industry')}}";
-           $.each($(".question-type"),function(index,value){
-             if($(this).val()  == data.result.type)
-             {
-              $(this).attr('checked',true);
-             }
-           });
+            $("input[name=question-type][value=" + data.result.type + "]").prop('checked', true);
             $.map(data.career, function (career) {
                        
-              if(data.result.assigned_type == 1){
+              if(data.result.assigned_career == 1){
                 var select2=$(".parent-job").data('select2').trigger("select", { 
                       data: 
                           { 
                               id: 'all',
-                              text:'All' 
+                              text:'All - All' 
                           } 
                   });
               }else{
@@ -414,6 +415,59 @@ $(document).ready(function () {
      $(this).find('form')[0].reset();
 
   });
+
+
+  //delete the question on click of the delete button
+  $("body").on('click','.delete-question', function(e){
+        e.preventDefault();
+        question_id=$(this).attr('data-question-id');
+        //show the alert notification
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover industry!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },function(isConfirm){
+            if(isConfirm){
+                //make ajax request 
+                $.ajax({
+                    url:"{{URL::to('admin/questions')}}" + "/" + question_id,
+                    type:"DELETE",
+                    dataType:"Json",
+                    data:{_token:"{{csrf_token()}}"},
+                    success:function(data){
+                        if(data.status == "success")
+                        {
+                            swal("Deleted!", data.message, "success");
+                            question_table.ajax.reload();
+                             
+                        }else{
+                            swal('Not allowed!!',data.message,'error');
+                        }
+                    },
+                    error:function(jqXHR,textStatus,errorThrown)
+                    {
+                        if(jqXHR.status == '404')
+                        {
+                            swal('Not found in server','The question does not exists','error');
+                        }else if(jqXHR.status == '201')
+                        {
+                            swal('Not allowed!!','The question cannot be deleted because its contains jobs.','error');
+                        }
+                    }
+                });
+            }
+            else {
+                swal.close();
+            }
+        });
+
+    }); // end delete industry click
 
 });// end document.ready function
 
