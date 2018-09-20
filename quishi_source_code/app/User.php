@@ -5,6 +5,7 @@ namespace App;
 use App\Model\UserProfile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Model\Career;
 
 class User extends Authenticatable
 {
@@ -34,5 +35,10 @@ class User extends Authenticatable
 
     public function user_profile(){
         return $this->hasOne('App\Model\UserProfile');
+    }
+
+
+    public function careers(){
+        return $this->belongsToMany('App\Model\Career');
     }
 }

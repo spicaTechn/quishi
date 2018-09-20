@@ -27,6 +27,6 @@ class Career extends Model
 
   //each career has one to many questions associated with it
   public function questions(){
-    return $this->hasMany('App\Model\Question');
+    return $this->belongsToMany('App\Model\Question');
   }
 }

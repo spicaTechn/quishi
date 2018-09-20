@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control" placeholder="Full Name" name="name" readonly="required">
+                        <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control" placeholder="Full Name" name="name" required="">
                        
                     </div>
 
@@ -79,57 +79,4 @@
         </form>
     </div>
 </div>
-@endsection
-@section('page_specific_scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK6CGzwd7DDWpup48nzhey5QpKutcyEGU&libraries=places&callback=initAutocomplete"
-        async defer></script>
-
- <script>
-      var pacContainerInitialized = false; 
-        $('#autocomplete').keypress(function() { 
-            if (!pacContainerInitialized) { 
-                    $('.pac-container').css('z-index', '9999'); 
-                    pacContainerInitialized = true; 
-            } 
-        });
-      var placeSearch, autocomplete, autocomplete2;
-      var componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'short_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-      };
-
-      function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-            {types: ['geocode']});
-
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-
-        autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), { types: [ 'geocode' ] });
-            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-              fillInAddress2();
-            });
-      }
-
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-
-        var userLat = place.geometry.location.lat();
-        var userLong = place.geometry.location.lng();
-
-        $('input[name="user_lat"]').val(userLat);
-        $('input[name="user_long"]').val(userLong);
-      }
-
-    </script> 
-</script>
 @endsection

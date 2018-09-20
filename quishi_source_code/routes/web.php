@@ -22,11 +22,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::get('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\CareerAdvisorController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\CareerAdvisorController@profileAccount');
-	Route::get('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
+	Route::any('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
 	Route::any('/setup/step2', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo')->name('profile.setup.step2');
-	Route::get('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
+	Route::any('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
 	Route::get('/questionAdminReview', 'Front\CareerAdvisor\CareerAdvisorController@questionAdminReview');
 	Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@questionAnsEdit');
+
+
+	//get the job title by the parent industry for the job seeker
+	Route::get('/getChildJobByParentIndustry',[
+		'as'		=> 'jobTitleByParent',
+		'uses'		=> 'Front\CareerAdvisor\CareerAdvisorController@getJobByIndustryId'
+	]);
 });
 
 
