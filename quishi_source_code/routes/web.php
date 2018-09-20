@@ -67,16 +67,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'		=> 'Admin\Industry\IndustryController@update'
 	]);
 
-	// Route for pages(about, contact etc)
-	Route::get('/cms/pages', [
-		'as'		=>	'admin.cms.pages',
-		'uses'		=>	'Admin\Cms\Pages\PagesController@index'
-	]);
-	// Route to store about page top section content to quishi
-	Route::post('/cms/pages/aboutUpdate/{id}', [
-		'as'		=>	'admin.cms.pages.aboutUpdate',
-		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
-	]);
+
 
 	// route related to the industry datatable
 
@@ -117,38 +108,64 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-// Route for pages(about, contact etc)
-Route::get('/cms/pages', [
-	'as'		=>	'admin.cms.pages',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
-]);
-// Route to store about page top section content to quishi
-Route::post('/cms/pages/aboutUpdate/{about}', [
-	'as'		=>	'admin.cms.pages.aboutUpdate',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
-]);
+	// Route for pages(about, contact etc)
+	Route::get('/cms/pages', [
+		'as'		=>	'admin.cms.pages',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@index'
+	]);
 
-// Route to get about us our team
-Route::get('/cms/pages/editOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.editOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
-]);
-Route::post('/cms/pages/updateOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.updateOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
-]);
-Route::post('/cms/pages/deleteOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.deleteOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
-]);
+	// Route to store about page top section content to quishi
+	Route::any('/cms/pages/aboutUpdate/', [
+		'as'		=>	'admin.cms.pages.aboutUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+	]);
 
-// Route to store about us our team
-Route::post('/cms/pages/ourTeam', [
-	'as'		=>	'admin.cms.pages.ourTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@store'
-]);
+	// Route to store about page top section content to quishi
+	Route::post('/cms/pages/aboutUpdate/{about}', [
+		'as'		=>	'admin.cms.pages.aboutUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+	]);
 
-// route related to the industry datatable
+	// Route to store contac page  content to quishi
+	Route::any('/cms/pages/contactUpdate/', [
+		'as'		=>	'admin.cms.pages.contactUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactUpdate'
+	]);
+
+	// Route to store contact content to quishi
+	Route::post('/cms/pages/contactUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.contactUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactUpdate'
+	]);
+
+
+	Route::post('/cms/pages/contactSocialUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.contactSocialUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactSocialUpdate'
+	]);
+	// Route to store contact content to quishi
+
+	// Route to get about us our team
+	Route::get('/cms/pages/editOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.editOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
+	]);
+	Route::post('/cms/pages/updateOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.updateOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
+	]);
+	Route::post('/cms/pages/deleteOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.deleteOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
+	]);
+
+	// Route to store about us our team
+	Route::post('/cms/pages/ourTeam', [
+		'as'		=>	'admin.cms.pages.ourTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@store'
+	]);
+
+	// route related to the industry datatable
 
 
 	Route::delete('/questions/{id}',[
