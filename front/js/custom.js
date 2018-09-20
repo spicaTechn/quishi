@@ -50,4 +50,3 @@ $('.image-upload-wrap').bind('dragleave', function() {
 });
 
 
-$("input").tagsinput('items');

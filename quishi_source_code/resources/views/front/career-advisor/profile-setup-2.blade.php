@@ -4,8 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
     <!--Select 2-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
-    <!--typehead css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('/front/css/typehead.css') }}">
+    
 
 @endsection
 @section('content')
@@ -14,7 +13,7 @@
         <h3>Welcome {{ucwords(Auth::user()->name)}}, please setup your profile.</h3>
         <form method="post" action="{{route('profile.setup.step3')}}"  name="step2" id="step2">
             <div class="row">
-                @csrf
+                
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>{{ __('Tell us your education level') }}</label>
@@ -28,6 +27,7 @@
                             <option value="other">Other</option>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label>Choose your industry</label>
                         <select class="industry  form-control form-control-default open default" name="parent_industry">
@@ -39,7 +39,7 @@
                                 @endforeach
                         </select>
                     </div>
-                   
+                   @csrf
                     
                     <div class="form-group">
                         <label>Job experience (in years)</label>
@@ -96,7 +96,8 @@
             </div>
             <div class="form-group">
                 <label>{{ __('Enter your skill') }}</label>
-                <input class="input-tags form-control" type="text"  id="tags-input" data-role="tagsinput" name="skills">
+                
+                <input type="text" class="form-control" name="skills" id="tags-input" data-role="tagsinput" />
             </div>
             <div class="text-right">
                 <button type="submit" class="btn btn-default"> {{ __('Proceed and Continue') }} </button>
@@ -112,9 +113,6 @@
     <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
     <!-- Select 2 -->
     <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
-
-    <!--typehead -->
-    <script type="text/javascript" src="{{ asset('/front/js/typehead.js') }}"></script>
 
     <script>
             $(document).ready(function(){
@@ -185,4 +183,5 @@
                 });
             });
     </script>
+
 @endsection

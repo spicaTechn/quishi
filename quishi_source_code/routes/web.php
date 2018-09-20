@@ -19,11 +19,12 @@ Route::get('/contact', 'Front\ContactPageController@index');
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){
-	Route::get('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
+	Route::any('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\CareerAdvisorController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\CareerAdvisorController@profileAccount');
 	Route::any('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
 	Route::any('/setup/step2', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo')->name('profile.setup.step2');
+	Route::post('/setup/complete', 'Front\CareerAdvisor\CareerAdvisorController@completeSetup')->name('complete.profile');
 	Route::any('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
 	Route::get('/questionAdminReview', 'Front\CareerAdvisor\CareerAdvisorController@questionAdminReview');
 	Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@questionAnsEdit');
@@ -33,6 +34,11 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::get('/getChildJobByParentIndustry',[
 		'as'		=> 'jobTitleByParent',
 		'uses'		=> 'Front\CareerAdvisor\CareerAdvisorController@getJobByIndustryId'
+	]);
+
+	Route::get('/tags',[
+		'as'	=> 'tags.all',
+		'uses'	=> 'Front\CareerAdvisor\TagController@index'
 	]);
 });
 

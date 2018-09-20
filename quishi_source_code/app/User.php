@@ -39,6 +39,10 @@ class User extends Authenticatable
 
 
     public function careers(){
-        return $this->belongsToMany('App\Model\Career');
+        return $this->belongsToMany('App\Model\Career','user_career');
+    }
+
+    public function tags(){
+        return $this->belongsToMany('App\Model\Tag','user_tag');
     }
 }

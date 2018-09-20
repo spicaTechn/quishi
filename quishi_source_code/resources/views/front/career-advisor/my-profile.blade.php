@@ -23,10 +23,10 @@
                                 <img src="{{asset('/front')}}/images/blog1.jpg" alt="profile">
                             </div>
                             <div class="profile-name">
-                                John Deo
+                                {{ Auth::user()->user_profile->first_name }}
                             </div>
                             <div class="profile-pic-detail">
-                                <p><a href="mailto:john@gmail.com">john@gmail.com</a></p>
+                                <p><a href="mailto:john@gmail.com">{{ Auth::user()->email }}</a></p>
                                 <a class="btn btn-default">View Public Profile</a>
                             </div>
                         </div>
@@ -36,24 +36,24 @@
                         <div class="profile-detail-right">
                             <div class="profile-details-content">
                                 <h4>My Bio</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium expedita quos natus est perferendis dolorem dicta. Molestiae asperiores magni, dolorem praesentium distinctio nemo qui recusandae in libero, repudiandae accusantium dolor.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto mollitia fugiat non corporis maxime vitae facere nisi quisquam praesentium! Accusamus corporis ad quidem doloremque rerum dolorem officiis maiores nisi libero!</p>
+                                <p>{{Auth::user()->user_profile->description }}</p>
                             </div>
                             <!-- profile-details -->
                             <div class="profile-background">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Address:</label> Central Dollars</p>
+                                            <p><label>Address:</label> {{ ucwords(Auth::user()->user_profile->location) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Education Level: </label> PHD</p>
+                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->education_level) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Faculty:</label> Management</p>
+                                            <p><label>Faculty:</label> {{ ucwords(Auth::user()->user_profile->faculty) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -73,11 +73,6 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Major Subject:</label> Information Technology</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6">
-                                        <div class="profile-background-detail">
                                             <p><label>Salary Range:</label> $40,000 USD - $50,000 USD / annum</p>
                                         </div>
                                     </div>
@@ -92,7 +87,7 @@
                                                 <i class="icon-like"></i>
                                             </div>
                                             <div class="profile-view-detai">
-                                                <span>20k</span> Likes
+                                                <span>{{ Auth::user()->user_profile->total_likes }}</span> Likes
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +97,7 @@
                                                 <i class="icon-eye"></i>
                                             </div>
                                             <div class="profile-view-detai">
-                                                <span>20k</span> Views
+                                                <span>{{ Auth::user()->user_profile->profile_views }}</span> Views
                                             </div>
                                         </div>
                                     </div>
