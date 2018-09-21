@@ -1,4 +1,4 @@
-@extends('front.career-advisor.layout.master')
+@extends('front.layout.master')
 @section('content')
 <div class="profile-setup">
     <div class="container">

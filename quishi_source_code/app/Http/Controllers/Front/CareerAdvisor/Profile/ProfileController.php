@@ -4,13 +4,22 @@ namespace App\Http\Controllers\Front\CareerAdvisor\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\CareerAdvisor\BaseCareerAdvisorController;
-use Auth;
+use Auth,Validator,DB,Input,File;
+use App\Model\UserProfile;
+use App\Model\Answer;
+use App\Model\Career;
+use App\User;
 
 class ProfileController extends BaseCareerAdvisorController
 {
     //
     protected $user_profile_image ="";
     protected $user_profile = "";
+    protected $career;
+
+    public function __construct(){
+    	return $this->career = Career::where('parent',"=",'0')->where('status','1')->get();
+    }
 
     public function index(Request $reqeust)
     {

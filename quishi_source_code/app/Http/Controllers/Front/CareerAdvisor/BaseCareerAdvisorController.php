@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Front\CareerAdvisor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Career;
+use App\Model\Question;
+use App\Model\User;
+use DB,Auth;
+use App\Model\Tag;
 
 class BaseCareerAdvisorController extends Controller
 {
