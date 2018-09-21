@@ -216,6 +216,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'          => 'Admin\Industry\IndustryController@getIndustryJobs'
 
     ]);
+
 	// Route related to education
 	Route::get('/educations', [
 	        'as'        =>'admin.educations',
@@ -226,6 +227,14 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
         'as'        =>'admin.users',
         'uses'      =>'Admin\User\UserController@index'
 	]);
+
+
+	// Route related to education
+	Route::get('/userProfile', [
+	        'as'        =>'admin.userProfile',
+	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
+	]);
+
 
 
 });
