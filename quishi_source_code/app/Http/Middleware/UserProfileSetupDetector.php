@@ -19,7 +19,7 @@ class UserProfileSetupDetector
         if($request->user() && $request->user()->logged_in_type == 0){
             //logged in user and user is career advisior
             if($request->user()->user_profile()->count() > 0):
-                if($request->user()->user_profile->profile_setup_status == 1):
+                if($request->user()->user_profile->profile_setup_status == 3):
                     //user has completed its profile setup thus redirect the user to the profile page
                      return $next($request);
                 else:
@@ -44,10 +44,10 @@ class UserProfileSetupDetector
                     }
                 endif;
                 
-            endif;
-
+            else:
              
             return redirect()->route('profile.setup.step1');
+            endif;
         }
         return $next($request);
     }

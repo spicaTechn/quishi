@@ -14,16 +14,21 @@
 Route::get('/', 'Front\MainPageController@index');
 
 Route::get('/about', 'Front\AboutPageController@index');
-Route::get('/contact', 'Front\ContactPageController@index');
+Route::get('/contact',[
+	'as'	=>	'contact',
+	'uses'	=>	'Front\ContactPageController@index'
+
+]);
 
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){
-	Route::get('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
+	Route::any('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\CareerAdvisorController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\CareerAdvisorController@profileAccount');
 	Route::any('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
 	Route::any('/setup/step2', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo')->name('profile.setup.step2');
+	Route::post('/setup/complete', 'Front\CareerAdvisor\CareerAdvisorController@completeSetup')->name('complete.profile');
 	Route::any('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
 	Route::get('/questionAdminReview', 'Front\CareerAdvisor\CareerAdvisorController@questionAdminReview');
 	Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@questionAnsEdit');
@@ -33,6 +38,11 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::get('/getChildJobByParentIndustry',[
 		'as'		=> 'jobTitleByParent',
 		'uses'		=> 'Front\CareerAdvisor\CareerAdvisorController@getJobByIndustryId'
+	]);
+
+	Route::get('/tags',[
+		'as'	=> 'tags.all',
+		'uses'	=> 'Front\CareerAdvisor\TagController@index'
 	]);
 });
 
@@ -74,16 +84,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'		=> 'Admin\Industry\IndustryController@update'
 	]);
 
-	// Route for pages(about, contact etc)
-	Route::get('/cms/pages', [
-		'as'		=>	'admin.cms.pages',
-		'uses'		=>	'Admin\Cms\Pages\PagesController@index'
-	]);
-	// Route to store about page top section content to quishi
-	Route::post('/cms/pages/aboutUpdate/{id}', [
-		'as'		=>	'admin.cms.pages.aboutUpdate',
-		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
-	]);
+
 
 	// route related to the industry datatable
 
@@ -124,38 +125,66 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-// Route for pages(about, contact etc)
-Route::get('/cms/pages', [
-	'as'		=>	'admin.cms.pages',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@index'
-]);
-// Route to store about page top section content to quishi
-Route::post('/cms/pages/aboutUpdate/{about}', [
-	'as'		=>	'admin.cms.pages.aboutUpdate',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
-]);
+	// Route for pages(about, contact etc)
+	Route::get('/cms/pages', [
+		'as'		=>	'admin.cms.pages',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@index'
+	]);
 
-// Route to get about us our team
-Route::get('/cms/pages/editOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.editOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
-]);
-Route::post('/cms/pages/updateOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.updateOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
-]);
-Route::post('/cms/pages/deleteOurTeam/{id}', [
-	'as'		=>	'admin.cms.pages.deleteOurTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
-]);
+	// Route to store about page top section content to quishi
+	Route::any('/cms/pages/aboutUpdate/', [
+		'as'		=>	'admin.cms.pages.aboutUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+	]);
 
-// Route to store about us our team
-Route::post('/cms/pages/ourTeam', [
-	'as'		=>	'admin.cms.pages.ourTeam',
-	'uses'		=>	'Admin\Cms\Pages\PagesController@store'
-]);
+	// Route to store about page top section content to quishi
+	Route::post('/cms/pages/aboutUpdate/{about}', [
+		'as'		=>	'admin.cms.pages.aboutUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@aboutUpdate'
+	]);
 
-// route related to the industry datatable
+	// Route to store contac page  content to quishi
+	Route::any('/cms/pages/contactUpdate/', [
+		'as'		=>	'admin.cms.pages.contactUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactUpdate'
+	]);
+
+	// Route to store contact content to quishi
+	Route::post('/cms/pages/contactUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.contactUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactUpdate'
+	]);
+
+
+	Route::post('/cms/pages/contactSocialUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.contactSocialUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@contactSocialUpdate'
+	]);
+	// Route to store contact content to quishi
+
+	// Route to get about us our team
+	Route::get('/cms/pages/editOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.editOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@editOurTeam'
+	]);
+	Route::post('/cms/pages/updateOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.updateOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@updateOurTeam'
+	]);
+	Route::post('/cms/pages/deleteOurTeam/{id}', [
+		'as'		=>	'admin.cms.pages.deleteOurTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@deleteOurTeam'
+	]);
+
+	// Route to store about us our team
+	Route::post('/cms/pages/ourTeam', [
+		'as'		=>	'admin.cms.pages.ourTeam',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@store'
+	]);
+
+
+
+	// route related to the industry datatable
 
 
 	Route::delete('/questions/{id}',[
@@ -193,12 +222,22 @@ Route::post('/cms/pages/ourTeam', [
         'uses'      =>'Admin\User\UserController@index'
 	]);
 
+
 	// Route related to education
 	Route::get('/userProfile', [
 	        'as'        =>'admin.userProfile',
 	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
 	]);
+
+
+
 });
+
+// Route for inquiry Message of contact page
+Route::post('/contact/inquiry', [
+	'as'	=>'contact.inquiry',
+	'uses'	=>'Front\ContactPageController@store'
+]);
 
 
 Auth::routes();
