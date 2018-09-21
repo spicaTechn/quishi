@@ -67,8 +67,8 @@
             </li>
 
             <!--Education menu link-->
-            <li class="">
-                <a href="index.html">
+            <li class="{{Request::is('admin/educations*') ? 'active' : ''}}">
+                <a href="{{route('admin.educations')}}">
                     <span class="pcoded-micon"><i class="ti-book"></i><b>D</b></span>
                     <span class="pcoded-mtext" >{{ __('Education')}}</span>
                     <span class="pcoded-mcaret"></span>

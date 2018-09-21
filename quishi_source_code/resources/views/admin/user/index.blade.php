@@ -11,6 +11,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
 <!--Select 2-->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
+ <!-- list css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/assets/pages/list-scroll/list.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/stroll/css/stroll.css') }}">
+
 <style type="text/css">
   .select2-container--default 
   .select2-selection--single 
@@ -23,6 +27,24 @@
 .select2-selection--multiple 
 .select2-selection__choice {
     background-color: #181b25 !important;
+  }
+
+  .basic-list p {
+      margin: 0;
+      padding-right: 100px;
+  }
+
+  .btn.resolve-review {
+      right: 1px;
+      top: 0;
+      width: 100px;
+      padding: 8px 0;
+      float: right;
+      position: absolute;
+  }
+  .basic-list.list-icons li, 
+  .basic-list.list-icons-img li {
+    margin-left: 4px;
   }
 </style>
 @endsection
@@ -80,6 +102,16 @@
                                         </a>
 
                                         <a href="#" 
+                                          class="m-r-15 text-muted review-user" 
+                                          data-toggle="tooltip" 
+                                          data-placement="top" 
+                                          title="" 
+                                          data-original-title="Write Review" 
+                                          data-user-id="1">
+                                          <i class="icofont icofont-comment"></i>
+                                        </a>
+
+                                        <a href="#" 
                                           class="m-r-15 text-muted deactivate-user" 
                                           data-toggle="tooltip" 
                                           data-placement="top" 
@@ -115,69 +147,82 @@
 </div>
 @endsection
 @section('form_modal')
-<!-- add modal -->
-<div class="modal fade" id="add-edit-question" role="dialog">
+
+<!-- Review detail user -->
+<div class="modal fade" id="review-Modal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-        	<form name="industry-jobs-form" id="industry-jobs-form">
-	            <div class="modal-header">
-	                <h4 class="modal-title"><span>Add</span> Question</h4>
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        						<span aria-hidden="true">&times;</span>
-        					</button>
-	            </div>
-	            <div class="modal-body">
-                  @csrf
-                	<div class="row">
-                       <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Enter question here *</h4>
-                            <input type="text" class="form-control question" id="question" name="question"  placeholder="question">
-                        </div> 
-                    </div>
-
+            <div class="modal-header">
+                <h4 class="modal-title">Review to user</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="add-review-form" id="add-review-form">
+                   <!--Setting user ID-->
+                    <input type="hidden" name="user_id" value="1">
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select Job <small>choose all if you want to show this question to everybody</small></h4>
-                            <select class="form-control form-control-default open parent-job" name="job_id" multiple="">
-                                <option>All</option>
-                                <option>Graphic design - IT and Commnication</option>
-                                <option>Web Design - IT and commnication</option>
-                                <option>Cashier - Finanace and banking</option>
-                            </select>
+                            <h4 class="sub-title">Review</h4>
+                            <textarea class="form-control review" name="review"></textarea>
                         </div> 
                     </div>
-
                     <div class="row">
-                       <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select question type</h4>
-                            <div class="form-radio">
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="question-type" value="1">
-                                        <i class="helper"></i>Mandatory
-                                    </label>
-                                </div>
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="question-type" value="2">
-                                        <i class="helper"></i>Optional
-                                    </label>
-                                </div>
-                            </div>
-                        </div> 
+                      <div class="col-sm-12 col-xl-12 m-b-30">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light ">Send review</button>
+                      </div>
                     </div>
+                </form><!--end form-->
 
-                    <input type="hidden" name="question_id" class="question_id" value=""/>
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-	                <button type="submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
-	            </div>
-            </form>
+                <!-- Previous review list-->
+                <div class="row card-block">
+                  <div class="col-sm-12 col-xl-12 m-b-30">
+                    <div class="card card-block user-card">
+                        <ul class="basic-list list-icons">
+                            <li>
+                                <p>Laborum nihil aliquam nulla praesentium illo libero
+                                    nihil at odio maxime.</p>
+
+                                <button type="button" 
+                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
+                                  data-review-id="1">
+                                  Resolve review
+                                </button>
+                            </li>
+                            <li>
+                                <p>Laborum nihil aliquam nulla praesentium illo libero
+                                    nihil at odio maxime.</p>
+
+                                <button type="button" 
+                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
+                                  data-review-id="2">
+                                  Resolve review
+                                </button>
+                            </li>
+
+                            <li>
+                                <p>Laborum nihil aliquam nulla praesentium illo libero
+                                    nihil at odio maxime.</p>
+
+                                <button type="button" 
+                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
+                                  data-review-id="3">
+                                  Resolve review
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                 </div>
+                 <!-- end Previous review list-->
+
+                
+            </div>
         </div>
     </div>
 </div>
-<!-- end add modal -->
+<!-- End review modal -->
 @endsection
 @section('page_specific_js')
 <!--Datatable-->
@@ -203,6 +248,9 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
 <!-- caretTo -->
 <script type="text/javascript" src="{{ asset('/admin_assets/assets/js/caretTo.js') }}"></script>
+<!-- list-scroll js -->
+<script src="{{ asset('/admin_assets/bower_components/stroll/js/stroll.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/admin_assets/assets/pages/list-scroll/list-custom.js') }}"></script>
 
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
@@ -257,50 +305,10 @@ $(document).ready(function () {
 
     });
 
-    // On start typing add ? mark to question
-    $( "input[name='question']" ).keyup(function() {
-      
-      var question = $(this).val();
-      if(question.indexOf("?") == -1){
-        $( this ).val(question+" ?"); // add question mark
-      }
-      $("input[name='question']").caret('?'); // move cursor before question mark
-    });
-
     
 
-
-    $('.parent-job').select2({
-        placeholder: 'Select job title',
-        dropdownParent: $('#add-edit-question'),
-        // ajax request to pull the category list
-          /*ajax: {
-              url:"{{url('/admin/categories/getCatgeoryAjax')}}",
-              type:"GET",
-              dataType:"Json",
-              data: function (params) {
-                return {
-                  _token:_token,
-                  q: params.term, // search term
-                };
-              },
-              delay: 250,
-              processResults: function (data) {
-              return {
-                results:  $.map(data.result, function (category) {
-                      return {
-                          text: category.category_name,
-                          id: category.id
-                      }
-                  })
-              };
-            },
-            cache: true
-          }*/
-      });
-
     // Fomvalidation setup
-    $('#industry-jobs-form').on('init.field.fv', function(e, data) {
+    $('#add-review-form').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
                 $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
@@ -321,24 +329,10 @@ $(document).ready(function () {
             }, 
             excluded: 'disabled',
             fields: {
-                'question': {
+                'review': {
                     validators: {
                         notEmpty: {
-                            message: 'The title is required'
-                        }
-                    }
-                },
-                'job_id': {
-                    validators: {
-                        notEmpty: {
-                            message: 'The Job is required, select all if question covers all sectors'
-                        }
-                    }
-                },
-                'question-type': {
-                    validators: {
-                        notEmpty: {
-                            message: 'The question type is required'
+                            message: 'The review is required'
                         }
                     }
                 }
@@ -410,22 +404,22 @@ $(document).ready(function () {
         });
     }); // end formvalidation.io code
 
-    // On click add new industry or job
-    $( ".add-btn" ).on( "click", function() {
-         save_method = 'add';
-         var parent_industry = "{{route('admin.industry')}}";
-         //make the ajax request to get the 
-         $.get(parent_industry,function(data){
-            $('.parent-industry').html(data.result);
-         });
-	     $('#add-edit-question').modal('show');
-	}); // end add new button click
+
+  // User review modal click
+    $( ".review-user" ).on( "click", function() {
+       tool_tip();
+       $('#review-Modal').modal('show');
+  }); // end User review icon click
+
+  // User review resolve button click
+  $(".resolve-review").on("click", function(){
+    var review_id = $(this).data("review-id");
+  }); // end review resolve button click
 
   //reset the form validaton and from when the modal was closing
   $('.modal').on('hidden.bs.modal', function(){
      $(this).find('form').data('formValidation').resetForm(true);
      $(this).find('form')[0].reset();
-
   });
 
 });// end document.ready function

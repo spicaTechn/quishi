@@ -181,6 +181,7 @@ Route::post('/cms/pages/ourTeam', [
 		'uses'          => 'Admin\Industry\IndustryController@getIndustryJobs'
 
     ]);
+
 	// Route related to education
 	Route::get('/educations', [
 	        'as'        =>'admin.educations',
@@ -190,6 +191,12 @@ Route::post('/cms/pages/ourTeam', [
 	Route::get('/users', [
         'as'        =>'admin.users',
         'uses'      =>'Admin\User\UserController@index'
+	]);
+
+	// Route related to education
+	Route::get('/userProfile', [
+	        'as'        =>'admin.userProfile',
+	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
 	]);
 });
 

@@ -114,7 +114,7 @@
 
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as Job</small></h4>
+                            <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as manoj else system will terat as major category</small></h4>
                             <select class="form-control parent-major-category" name="parent_id">
                             </select>
                         </div> 
@@ -126,7 +126,7 @@
                             <textarea class="form-control description" name="description"></textarea>
                         </div> 
                     </div>
-                    <input type="hidden" name="major-category_id" class="major-category_id" value=""/>
+                    <input type="hidden" name="major_category_id" class="major_category_id" value=""/>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
@@ -178,7 +178,7 @@ $(document).ready(function () {
 	});   
 
 	// datatable for subscription request
-    var major-category_table = $('.tbl-major-category').DataTable({
+    var major_category_table = $('.tbl-major-category').DataTable({
         dom: 'Bfrtip',
         LengthChange: true,
         buttons:[
@@ -200,10 +200,10 @@ $(document).ready(function () {
         destroy : true,
         order : [[ 0, "asc" ]], //or asc 
         //columnDefs: [{"targets":0, "type":"date-eu"}],
-        serverSide : true,
+        /*serverSide : true,
         processing : true,
         ajax       : {
-                        url  : "{{route('admin.major-category.getmajor-category')}}",
+                        url  : "{{--{{route('admin.major-category.getmajor-category')}}--}}",
                         type : 'GET',
         },
         columns   : [
@@ -222,22 +222,22 @@ $(document).ready(function () {
         ],
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
-        }
+        }*/
 
     });
 
     // datatable for active subscription
-    var job_table = $('.tbl-major').DataTable({
+    var major_table = $('.tbl-major').DataTable({
         dom                   : 'Bfrtip',
         buttons               :[
                                  'excel',
                                  'print'
                                ],
         destroy               :true,
-        processing            :true,
+        /*processing            :true,
         serverSide            :true,
         ajax                  : {
-                                 url :"{{route('admin.major.getmajor')}}",
+                                 url :"{{--{{route('admin.major.getmajor')}}--}}",
                                  type : "GET",
 
                                 },
@@ -257,7 +257,7 @@ $(document).ready(function () {
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
         }
-        
+        */
     });
 
     // Fomvalidation setup
@@ -308,10 +308,10 @@ $(document).ready(function () {
             // find if the action is save or update
             if(save_method == 'add')
             {
-                URI = "{{route('admin.add.major-categorymajor')}}";
+                URI = "{{--{{route('admin.add.major-categorymajor')}}--}}";
             }else{
-                var major-category_id  = $(".major-category_id").val();
-                URI = "{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id;
+                var major_category_id  = $(".major_category_id").val();
+                URI = "{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id;
             }
 
             // get the input values
@@ -336,7 +336,7 @@ $(document).ready(function () {
                         submit_msg = "major-category";
 
                      }else{
-                        submit_msg = "Job";
+                        submit_msg = "Major";
                      }
                      // $('#category-form')[0].reset();
                      // $('#category-form').data('formValidation').resetForm(true);
@@ -359,13 +359,13 @@ $(document).ready(function () {
                     //table.ajax.reload();
 
                     
-                     major-category_table.ajax.reload();
-                     job_table.ajax.reload();
+                     major_category_table.ajax.reload();
+                     major_table.ajax.reload();
                     
                     
                     //var image="https://foodmario.com/images/food_icon.png";
                     //$("#type-image").attr('src',image);
-                   resetFormOnClose();
+                   //resetFormOnClose();
                 }
             },
             error:function(event)
@@ -379,9 +379,9 @@ $(document).ready(function () {
     // On click add new major-category or job
     $( ".add-btn" ).on( "click", function() {
          save_method = 'add';
-         var parent_major-category = "{{route('admin.major-category')}}";
+         var parent_major_category = "{{--{{route('admin.major-category')}}--}}";
          //make the ajax request to get the 
-         $.get(parent_major-category,function(data){
+         $.get(parent_major_category,function(data){
             $('.parent-major-category').html(data.result);
          });
 	     $('#add-edit-major-category').modal('show');
@@ -403,16 +403,16 @@ $(document).ready(function () {
 	$("body").on('click','.edit-major-category,.edit-job', function(e){
         e.preventDefault();
         save_method = 'edit';
-        major-category_id = $(this).attr('data-major-category-id');
+        major_category_id = $(this).attr('data-major-category-id');
         //get the details from the db and make ready the modal to popup
-        $.get("{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id,function(data){
+        $.get("{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id,function(data){
             //prepare the modal to show
             $(".fullname").val(data.result.title);
             //$(".parent-major-category").val(data.result.parent);
-             var parent_major-category = "{{route('admin.major-category')}}";
+             var parent_major_category = "{{--{{route('admin.major-category')}}--}}";
            
             $('.description').val(data.result.description);
-            $('.major-category_id').val(data.result.id);
+            $('.major_category_id').val(data.result.id);
             $(".parent-major-category").html(data.return_option);
         });
         $('.modal-title').html('Edit major-category / Job');
@@ -423,8 +423,8 @@ $(document).ready(function () {
 	// On delete major-category
 	$("body").on('click','.delete-major-category,.delete-job', function(e){
         e.preventDefault();
-        major-category_id=$(this).attr('data-major-category-id');
-        //alert(major-category_id);
+        major_category_id=$(this).attr('data-major-category-id');
+        //alert(major_category_id);
 
         //show the alert notification
         swal({
@@ -441,7 +441,7 @@ $(document).ready(function () {
             if(isConfirm){
                 //make ajax request 
                 $.ajax({
-                    url:"{{URL::to('admin/major-categorymajor')}}" + "/" + major-category_id,
+                    url:"{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id,
                     type:"DELETE",
                     dataType:"Json",
                     data:{_token:"{{csrf_token()}}"},
@@ -449,8 +449,8 @@ $(document).ready(function () {
                         if(data.status == "success")
                         {
                             swal("Deleted!", data.message, "success");
-                             major-category_table.ajax.reload();
-                             job_table.ajax.reload();
+                             major_category_table.ajax.reload();
+                             major_table.ajax.reload();
                         }else{
                             swal('Not allowed!!',data.message,'error');
                         }
