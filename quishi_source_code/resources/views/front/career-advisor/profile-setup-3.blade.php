@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label>{{ ucfirst($user_question['question_title']) }} {{ ($user_question['question_type'] == '1') ? '*' : ''}}</label>
                     <input type="hidden" name="question_id[]{{$user_question['question_id']}}" value="{{$user_question['question_id'] }}"/>
-                    <textarea class="form-control" name="answer_id[]{{$user_question['question_id']}}"></textarea>
+                    <textarea class="form-control" name="answer_id[]{{$user_question['question_id']}}" {{($user_question['question_type'] == '1') ? 'required' : ''}}></textarea>
                 </div>
             @endforeach
             <div class="text-left">

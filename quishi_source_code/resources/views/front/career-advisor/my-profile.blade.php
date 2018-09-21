@@ -35,7 +35,7 @@
                     <div class="col-md-9">
                         <div class="profile-detail-right">
                             <div class="profile-details-content">
-                                <h4>My Bio</h4>
+                                <h4>My Bio </h4>
                                 <p>{{Auth::user()->user_profile->description }}</p>
                             </div>
                             <!-- profile-details -->
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->education_level) }}</p>
+                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->educational_level) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -58,22 +58,23 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Job Title:</label> Account</p>
+
+                                            <p><label>Job Title:</label> {{ ucwords(Auth::user()->careers()->first()->title) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Experience:</label> 5 - 10 years</p>
+                                            <p><label>Experience:</label> {{ show_career_advisior_job_experience(Auth::user()->user_profile->job_experience) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Age Group:</label> 23-24 years</p>
+                                            <p><label>Age Group:</label> {{ show_career_advisior_age_group(Auth::user()->user_profile->age_group) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Salary Range:</label> $40,000 USD - $50,000 USD / annum</p>
+                                            <p><label>Salary Range:</label> {{ show_career_advisior_salary_range(Auth::user()->user_profile->salary_range) }}</p>
                                         </div>
                                     </div>
                                 </div>

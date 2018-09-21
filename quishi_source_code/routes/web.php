@@ -214,3 +214,10 @@ Auth::routes();
 Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
+
+//frontends 
+
+Route::get('/career-advisior/{id}',[
+	'as'	=> 'show.career-advisior',
+	//'uses'	=> 'Front\'
+]);

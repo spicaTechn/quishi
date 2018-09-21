@@ -255,6 +255,7 @@ class CareerAdvisorController extends Controller
                 }
 
             }
+            return redirect()->route('profile.setup.step3');
         }
         return view('front.career-advisor.profile-setup-3')->with([
             'user_questions'    => $current_user_question
