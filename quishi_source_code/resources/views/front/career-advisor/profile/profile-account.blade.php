@@ -1,14 +1,14 @@
-@extends('front.layout.master')
+@extends('front.career-advisor.layout.master')
 @section('content')
 <div class="my-profile">
     <div class="container">
         <div class="profile-sidemenu">
             <ul>
-                <li class="active"><a href="{{route('profile')}}"> <i class="ti-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="#"> <i class="ti-dashboard"></i> Dashboard</a></li>
                 <li><a href="#"><i class="ti-write"></i> My answers</a></li>
                 <li><a href="#"><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">3</span></a></li>
                 <li><a href="#"><i class="ti-user"></i> My account</a></li>
-                <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-user"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                <li><a href="#"><i class="ti-user"></i> Logout</a></li>
             </ul>
         </div>
         <div class="profile-main-section">
@@ -16,17 +16,14 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="profile-details text-center">
-                            <a id="profile-edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                <i class="icon-pencil"></i>
-                            </a>
                             <div class="profile-picture">
-                                <img src="{{asset('/front')}}/images/blog1.jpg" alt="profile">
+                                <img src="images/blog1.jpg" alt="profile">
                             </div>
                             <div class="profile-name">
-                                {{ Auth::user()->user_profile->first_name }}
+                                John Deo
                             </div>
                             <div class="profile-pic-detail">
-                                <p><a href="mailto:john@gmail.com">{{ Auth::user()->email }}</a></p>
+                                <p><a href="mailto:john@gmail.com">john@gmail.com</a></p>
                                 <a class="btn btn-default">View Public Profile</a>
                             </div>
                         </div>
@@ -34,47 +31,51 @@
                     <!-- col-md-3 -->
                     <div class="col-md-9">
                         <div class="profile-detail-right">
-                            <div class="profile-details-content">
-                                <h4>My Bio </h4>
-                                <p>{{Auth::user()->user_profile->description }}</p>
+                            <div class="profile-details">
+                                <h4>My Bio</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium expedita quos natus est perferendis dolorem dicta. Molestiae asperiores magni, dolorem praesentium distinctio nemo qui recusandae in libero, repudiandae accusantium dolor.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto mollitia fugiat non corporis maxime vitae facere nisi quisquam praesentium! Accusamus corporis ad quidem doloremque rerum dolorem officiis maiores nisi libero!</p>
                             </div>
                             <!-- profile-details -->
                             <div class="profile-background">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Address:</label> {{ ucwords(Auth::user()->user_profile->location) }}</p>
+                                            <p><label>Address:</label> Central Dollars</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->educational_level) }}</p>
+                                            <p><label>Education Level: </label> PHD</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Faculty:</label> {{ ucwords(Auth::user()->user_profile->faculty) }}</p>
+                                            <p><label>Faculty:</label> Management</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-
-                                            <p><label>Job Title:</label> {{ ucwords(Auth::user()->careers()->first()->title) }}</p>
+                                            <p><label>Job Title:</label> Account</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Experience:</label> {{ show_career_advisior_job_experience(Auth::user()->user_profile->job_experience) }}</p>
+                                            <p><label>Experience:</label> 5 - 10 years</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Age Group:</label> {{ show_career_advisior_age_group(Auth::user()->user_profile->age_group) }}</p>
+                                            <p><label>Age Group:</label> 23-24 years</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Salary Range:</label> {{ show_career_advisior_salary_range(Auth::user()->user_profile->salary_range) }}</p>
+                                            <p><label>Major Subject:</label> Information Technology</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="profile-background-detail">
+                                            <p><label>Salary Range:</label> $40,000 USD - $50,000 USD / annum</p>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +89,7 @@
                                                 <i class="icon-like"></i>
                                             </div>
                                             <div class="profile-view-detai">
-                                                <span>{{ Auth::user()->user_profile->total_likes }}</span> Likes
+                                                <span>20k</span> Likes
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +99,7 @@
                                                 <i class="icon-eye"></i>
                                             </div>
                                             <div class="profile-view-detai">
-                                                <span>{{ Auth::user()->user_profile->profile_views }}</span> Views
+                                                <span>20k</span> Views
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +126,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-social-facebook"></i>facebook.com/jondeo</a>
+                                                <a href="#"> <i class="icon-social-facebook"></i>facebook.com/jondeo</a>
                                                 <form action=""  style="display: none;">
                                                     <div class="form-group">
                                                         <input type="text" name="facebook-link" class="form-control"  value="https://facebook.com/jondeo">

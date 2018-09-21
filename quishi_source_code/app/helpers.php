@@ -4,6 +4,7 @@
 *
 *
 */
+
 if(!function_exists('show_career_advisior_salary_range')){
 	function show_career_advisior_salary_range($salary_range){
 		// switch salary range
@@ -106,3 +107,4 @@ if(!function_exists('show_career_advisior_age_group')){
 		}
 	}
 }
+

@@ -23,21 +23,27 @@ Route::get('/contact',[
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){
-	Route::any('/', 'Front\CareerAdvisor\CareerAdvisorController@profile')->name('profile')->middleware('userProfile');
-	Route::get('/profileLogin', 'Front\CareerAdvisor\CareerAdvisorController@profileLogin');
-	Route::get('/profileAccount', 'Front\CareerAdvisor\CareerAdvisorController@profileAccount');
-	Route::any('/setup/step1', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupOne')->name('profile.setup.step1');
-	Route::any('/setup/step2', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupTwo')->name('profile.setup.step2');
-	Route::post('/setup/complete', 'Front\CareerAdvisor\CareerAdvisorController@completeSetup')->name('complete.profile');
-	Route::any('/setup/step3', 'Front\CareerAdvisor\CareerAdvisorController@profileSetupThree')->name('profile.setup.step3');
-	Route::get('/questionAdminReview', 'Front\CareerAdvisor\CareerAdvisorController@questionAdminReview');
-	Route::get('/questionAnsEdit', 'Front\CareerAdvisor\CareerAdvisorController@questionAnsEdit');
+
+	//profile routes
+	Route::any('/', 'Front\CareerAdvisor\Profile\ProfileController@index')->name('profile')->middleware('userProfile');
+	Route::get('/profileLogin', 'Front\CareerAdvisor\Profile\ProfileController@profileLogin');
+	Route::get('/profileAccount', 'Front\CareerAdvisor\Profile\ProfileController@profileAccount');
+	Route::any('/setup/step1', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupOne')->name('profile.setup.step1');
+	Route::any('/setup/step2', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupTwo')->name('profile.setup.step2');
+	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');
+	Route::any('/setup/step3', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupThree')->name('profile.setup.step3');
+
+	//reviews route
+	Route::get('/reviews', 'Front\CareerAdvisor\Reviews\ReviewsController@index');
+
+	//answers route
+	Route::get('/answers', 'Front\CareerAdvisor\Answer\AnswerController@index');
 
 
 	//get the job title by the parent industry for the job seeker
 	Route::get('/getChildJobByParentIndustry',[
 		'as'		=> 'jobTitleByParent',
-		'uses'		=> 'Front\CareerAdvisor\CareerAdvisorController@getJobByIndustryId'
+		'uses'		=> 'Front\CareerAdvisor\BaseCareerAdvisorController@getJobByIndustryId'
 	]);
 
 	Route::get('/tags',[
