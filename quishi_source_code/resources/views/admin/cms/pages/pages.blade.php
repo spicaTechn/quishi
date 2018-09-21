@@ -13,6 +13,13 @@
 
 <!-- File Input css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/file-input/css/fileinput.css') }}">
+<style type="text/css">
+  /*wysisyg editor initial notification hiding*/
+#mceu_34 {
+
+    display: none;
+}
+</style>
 @endsection
 @section('content')
 <div class="pcoded-content">
@@ -67,7 +74,8 @@
 
                               <form name="about-us" id="about-us" enctype="multipart/form-data">
                                 @csrf
-                              <input type="hidden" name="about_id" id="about_id" value=""/>
+
+                              <input type="hidden" name="about_id" class="about_id" value="{{$about->id}}"/>
                               <div class="row">
                                 <div class="col-sm-12 col-xl-12 m-b-30">
                                      <h4 class="sub-title">Title *</h4>
@@ -181,40 +189,69 @@
 
                         <!-- Contact US Tap -->
                         <div class="tab-pane fade pt-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                          <div class="card-block">
+                              <h4>Top Section</h4>
+                              <br>
+
+                              <form name="contact-us" id="contact-us" enctype="multipart/form-data">
+                                @csrf
+
+                              <input type="hidden" name="contact_id" class="contact_id" value="{{$contact->id}}"/>
+                              <div class="row">
+                                <div class="col-sm-12 col-xl-12 m-b-30">
+                                     <h4 class="sub-title">Title *</h4>
+                                     <input type="text" class="form-control contact_title" name="contact_title" placeholder="Title" value="{{ $contact->title }}">
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-sm-12 col-xl-12 m-b-30">
+                                     <h4 class="sub-title">Description *</h4>
+                                     <textarea id="contact_wysiwyg" style="height: 350px;"  class="form-control contact_description" name="contact_description" placeholder="Description" >{{ $contact->content }}</textarea>
+                                 </div>
+
+
+                              </div>
+                              <button class="btn btn-grd-primary updateContact" data-contact-id="{{ $contact->id }}">Update</button>
+                              </form>
+
+                           </div>
                            <div class="card-block">
                               <div class="card-block">
-                              <form>
+                              <form name="contact-social-form" id="contact-social-form">
+                                @csrf
+                                <input type="hidden" name="contact_social_id" class="contact_social_id" value="{{$contact->id}}"/>
+                                <input type="hidden" name="contact_page_id" class="contact_page_id" value="{{$contact_page_detail_id}}"/>
                               <div class="row">
                                 <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Address *</h4>
-                                     <input type="text" class="form-control address" name="address" placeholder="Address">
+                                     <input type="text" class="form-control address" name="address" placeholder="Address" value="{{ $contact_social_unserialize['address'] }}">
                                  </div>
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Phone *</h4>
-                                     <input type="text" class="form-control phone_number" name="phone_number" placeholder="Phone">
+                                     <input type="text" class="form-control phone_number" name="phone_number" placeholder="Phone" value="{{ $contact_social_unserialize['phone_number'] }}">
                                  </div>
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Email *</h4>
-                                     <input type="text" class="form-control email" name="email" placeholder="Email">
+                                     <input type="text" class="form-control email" name="email" placeholder="Email" value="{{ $contact_social_unserialize['email'] }}">
                                  </div>
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Facebook *</h4>
-                                     <input type="text" class="form-control facebook" name="facebook" placeholder="Facebook Link">
+                                     <input type="text" class="form-control facebook" name="facebook" placeholder="Facebook Link" value="{{ $contact_social_unserialize['facebook'] }}">
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Twitter *</h4>
-                                     <input type="text" class="form-control twitter" name="twitter" placeholder="Twitter Link">
+                                     <input type="text" class="form-control twitter" name="twitter" placeholder="Twitter Link" value="{{ $contact_social_unserialize['twitter'] }}">
                                  </div><div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Google Plus *</h4>
-                                     <input type="text" class="form-control google_plus" name="google_plus" placeholder="Google Plus Link">
+                                     <input type="text" class="form-control google_plus" name="google_plus" placeholder="Google Plus Link" value="{{ $contact_social_unserialize['google_plus'] }}">
                                  </div><div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Instragram *</h4>
-                                     <input type="text" class="form-control instragram" name="instragram" placeholder="Instragram Link">
+                                     <input type="text" class="form-control instragram" name="instragram" placeholder="Instragram Link" value="{{ $contact_social_unserialize['instragram'] }}">
                                  </div>
                               </div>
-                              <button type="submit" class="btn btn-grd-primary">Update</button>
+                              <button  class="btn btn-grd-primary contactSocialUpdate" id="contactSocialUpdate">Update</button>
                               </form>
                            </div>
                            </div>
@@ -239,9 +276,10 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         	<form role="form" name="our-team" id="our-team" enctype="multipart/form-data">
+            <input type="hidden" name="about_page_id" class="about_page_id" value="{{$about->id}}"/>
             @csrf
-            <input type="hidden" name="team_id" class="team_id" value=""/>
-            <input type="hidden" name="individual_id" class="individual_id" value=""/>
+            <!-- <input type="hidden" name="team_id" class="team_id" value=""/>
+            <input type="hidden" name="individual_id" class="individual_id" value=""/> -->
 	            <div class="modal-header">
 	                <h4 class="modal-title"><span>Add Our Team</span></h4>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -312,6 +350,7 @@
         <div class="modal-content">
           <form role="form" name="update-our-team" id="update-our-team">
             @csrf
+            <input type="hidden" name="about_page_id" class="about_page_id" value="{{$about->id}}"/>
             <input type="hidden" name="team_id" class="team_id" value=""/>
             <input type="hidden" name="individual_id" class="individual_id" value=""/>
               <div class="modal-header">
@@ -403,6 +442,8 @@
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
+<!-- wysiwyg editor -->
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
@@ -410,6 +451,21 @@
 
       //
 
+      // installing wysiwyg editor
+      tinymce.init({
+        selector: '#contact_wysiwyg',
+        height: 300,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor textcolor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+          '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+          '//www.tinymce.com/css/codepen.min.css']
+      });
 
 
       // Fomvalidation setup about us top section
@@ -459,10 +515,13 @@
         // update the about top section content
         $('body').on('click','.updateAbout', function(e) {
             // Prevent form submission
+
             e.preventDefault();
-            var about_id = $(this).attr('.team_id');
+            var about_id = $(this).attr('.about_id');
             //alert(about_id);
+
             URI = "{{url('/admin/cms/pages/aboutUpdate')}}" +"/" +  about_id;
+
 
                 // get the input values
             var result = new FormData($("#about-us")[0]);
@@ -768,7 +827,8 @@
           //alert(id);
             e.preventDefault();
             var delete_id = $(this).attr('data-our-team-id');
-            //alert(delete_id);
+            var hidden_id = $('.about_page_id').val();
+            //alert(hidden_id);
             var individual_id = $(this).attr('data-serialize-id');
             var _token="{{csrf_token()}}";
             //show the alert notification
@@ -789,7 +849,7 @@
                         url:"{{url('/admin/cms/pages/deleteOurTeam')}}" + "/" + delete_id,
                         type:"POST",
                         dataType:"Json",
-                        data:{_token:_token,individual_id:individual_id},
+                        data:{_token:_token,individual_id:individual_id,hidden_id:hidden_id},
                         success:function(data){
                             if(data.status == "success")
                             {
@@ -829,16 +889,232 @@
         });
 
 
+        // update contact us  section content
 
-        // reset form when modal closed
-        $('#add-our-team').on('hidden.bs.modal', function(e) {
-             $(this).find('form')[0].reset();
-        })
+      // Fomvalidation setup about us top section
+      $('#contact-us').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
-        $('#edit-our-team').on('hidden.bs.modal', function(e) {
-              $('#update-our-team')[0].reset();
-              $('#update-our-team').data('formValidation').resetForm(true);
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
         })
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                'contact_title': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The title is required'
+                        }
+                    }
+                },
+                'contact_description': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The description is required'
+                           },
+
+                    }
+                }
+            }
+        });
+
+        // update the contact us top section content
+        $('body').on('click','.updateContact', function(e) {
+            // Prevent form submission
+
+            e.preventDefault();
+            var contact_id = $(this).attr('.contact_id');
+            //alert(contact_id);
+
+            var URI = "{{url('/admin/cms/pages/contactUpdate')}}" +"/" +  contact_id;
+
+
+                // get the input values
+            var result = new FormData($("#contact-us")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      setTimeout(function() {
+                                swal({
+                                  title: "Contact content has been updated!",
+                                  text: "A  contact content has been updated to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#contact-us')[0].reset();
+                      $('#contact-us').data('formValidation').resetForm(true);
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update contact us data in quishi. Please try again later on..');
+              }
+
+            });
+        });
+
+
+
+        // Fomvalidation setup about us top section
+      $('#contact-social-form').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+        })
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                'address': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address is required'
+                        }
+                    }
+                },
+                'phone_number': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The phone number is required'
+                           },
+
+                    }
+                },
+                'email': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The email is required'
+                           },
+
+                    }
+                },
+                'twitter': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The twitter is required'
+                           },
+
+                    }
+                },
+                'google_plus': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The google_plus is required'
+                           },
+
+                    }
+                },
+                'instragram': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The instragram is required'
+                           },
+
+                    }
+                },
+                'facebook': {
+                    validators: {
+                        notEmpty: {
+                               message: 'The facebook is required'
+                           },
+
+                    }
+                }
+            }
+        })
+        .on('success.form.fv', function(e) {
+            e.preventDefault();
+
+            var contact_page_id = $('.contact_page_id').val();
+            //alert(contact_social_id);
+            //var _token = $("input[name='_token']").val();
+            // if(contact_social_id){
+            //   var URI = "{{url('/admin/cms/pages/contactSocialUpdate')}}" +"/" +  contact_social_id;
+            // }
+            // else
+            // {
+            if(contact_page_id){
+              var URI = "{{url('/admin/cms/pages/contactSocialUpdate')}}"+"/" +  contact_page_id;;
+            }
+            else
+            {
+               var URI = "{{url('/admin/cms/pages/contactSocialUpdate')}}";
+            }
+            // }
+
+            // get the input values
+            var result = new FormData($("#contact-social-form")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      setTimeout(function() {
+                                swal({
+                                  title: "Contact content has been added!",
+                                  text: "A  contact content has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      // $('#')[0].reset();
+                      // $('#').data('formValidation').resetForm(true);
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update contact data in quishi. Please try again later on..');
+              }
+
+            });
+        });
+
 
 
    });

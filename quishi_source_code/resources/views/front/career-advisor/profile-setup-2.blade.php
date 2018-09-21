@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
     <!--Select 2-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
-    
+
 
 @endsection
 @section('content')
@@ -13,7 +13,7 @@
         <h3>Welcome {{ucwords(Auth::user()->name)}}, please setup your profile.</h3>
         <form method="post" action="{{route('profile.setup.step3')}}"  name="step2" id="step2">
             <div class="row">
-                
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>{{ __('Tell us your education level') }}</label>
@@ -27,7 +27,7 @@
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Choose your industry</label>
                         <select class="industry  form-control form-control-default open default" name="parent_industry">
@@ -40,7 +40,7 @@
                         </select>
                     </div>
                    @csrf
-                    
+
                     <div class="form-group">
                         <label>Job experience (in years)</label>
                         <select class="form-control" name="job_experience">
@@ -71,10 +71,10 @@
                         <label>Choose you job title</label>
                         <select class="form-control form-control-default open" name="job_title" id="job_title">
                             <option value="0" selected="selected" disabled="disabled">Select Job Title</option>
-                            
+
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Salary range (in Dollars)</label>
                         <select class="form-control" name="salary">
@@ -96,7 +96,7 @@
             </div>
             <div class="form-group">
                 <label>{{ __('Enter your skill') }}</label>
-                
+
                 <input type="text" class="form-control" name="skills" id="tags-input" data-role="tagsinput" />
             </div>
             <div class="text-right">
@@ -106,7 +106,7 @@
     </div>
 </div>
 @endsection
-@section('page_specific_scripts')
+@section('page_specific_js')
     <!-- Formvalidation -->
     <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
     <!--form validation -->
@@ -148,7 +148,7 @@
                         valid: 'fa fa-check',
                         invalid: 'fa fa-times',
                         validating: 'fa fa-refresh'
-                    }, 
+                    },
                     excluded: 'disabled',
                     fields: {
                         'education': {
