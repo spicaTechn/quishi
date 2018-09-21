@@ -53,5 +53,8 @@ class LoginController extends Controller
         $user->last_logged_in_ip = request()->ip();
         $user->save();
         
+
+        //now check for the user profile if the user is the career advisior not for the super admin
+
     }
 }

@@ -15,8 +15,8 @@ class AlterUserProfileTable extends Migration
     {
         Schema::table('user_profile', function (Blueprint $table) {
             //
-            $table->enum('profile_setup_status',array(1,0))->default(0); //to check whether the user setup profile or not
-            $table->enum('profile_setup_steps',array(0,1,2,3))->default(0); //to check where the user has setup their profile they can be in the step 1 / 2 / 3
+            $table->enum('profile_setup_status',array(1,0))->default(0)->after('total_likes'); //to check whether the user setup profile or not
+            $table->enum('profile_setup_steps',array(0,1,2,3))->default(0)->after('profile_setup_status'); //to check where the user has setup their profile they can be in the step 1 / 2 / 3
         });
     }
 

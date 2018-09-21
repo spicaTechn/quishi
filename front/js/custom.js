@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    $("select.form-control").niceSelect();
+    // $("select.form-control").niceSelect();
 
 
 
@@ -48,3 +48,5 @@ $('.image-upload-wrap').bind('dragover', function() {
 $('.image-upload-wrap').bind('dragleave', function() {
     $('.image-upload-wrap').removeClass('image-dropping');
 });
+
+

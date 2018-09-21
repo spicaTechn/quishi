@@ -61,5 +61,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'userType' => \App\Http\Middleware\CheckUserTypeMiddleware::class,
         'userRole' => \App\Http\Middleware\CheckUserRoleMiddleware::class,
+
+        'userProfile' => \App\Http\Middleware\UserProfileSetupDetector::class,
     ];
 }

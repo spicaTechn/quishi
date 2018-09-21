@@ -1935,24 +1935,24 @@ p {
 }
 
 @media (min-width: 767px) {
-	.forum-image-left {
-	    height: 70px;
-	    width: 70px;
-	    border-radius: 50%;
-	    overflow: hidden;
-	    float: left;
-	}
+    .forum-image-left {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+    }
 
-	.forum-content-right {
+    .forum-content-right {
 
-	    float: left;
-	    width: calc(100% - 70px);
-	    padding-left: 20px;
+        float: left;
+        width: calc(100% - 70px);
+        padding-left: 20px;
 
-	}
+    }
 }
 .forum-image-left img {
-	height: 70px;
+    height: 70px;
     width: 70px;
     object-fit: cover;
 }
@@ -2000,3 +2000,29 @@ p {
     border-radius: 50%;
 }
 
+
+
+
+.invalid-feedback{
+    display:    block !important;  
+}
+
+
+.select2,.form-control{
+    width:100% !important;
+    height:40px;
+}
+
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 40px !important;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 0px !important;
+    border: 1px solid #ccc !important;
+    padding: 4px 6px;
+    font-size:16px;
+}
