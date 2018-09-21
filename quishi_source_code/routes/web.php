@@ -14,7 +14,11 @@
 Route::get('/', 'Front\MainPageController@index');
 
 Route::get('/about', 'Front\AboutPageController@index');
-Route::get('/contact', 'Front\ContactPageController@index');
+Route::get('/contact',[
+	'as'	=>	'contact',
+	'uses'	=>	'Front\ContactPageController@index'
+
+]);
 
 // Route for profile
 
@@ -165,6 +169,8 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'		=>	'Admin\Cms\Pages\PagesController@store'
 	]);
 
+
+
 	// route related to the industry datatable
 
 
@@ -201,7 +207,15 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
         'as'        =>'admin.users',
         'uses'      =>'Admin\User\UserController@index'
 	]);
+
+
 });
+
+// Route for inquiry Message of contact page
+Route::post('/contact/inquiry', [
+	'as'	=>'contact.inquiry',
+	'uses'	=>'Front\ContactPageController@store'
+]);
 
 
 Auth::routes();

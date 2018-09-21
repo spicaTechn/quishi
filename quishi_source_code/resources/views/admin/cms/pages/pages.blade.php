@@ -13,6 +13,13 @@
 
 <!-- File Input css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/file-input/css/fileinput.css') }}">
+<style type="text/css">
+  /*wysisyg editor initial notification hiding*/
+#mceu_34 {
+
+    display: none;
+}
+</style>
 @endsection
 @section('content')
 <div class="pcoded-content">
@@ -199,7 +206,7 @@
                               <div class="row">
                                  <div class="col-sm-12 col-xl-12 m-b-30">
                                      <h4 class="sub-title">Description *</h4>
-                                     <textarea style="height: 350px;"  class="form-control contact_description" name="contact_description" placeholder="Description">{{ $contact->content }}</textarea>
+                                     <textarea id="contact_wysiwyg" style="height: 350px;"  class="form-control contact_description" name="contact_description" placeholder="Description" >{{ $contact->content }}</textarea>
                                  </div>
 
 
@@ -435,6 +442,8 @@
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
+<!-- wysiwyg editor -->
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
@@ -442,6 +451,21 @@
 
       //
 
+      // installing wysiwyg editor
+      tinymce.init({
+        selector: '#contact_wysiwyg',
+        height: 300,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor textcolor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+          '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+          '//www.tinymce.com/css/codepen.min.css']
+      });
 
 
       // Fomvalidation setup about us top section
