@@ -16,7 +16,13 @@ class MainPageController extends Controller
     public function index()
     {
         //
-        return view('front.index');
+        return view('front.index')
+                    ->with(array(
+                        'site_title'          =>'Quishi',
+                        'page_title'          =>'Home'
+                    )
+
+                );
     }
 
     /**

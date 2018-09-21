@@ -15,7 +15,13 @@ class AboutPageController extends Controller
     public function index()
     {
         //
-        return view('front.about');
+        return view('front.about')
+                    ->with(array(
+                        'site_title'          =>'Quishi',
+                        'page_title'          =>'About'
+                        )
+
+                    );
     }
 
     /**
