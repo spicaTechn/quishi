@@ -1,16 +1,5 @@
-@extends('front.layout.master')
+@extends('front.career-advisor.layout.master')
 @section('content')
-<div class="my-profile">
-    <div class="container">
-        <div class="profile-sidemenu">
-            <ul>
-                <li class="active"><a href="{{route('profile')}}"> <i class="ti-dashboard"></i> Dashboard</a></li>
-                <li><a href="#"><i class="ti-write"></i> My answers</a></li>
-                <li><a href="#"><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">3</span></a></li>
-                <li><a href="#"><i class="ti-user"></i> My account</a></li>
-                <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-user"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
-            </ul>
-        </div>
         <div class="profile-main-section">
             <div class="profile-first-section">
                 <div class="row">
@@ -20,7 +9,11 @@
                                 <i class="icon-pencil"></i>
                             </a>
                             <div class="profile-picture">
-                                <img src="{{asset('/front')}}/images/blog1.jpg" alt="profile">
+                                @if(Auth::user()->user_profile->image_path == "")
+                                    <img src="{{asset('/front')}}/images/blog1.jpg" alt="profile">
+                                @else
+                                    <img src="{{asset('/front/images/profile').'/'.Auth::user()->user_profile->image_path}}" alt="profile">
+                                @endif
                             </div>
                             <div class="profile-name">
                                 {{ Auth::user()->user_profile->first_name }}
@@ -35,8 +28,8 @@
                     <div class="col-md-9">
                         <div class="profile-detail-right">
                             <div class="profile-details-content">
-                                <h4>My Bio</h4>
-                                <p>{{Auth::user()->user_profile->description }}</p>
+                                <h4>My Bio </h4>
+                                <p>{{ Auth::user()->user_profile->description }}</p>
                             </div>
                             <!-- profile-details -->
                             <div class="profile-background">
@@ -48,7 +41,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->education_level) }}</p>
+                                            <p><label>Education Level: </label> {{ ucwords(Auth::user()->user_profile->educational_level) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -58,22 +51,23 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Job Title:</label> Account</p>
+
+                                            <p><label>Job Title:</label> {{ ucwords(Auth::user()->careers()->first()->title) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Experience:</label> 5 - 10 years</p>
+                                            <p><label>Experience:</label> {{ show_career_advisior_job_experience(Auth::user()->user_profile->job_experience) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Age Group:</label> 23-24 years</p>
+                                            <p><label>Age Group:</label> {{ show_career_advisior_age_group(Auth::user()->user_profile->age_group) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="profile-background-detail">
-                                            <p><label>Salary Range:</label> $40,000 USD - $50,000 USD / annum</p>
+                                            <p><label>Salary Range:</label> {{ show_career_advisior_salary_range(Auth::user()->user_profile->salary_range) }}</p>
                                         </div>
                                     </div>
                                 </div>

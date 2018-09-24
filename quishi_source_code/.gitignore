@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .phpunit.result.cache
 /front/images/pages
+/front/profile

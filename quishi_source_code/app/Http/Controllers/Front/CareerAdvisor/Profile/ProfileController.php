@@ -1,117 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Front\CareerAdvisor;
+namespace App\Http\Controllers\Front\CareerAdvisor\Profile;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Validator,Auth,DB;
-use App\User;
+use App\Http\Controllers\Front\CareerAdvisor\BaseCareerAdvisorController;
+use Auth,Validator,DB,Input,File;
 use App\Model\UserProfile;
+use App\Model\Answer;
 use App\Model\Career;
-use App\Model\Tag;
-use App\Model\Question, App\Model\Answer;
+use App\User;
 
-class CareerAdvisorController extends Controller
+class ProfileController extends BaseCareerAdvisorController
 {
-
+    //
+    protected $user_profile_image ="";
     protected $user_profile = "";
-    protected $career = array();
+    protected $career;
 
-    protected $user_career = [];
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function __construct(Career $career){
-        $this->career    = Career::where('parent','<=',0)
-                            ->get();
-    }
-    public function index()
-    {
-        //
-
+    public function __construct(){
+    	return $this->career = Career::where('parent',"=",'0')->where('status','1')->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $reqeust)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function profile(Request $reqeust)
-    {
-        return view('front.career-advisor.my-profile');
+        return view('front.career-advisor.profile.profile');
     }
 
     public function profileLogin()
     {
-        return view('front.career-advisor.my-profile-login');
+        return view('front.career-advisor.profile.my-profile-login');
     }
     public function profileAccount()
     {
-        return view('front.career-advisor.profile-account');
+        return view('front.career-advisor.profile.profile-account');
     }
 
 
@@ -141,7 +62,7 @@ class CareerAdvisorController extends Controller
                  return redirect()->route('profile');
             }
         }
-        return view('front.career-advisor.profile-setup-1');
+        return view('front.career-advisor.profile.profile-setup-1');
     }
 
 
@@ -171,7 +92,8 @@ class CareerAdvisorController extends Controller
             $validator = Validator::make($request->all(), [
             'name'          => 'required|max:255',
             'address'       => 'required',
-            'age_group'     => 'required'
+            'age_group'     => 'required',
+            'user_image'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ])->validate();
 
             //validation passed !!
@@ -179,6 +101,11 @@ class CareerAdvisorController extends Controller
             $user = Auth::user();
             if($request->hasFile('user_image')){
                 //need to upload the image in the directory and store the path in the db
+                $user_image                 = $request->file('user_image');
+                $name                       = time() . '.'.$user_image->getClientOriginalExtension();
+                $destination_path           = "front/images/profile";
+                $user_image->move($destination_path,$name);
+                $this->user_profile_image   = $name;
 
                 //$user_profile->image_path = 'image_name';
             }
@@ -189,7 +116,7 @@ class CareerAdvisorController extends Controller
                 $this->user_profile->last_name   = '';
                 $this->user_profile->location    = $request->input('address');
                 $this->user_profile->age_group   = $request->input('age_group');
-                $this->user_profile->image_path  = ($request->hasFile('user_image')) ? $user_profile_image_path : '';
+                $this->user_profile->image_path  = $this->user_profile_image;
                 $this->user_profile->description = ($request->has('description')) ? $request->input('description') : '';
                 $this->user_profile->user_id     = Auth::user()->id; 
                 $this->user_profile->profile_setup_steps = '1';
@@ -205,13 +132,13 @@ class CareerAdvisorController extends Controller
                                         'redirect_message'  => $redirect_message
                                     ]);
             else:
-                return view('front.career-advisor.profile-setup-2')->with([
+                return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career
                 ]);
             endif;
 
         }else{
-            return view('front.career-advisor.profile-setup-2')->with([
+            return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career
                 ]);
         }
@@ -255,8 +182,9 @@ class CareerAdvisorController extends Controller
                 }
 
             }
+            return redirect()->route('profile.setup.step3');
         }
-        return view('front.career-advisor.profile-setup-3')->with([
+        return view('front.career-advisor.profile.profile-setup-3')->with([
             'user_questions'    => $current_user_question
         ]);
     }
@@ -295,129 +223,5 @@ class CareerAdvisorController extends Controller
        //after that redirect to the profile route after the complete of the profile setup
 
        return redirect()->route('profile');
-    }
-
-
-
-
-    public function questionAdminReview()
-    {
-        return view('front.career-advisor.question-admin-review');
-    }
-    public function questionAnsEdit()
-    {
-        return view('front.career-advisor.question-ans-edit');
-    }
-
-
-
-    /**
-    *
-    * function to get the job by parent parent industry
-    *
-    * @param Illuminate\Http\Request
-    * @return json object
-    *
-    */
-
-    public function getJobByIndustryId(Request $request){
-        //
-        $job_by_industry_id = Career::where('parent',$request->input('industry_id'))->select('id','title')->get();
-        $return_html = "";
-        if($job_by_industry_id->count() > 0){
-            foreach($job_by_industry_id as $job_title){
-                $return_html .= '<option value="'.$job_title->id.'">'.ucwords($job_title->title).'</option>';
-            }
-            
-        }   
-        return response()->json(array('status'=>'success','result'=>$return_html),200);
-    }
-
-
-    /**
-    * function to check the current user job title 
-    *
-    * @param user_id
-    * @return array(user_question)
-    *
-    */
-
-
-    protected function getCurrentUserCareer($id){
-        
-        $user_question = array();
-        $i = 0;
-        //now add question that is realted to all the industry / career / job title
-        $question_for_all_careers = Question::where('assigned_career',"=",'1')
-                                            ->where('status','1')
-                                            ->get();
-
-        if($question_for_all_careers->count() > 0){
-
-            foreach($question_for_all_careers as $question_for_all_career):
-                $user_question[$i]['question_id']      = $question_for_all_career->id;
-                $user_question [$i]['question_title']  = $question_for_all_career->title;
-                $user_question[$i]['question_type']    = $question_for_all_career->type;
-                $i++;
-            endforeach;
-        }
-
-        //get the current users job title if any
-        $user_career_id = DB::table('user_career')->where('user_id',$id)->first();
-        //loop throught the each job title to get the questions
-        if($user_career_id):
-            $user_career  = Career::where('id',$user_career_id->career_id)->first();
-            if($user_career):
-                 $career_questions   = $user_career->questions()
-                                                   ->where('assigned_career','=','0')
-                                                   ->where('status','1')
-                                                   ->get();
-                 //a career can have multiple questions
-                 if($career_questions->count() > 0):
-                    foreach($career_questions as $career_question):
-                        $user_question[$i]['question_id']      = $career_question->id;
-                        $user_question [$i]['question_title']  = $career_question->title;
-                        $user_question[$i]['question_type']    = $career_question->type;
-                        $i++;
-                    endforeach;// end of the career_question foreach loop
-               endif; // end of the career question count if
-            endif; // end of the user_career if
-        endif; //end of the user_career_id if
-
-        //now return the user_question array
-        return $user_question;
-    }
-
-
-    /**
-    * function to store the user tags in the db
-    *
-    *
-    * @param requested tags / skills
-    * @return boolen true / false
-    *
-    *
-    **/
-
-    public function insertOrUpdateUserTag($tags){
-        //convert the tags into the tags array 
-        $tags_array = explode(",", $tags);
-        foreach($tags_array as $tag_array){
-            //check the tag is in the database or not
-            $tag_exists = Tag::where('title',$tag_array)->first();
-            if($tag_exists){
-                //tag exists in the db now need to update the user tags in the pivot table only
-                $tag_exists->users()->attach(Auth::user()->id);
-            }else{
-                //tage does not exists inerst the tag and update the user tags in the pivot table
-                $tag   = new Tag();
-                $tag->title    = $tag_array;
-                $tag->slug     = str_slug($tag_array);
-                $tag->save();
-
-                //now add the in the pivot table 
-                $tag->users()->attach(Auth::user()->id);
-            }
-        }
     }
 }
