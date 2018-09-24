@@ -5,7 +5,7 @@ namespace App;
 use App\Model\UserProfile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Model\Career;
+use App\Model\Career, App\Model\Review;
 
 class User extends Authenticatable
 {
@@ -45,4 +45,15 @@ class User extends Authenticatable
     public function tags(){
         return $this->belongsToMany('App\Model\Tag','user_tag');
     }
+
+
+    //a user (career seeker has many reviews)
+
+    public function reviews(){
+        return $this->hasMany(Review::class,'user_id');
+    }
+
+
+    //get the user
+
 }

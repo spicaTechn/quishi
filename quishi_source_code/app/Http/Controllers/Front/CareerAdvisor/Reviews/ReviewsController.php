@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\CareerAdvisor\Reviews;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User, Auth;
 
 class ReviewsController extends Controller
 {
@@ -15,6 +16,7 @@ class ReviewsController extends Controller
     public function index()
     {
         //
+        //get the reviews of the current users if any
         return view('front.career-advisor.reviews.admin-review');
     }
 

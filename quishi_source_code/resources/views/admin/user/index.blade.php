@@ -80,58 +80,7 @@
                                      </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>1</td>
-                                      <td><img src="{{ asset('/admin_assets/assets/images/widget/user2.png') }}"></td>
-                                      <td>John Deo</td>
-                                      <td>johndeo@gmail.com</td>
-                                      <td>PHP Developer</td>
-                                      <td>Active</td>
-                                      <td>1000 K</td>
-                                      <td>200 K</td>
-                                      <td>
-
-                                        <a href="#" 
-                                          class="m-r-15 text-muted view-user" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="View More" 
-                                          data-user-id="1">
-                                          <i class="icofont icofont-business-man-alt-3"></i>
-                                        </a>
-
-                                        <a href="#" 
-                                          class="m-r-15 text-muted review-user" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="Write Review" 
-                                          data-user-id="1">
-                                          <i class="icofont icofont-comment"></i>
-                                        </a>
-
-                                        <a href="#" 
-                                          class="m-r-15 text-muted deactivate-user" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="Deactivate" 
-                                          data-user-id="1">
-                                          <i class="icofont icofont-ui-lock"></i>
-                                        </a>
-
-                                        <a href="#" 
-                                          class="text-muted activate-user" 
-                                          data-toggle="tooltip" 
-                                          data-placement="top" 
-                                          title="" 
-                                          data-original-title="Activate" 
-                                          data-user-id="1">
-                                          <i class="icofont icofont-ui-check"></i>
-                                        </a>
-                                      </td>
-                                    </tr>
+                                    
                                   </tbody>
                                 </table>
                             </div>
@@ -282,10 +231,10 @@ $(document).ready(function () {
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
         },
-        /*serverSide : true,
+        serverSide : true,
         processing : true,
         ajax       : {
-                        url  : "{{route('admin.industry.getIndustry')}}",
+                        url  : "{{route('admin.careerAdvisior')}}",
                         type : 'GET',
         },
         columns   : [
@@ -296,12 +245,26 @@ $(document).ready(function () {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
               },
-              {"data" :"title","name":"title"},
-              {"data":'description', "name":"description"},
-              {"data":"usage",'name':"usage"},
+              {'render'  :function(data, type, JsonResultRow, meta)
+                            {
+                                return "<img src='"+ JsonResultRow.user_image + "' height='50px' width='50px'>";
+                            }
+              },
+              {"data":"user_profile.first_name","name":"user_profile.first_name"},
+              {"data":"email",'name':'email'},
+              {"data"         :"job_title",
+                render:function(data)
+                {
+                    return data.split(',').join('<br>');
+                }
+                ,"name":"job_title"
+              },
+              {"data":"status","name":"status"},
+              {"data": "profile_views_count","name":"profile_views_count"},
+              {"data":'user_profile.total_likes', "name":"user_profile.total_likes"},
               {"data":"action" , "name" :"action"},
           
-        ]*/
+        ]
 
     });
 
@@ -406,7 +369,7 @@ $(document).ready(function () {
 
 
   // User review modal click
-    $( ".review-user" ).on( "click", function() {
+    $('body').on( "click",".review-user", function() {
        tool_tip();
        $('#review-Modal').modal('show');
   }); // end User review icon click
