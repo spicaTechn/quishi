@@ -46,6 +46,22 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	//answers route
 	Route::get('/answers', 'Front\CareerAdvisor\Answer\AnswerController@index');
 
+	//edit user answer
+
+	Route::get('/answers/{answer_id}',[
+		'as'		=> 'show.CareerAdvisor.answer',
+		'uses' 		=> 'Front\CareerAdvisor\Answer\AnswerController@show'
+	]);
+
+	//delete user answer
+
+	Route::delete('/answers/{answer_id}',[
+		'as'		=> 'destroy.CareerAdvisor.answer',
+		'uses'		=> 'Front\CareerAdvisor\Answer\AnswerController@destroy'
+	]);
+
+
+
 
 	//get the job title by the parent industry for the job seeker
 	Route::get('/getChildJobByParentIndustry',[
@@ -259,6 +275,13 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	Route::get('/users', [
         'as'        =>'admin.users',
         'uses'      =>'Admin\User\UserController@index'
+	]);
+
+	//get the career advisior only
+
+	Route::get('/users/careerAdvisior',[
+		'as'	=> 'admin.careerAdvisior',
+		'uses'	=> 'Admin\User\UserController@getCareerAdvisor'
 	]);
 
 

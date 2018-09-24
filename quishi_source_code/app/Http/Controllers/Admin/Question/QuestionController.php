@@ -211,9 +211,7 @@ class QuestionController extends Controller
         $questions = Question::with('careers')->select('questions.*')->get();
         //return the result as the datatables
         return Datatables($questions)
-               ->addColumn('job_title',function(){
-                    return 'Cooking';
-               })->addColumn('total_answer',function($question){
+               ->addColumn('total_answer',function($question){
                 return $question->answers()->count();
                })->addColumn('type',function($question){
                     return ($question->type == 1) ? 'Mandatory' : 'Optional';
