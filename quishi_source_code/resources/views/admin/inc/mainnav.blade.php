@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="session-idle-timeout.html">
+                        <a href="{{route('admin.cms.blog')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.extra-components.session-idle-timeout">{{ __('In the media')}}</span>
                             <span class="pcoded-mcaret"></span>

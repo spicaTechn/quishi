@@ -16,10 +16,10 @@
                 <div class="contact-left">
                     <div class="social-medias">
                         <ul>
-                            <li class="facebook"><a href="#"><i class="icon-social-facebook"></i></a></li>
-                            <li class="twitter"><a href="#"><i class="icon-social-twitter"></i></a></li>
-                            <li class="google"><a href="#"><i class="icon-social-google"></i></a></li>
-                            <li class="instagram"><a href="#"><i class="icon-social-instagram"></i></a></li>
+                            <li class="facebook"><a href="{{ $contact_social['facebook'] }}"><i class="icon-social-facebook"></i></a></li>
+                            <li class="twitter"><a href="{{ $contact_social['twitter'] }}"><i class="icon-social-twitter"></i></a></li>
+                            <li class="google"><a href="{{ $contact_social['google_plus'] }}"><i class="icon-social-google"></i></a></li>
+                            <li class="instagram"><a href="{{ $contact_social['instragram'] }}"><i class="icon-social-instagram"></i></a></li>
                         </ul>
                     </div>
                     <div class="contact-form">

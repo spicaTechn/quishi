@@ -14,7 +14,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="" class="nav-link">{{ __('Blog')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">{{ __('Profiles')}}</a></li>
@@ -25,7 +25,7 @@
                     @guest
                         <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
                         <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
-                        
+
                     @else
                         <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{asset('/front')}}/images/blog1.jpg"> Hi {{auth()->user()->name}} </a></li>
                     @endguest

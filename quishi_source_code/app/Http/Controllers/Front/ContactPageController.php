@@ -30,11 +30,20 @@ class ContactPageController extends Controller
             $contact_data->id         =  '';
             // return $contact_data;
         endif;
+
+        // fetching contact us social media data from database
+        $contact_social  = PageDetail::where('page_id',$contact->id)
+                                        ->where('meta_key','contact-us')
+                                        ->first();
+        $contact_social_unserialize = unserialize($contact_social->meta_value);
+        //echo "<pre>";print_r($contact_social_unserialize); echo "</pre>";exit;
+
         return view('front.contact')
                     ->with(array(
-                        'site_title'          =>'Quishi',
-                        'page_title'          =>'Contact',
-                        'contact'             =>$contact_data
+                        'site_title'          => 'Quishi',
+                        'page_title'          => 'Contact',
+                        'contact'             => $contact_data,
+                        'contact_social'      => $contact_social_unserialize
                     )
                 );
     }

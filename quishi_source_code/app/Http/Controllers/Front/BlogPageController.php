@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Page;
-use App\PageDetail;
+use App\Http\Controllers\Controller;
+use Page;
+use PageDetail;
 
-
-class MainPageController extends Controller
+class BlogPageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,22 +16,7 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        //fetching contact data to show in footer section
-        $contact          = Page::where('slug','contact-us')->first();
-        $contact_social  = PageDetail::where('page_id',$contact->id)
-                                        ->where('meta_key','contact-us')
-                                        ->first();
-
-        $contact_social_data = unserialize($contact_social->meta_value);
-        //echo "<pre>";print_r($contact_social_data); echo "</pre>";exit;
-        return view('front.index')
-                    ->with(array(
-                        'site_title'          => 'Quishi',
-                        'page_title'          => 'Home',
-                        'contact_social'      => $contact_social_data
-                    )
-
-                );
+        //
     }
 
     /**
@@ -53,7 +37,8 @@ class MainPageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //storing blog content to database
+        echo "<pre>";print_r($request->all()); echo "</pre>";exit;
     }
 
     /**
@@ -99,17 +84,5 @@ class MainPageController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getSocialMediaData()
-    {
-        $contact          = Page::where('slug','contact-us')->first();
-        $contact_social  = PageDetail::where('page_id',$contact->id)
-                                        ->where('meta_key','contact-us')
-                                        ->first();
-        $contact_social_data = unserialize($contact_social->meta_value);
-        //echo "<pre>";print_r($contact_social_data); echo "</pre>";exit;
-        return $contact_social_data;
-
     }
 }

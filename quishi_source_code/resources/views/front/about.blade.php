@@ -4,19 +4,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+
                 <div class="about-content-top">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto rem assumenda, </p>
+                    <p>{{ $about->title }}</p>
                 </div>
                 <div class="about-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi maiores ipsa exercitationem debitis aut unde corporis numquam dicta quibusdam perferendis quaerat eos, natus necessitatibus error expedita at mollitia consequatur, eius.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda recusandae voluptas, reprehenderit fugiat provident. Dicta veritatis eaque quod quidem, quos, rerum ducimus numquam sapiente eum nam enim quo, esse soluta!</p>
+                    <p>{{ $about->content }}</p>
                 </div>
+
                 <!-- <div class="about-slogan" style="background: url(images/blog2.jpg) no-repeat;">
                     Motivation is the first step of success
                 </div> -->
             </div>
+
             <div class="col-md-6">
                 <div class="about-image">
-                    <img src="{{asset('/front')}}/images/career.jpg" alt="career">
+                    <img src="{{asset('/front')}}/images/pages/{{$about_image->meta_value}}" alt="career">
                 </div>
             </div>
         </div>
@@ -27,46 +30,20 @@
     <div class="container">
         <h2>Our Team</h2>
         <div class="row">
+            @foreach($our_teams as $our_team)
+
             <div class="col-lg-3 col-md-6">
                 <div class="team-section">
-                    <img src="{{asset('/front')}}/images/blog2.jpg" alt="">
+                    <img src="{{asset('/front')}}/images/pages/{{ $our_team['image'] }}" style="height: 358px;" alt="">
                     <a href="#" class="link"><i class="icon-link"></i></a>
                     <div class="team-caption">
-                        <h4>Royal Zinda</h4>
-                        <span>Singer</span>
+                        <h4>{{ $our_team['title'] }}</h4>
+                        <span>{{ $our_team['position'] }}</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-section">
-                    <img src="{{asset('/front')}}/images/blog1.jpg" alt="">
-                    <a href="#" class="link"><i class="icon-link"></i></a>
-                    <div class="team-caption">
-                        <h4>Royal Zinda</h4>
-                        <span>Singer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-section">
-                    <img src="{{asset('/front')}}/images/blog2.jpg" alt="">
-                    <a href="#" class="link"><i class="icon-link"></i></a>
-                    <div class="team-caption">
-                        <h4>Royal Zinda</h4>
-                        <span>Singer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-section">
-                    <img src="{{asset('/front')}}/images/blog1.jpg" alt="">
-                    <a href="#" class="link"><i class="icon-link"></i></a>
-                    <div class="team-caption">
-                        <h4>Royal Zinda</h4>
-                        <span>Singer</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 </div>
