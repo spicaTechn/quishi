@@ -13,8 +13,11 @@
 
 <!-- File Input css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/file-input/css/fileinput.css') }}">
+<!-- datepicker css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/assets/css/jquery-ui.css') }}">
 <style type="text/css">
   /*wysisyg editor initial notification hiding*/
+
 
 img {
   max-width: 100%;
@@ -199,7 +202,7 @@ img {
                    </div>
                    <div class="col-sm-6 col-xl-6 m-b-30">
                        <h4 class="sub-title">Date *</h4>
-                       <input type="text" class="form-control date" name="date" placeholder="Date" value="">
+                       <input type="text" class="form-control date" id="select_date" name="date" placeholder="Date" value="">
                    </div>
                 </div>
               </div>
@@ -240,6 +243,8 @@ img {
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
+<!-- Datepicker -->
+<script src="{{ asset('/admin_assets/assets/js/jquery-ui.js') }}"></script>
 <!-- wysiwyg editor -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
@@ -479,6 +484,8 @@ $(document).ready(function () {
         });
       });
 
+      //Datepicker
+      $( "#select_date" ).datepicker();
 
 
 });
