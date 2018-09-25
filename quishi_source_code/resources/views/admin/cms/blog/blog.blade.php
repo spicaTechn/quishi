@@ -485,7 +485,7 @@ $(document).ready(function () {
       });
 
       //Datepicker
-      $( "#select_date" ).datepicker();
+      $( "#select_date" ).datepicker({ dateFormat: 'M-yy' });
 
 
 });

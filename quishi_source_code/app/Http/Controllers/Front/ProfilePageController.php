@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Page;
 use App\PageDetail;
 
-
-class MainPageController extends Controller
+class ProfilePageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,25 +16,17 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        //fetching contact data to show in footer section
+        //
         $contact          = Page::where('slug','contact-us')->first();
         $contact_social  = PageDetail::where('page_id',$contact->id)
                                         ->where('meta_key','contact-us')
                                         ->first();
-
-        $contact_social_data = unserialize($contact_social->meta_value);
-        $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
-        $blog = $blogs ?? '';
-        //echo "<pre>";print_r($blog); echo "</pre>";exit;
-        return view('front.index')
-                    ->with(array(
-                        'site_title'          => 'Quishi',
-                        'page_title'          => 'Home',
-                        'contact_social'      => $contact_social_data,
-                        'blogs'           => $blog,
-                    )
-
-                );
+        $contact_data = unserialize($contact_social->meta_value);
+        return view('front.profile')->with(array(
+            'site_title'     => 'Quishi',
+            'page_title'     => 'Profile',
+            'contact_social' => $contact_data
+        ));
     }
 
     /**
@@ -104,15 +95,17 @@ class MainPageController extends Controller
         //
     }
 
-    public function getSocialMediaData()
+    public function viewProfile()
     {
         $contact          = Page::where('slug','contact-us')->first();
         $contact_social  = PageDetail::where('page_id',$contact->id)
                                         ->where('meta_key','contact-us')
                                         ->first();
-        $contact_social_data = unserialize($contact_social->meta_value);
-        //echo "<pre>";print_r($contact_social_data); echo "</pre>";exit;
-        return $contact_social_data;
-
+        $contact_data = unserialize($contact_social->meta_value);
+        return view('front.single-pages.single-profile')->with(array(
+            'site_title'     => 'Quishi',
+            'page_title'     => 'View Profile',
+            'contact_social' => $contact_data
+        ));
     }
 }

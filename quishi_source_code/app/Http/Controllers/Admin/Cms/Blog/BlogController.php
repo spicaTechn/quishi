@@ -195,6 +195,7 @@ class BlogController extends Controller
     {
         $blog_id        = $request->blog_id;
         $page_detail_id = $request->page_detail_id;
+        $name           = '';
         $found_image    = false;
 
         $blog              = Page::find($blog_id);

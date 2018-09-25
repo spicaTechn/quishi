@@ -12,4 +12,8 @@
     <!-- <link rel="stylesheet" href="{{ asset('/front/css/nice-select.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('/front/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/responsive.css') }}">
-    <link rel="icon" href="{{ asset('/front/i mages/fav-icon.png') }}">
+    <link rel="stylesheet" href="{{ asset('/front/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/front/css/nice-select.css') }}">
+    <link rel="icon" href="{{ asset('/front/images/fav-icon.png') }}">
+    <link rel="stylesheet" href="{{ asset('/front/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/front/css/fonts.css') }}">

@@ -24,8 +24,13 @@ Route::get('/blog', [
 	'as'		=>	'blog',
 	'uses'		=>	'Front\BlogPageController@index'
 ]);
-
-
+// Route for profile front
+Route::get('/search-profile','Front\ProfilePageController@index');
+// route for showing single profile
+Route::get('/search-profile/view-profile', [
+	'as'		=>	'search-profile.view-profile',
+	'uses'		=>	'Front\ProfilePageController@viewProfile'
+]);
 
 // Route for profile
 
@@ -317,7 +322,7 @@ Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
 
-//frontends 
+//frontends
 
 Route::get('/career-advisior/{id}',[
 	'as'	=> 'show.career-advisior',

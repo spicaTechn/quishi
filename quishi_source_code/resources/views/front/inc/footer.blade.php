@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="footer-section">
-                                <h4>contact_social</h4>
+                                <h4>Contact</h4>
                                 <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
                                 <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
                             </div>
@@ -48,3 +48,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
 <!-- <script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script> -->
 <script src="{{ asset('/front/js/custom.js') }}"></script>
+<script src="{{ asset('/front/js/app.js') }}"></script>
+<script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
