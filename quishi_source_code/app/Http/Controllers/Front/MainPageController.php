@@ -18,12 +18,7 @@ class MainPageController extends Controller
     public function index()
     {
         //fetching contact data to show in footer section
-        $contact          = Page::where('slug','contact-us')->first();
-        $contact_social  = PageDetail::where('page_id',$contact->id)
-                                        ->where('meta_key','contact-us')
-                                        ->first();
 
-        $contact_social_data = unserialize($contact_social->meta_value);
         $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
         $blog = $blogs ?? '';
         //echo "<pre>";print_r($blog); echo "</pre>";exit;
@@ -31,7 +26,7 @@ class MainPageController extends Controller
                     ->with(array(
                         'site_title'          => 'Quishi',
                         'page_title'          => 'Home',
-                        'contact_social'      => $contact_social_data,
+
                         'blogs'           => $blog,
                     )
 

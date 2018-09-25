@@ -26,14 +26,6 @@ class AboutPageController extends Controller
                                    ->first();
         $our_team_unserialize   = unserialize($our_team->meta_value);
 
-        $contact          = Page::where('slug','contact-us')->first();
-        $contact_social  = PageDetail::where('page_id',$contact->id)
-                                        ->where('meta_key','contact-us')
-                                        ->first();
-
-        $contact_data = unserialize($contact_social->meta_value);
-        //echo "<pre>";print_r($our_team->meta_value); echo "</pre>";exit;
-
         return view('front.about')
                     ->with(array(
                         'site_title'          =>    'Quishi',
@@ -41,7 +33,7 @@ class AboutPageController extends Controller
                         'about'               =>    $abouts,
                         'about_image'         =>    $about_image,
                         'our_teams'           =>    $our_team_unserialize,
-                        'contact_social'      =>    $contact_data
+
                         )
 
                     );

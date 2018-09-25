@@ -23,7 +23,10 @@ class ProfileController extends BaseCareerAdvisorController
 
     public function index(Request $reqeust)
     {
-        return view('front.career-advisor.profile.profile');
+        return view('front.career-advisor.profile.profile')->with(array(
+            'site_title' => 'Quishi',
+            'page_title' => 'Profile'
+        ));
     }
 
     public function profileLogin()
@@ -38,14 +41,14 @@ class ProfileController extends BaseCareerAdvisorController
 
 
     /**
-    * function to check the user profile setup 
+    * function to check the user profile setup
     *
     * @param void
     *
     * @return void / $this->career
     *
     *
-    */ 
+    */
 
     public function profileSetupOne()
     {
@@ -62,7 +65,10 @@ class ProfileController extends BaseCareerAdvisorController
                  return redirect()->route('profile');
             }
         }
-        return view('front.career-advisor.profile.profile-setup-1');
+        return view('front.career-advisor.profile.profile-setup-1')->with(array(
+            'site_title' => 'Quishi',
+            'page_title' => 'Profile'
+        ));
     }
 
 
@@ -97,7 +103,7 @@ class ProfileController extends BaseCareerAdvisorController
             ])->validate();
 
             //validation passed !!
-            //upload the user image if have 
+            //upload the user image if have
             $user = Auth::user();
             if($request->hasFile('user_image')){
                 //need to upload the image in the directory and store the path in the db
@@ -109,7 +115,7 @@ class ProfileController extends BaseCareerAdvisorController
 
                 //$user_profile->image_path = 'image_name';
             }
-            
+
                 //need to insert the data in the db
                 $this->user_profile               = new UserProfile();
                 $this->user_profile->first_name  = $request->input('name');
@@ -118,13 +124,13 @@ class ProfileController extends BaseCareerAdvisorController
                 $this->user_profile->age_group   = $request->input('age_group');
                 $this->user_profile->image_path  = $this->user_profile_image;
                 $this->user_profile->description = ($request->has('description')) ? $request->input('description') : '';
-                $this->user_profile->user_id     = Auth::user()->id; 
+                $this->user_profile->user_id     = Auth::user()->id;
                 $this->user_profile->profile_setup_steps = '1';
                 if($this->user_profile->save() <= 0){
                     $redirect_to_origin = true;
                     $redirect_message   = "Cannot update the record, please try again later on!!";
                 }
-               
+
             //redirect to same page if error occurs
             if($redirect_to_origin):
                  return redirect()->route('profile.setup.step1')
@@ -134,16 +140,22 @@ class ProfileController extends BaseCareerAdvisorController
             else:
                 return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career
-                ]);
+                ])->with(array(
+                    'site_title' => 'Quishi',
+                    'page_title' => 'Profile'
+                ));
             endif;
 
         }else{
             return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career
-                ]);
+                ])->with(array(
+                    'site_title' => 'Quishi',
+                    'page_title' => 'Profile'
+                ));
         }
 
-        
+
     }
     public function profileSetupThree(Request $request)
     {
@@ -186,7 +198,10 @@ class ProfileController extends BaseCareerAdvisorController
         }
         return view('front.career-advisor.profile.profile-setup-3')->with([
             'user_questions'    => $current_user_question
-        ]);
+        ])->with(array(
+            'site_title' => 'Quishi',
+            'page_title' => 'Profile'
+        ));
     }
 
 
@@ -200,14 +215,14 @@ class ProfileController extends BaseCareerAdvisorController
        $answer_id     = $request->input('answer_id');
 
        for($i= 0; $i < count($question_id); $i++){
-            //insert the record in the answer table 
+            //insert the record in the answer table
           $answer               = new Answer();
           $answer->question_id  = $question_id[$i];
           $answer->user_id      = Auth::user()->id;
           $answer->total_likes  = 0;
           $answer->content      = $answer_id[$i];
 
-          //now save in the asnwer table 
+          //now save in the asnwer table
           $answer->save();
        }
 
@@ -222,6 +237,9 @@ class ProfileController extends BaseCareerAdvisorController
 
        //after that redirect to the profile route after the complete of the profile setup
 
-       return redirect()->route('profile');
+       return redirect()->route('profile')->with(array(
+            'site_title' => 'Quishi',
+            'page_title' => 'Profile'
+        ));
     }
 }

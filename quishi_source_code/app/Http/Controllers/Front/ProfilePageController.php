@@ -17,15 +17,12 @@ class ProfilePageController extends Controller
     public function index()
     {
         //
-        $contact          = Page::where('slug','contact-us')->first();
-        $contact_social  = PageDetail::where('page_id',$contact->id)
-                                        ->where('meta_key','contact-us')
-                                        ->first();
-        $contact_data = unserialize($contact_social->meta_value);
+
         return view('front.profile')->with(array(
             'site_title'     => 'Quishi',
             'page_title'     => 'Profile',
-            'contact_social' => $contact_data
+
+
         ));
     }
 

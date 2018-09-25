@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                   <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                  <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +287,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +335,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                   <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                   <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -383,7 +383,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -431,7 +431,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -479,7 +479,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                   <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                   <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +527,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{route('search-profile.view-profile')}}">view profile</a>
+                                   <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
                                 </div>
                             </div>
                         </div>
