@@ -30,11 +30,13 @@ class ContactPageController extends Controller
             $contact_data->id         =  '';
             // return $contact_data;
         endif;
+
         return view('front.contact')
                     ->with(array(
-                        'site_title'          =>'Quishi',
-                        'page_title'          =>'Contact',
-                        'contact'             =>$contact_data
+                        'site_title'          => 'Quishi',
+                        'page_title'          => 'Contact',
+                        'contact'             => $contact_data,
+
                     )
                 );
     }

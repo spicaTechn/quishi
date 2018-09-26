@@ -19,6 +19,18 @@ Route::get('/contact',[
 	'uses'	=>	'Front\ContactPageController@index'
 
 ]);
+// route for in the media
+Route::get('/blog', [
+	'as'		=>	'blog',
+	'uses'		=>	'Front\BlogPageController@index'
+]);
+// Route for profile front
+Route::get('/career-advisior','Front\ProfilePageController@index');
+// route for showing single profile
+Route::get('/career-advisior/{id}', [
+	'as'		=>	'career-advisior',
+	'uses'		=>	'Front\ProfilePageController@viewProfile'
+]);
 
 // Route for profile
 
@@ -166,7 +178,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 	// Route to store contac page  content to quishi
-	Route::any('/cms/pages/contactUpdate/', [
+	Route::post('/cms/pages/contactUpdate/', [
 		'as'		=>	'admin.cms.pages.contactUpdate',
 		'uses'		=>	'Admin\Cms\Pages\PagesController@contactUpdate'
 	]);
@@ -206,8 +218,34 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
 
 
-	// route related to the industry datatable
 
+	// route for blog page
+	Route::get('/cms/blog', [
+		'as'		=>	'admin.cms.blog',
+		'uses'		=>	'Admin\Cms\Blog\BlogController@index'
+	]);
+
+	Route::post('/cms/blog', [
+		'as'		=>	'admin.cms.blog',
+		'uses'		=>	'Admin\Cms\Blog\BlogController@store'
+	]);
+	Route::get('/cms/blog/editBlog/{id}', [
+		'as'		=>	'admin.cms.blog.editBlog',
+		'uses'		=>	'Admin\Cms\Blog\BlogController@editBlog'
+	]);
+	Route::post('/cms/blog/updateBlog/{id}', [
+		'as'		=>	'admin.cms.blog.updateBlog',
+		'uses'		=>	'Admin\Cms\Blog\BlogController@updateBlog'
+	]);
+	Route::post('/cms/blog/{id}',[
+		'as'   => 'delete.blog',
+		'uses' => 'Admin\Cms\Blog\BlogController@destroy'
+	]);
+
+
+
+
+	// route related to the industry datatable
 
 	Route::delete('/questions/{id}',[
 		'as'	 => 'delete.questions',
@@ -311,9 +349,9 @@ Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
 
-//frontends 
+// //frontends
 
-Route::get('/career-advisior/{id}',[
-	'as'	=> 'show.career-advisior',
-	//'uses'	=> 'Front\'
-]);
+// Route::get('/career-advisior/{id}',[
+// 	'as'	=> 'show.career-advisior',
+// 	//'uses'	=> 'Front\'
+// ]);

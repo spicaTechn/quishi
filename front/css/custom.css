@@ -1695,7 +1695,7 @@ p {
 .forum-section {
     padding: 80px 0;
 }
-.forum-title-bar, 
+.forum-title-bar,
 .forum-search-bar {
     display: flex;
     align-items: center;
@@ -2000,29 +2000,558 @@ p {
     border-radius: 50%;
 }
 
-
-
-
-.invalid-feedback{
-    display:    block !important;  
+#add-new-question-modal.modal {
+    background: rgba(0,0,0,0.5);
 }
 
-
-.select2,.form-control{
-    width:100% !important;
-    height:40px;
-}
-
-
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
+.custom-control.custom-checkbox label {
     cursor: pointer;
+}
+
+.user-question-adds img,
+.user-Anonymous-question-adds img {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.user-question-adds,
+.user-Anonymous-question-adds {
+    margin-bottom: 15px;
+}
+
+.user-Anonymous-question-adds.show {
+    display: block !important;
+}
+
+#add-new-question-modal.modal .btn-default {
+    min-width: 1px;
+}
+
+/*=====================
+1.new profile page css
+======================*/
+
+
+.inner-header.front-profile-menu {
+    background: transparent;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+
+.inner-header.front-profile-menu.darkHeader {
+    background: rgba(138,196,63,1);
+}
+
+.cover-photo {
+    background: #8ac43f;
+}
+
+.cover-photo img {
+    width: 100%;
+    opacity: 0.2;
+    height: 350px;
+    object-fit: cover;
+}
+
+.front-profile::before {
+    content: "";
+    background: #9ccb60;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.2;
+}
+
+.front-profile {
+    position: relative;
+}
+
+.front-profile img {
+    width: 100%;
+}
+
+.front-profile-details {
+    background: #fff;
+    padding-bottom: 60px;
+}
+
+.profile-name-detail-xs,
+.about-profile-detail,
+.personal-contacts,
+.profile-social-media {
+    padding: 15px 20px;
+    font-size: 18px;
+}
+
+.profile-name-detail span.small {
     display: block;
-    height: 40px !important;
-    user-select: none;
-    -webkit-user-select: none;
-    border-radius: 0px !important;
-    border: 1px solid #ccc !important;
-    padding: 4px 6px;
-    font-size:16px;
+    font-size: 18px;
+}
+
+.profile-name-detail-md h2,
+.profile-name-detail-md span.small {
+    color: #fff;
+}
+
+.profile-name-detail span.small {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .profile-left {
+        /*margin-top: -243px;*/
+        margin-top: -66%;
+
+    }
+
+    .profile-name-detail.profile-name-detail-md {
+
+        /*margin-top: -117px;*/
+        margin-top: -16%;
+
+    }
+
+    .profile-name-detail-xs {
+        display: none;
+    }
+    .about-my-profile {
+
+        margin-top: 80px;
+
+    }
+}
+
+.about-my-profile p,
+.personal-detail ul li {
+    font-size: 18px;
+    color: #5f6d4d;
+
+}
+.personal-detail ul li{
+    margin-bottom: 10px;
+}
+
+.personal-detail,
+.about-my-profile {
+
+    margin-bottom: 35px;
+
+}
+.about-my-profile h4,
+.personal-detail h4 {
+    margin-bottom: 15px;
+}
+
+.personal-detail h4 {
+    font-size: 20px;
+}
+.front-profile-details li {
+    display: inline-block;
+}
+
+.profile-social-media li:not(:last-child) {
+    margin-right: 25px;
+}
+.personal-contacts a,
+.profile-social-media a,
+.like-viewers li a i {
+    color: #8ac43f;
+}
+
+.like-viewers li a i {
+    margin-right: 7px;
+}
+
+.like-viewers li,
+.like-viewers li a {
+
+    font-size: 18px;
+    color: #5f6d4d;
+
+}
+
+.profile-social-media a {
+    font-size: 24px;
+}
+
+.about-profile-detail {
+    padding-bottom: 0;
+}
+
+.personal-contacts {
+    padding-top: 0;
+}
+
+.profileq-profilea {
+    padding-top: 40px;
+}
+
+.profileq-profilea h4 {
+    margin-bottom: 40px;
+}
+
+.login-menu ul {
+
+    padding-left: 15px;
+
+}
+
+
+@media (max-width: 767px) {
+    .profile-name-detail-md {
+        display: none;
+    }
+    .about-my-profile {
+        margin-top: 30px;
+    }
+
+    .profile-left {
+        /*margin-top: -243px;*/
+        margin-top: -33%;
+
+    }
+
+    .front-profile {
+
+        position: relative;
+        width: 50%;
+        margin: 0 auto;
+
+    }
+}
+.like-viewers li {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like-viewers li:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+.profile-question-answer-section {
+    background: #f0f7f9;
+    padding: 30px;
+    padding-left: 70px;
+    border-radius: 4px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 9px rgba(211,212,209,0.75);
+}
+
+.profile-question-answer-section h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-question-answer-section h4 i {
+    position: absolute;
+    color: rgba(138,196,63,1);
+    left: -40px;
+}
+
+.profile-question-answer-section p {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #676767;
+}
+
+.profile-coment-user img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-comment-section {
+    /*display: flex;*/
+}
+
+.profile-coment-user {
+   /* max-width: 85px;
+    margin-right: 25px;*/
+}
+
+.profile-comment-wrapper {
+    background: #f0f7f9;
+    border: 2px solid #ccc;
+}
+
+.profile-comment-section {
+    border-bottom: 1px solid #ccc;
+    padding: 30px 60px;
+
+}
+.profile-author-comment ul li {
+    display: inline-block;
+}
+.profile-author-comment ul li,
+.front-profile-details li {
+
+    list-style: none;
+
+
+}
+.profile-author-comment ul li:not(:last-child) {
+
+    margin-right: 20px;
+
+}
+
+.front-profile-details ul,
+.profile-author-comment ul {
+
+    padding: 0;
+    margin: 0;
+
+}
+
+.profile-author-comment ul li a {
+    color: #88917d !important;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.profile-author-comment ul li a:hover,
+.like-viewers li a:hover,
+.profile-author-comment ul li a i {
+    color: #8ac43f;
+}
+
+.personal-contacts a:hover {
+    text-decoration: underline !important;
+}
+
+.profile-social-media a:hover {
+    color: #f59b43;
+}
+
+.profile-comment {
+    padding-bottom: 100px;
+}
+.profile-left {
+
+    box-shadow: 0 4px 9px rgba(211,212,209,0.75);
+
+}
+
+.profile-leave-comment {
+    padding: 60px;
+    position: relative;
+}
+
+.reply-user-image,
+.profile-coment-user {
+    width: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+}
+
+.reply-user-image img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.reply-coment-box,
+.profile-coment-comment {
+    float: left;
+    width: calc(100% - 80px);
+    padding-left: 25px;
+}
+
+.profile-reply-form:after,
+.profile-comment-section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.profile-reply-form textarea.form-control {
+    height: 100px;
+    border-radius: 0;
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+}
+
+.profile-reply-form {
+    margin-top: 60px;
+}
+
+.comment-method ul {
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.comment-method ul li {
+    display: inline-block;
+    position: relative;
+}
+
+.comment-method ul li:not(:last-child) {
+    margin-right: 30px;
+}
+
+.comment-method ul li a {
+    color: #5f6d4d !important;
+    font-size: 18px;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 5px;
+}
+
+.comment-method ul li a:hover {
+    color: #8ac43f !important;
+     border-bottom: 1px solid #8ac43f;
+}
+
+.email-verification  #close {
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+.email-verification {
+    display: flex;
+    justify-content: space-between;
+}
+
+.email-verification a {
+    color: #7d1c60;
+    text-decoration: underline !important;
+    margin-right: 20px;
+}
+
+.profile-pic-detail a {
+    color: #8ac43f;
+}
+
+.view-all-comment {
+    background: #8ac43f;
+    color: #fff;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.view-all-comment:hover {
+    background: #f59b43;
+}
+
+.view-all-comment i {
+    position: relative;
+    top: 4px;
+}
+.profile-comment-section {
+    display: none;
+}
+.profile-comment-section:nth-child(1),
+.profile-comment-section:nth-child(2) {
+    display: block !important;
+}
+
+.comment-on i::before {
+    content: "\e607";
+}
+.profile-coment-comment .form-group {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.profile-coment-comment .form-group {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    max-width: 340px;
+    position: relative;
+    padding-right: 40px;
+}
+
+.profile-coment-comment .form-group  span.Submit {
+    color: #8ac43f;
+    position: absolute;
+    right: 1px;
+    top: 0;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    width: 40px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.profile-coment-comment .form-group  span.Submit:hover,
+.profile-coment-comment .form-group  span.Submit:focus {
+    color: #f59b43;
+}
+
+.profile-coment-comment .form-group .form-control {
+    height: 40px;
+    border-radius: 0;
+    border: 1px solid #e0e0e0;
+}
+.profile-coment-comment .form-group {
+    display: none;
+}
+
+.form-group.anonymously-user {
+    max-width: 400px;
+    display: none;
+}
+
+.form-group.anonymously-user .form-control {
+    border-radius: 0;
+    border: 1px solid #ccc;
+}
+
+.comment-method input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.comment-method input[type="checkbox"] + label::after {
+    background: #fff;
+    height: 16px;
+    width: 16px;
+    content: "";
+    display: inline-block;
+    border: 1px solid #8ac43f;
+    margin-left: 7px;
+    vertical-align: middle;
+}
+
+.comment-method input[type="checkbox"]:checked + label::before {
+    content: "";
+    border-left: 2px solid #8ac43f;
+    border-bottom: 2px solid #8ac43f;
+    position: absolute;
+    height: 7px;
+    width: 10px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 3px;
+    top: 10px;
+}
+
+.comment-method input[type="checkbox"]:checked + label {
+    color: #8ac43f;
 }

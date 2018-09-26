@@ -176,32 +176,27 @@
             <h2>In the Media</h2>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="home-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>Praesent malesuada semi to.</h4>
-                        <span class="time">Eva Marcel on 24th August</span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra pellentesque quam. Praesent pulvinar in erat facilisis aliquam</p>
-                        <a href="#">Full Story <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="home-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blog2.jpg" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>Praesent malesuada semi to.</h4>
-                        <span class="time">Eva Marcel on 24th August</span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra pellentesque quam. Praesent pulvinar in erat facilisis aliquam</p>
-                        <a href="#">Full Story <i class="icon-arrow-right"></i></a>
+            @foreach($blogs as $blog)
+               @foreach($blog->page_detail as $blog_detail)
+               <?php
+                $blog_unserialize = unserialize($blog_detail->meta_value);
+               ?>
+                <div class="col-md-6">
+                    <div class="home-blog-section">
+                        <div class="blog-image">
+                            <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                        </div>
+                        <div class="blog-conten">
+                            <h4>{{ $blog->title }}</h4>
+                            <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                            <p>{{ str_limit($blog->content,160) }}</p>
+                            <a href="#">Full Story <i class="icon-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
+              @endforeach
+            @endforeach
+
         </div>
         <div class="view-more text-center"><a href="#" class="btn btn-default">all blogs</a></div>
     </div>

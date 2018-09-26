@@ -14,10 +14,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="" class="nav-link">{{ __('Blog')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">{{ __('Profiles')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link">{{ __('Profiles')}}</a></li>
                 </ul>
             </div>
             <div class="login-menu login-menu-sm">
@@ -25,7 +25,7 @@
                     @guest
                         <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
                         <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
-                        
+
                     @else
                         @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
                             <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }} </a></li>

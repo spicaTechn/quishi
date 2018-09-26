@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
 * contains all the required helper functions for the quishi
 *

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Page;
 use App\PageDetail;
 
-class AboutPageController extends Controller
+class ProfilePageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,27 +16,14 @@ class AboutPageController extends Controller
      */
     public function index()
     {
-        //displaying view in front page with dyanamic data
-        $abouts         = Page::where('slug','about-us')->first();
-        $about_image    = PageDetail::where('page_id',$abouts->id)
-                                   ->where('meta_key', 'about-us-image')
-                                   ->first();
-        $our_team       =   PageDetail::where('page_id',$abouts->id)
-                                   ->where('meta_key', 'our-team')
-                                   ->first();
-        $our_team_unserialize   = unserialize($our_team->meta_value);
+        //
 
-        return view('front.about')
-                    ->with(array(
-                        'site_title'          =>    'Quishi',
-                        'page_title'          =>    'About',
-                        'about'               =>    $abouts,
-                        'about_image'         =>    $about_image,
-                        'our_teams'           =>    $our_team_unserialize,
+        return view('front.profile')->with(array(
+            'site_title'     => 'Quishi',
+            'page_title'     => 'Profile',
 
-                        )
 
-                    );
+        ));
     }
 
     /**
@@ -103,5 +90,19 @@ class AboutPageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function viewProfile()
+    {
+        $contact          = Page::where('slug','contact-us')->first();
+        $contact_social  = PageDetail::where('page_id',$contact->id)
+                                        ->where('meta_key','contact-us')
+                                        ->first();
+        $contact_data = unserialize($contact_social->meta_value);
+        return view('front.single-pages.single-profile')->with(array(
+            'site_title'     => 'Quishi',
+            'page_title'     => 'View Profile',
+            'contact_social' => $contact_data
+        ));
     }
 }

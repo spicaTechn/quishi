@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Page;
+use App\PageDetail;
 
 
 class MainPageController extends Controller
@@ -15,8 +17,20 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        //
-        return view('front.index');
+        //fetching contact data to show in footer section
+
+        $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
+        $blog = $blogs ?? '';
+        //echo "<pre>";print_r($blog); echo "</pre>";exit;
+        return view('front.index')
+                    ->with(array(
+                        'site_title'          => 'Quishi',
+                        'page_title'          => 'Home',
+
+                        'blogs'           => $blog,
+                    )
+
+                );
     }
 
     /**
@@ -83,5 +97,17 @@ class MainPageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSocialMediaData()
+    {
+        $contact          = Page::where('slug','contact-us')->first();
+        $contact_social  = PageDetail::where('page_id',$contact->id)
+                                        ->where('meta_key','contact-us')
+                                        ->first();
+        $contact_social_data = unserialize($contact_social->meta_value);
+        //echo "<pre>";print_r($contact_social_data); echo "</pre>";exit;
+        return $contact_social_data;
+
     }
 }

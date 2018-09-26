@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Page;
-use App\PageDetail;
+use Page;
+use PageDetail;
 
-class AboutPageController extends Controller
+class BlogPageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,27 +16,7 @@ class AboutPageController extends Controller
      */
     public function index()
     {
-        //displaying view in front page with dyanamic data
-        $abouts         = Page::where('slug','about-us')->first();
-        $about_image    = PageDetail::where('page_id',$abouts->id)
-                                   ->where('meta_key', 'about-us-image')
-                                   ->first();
-        $our_team       =   PageDetail::where('page_id',$abouts->id)
-                                   ->where('meta_key', 'our-team')
-                                   ->first();
-        $our_team_unserialize   = unserialize($our_team->meta_value);
-
-        return view('front.about')
-                    ->with(array(
-                        'site_title'          =>    'Quishi',
-                        'page_title'          =>    'About',
-                        'about'               =>    $abouts,
-                        'about_image'         =>    $about_image,
-                        'our_teams'           =>    $our_team_unserialize,
-
-                        )
-
-                    );
+        //
     }
 
     /**
@@ -57,7 +37,8 @@ class AboutPageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //storing blog content to database
+        echo "<pre>";print_r($request->all()); echo "</pre>";exit;
     }
 
     /**
