@@ -29,4 +29,9 @@ class Career extends Model
   public function questions(){
     return $this->belongsToMany('App\Model\Question');
   }
+
+
+  public function users(){
+    return $this->belongsToMany('App\User','user_career')->withTimeStamps();
+  }
 }

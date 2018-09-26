@@ -244,6 +244,19 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
         'uses'      =>'Admin\User\UserController@index'
 	]);
 
+
+	Route::post('/users/changeAccountStatus',[
+		'as'	=> 'admin.users.changeAccountStatus',
+		'uses'	=> 'Admin\User\UserController@changeAccountStatus'
+	]);
+
+	//get admin reviews to users
+	Route::get('/users/admin/reviews',[
+		'as'		=> 'admin.users.admin_reviews',
+		'uses'		=> 'Admin\User\UserController@showAdminReviews'
+	]);
+
+
 	//get the career advisior only
 
 	Route::get('/users/careerAdvisior',[
@@ -252,11 +265,25 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
+	Route::post('/users/reviews/',[
+		'as' 		=> 'admin.careerAdvisior.reviews',
+		'uses' 		=> 'Admin\User\UserController@createReview'
+	]);
+
+
+	Route::post('/users/reviews/changeStatus',[
+		'as'	=> 'admin.reviews.changeStatus',
+		'uses'  => 'Admin\user\UserController@updateCareerReviewStatus'
+	]);
+
+
 	// Route related to education
 	Route::get('/userProfile', [
 	        'as'        =>'admin.userProfile',
 	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
 	]);
+
+
 
 
 
