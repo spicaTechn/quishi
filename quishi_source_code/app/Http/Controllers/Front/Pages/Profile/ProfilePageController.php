@@ -63,9 +63,16 @@ class ProfilePageController extends BaseCareerAdvisorController
 
         $user_single = User::find($id);
         $questions   = $this->getCurrentUserCareer($user_single->id);
-        //echo "<pre>"; print_r($questions); echo "</pre>";exit;
+
+
         $total_views = $user_single->user_profile->profile_views;
-        $profile_view = ($total_views==0) ? $total_views+1 : $total_views;
+        $profile_view = $total_views+1;
+        $user_views = UserProfile::where('user_id',$user_single->id)->firstOrFail();
+        $user_views->profile_views = $profile_view;
+        //echo "<pre>"; print_r($user_like); echo "</pre>";exit;
+        $user_views->save();
+        //echo "<pre>"; print_r($profile_view); echo "</pre>";exit;
+
 
         $i =0;
         foreach ($questions as $question) {
