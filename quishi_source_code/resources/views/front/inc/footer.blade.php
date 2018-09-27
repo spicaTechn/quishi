@@ -50,3 +50,4 @@
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
+

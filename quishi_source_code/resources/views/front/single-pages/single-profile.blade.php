@@ -43,9 +43,18 @@
                             <!-- end profile-social-media -->
                             <div class="like-viewers">
                                 <ul>
-                                    <li><a href="#"><i class="icon-like"></i> Likes</a><span>{{ $user->user_profile->total_likes }}</span></li>
+
+                                    @csrf
+                                    <li>
+                                        <a href="javascript:void(0);" data-profile-id="{{$user->id}}" id="total_likes">
+                                            <i class="icon-like"></i>Likes
+                                        </a>
+                                        <span class="like" id="like" value="{{ $user->user_profile->total_likes }}">{{ $user->user_profile->total_likes }}
+                                        </span>
+                                    </li>
                                     <li><a href="#"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
                                     <li><a href="#"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
+
                                 </ul>
                             </div>
                             <!-- end like-viewers -->
@@ -107,10 +116,7 @@
                 @foreach ($questions as $question)
                 <div class="profile-question-answer-section">
                     <h4><i class="icon-check"></i> {{ $question['question_title'] }}</h4>
-
-                    @foreach($answers as $answer)
-                    <p>{{ $answer->content }}</p>
-                    @endforeach
+                    <p>{{ $question['answer'] }}</p>
 
                 </div>
                 @endforeach
@@ -275,4 +281,37 @@
                 <!-- end  profile-comment-wrapper -->
             </div>
         </div>
+@endsection
+
+@section('page_specific_js')
+<script type="text/javascript">
+$(document).ready(function () {
+    $( "#total_likes" ).on( "click", function() {
+      var user_profile_id = $(this).attr('data-profile-id');
+      var _token          = $("input[name='_token']").val();
+      var total_likes     = (parseInt($("#like").html(),10)+1);
+      //alert(total_likes);
+      $.ajax({
+              url:"{{url('')}}" + "/career-advisior/" + user_profile_id,
+              type:"POST",
+              dataType:"json",
+              data: {_token:_token,user_profile_id:user_profile_id,total_likes:total_likes},
+              success:function(data){
+                  //check for the success status only
+                  if(data.status == "success"){
+                      //insert the data in the modal
+                      // alert('success');
+                      $(".like").html(total_likes);
+
+                  }
+
+              },
+              error:function(event){
+                      console.log('Cannot get the particular team');
+              }
+          });
+    });
+
+});
+</script>
 @endsection

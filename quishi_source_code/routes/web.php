@@ -31,6 +31,10 @@ Route::get('/career-advisior/{id}', [
 	'as'		=>	'career-advisior',
 	'uses'		=>	'Front\ProfilePageController@show'
 ]);
+Route::post('/career-advisior/{id}',[
+	'as'	=>	'career-advisior.like',
+	'uses'  =>  'Front\ProfilePageController@update'
+]);
 
 // Route for profile
 
