@@ -13,23 +13,27 @@
 
 Route::get('/', 'Front\MainPageController@index');
 
-Route::get('/about', 'Front\AboutPageController@index');
+Route::get('/about', 'Front\Pages\About\AboutPageController@index');
 Route::get('/contact',[
 	'as'	=>	'contact',
-	'uses'	=>	'Front\ContactPageController@index'
+	'uses'	=>	'Front\Pages\Contact\ContactPageController@index'
 
 ]);
 // route for in the media
 Route::get('/blog', [
 	'as'		=>	'blog',
-	'uses'		=>	'Front\BlogPageController@index'
+	'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
 ]);
 // Route for profile front
-Route::get('/career-advisior','Front\ProfilePageController@index');
+Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');
 // route for showing single profile
 Route::get('/career-advisior/{id}', [
 	'as'		=>	'career-advisior',
-	'uses'		=>	'Front\ProfilePageController@show'
+	'uses'		=>	'Front\Pages\Profile\ProfilePageController@show'
+]);
+Route::post('/career-advisior/{id}',[
+	'as'	=>	'career-advisior.like',
+	'uses'  =>  'Front\Pages\Profile\ProfilePageController@update'
 ]);
 
 // Route for profile
@@ -398,9 +402,3 @@ Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
 
-// //frontends
-
-// Route::get('/career-advisior/{id}',[
-// 	'as'	=> 'show.career-advisior',
-// 	//'uses'	=> 'Front\'
-// ]);

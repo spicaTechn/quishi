@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Pages\About;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +26,7 @@ class AboutPageController extends Controller
                                    ->first();
         $our_team_unserialize   = unserialize($our_team->meta_value);
 
-        return view('front.about')
+        return view('front.pages.about.about')
                     ->with(array(
                         'site_title'          =>    'Quishi',
                         'page_title'          =>    'About',

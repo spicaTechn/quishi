@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Pages\Contact;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +31,7 @@ class ContactPageController extends Controller
             // return $contact_data;
         endif;
 
-        return view('front.contact')
+        return view('front.pages.contact.contact')
                     ->with(array(
                         'site_title'          => 'Quishi',
                         'page_title'          => 'Contact',
