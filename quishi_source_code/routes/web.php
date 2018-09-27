@@ -271,11 +271,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
     ]);
 
-	// Route related to education
-	Route::get('/educations', [
-	        'as'        =>'admin.educations',
-	        'uses'      =>'Admin\Education\EducationController@index'
-	]);
+	
 
 	Route::get('/users', [
         'as'        =>'admin.users',
@@ -283,9 +279,9 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-	Route::post('/users/changeAccountStatus',[
-		'as'	=> 'admin.users.changeAccountStatus',
-		'uses'	=> 'Admin\User\UserController@changeAccountStatus'
+	Route::post('/users/update',[
+		'as'	=> 'admin.users.update',
+		'uses'	=> 'Admin\User\UserController@update'
 	]);
 
 	//get admin reviews to users
@@ -315,15 +311,53 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-	// Route related to education
+	
 	Route::get('/userProfile', [
 	        'as'        =>'admin.userProfile',
 	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
 	]);
 
+	// Route related to education
+	Route::get('/educations', [
+	        'as'        =>'admin.educations',
+	        'uses'      =>'Admin\Education\EducationController@index'
+	]);
 
 
+	//store the education major cateogry and education major
+	Route::post('/educations',[
+		'as'		=> 'admin.educations.store',
+		'uses'		=> 'Admin\Education\EducationController@store'
+	]);
 
+
+	Route::get('/educations/majorCategory',[
+		'as'	=> 'admin.educations.getMajorCategory',
+		'uses'	=> 'Admin\Education\EducationController@getMajorCategory'
+	]);
+
+	Route::get('/educations/getMajorCategory',[
+		'as'	=> 'admin.educations.majorCategory',
+		'uses'	=> 'Admin\Education\EducationController@getEducationMajorCategory'
+	]);
+
+	Route::get('/educations/getMajor',[
+		'as'	=> 'admin.educations.major',
+		'uses'	=> 'Admin\Education\EducationController@getEducationMajor'
+	]);
+
+	//show education major category and education major
+	Route::get('/educations/{id}',[
+		'as'	=> 'admin.educations.show',
+		'uses'  => 'Admin\Education\EducationController@show'
+	]);
+
+	//update education major category and education major
+
+	Route::post('/educations/{id}',[
+		'as'	=> 'admin.educations.update',
+		'uses'  => 'Admin\Education\EducationController@update'
+	]);
 
 });
 

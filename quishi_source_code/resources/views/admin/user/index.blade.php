@@ -244,6 +244,7 @@ $(document).ready(function () {
 
   // User review resolve button click
   $('body').on("click",".resolve-review", function(){
+
     var review_id        = $(this).data("review-id");
     var career_seeker_id = $(this).data('career-seeker-id');
     $.post("{{route('admin.reviews.changeStatus')}}",{reivew_id: review_id, career_seeker_id: career_seeker_id ,_token: "{{csrf_token()}}"},function(data){
@@ -264,10 +265,33 @@ $(document).ready(function () {
 
 
   //activate users
-  $('body').on('click','.activate-user',function(){
+  $('body').on('click','.activate-user,.deactivate-user',function(){
+    //get the require parameters
     var career_advisior_id = $(this).attr('data-user-id');
-    $.post("{{route('admin.users.changeAccountStatus')}}",{'career_advisior_id': career_advisior_id,'_token':"{{csrf_token()}}"},function(data){
+    var toggle_status      = $(this).attr('data-status');
+    var status             = "";
+    var status_msg         = "";
+    if(toggle_status       == "activate"){
+      status               = 1;
+      status_msg           = "activated";
+    }else{
+      status               = 0;
+      status_msg           = "deactivated";
+    }
 
+    //request the server to perform the actions
+    $.post("{{route('admin.users.update')}}",{'career_advisior_id': career_advisior_id,'_token':"{{csrf_token()}}",'status':status},function(data){
+      if(data.status == "success"){
+        //show the swal alert success message
+        swal({
+              title: "User has been " + status_msg + " !",
+              text: "Career seeker account status has been updated successfully !!",
+              type: "success",
+              closeOnConfirm: true,
+            });
+        //reload the user table 
+        user_table.ajax.reload();
+      }
     });
   });
 

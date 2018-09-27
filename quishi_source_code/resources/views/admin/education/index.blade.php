@@ -35,7 +35,7 @@
                                  <div class="slide"></div>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#major" role="tab" aria-controls="major" aria-selected="true">{{ __('major')}}</a>
+                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#major" role="tab" aria-controls="major" aria-selected="true">{{ __('Major')}}</a>
                                  <div class="slide"></div>
                               </li>
                            </ul>
@@ -47,8 +47,9 @@
                                           <thead>
                                              <tr>
                                                 <th>{{ __('S.N')}}</th>
-                                                <th>{{ __('Code')}}</th>
                                                 <th>{{ __('Title')}}</th>
+                                                <th>{{__('Slug')}}</th>
+                                                <th>{{ __('No Of Majors')}}</th>
                                                 <th>{{ __('Action')}}</th>
                                              </tr>
                                           </thead>
@@ -200,10 +201,10 @@ $(document).ready(function () {
         destroy : true,
         order : [[ 0, "asc" ]], //or asc 
         //columnDefs: [{"targets":0, "type":"date-eu"}],
-        /*serverSide : true,
+        serverSide : true,
         processing : true,
         ajax       : {
-                        url  : "{{--{{route('admin.major-category.getmajor-category')}}--}}",
+                        url  : "{{route('admin.educations.majorCategory')}}",
                         type : 'GET',
         },
         columns   : [
@@ -214,15 +215,15 @@ $(document).ready(function () {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
               },
-              {"data" :"title","name":"title"},
-              {"data":'description', "name":"description"},
-              {"data":"usage",'name':"usage"},
+              {"data" :"name","name":"name"},
+              {"data":"slug", "name": "slug"},
+              {"data":"major",'name':"major"},
               {"data":"action" , "name" :"action"},
           
         ],
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
-        }*/
+        }
 
     });
 
@@ -234,10 +235,10 @@ $(document).ready(function () {
                                  'print'
                                ],
         destroy               :true,
-        /*processing            :true,
+        processing            :true,
         serverSide            :true,
         ajax                  : {
-                                 url :"{{--{{route('admin.major.getmajor')}}--}}",
+                                 url :"{{route('admin.educations.major')}}",
                                  type : "GET",
 
                                 },
@@ -248,16 +249,16 @@ $(document).ready(function () {
                  return meta.row + meta.settings._iDisplayStart + 1;
              }
         },
-        {"data" :"title","name":"title"},
-        {"data":'description', "name":"description"},
-        {"data":"usage",'name':"usage"},
+        {"data" :"name","name":"name"},
+        {"data":"major_category",'name':"major_category"},
+        {"data":"usage","name":"usage"},
         {"data":"action" , "name" :"action"},
         
         ],
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
         }
-        */
+        
     });
 
     // Fomvalidation setup
@@ -308,10 +309,10 @@ $(document).ready(function () {
             // find if the action is save or update
             if(save_method == 'add')
             {
-                URI = "{{--{{route('admin.add.major-categorymajor')}}--}}";
+                URI = "{{route('admin.educations.store')}}";
             }else{
                 var major_category_id  = $(".major_category_id").val();
-                URI = "{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id;
+                URI = "{{URL::to('admin/educations')}}" + "/" + major_category_id;
             }
 
             // get the input values
@@ -333,7 +334,7 @@ $(document).ready(function () {
                      var submit_type = $('.parent-major-category').val();
                      var submit_msg = '';
                      if(submit_type == 0){
-                        submit_msg = "major-category";
+                        submit_msg = "Major Category";
 
                      }else{
                         submit_msg = "Major";
@@ -379,10 +380,11 @@ $(document).ready(function () {
     // On click add new major-category or job
     $( ".add-btn" ).on( "click", function() {
          save_method = 'add';
-         var parent_major_category = "{{--{{route('admin.major-category')}}--}}";
+         var parent_major_category = "{{route('admin.educations.getMajorCategory')}}";
          //make the ajax request to get the 
          $.get(parent_major_category,function(data){
             $('.parent-major-category').html(data.result);
+            console.log(data.result);
          });
 	     $('#add-edit-major-category').modal('show');
 	}); // end add new button click
@@ -400,22 +402,22 @@ $(document).ready(function () {
   
 
 	// On edit major-category
-	$("body").on('click','.edit-major-category,.edit-job', function(e){
+	$("body").on('click','.edit-major-category,.edit-major', function(e){
         e.preventDefault();
         save_method = 'edit';
-        major_category_id = $(this).attr('data-major-category-id');
+        major_category_id = $(this).attr('data-major-id');
         //get the details from the db and make ready the modal to popup
-        $.get("{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id,function(data){
+        $.get("{{URL::to('admin/educations')}}" + "/" + major_category_id,function(data){
             //prepare the modal to show
-            $(".fullname").val(data.result.title);
+            $(".fullname").val(data.result.name);
             //$(".parent-major-category").val(data.result.parent);
-             var parent_major_category = "{{--{{route('admin.major-category')}}--}}";
+             var parent_major_category = "{{route('admin.educations.getMajorCategory')}}";
            
             $('.description').val(data.result.description);
             $('.major_category_id').val(data.result.id);
             $(".parent-major-category").html(data.return_option);
         });
-        $('.modal-title').html('Edit major-category / Job');
+        $('.modal-title').html('Edit Major Category / Major');
         $('#add-edit-major-category').modal('show');
 
     });// end edit major-category click

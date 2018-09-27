@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\User, URL;
 use App\Model\Review;
+use App\Model\UserProfile;
 
 class UserController extends Controller
 {
@@ -76,9 +77,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $user_profile         = UserProfile::where('user_id',$request->input('career_advisior_id'))->firstOrFail();
+        $career_advisior_id   = $request->input('career_advisior_id');
+        $status               = $request->input('status');
+        $user_profile->status = $status;
+        if($user_profile->save() > 0){
+          return response()->json(array('status'=>'success','result'=>'Career Advisior has been updated successfully !'),200);
+        }
+
     }
 
     /**
@@ -126,13 +135,13 @@ class UserController extends Controller
                     //return '0';
                })->addColumn('action',function($career_advisior){
                     $return_html = " ";
-                    $return_html .= '<a href="#" 
+                    $return_html .= '<a href="'.URL::to("/career-advisior/$career_advisior->id").'" 
                                           class="m-r-15 text-muted view-user" 
                                           data-toggle="tooltip" 
                                           data-placement="top" 
                                           title="" 
                                           data-original-title="View More" 
-                                          data-user-id="'.$career_advisior->id.'">
+                                          data-user-id="'.$career_advisior->id.'" target="_blank">
                                           <i class="icofont icofont-business-man-alt-3"></i>
                                         </a>
 
@@ -152,7 +161,7 @@ class UserController extends Controller
                                           data-placement="top" 
                                           title="" 
                                           data-original-title="Activate" 
-                                          data-user-id="'.$career_advisior->id.'">
+                                          data-user-id="'.$career_advisior->id.'" data-status="activate">
                                           <i class="icofont icofont-ui-check"></i>
                                         </a>';
                     else:
@@ -162,7 +171,7 @@ class UserController extends Controller
                                           data-placement="top" 
                                           title="" 
                                           data-original-title="Deactivate" 
-                                          data-user-id="'.$career_advisior->id.'">
+                                          data-user-id="'.$career_advisior->id.'" data-status="deactivate">
                                           <i class="icofont icofont-ui-lock"></i>
                                         </a>';
 

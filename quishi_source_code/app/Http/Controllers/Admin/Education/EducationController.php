@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Education;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Education;
 
 class EducationController extends Controller
 {
@@ -41,6 +42,15 @@ class EducationController extends Controller
     public function store(Request $request)
     {
         //
+
+        $education              = new Education();
+        $education->name        = $request->input('title');
+        $education->parent      = $request->input('parent_id');
+        $education->description = $request->input('description');
+        $education->slug        = str_slug($request->input('title'));
+        $education->save();
+
+        return response()->json(array('status'=>'success','result'=>''),200);
     }
 
     /**
@@ -52,6 +62,23 @@ class EducationController extends Controller
     public function show($id)
     {
         //
+
+        $education = Education::findOrFail($id);
+        //get the prent education major category only
+        $education_major_categories = Education::where('parent',0)->get();
+        $return_html = "<option value='0'>None</option>"; 
+
+        if($education_major_categories->count() > 0){
+            foreach($education_major_categories as $education_major_category){
+                if($education_major_category->id == $education->parent){
+                    $return_html .= '<option value="'.$education_major_category->id .'" selected="selected">'.ucwords($education_major_category->name).'</option>';
+                }else{
+                    $return_html .= '<option value="'.$education_major_category->id .'">'.ucwords($education_major_category->name).'</option>';
+                }
+            }
+        }
+        return response()->json(array('status'=>'success','result'=>$education ,'return_option'=> $return_html),200);
+
     }
 
     /**
@@ -75,6 +102,14 @@ class EducationController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $education = Education::findOrFail($id);
+        $education->name        = $request->input('title');
+        $education->parent      = $request->input('parent_id');
+        $education->description = $request->input('description');
+        $education->slug        = str_slug($request->input('title'));
+        $education->save();
+        return response()->json(array('status'=>'success','result'=>'successfully updated!!'),200);
     }
 
     /**
@@ -86,5 +121,82 @@ class EducationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+
+    /**
+    * function to get the major category where parent is 0
+    *
+    * @param void
+    * @return \Illumninate\Http\Response
+    *
+    *
+    */
+    public function getEducationMajorCategory(){
+
+        $education_major_categories = Education::where('parent',0);
+        return Datatables($education_major_categories)
+               ->addColumn('action',function($education_major_category){
+                        $return_html = '<a href="#" class="m-r-15 text-muted edit-major-category" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" data-major-id="'.$education_major_category->id.'"><i class="icofont icofont-ui-edit" ></i></a><a href="#" class="text-muted delete-major-category" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" data-major-id="'.$education_major_category->id.'"><i class="icofont icofont-delete-alt"></i></a>';
+                    return $return_html;
+                })
+                ->addColumn('major',function($education_major_category){
+                    return $education_major_category->children()->count();
+                })->make('true');
+    }
+
+
+
+    /**
+    * function to get the education major
+    * @param void
+    * @return \Illuminate\Http\Response
+    *
+    *
+    *
+    **/
+
+    public function getEducationMajor(){
+        $education_majors = Education::where('parent','>',0);
+        return Datatables($education_majors)
+               ->addColumn('action',function($education_major){
+                    $return_html = '<a href="#" class="m-r-15 text-muted edit-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" data-major-id="'.$education_major->id.'"><i class="icofont icofont-ui-edit" ></i></a><a href="#" class="text-muted delete-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" data-major-id="'.$education_major->id.'"><i class="icofont icofont-delete-alt"></i></a>';
+                    return $return_html;
+                })->addColumn('major_category',function($education_major){
+                        return $education_major->parent_education->name;
+                                    
+                })->addColumn('usage',function($education_major_category){
+                    //need to get the total usage by the users
+                    return 0;
+                })
+                ->make('true');
+    }
+
+
+
+    /**
+    * function to get the major category only
+    * @param void
+    * @return \Illuminate\Http\Response
+    *
+    *
+    *
+    */
+
+    public function getMajorCategory(){
+
+        //get all the education where parent is equal to 0 (parent education major)
+        $education_major_cateogries = Education::where('parent',0)->get();
+        $return_html                = "<option value='0'>None</option>";
+
+        //loop through each of the major category to render the required html
+        foreach($education_major_cateogries as $education_major_category){
+            $return_html .= '<option value="'.$education_major_category->id .'">'.ucwords($education_major_category->name).'</option>';
+        }
+
+        //return response back to the browser
+        return response()->json(array('status'=>'success','result'=>$return_html),200);
     }
 }
