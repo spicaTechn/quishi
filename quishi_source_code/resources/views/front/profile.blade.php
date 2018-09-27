@@ -58,7 +58,9 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="section-title">
-                            <h2>Search Results (120 Profiles)</h2>
+
+                              <h2>Search Results ({{$users->count()}} Profiles)</h2>
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -100,28 +102,33 @@
                     </div>
                 </div>
                 <div class="row">
+                    @foreach($users as $user)
                     <div class="col-lg-4">
                         <div class="trending-profiles-section">
                             <div class="full-list-view">
                                 <div class="profile-image">
-                                    <img src="images/profile/1.jpg">
+                                    <img src="{{asset('/front')}}/images/profile/{{ $user->user_profile->image_path }}">
                                 </div>
                                 <div class="profile-desination">
-                                    <h3>Felicity Smoak</h3>
-                                    <span>UI/UX Designer</span>
+                                    <h3>{{ $user->user_profile->first_name }}</h3>
+                                    @foreach($user->careers as $career)
+                                    <span>{{ $career->title }}</span>
+                                    @endforeach
                                 </div>
                             </div>
 
                             <div class="full-list-view">
                                 <div class="profile-slills">
                                     <ul>
-                                        <li><a href="#">CSS</a></li>
-                                        <li><a href="#">jQuery</a></li>
-                                        <li><a href="#">HTML5</a></li>
+                                        @foreach($user->tags as $tag)
+                                        <li><a href="#">{{$tag->title}}</a></li>
+                                       <!--  <li><a href="#">jQuery</a></li>
+                                        <li><a href="#">HTML5</a></li> -->
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="profile-info">
-                                    <p>Felicity is a dedicated UI/UX designer for web and mobile applications.</p>
+                                    <p>{{ str_limit($user->user_profile->description,70) }}</p>
                                 </div>
                             </div>
 
@@ -131,24 +138,25 @@
                                         <div class="col-sm-6">
                                             <div class="view-section">
                                                 <a href="#"><i class="icon-like"></i></a>
-                                                <span>10k Likes</span>
+                                                <span>{{ $user->user_profile->total_likes }} Likes</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="view-section">
                                                 <a href="#"><i class="icon-eye"></i></a>
-                                                <span>10k Views</span>
+                                                <span>{{ $user->user_profile->profile_views }} Views</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{URL::to('/career-advisior/1')}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisior').'/'.$user->id}}">view profile</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    @endforeach
+                    <!-- <div class="col-lg-4">
                         <div class="trending-profiles-section">
                             <div class="full-list-view">
                                 <div class="profile-image">
@@ -531,7 +539,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="view-more text-center"><a href="#" class="btn btn-default">load more</a></div>

@@ -1,23 +1,27 @@
 @extends('front.layout.master')
 @section('content')
+<div class="cover-photo">
+    <img src="{{ asset('/front') }}/images/profile/banner.jpg" alt="cover photo">
+</div>
 <div class="front-profile-details">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-5">
                         <div class="profile-left">
                             <div class="front-profile">
-                                <img src="{{ asset('/front') }}/images/profile/front-profile-image.jpg" alt="profile- pic">
+                                <img src="{{asset('/front')}}/images/profile/{{ $user->user_profile->image_path }}" alt="profile- pic">
                             </div>
                             <!-- end front-profile -->
                             <div class="profile-name-detail profile-name-detail-xs">
-                                <h2>JESSICA JONES</h2>
-                                <span class="small">Web Designer and Developer</span>
-                                <span class="small">jessica@marveluniverse.com</span>
+                                <h2>{{ $user->user_profile->first_name }}</h2>
+                                @foreach($user->careers as $career)
+                                 <span class="small">{{ $career->title }}</span>
+                                @endforeach
+                                <span class="small">{{ $user->email }}</span>
                             </div>
                             <!-- end profile-name-detail -->
                             <div class="about-profile-detail">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat consequat mauris sed gravida.
-                                Visit these links for more about me:-</p>
+                                <p>{{ str_limit($user->user_profile->description,100) }}</p>
                             </div>
                             <!-- end about-profile-detail -->
                             <div class="personal-contacts">
@@ -39,8 +43,8 @@
                             <!-- end profile-social-media -->
                             <div class="like-viewers">
                                 <ul>
-                                    <li><a href="#"><i class="icon-like"></i> Likes</a><span>2,000</span></li>
-                                    <li><a href="#"><i class="icon-eye"></i> Views</a><span>60,000</span></li>
+                                    <li><a href="#"><i class="icon-like"></i> Likes</a><span>{{ $user->user_profile->total_likes }}</span></li>
+                                    <li><a href="#"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
                                     <li><a href="#"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
                                 </ul>
                             </div>
@@ -48,76 +52,71 @@
                         </div>
                         <!-- end profile-left -->
                     </div>
+
                     <div class="col-lg-8 col-md-7">
                         <div class="profile-detail-right">
                             <div class="profile-name-detail profile-name-detail-md">
-                                <h2>JESSICA JONES</h2>
-                                <span class="small">Web Designer and Developer</span>
-                                <span class="small">jessica@marveluniverse.com</span>
+                                <h2>{{ $user->user_profile->first_name }}</h2>
+                                @foreach($user->careers as $career)
+                                 <span class="small">{{ $career->title }}</span>
+                                @endforeach
+                                <span class="small">{{ $user->email }}</span>
                             </div>
                             <!-- end profile-name-detail -->
                             <div class="about-my-profile">
                                 <h3>About Me</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat consequat mauris sed gravida. Phasellus malesuada aliquam turpis. Etiam sit amet felis hendrerit, pharetra lacus molestie, venenatis diam. Nulla facilisi. Fusce efficitur, dolor quis vestibulum fringilla, massa justo sagittis est, nec viverra nisl arcu non nisl. Curabitur eget ex nec nibh maximus accumsan aliquam eu ante. </p>
+                                <p>{{ $user->user_profile->description }}</p>
                             </div>
                             <!-- end about-my-profile -->
                             <div class="personal-detail">
                                 <h4>More Info:</h4>
                                 <ul>
-                                    <li><span>Address:</span> Central Dallas</li>
-                                    <li><span>Age</span> Group: 24 - 34 year</li>
-                                    <li><span>Education Level:</span> PHD</li>
-                                    <li><span>Major Subject:</span> Information Technology and Science</li>
-                                    <li><span>Feculty:</span> Big Data Management</li>
-                                    <li><span>Job Title:</span> Data Scientist</li>
-                                    <li><span>Salary Range:</span> 40000 USD - 50000 USD /annum</li>
-                                    <li><span>Experience:</span> 10-15 Years</li>
+                                    <li><span>Address:</span>{{ $user->user_profile->location }}</li>,
+                                    <li><span>Age</span> Group: {{ $user->user_profile->age_group }} year</li>,
+                                    <li><span>Education Level:</span> {{ $user->user_profile->educational_level }}</li>,
+                                    <li><span>Major Subject:</span> Information Technology and Science</li>,
+                                    <li><span>Feculty:</span> {{ $user->user_profile->faculty }}</li>,
+                                     @foreach($user->careers as $career)
+                                    <li><span>Job Title:</span> {{ $career->title }}</li>,
+                                    @endforeach
+                                    <li><span>Salary Range:</span> {{ $user->user_profile->salary_range }}/annum</li>,
+                                    <li><span>Experience:</span> {{ $user->user_profile->job_experience }} Years</li>
                                 </ul>
                             </div>
                             <!-- end personal-detail -->
 
                             <div class="profile-slills">
                                 <ul>
-                                    <li><a href="#">CSS</a></li>
-                                    <li><a href="#">jQuery</a></li>
-                                    <li><a href="#">HTML5</a></li>
+                                    @foreach($user->tags as $tag)
+                                        <li><a href="#">{{$tag->title}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                             <!-- end profile-slills -->
                         </div>
                         <!-- end profile-detail-right -->
                     </div>
+
                 </div>
             </div>
         </div>
         <!-- end front-profile-details -->
         <div class="profileq-profilea">
             <div class="container">
-                <h4>Q&A’s with Jessica Jones</h4>
+                <h4>Q&A’s with {{ $user->user_profile->first_name }}</h4>
+                @foreach ($questions as $question)
                 <div class="profile-question-answer-section">
-                    <h4><i class="icon-check"></i> Proin pharetra erat et sapien rutrum mollis?</h4>
-                    <p>Duis euismod suscipit eros sit amet molestie. Vivamus a rhoncus tellus, vitae dapibus nisi. Ut aliquam ullamcorper justo, id congue turpis tincidunt ac. Nam eget lectus ut urna pharetra molestie. Nunc pretium commodo metus et hendrerit. Aenean elementum accumsan fringilla. Quisque id lobortis elit. Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a. </p>
-                    <p>Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a.</p>
+                    <h4><i class="icon-check"></i> {{ $question['question_title'] }}</h4>
+
+                    @foreach($answers as $answer)
+                    <p>{{ $answer->content }}</p>
+                    @endforeach
+
                 </div>
+                @endforeach
                 <!-- end profile-question-answer-section -->
-                <div class="profile-question-answer-section">
-                    <h4><i class="icon-check"></i> Proin pharetra erat et sapien rutrum mollis?</h4>
-                    <p>Duis euismod suscipit eros sit amet molestie. Vivamus a rhoncus tellus, vitae dapibus nisi. Ut aliquam ullamcorper justo, id congue turpis tincidunt ac. Nam eget lectus ut urna pharetra molestie. Nunc pretium commodo metus et hendrerit. Aenean elementum accumsan fringilla. Quisque id lobortis elit. Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a. </p>
-                    <p>Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a.</p>
-                </div>
-                <!-- end profile-question-answer-section -->
-                <div class="profile-question-answer-section">
-                    <h4><i class="icon-check"></i> Proin pharetra erat et sapien rutrum mollis?</h4>
-                    <p>Duis euismod suscipit eros sit amet molestie. Vivamus a rhoncus tellus, vitae dapibus nisi. Ut aliquam ullamcorper justo, id congue turpis tincidunt ac. Nam eget lectus ut urna pharetra molestie. Nunc pretium commodo metus et hendrerit. Aenean elementum accumsan fringilla. Quisque id lobortis elit. Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a. </p>
-                    <p>Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a.</p>
-                </div>
-                <!-- end profile-question-answer-section -->
-                <div class="profile-question-answer-section">
-                    <h4><i class="icon-check"></i> Proin pharetra erat et sapien rutrum mollis?</h4>
-                    <p>Duis euismod suscipit eros sit amet molestie. Vivamus a rhoncus tellus, vitae dapibus nisi. Ut aliquam ullamcorper justo, id congue turpis tincidunt ac. Nam eget lectus ut urna pharetra molestie. Nunc pretium commodo metus et hendrerit. Aenean elementum accumsan fringilla. Quisque id lobortis elit. Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a. </p>
-                    <p>Sed aliquet volutpat est vitae iaculis. Praesent viverra massa massa, vitae efficitur nunc ullamcorper a.</p>
-                </div>
-                <!-- end profile-question-answer-section -->
+
+
             </div>
         </div>
         <!-- end profileq-profilea -->

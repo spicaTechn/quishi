@@ -29,7 +29,7 @@ Route::get('/career-advisior','Front\ProfilePageController@index');
 // route for showing single profile
 Route::get('/career-advisior/{id}', [
 	'as'		=>	'career-advisior',
-	'uses'		=>	'Front\ProfilePageController@viewProfile'
+	'uses'		=>	'Front\ProfilePageController@show'
 ]);
 
 // Route for profile
