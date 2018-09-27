@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Pages\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\CareerAdvisor\BaseCareerAdvisorController;
@@ -23,7 +23,7 @@ class ProfilePageController extends BaseCareerAdvisorController
         $user     = User::where('logged_in_type','0')->get();
         //$user_tag = User::with('tags')->where('logged_in_type','0')->get();
         //echo "<pre>";print_r($user-); echo "</pre>";exit;
-        return view('front.profile')->with(array(
+        return view('front.pages.profile.profile')->with(array(
             'site_title'     => 'Quishi',
             'page_title'     => 'Profile',
             'users'          => $user,
@@ -77,7 +77,7 @@ class ProfilePageController extends BaseCareerAdvisorController
 
         //echo "<pre>"; print_r($questions); echo "</pre>";exit;
 
-        return view('front.single-pages.single-profile')->with(array(
+        return view('front.pages.single-pages.single-profile')->with(array(
             'site_title'     => 'Quishi',
             'page_title'     => 'View Profile',
             'user'           => $user_single,
