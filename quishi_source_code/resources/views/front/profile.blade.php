@@ -112,7 +112,7 @@
                                 <div class="profile-desination">
                                     <h3>{{ $user->user_profile->first_name }}</h3>
                                     @foreach($user->careers as $career)
-                                    <span>{{ $career->title }}</span>
+                                    <span>{{ ucwords($career->title) }}</span>
                                     @endforeach
                                 </div>
                             </div>

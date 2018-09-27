@@ -423,15 +423,15 @@ $(document).ready(function () {
     });// end edit major-category click
 
 	// On delete major-category
-	$("body").on('click','.delete-major-category,.delete-job', function(e){
+	$("body").on('click','.delete-major-category,.delete-major', function(e){
         e.preventDefault();
-        major_category_id=$(this).attr('data-major-category-id');
+        major_category_id=$(this).attr('data-major-id');
         //alert(major_category_id);
 
         //show the alert notification
         swal({
             title: "Are you sure?",
-            text: "You will not be able to recover major-category!",
+            text: "You will not be able to recover Major Category / Major !",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -443,7 +443,7 @@ $(document).ready(function () {
             if(isConfirm){
                 //make ajax request 
                 $.ajax({
-                    url:"{{URL::to('admin/major-categorymajor')}}" + "/" + major_category_id,
+                    url:"{{URL::to('admin/educations')}}" + "/" + major_category_id,
                     type:"DELETE",
                     dataType:"Json",
                     data:{_token:"{{csrf_token()}}"},
@@ -451,8 +451,8 @@ $(document).ready(function () {
                         if(data.status == "success")
                         {
                             swal("Deleted!", data.message, "success");
-                             major_category_table.ajax.reload();
-                             major_table.ajax.reload();
+                              major_category_table.ajax.reload();
+                              major_table.ajax.reload();
                         }else{
                             swal('Not allowed!!',data.message,'error');
                         }

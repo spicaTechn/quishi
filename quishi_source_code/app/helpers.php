@@ -108,3 +108,75 @@ if(!function_exists('show_career_advisior_age_group')){
 	}
 }
 
+
+
+//function to check for the input field and return in 1k or 1m 
+
+
+if(!function_exists('quishi_convert_number_to_human_readable')){
+	function quishi_convert_number_to_human_readable($n,$precision=1){
+
+		if ($n < 900) {
+			// 0 - 900
+			$n_format = number_format($n, $precision);
+			$suffix = '';
+		} else if ($n < 900000) {
+			// 0.9k-850k
+			$n_format = number_format($n / 1000, $precision);
+			$suffix = 'K';
+		} else if ($n < 900000000) {
+			// 0.9m-850m
+			$n_format = number_format($n / 1000000, $precision);
+			$suffix = 'M';
+		} else if ($n < 900000000000) {
+			// 0.9b-850b
+			$n_format = number_format($n / 1000000000, $precision);
+			$suffix = 'B';
+		} else {
+			// 0.9t+
+			$n_format = number_format($n / 1000000000000, $precision);
+			$suffix = 'T';
+		}
+	  // Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+	  // Intentionally does not affect partials, eg "1.50" -> "1.50"
+		if ( $precision > 0 ) {
+			$dotzero = '.' . str_repeat( '0', $precision );
+			$n_format = str_replace( $dotzero, '', $n_format );
+		}
+			return $n_format . $suffix;
+			
+	}
+}
+
+
+//show the color tags as per the tag name on the superadmin dashboard
+
+
+if(!function_exists('show_tags_color')){
+	function show_tags_color($n){
+		switch($n){
+			case 1:
+				return 'btn bg-c-blue btn-round float-right btn-browser';
+				break;
+			case 2:
+				return 'btn bg-c-pink btn-round float-right btn-browser';
+				break;
+			case 3:
+				return 'btn bg-c-yellow btn-round float-right btn-browser';
+				break;
+			case 4:
+				return 'btn bg-c-green btn-round float-right btn-browser';
+				break;
+			case 5:
+				return 'btn bg-c-yellow btn-round float-right btn-browser';
+				break;
+			case 6:
+				return 'btn bg-c-yellow btn-round float-right btn-browser';
+				break;
+			default:
+				return 'btn bg-c-yellow btn-round float-right btn-browser';
+				break;
+		}
+	}
+}
+

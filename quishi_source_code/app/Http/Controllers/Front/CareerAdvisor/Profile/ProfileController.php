@@ -173,7 +173,7 @@ class ProfileController extends BaseCareerAdvisorController
                 //udpate the record in the db
                 $data           = array(
                     'educational_level'   => $request->input('education'),
-                    'faculty'             => $request->input('faculty'),
+                    //'education_id'        => $request->input('faculty'),
                     'salary_range'        => $request->input('salary'),
                     'job_experience'      => $request->input('job_experience'),
                     'skills'              => $request->input('skills'),

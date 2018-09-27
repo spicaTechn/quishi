@@ -13,4 +13,9 @@ class UserProfile extends Model
     public function user(){
     	return $this->belongsTo('App\User');
     }
+
+
+    public function education(){
+    	return $this->belongsTo('App\Model\Education');
+    }
 }

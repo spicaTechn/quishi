@@ -8,6 +8,8 @@ use App\Model\Education;
 
 class EducationController extends Controller
 {
+
+    protected $education;
     /**
      * Display a listing of the resource.
      *
@@ -102,7 +104,6 @@ class EducationController extends Controller
     public function update(Request $request, $id)
     {
         //
-
         $education = Education::findOrFail($id);
         $education->name        = $request->input('title');
         $education->parent      = $request->input('parent_id');
@@ -120,7 +121,32 @@ class EducationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // i need to destroy the education major category or education major here 
+        $this->education = Education::findOrFail($id);
+        $education_type  = "";
+        if($this->education->parent > 0){
+            $education_type = "Major";
+        }else{
+            $education_type = "Major Category";
+        }
+        if($this->education->children()->count() > 0){
+             //to delete the education major category need to check have the major or not
+
+            return response()->json(array('status'=>'error','message'=>'Cannot delete major category becuase it contains the major'),200);
+        }else{
+
+            //education major check for the user on it
+            if($this->education->user_profiles()->count() > 0){
+                return response()->json(array('status'=>'error','message'=>'Cannot delete major becuase it used by the career advisior'),200);
+            }
+        }
+
+        $this->education->delete();
+
+        //delete the education major category or the education major
+        return response()->json(array('status'=>'success','message'=>$education_type .' has been deleted successfully!!'),200);
+
+
     }
 
 
@@ -169,7 +195,7 @@ class EducationController extends Controller
                                     
                 })->addColumn('usage',function($education_major_category){
                     //need to get the total usage by the users
-                    return 0;
+                    return $education_major_category->user_profiles()->count();
                 })
                 ->make('true');
     }

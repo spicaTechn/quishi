@@ -88,7 +88,14 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],function(){
 	Route::get('/', [
         'as'        =>'admin.dashboard',
-        'uses'      =>'Admin\DashboardController@index'
+        'uses'      =>'Admin\Dashboard\DashboardController@index'
+	]);
+
+	//get the user chart ratio
+
+	Route::get('/users/userChartRatio',[
+		'as'		 => 'admin.users.monthlyChart',
+		'uses'		 => 'Admin\Dashboard\DashboardController@showMonthlyUserRegistrationRatio'
 	]);
 
 	Route::get('/industryJobs', [
@@ -358,6 +365,14 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'as'	=> 'admin.educations.update',
 		'uses'  => 'Admin\Education\EducationController@update'
 	]);
+
+	//delete the education by the id
+
+	Route::delete('/educations/{id}',[
+		'as'	=> 'admin.educations.destroy',
+		'uses'	=> 'Admin\Education\EducationController@destroy'
+	]);
+
 
 });
 

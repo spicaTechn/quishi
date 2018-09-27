@@ -20,4 +20,9 @@ class Education extends Model
     	return $this->hasOne('App\Model\Education','id','parent');
 
     }
+
+
+    public function user_profiles(){
+    	return $this->hasMany('App\Model\UserProfile');
+    }
 }
