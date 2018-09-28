@@ -20,13 +20,8 @@
                             <a id="question-edit-link" data-toggle="tooltip"  class="question-edit-link" data-placement="top" title="" data-original-title="Edit Link" data-answer-id="{{$current_user_answer->id}}">
                                 <i class="icon-pencil"></i>
                             </a>
-                            <a id="question-remove-link" class="question-remove-link" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Link" data-answer-id="{{$current_user_answer->id}}">
-                                @if($current_user_answer->status == '1')
-                                    <i class="icon-hide"></i>
-                                @else
-                                    <i class="icon-eye-close"></i>
-                                @endif
-                                
+                             <a id="question-remove-link" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Link">
+                                <i class="icon-eye"></i>
                             </a>
                         </div>
                     </div>

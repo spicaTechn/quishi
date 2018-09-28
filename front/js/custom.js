@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    $("select.form-control").niceSelect();
+    //$("select.form-control").niceSelect();
 
 
 
@@ -12,11 +12,15 @@ jQuery(document).ready(function($) {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $("#edit-link").click(function() {
-        $(".editable-section form").show();
-        $(this).parents('div.editable-section .editable-icon').hide();
-        $(".editable-section .hide-social-icon").hide();
-        //$(".editable-icon").hide();
+    $(".edit-link").on('click',function(e) {
+        e.preventDefault();
+        
+        var _parent_div       = $(this).parents('div.editable-section');
+           //hide the form and show the editiable sections and socail icon class
+       _parent_div.find('form').show();
+       _parent_div.find('.editable-icon').hide();
+       _parent_div.find('.hide-social-icon').hide();
+
     });
 
     $(".reply").click(function() {

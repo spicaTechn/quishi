@@ -221,37 +221,6 @@ $(document).ready(function () {
 
     $( ".add-btn" ).on( "click", function() {
         save_method = 'add';
-       $('.parent-job').select2({
-            placeholder: 'Select job title..',
-            dropdownParent: $('#add-edit-question'),
-            // ajax request to pull the category list
-              ajax: {
-                  url:"{{route('admin.getIndustryJobs')}}",
-                  type:"GET",
-                  dataType:"Json",
-                  data: function (params) {
-                    return {
-                      q: params.term, // search term
-                    };
-                  },
-                  delay: 250,
-                  processResults: function (data) {
-                  return {
-                    results:  $.map(data.result, function (job) {
-                          return {
-                                
-                                  text: job.title + ' - ' + job.parent_title,
-                                  id: job.id
-
-                          }
-                      })
-                  };
-                },
-                cache: true,
-
-              }
-          });
-
        $('#add-edit-question').modal('show');
    }); // end add new button click
     
@@ -378,29 +347,30 @@ $(document).ready(function () {
             //prepare the modal to show
             $(".question").val(data.result.title);
             $('.question_id').val(data.result.id);
+           
             //$(".parent-industry").val(data.result.parent);
              //var parent_industry = "{{route('admin.industry')}}";
             $("input[name=question-type][value=" + data.result.type + "]").prop('checked', true);
             $.map(data.career, function (career) {
-                       
-              if(data.result.assigned_career == 1){
-                var select2=$(".parent-job").data('select2').trigger("select", { 
+              
+              if(data.result.assigned_career == '1'){
+                var select2 = $(".parent-job").data('select2').trigger("select", { 
                       data: 
                           { 
                               id: 'all',
                               text:'All - All' 
                           } 
                   });
+                
               }else{
-                var select2=$(".parent-job").data('select2').trigger("select", { 
+                var select2 = $(".parent-job").data('select2').trigger("select", { 
                       data: 
                           { 
                               id: career.id,
                               text:career.title 
                           } 
                   });
-              }     
-              
+              }  
           });
         });
         $('.modal-title').html('Edit Question');
@@ -408,14 +378,42 @@ $(document).ready(function () {
 
     });// end edit industry click
 
+    $('.parent-job').select2({
+              placeholder: 'Select job title..',
+              dropdownParent: $('#add-edit-question'),
+              // ajax request to pull the category list
+                ajax: {
+                    url:"{{route('admin.getIndustryJobs')}}",
+                    type:"GET",
+                    dataType:"Json",
+                    data: function (params) {
+                      return {
+                        q: params.term, // search term
+                      };
+                    },
+                    delay: 250,
+                    processResults: function (data) {
+                    return {
+                      results:  $.map(data.result, function (job) {
+                            return {
+                                  
+                                    text: job.title + ' - ' + job.parent_title,
+                                    id: job.id
 
+                            }
+                        })
+                    };
+                  },
+                  cache: true,
+
+                }
+            });
   //reset the form validaton and from when the modal was closing
   $('.modal').on('hidden.bs.modal', function(){
      $(this).find('form').data('formValidation').resetForm(true);
      $(this).find('form')[0].reset();
 
   });
-
 
   //delete the question on click of the delete button
   $("body").on('click','.delete-question', function(e){

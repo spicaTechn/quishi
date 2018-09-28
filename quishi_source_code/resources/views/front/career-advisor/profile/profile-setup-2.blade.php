@@ -10,7 +10,7 @@
 @section('content')
 <div class="profile-setup">
     <div class="container">
-        <h3>Welcome {{ucwords(Auth::user()->name)}}, please setup your profile.</h3>
+        <h3>Welcome {{--{{ucwords(Auth::user()->name)}}--}}, please setup your profile.</h3>
         <form method="post" action="{{route('profile.setup.step3')}}"  name="step2" id="step2">
             <div class="row">
 
@@ -58,13 +58,8 @@
                 </div>
                 <div class="col-md-6">
                      <div class="form-group">
-                        <label>Choose your faculty</label>
-                        <select class="form-control" name="faculty">
-                            <option>Choose your faculty</option>
-                            <option>Choose your faculty</option>
-                            <option>Choose your faculty</option>
-                            <option>Choose your faculty</option>
-                            <option>Choose your faculty</option>
+                        <label>Choose your Major</label>
+                        <select class="form-control faculty" name="faculty">
                         </select>
                     </div>
                     <div class="form-group">
@@ -179,6 +174,37 @@
                                 }
                             }
                         }
+                    }
+                });
+
+
+                //make the select field on faculty
+                $('.faculty').select2({
+                    placeholder   : 'Select major',
+                    ajax          :{
+                        url       : "{{URL::to('/profile/setup/getMajor')}}",
+                        type      : 'GET',
+                        dataType  : 'JSON',
+                        data      : function(params){
+                            return {
+                                q : params.term ,
+                            };
+                        },
+                        delay          : 250,
+                        processResults : function(data){
+                            return{
+                                results: $.map(data.result,function(major){
+                                    return {
+                                  
+                                    text: major.name + ' - ' + major.parent,
+                                    id: major.id
+
+                                    }
+                                })
+                               
+                            };
+                        },
+                        cache : true, 
                     }
                 });
             });

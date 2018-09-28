@@ -9,6 +9,8 @@ use App\Model\UserProfile;
 use App\Model\Answer;
 use App\Model\Career;
 use App\User;
+use App\Model\Education;
+use App\Model\UserLink;
 
 class ProfileController extends BaseCareerAdvisorController
 {
@@ -84,13 +86,13 @@ class ProfileController extends BaseCareerAdvisorController
     public function profileSetupTwo(Request $request)
     {
         //redirect to the third page if the user filled in the step two
-        if(Auth::user()->user_profile()->count() > 0){
-            if(Auth::user()->user_profile->profile_setup_steps == '2'){
-                return redirect()->route('profile.setup.step3');
-            }elseif(Auth::user()->user_profile->profile_setup_steps == '3'){
-                 return redirect()->route('profile');
-            }
-        }
+        // if(Auth::user()->user_profile()->count() > 0){
+        //     if(Auth::user()->user_profile->profile_setup_steps == '2'){
+        //         return redirect()->route('profile.setup.step3');
+        //     }elseif(Auth::user()->user_profile->profile_setup_steps == '3'){
+        //          return redirect()->route('profile');
+        //     }
+        // }
         $redirect_to_origin = false;
         $redirect_message   = '';
         if($request->has('_token')){
@@ -173,7 +175,7 @@ class ProfileController extends BaseCareerAdvisorController
                 //udpate the record in the db
                 $data           = array(
                     'educational_level'   => $request->input('education'),
-                    //'education_id'        => $request->input('faculty'),
+                    'education_id'        => $request->input('faculty'),
                     'salary_range'        => $request->input('salary'),
                     'job_experience'      => $request->input('job_experience'),
                     'skills'              => $request->input('skills'),
@@ -241,5 +243,86 @@ class ProfileController extends BaseCareerAdvisorController
             'site_title' => 'Quishi',
             'page_title' => 'Profile'
         ));
+    }
+
+
+    /**
+    * function to get the education major and major category
+    *
+    * @param \Illuminate\Http\Request
+    *
+    * @return \Illuminate\Http\Reponse
+    *
+    *
+    *
+    *
+    */
+
+    public function getMajor(Request $request){
+
+        $education_majors = Education::where('parent','>',0)
+                                        ->where(function($query) use($request){
+                                            if($request->has('q')){
+                                                $search = $request->input('q');
+                                                return $query->where('name','like',"%{$search}%");
+                                            }
+                                        })
+                                        ->select('id','name','parent')
+                                        ->get();
+        $return_major     = array();
+        if($education_majors->count() > 0){
+            $i =0;
+            foreach($education_majors as $education_major){
+                $return_major[$i]['id']     = $education_major->id;
+                $return_major[$i]['name']   = $education_major->name;
+                $return_major[$i]['parent'] = $education_major->parent_education->name;
+
+                $i++;
+            }
+        }
+
+
+        //now return the response 
+        return response()->json(array('status'=>'success','result'=>$return_major),200);
+
+        
+
+    }
+
+
+
+
+    /**
+    * function to update or insert the user links
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+    public function udpate_advisior_links(Request $request){
+        $career_link = UserLink::where('label',$request->input('link_type'))->first();
+        if($career_link){
+            //need to update the link
+           //
+            $career_link->label         = $request->input('link_type');
+            $career_link->link          = $request->input('_social_link_input');
+            $career_link->type          = '0';
+            $career_link->user_id       = Auth::user()->id;
+            if($career_link->save() > 0){
+                return response()->json(array('status'=>'success','result'=>'Successfully updated! '),200);
+            }
+        }else{
+            //need to insert the link
+            $career_link = new UserLink();
+            $career_link->label         = $request->input('link_type');
+            $career_link->link          = $request->input('_social_link_input');
+            $career_link->type          = '0';
+            $career_link->user_id       = Auth::user()->id;
+            if($career_link->save() > 0){
+                return response()->json(array('status'=>'success','result'=>'Successfully updated! '),200);
+            }
+        }
     }
 }

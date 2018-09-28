@@ -46,6 +46,8 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::get('/profileAccount', 'Front\CareerAdvisor\Profile\ProfileController@profileAccount');
 	Route::any('/setup/step1', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupOne')->name('profile.setup.step1');
 	Route::any('/setup/step2', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupTwo')->name('profile.setup.step2');
+
+	Route::get('/setup/getMajor','Front\CareerAdvisor\Profile\ProfileController@getMajor');
 	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');
 	Route::any('/setup/step3', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupThree')->name('profile.setup.step3');
 
@@ -70,6 +72,9 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	]);
 
 
+	//my account section
+
+
 
 
 	//get the job title by the parent industry for the job seeker
@@ -82,7 +87,17 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'as'	=> 'tags.all',
 		'uses'	=> 'Front\CareerAdvisor\TagController@index'
 	]);
+
+
+	//save or update career advisior links
+	Route::post('/links',[
+		'as'   	=> 'profile.links.udpate',
+		'uses'  => 'Front\CareerAdvisor\Profile\ProfileController@udpate_advisior_links'
+	]);
 });
+
+
+
 
 
 
