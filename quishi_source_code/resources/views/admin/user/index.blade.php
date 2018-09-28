@@ -99,77 +99,6 @@
 
 <!-- Review detail user -->
 <div class="modal fade" id="review-Modal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Review to user</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form name="add-review-form" id="add-review-form">
-                   <!--Setting user ID-->
-                    <input type="hidden" name="user_id" value="1">
-                    <div class="row">
-                       <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Review</h4>
-                            <textarea class="form-control review" name="review"></textarea>
-                        </div> 
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12 col-xl-12 m-b-30">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light ">Send review</button>
-                      </div>
-                    </div>
-                </form><!--end form-->
-
-                <!-- Previous review list-->
-                <div class="row card-block">
-                  <div class="col-sm-12 col-xl-12 m-b-30">
-                    <div class="card card-block user-card">
-                        <ul class="basic-list list-icons">
-                            <li>
-                                <p>Laborum nihil aliquam nulla praesentium illo libero
-                                    nihil at odio maxime.</p>
-
-                                <button type="button" 
-                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
-                                  data-review-id="1">
-                                  Resolve review
-                                </button>
-                            </li>
-                            <li>
-                                <p>Laborum nihil aliquam nulla praesentium illo libero
-                                    nihil at odio maxime.</p>
-
-                                <button type="button" 
-                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
-                                  data-review-id="2">
-                                  Resolve review
-                                </button>
-                            </li>
-
-                            <li>
-                                <p>Laborum nihil aliquam nulla praesentium illo libero
-                                    nihil at odio maxime.</p>
-
-                                <button type="button" 
-                                  class="btn btn-primary btn-mini waves-effect waves-light  p-absolute text-center d-block resolve-review" 
-                                  data-review-id="3">
-                                  Resolve review
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                  </div>
-                 </div>
-                 <!-- end Previous review list-->
-
-                
-            </div>
-        </div>
-    </div>
 </div>
 <!-- End review modal -->
 @endsection
@@ -227,7 +156,7 @@ $(document).ready(function () {
               }
         ],
         destroy : true,
-        order : [[ 0, "asc" ]], //or asc 
+        order : [[ 0, "desc" ]], //or asc 
         "fnInitComplete": function(oSettings, json) {
           tool_tip();
         },
@@ -257,133 +186,116 @@ $(document).ready(function () {
                 {
                     return data.split(',').join('<br>');
                 }
-                ,"name":"job_title"
+                ,"name":"careers.title"
               },
-              {"data":"status","name":"status"},
+              //{"data": "status",'name':"user_profile.status"},
+              {
+                data: 'user_profile.status', 
+                name: 'user_profile.status',
+                render: function ( data, type, full, meta ) {
+                   return data == "1" ? "Active" : "Inactive" ;
+                }
+              },
               {"data": "profile_views_count","name":"profile_views_count"},
               {"data":'user_profile.total_likes', "name":"user_profile.total_likes"},
-              {"data":"action" , "name" :"action"},
+              {"data":"action" , "name" :"action",'orderable':false,'searchable':false},
           
         ]
 
     });
 
-    
-
-    // Fomvalidation setup
-    $('#add-review-form').on('init.field.fv', function(e, data) {
-            var $parent = data.element.parents('.form-group'),
-                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
-
-            $icon.on('click.clearing', function() {
-                // Check if the field is valid or not via the icon class
-                if ($icon.hasClass('fa fa-remove')) {
-                    // Clear the field
-                    data.fv.resetField(data.element);
-                }
-            });
-        })
-        .formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-refresh'
-            }, 
-            excluded: 'disabled',
-            fields: {
-                'review': {
-                    validators: {
-                        notEmpty: {
-                            message: 'The review is required'
-                        }
-                    }
-                }
-            }
-        })
-        .on('success.form.fv', function(e) {
-            // Prevent form submission
-            e.preventDefault();
-
-            // find if the action is save or update
-            if(save_method == 'add')
-            {
-                URI = "{{--{{route('admin.add.question')}}--}}";
-            }else{
-                var question_id  = $(".question_id").val();
-                URI = "{{URL::to('admin/question')}}" + "/" + question_id;
-            }
-
-            // get the input values
-            result = new FormData($("#industry-jobs-form")[0]);
-
-            $.ajax({
-            //make the ajax request to either add or update the 
-            url:URI,
-            data:result,
-            dataType:"Json",
-            contentType: false,
-            processData: false,
-            type:"POST",
-            success:function(data)
-            {
-                if(data.status == "success"){
-                    //hide the modal
-                     $('#add-edit-question').modal('hide');
-                     var submit_type = $('.parent-industry').val();
-                     var submit_msg = '';
-                     submit_msg = "Question";
-                     // $('#category-form')[0].reset();
-                     // $('#category-form').data('formValidation').resetForm(true);
-
-                     if(save_method == "add"){
-                        swal({
-                          title: "New " + submit_msg + "  has been added!",
-                          text: "A new  " + submit_msg + "   has been added to Quishi",
-                          type: "success",
-                          closeOnConfirm: true,
-                        });
-                     }else{
-                        swal({
-                          title: submit_msg + " has been Updated!",
-                          text: submit_msg + "  has been updated to Quishi",
-                          type: "success",
-                          closeOnConfirm: true,
-                        });
-                     } // check for the form submission type
-                    //table.ajax.reload();
-
-                    if(submit_msg == "Industry"){
-                     user_table.ajax.reload();
-                    }
-                   //resetFormOnClose();
-                }
-            },
-            error:function(event)
-            {
-                console.log('Cannot add new user into the quishi system. Please try again later on..');
-            }
-            
-        });
-    }); // end formvalidation.io code
-
 
   // User review modal click
-    $('body').on( "click",".review-user", function() {
+  $('body').on( "click",".review-user", function() {
        tool_tip();
-       $('#review-Modal').modal('show');
+      $.get("{{route('admin.users.admin_reviews')}}",{user_id:$(this).attr('data-user-id')},function(data){
+         $('#review-Modal').html(data.result);
+         $('#review-Modal').modal('show');
+      });
+     
   }); // end User review icon click
 
+
+  //add new reviews
+
+  $('body').on('click','.create-review',function(e){
+    e.preventDefault();
+    var review_content = $('body').find('#review_content').val();
+    if(review_content == ""){
+      alert('Review cannot be empty!!');
+    }else{
+
+    var career_advisior_id = $('body').find('#career-seeker-id').val();
+    //make the post request to the store the review resource
+    $.post("{{route('admin.careerAdvisior.reviews')}}",{_token:"{{csrf_token()}}",'career_advisior_id': career_advisior_id, 'review_content': review_content},function(data){
+        if(data.status == "success"){
+          swal({
+              title: "Reviews has been created!",
+              text: "Career seeker reviews has been created successfully !!",
+              type: "success",
+              closeOnConfirm: true,
+            });
+          $('body').find('#review_content').val(' ');
+          $('.career-seeker-reviews').html(data.result);
+        }
+    });
+  }
+  });
+
   // User review resolve button click
-  $(".resolve-review").on("click", function(){
-    var review_id = $(this).data("review-id");
+  $('body').on("click",".resolve-review", function(){
+
+    var review_id        = $(this).data("review-id");
+    var career_seeker_id = $(this).data('career-seeker-id');
+    $.post("{{route('admin.reviews.changeStatus')}}",{reivew_id: review_id, career_seeker_id: career_seeker_id ,_token: "{{csrf_token()}}"},function(data){
+      //change the modal data 
+      if(data.status  == "success"){
+        //show the sweet alert message
+        swal({
+              title: "Reviews has been resolved!",
+              text: "Career seeker reviews has been resolved successfully !!",
+              type: "success",
+              closeOnConfirm: true,
+            });
+        $('.career-seeker-reviews').html(data.result);
+      }
+      
+    });
   }); // end review resolve button click
 
-  //reset the form validaton and from when the modal was closing
-  $('.modal').on('hidden.bs.modal', function(){
-     $(this).find('form').data('formValidation').resetForm(true);
-     $(this).find('form')[0].reset();
+
+  //activate users
+  $('body').on('click','.activate-user,.deactivate-user',function(){
+    //get the require parameters
+    var career_advisior_id = $(this).attr('data-user-id');
+    var toggle_status      = $(this).attr('data-status');
+    var status             = "";
+    var status_msg         = "";
+    if(toggle_status       == "activate"){
+      status               = 1;
+      status_msg           = "activated";
+    }else{
+      status               = 0;
+      status_msg           = "deactivated";
+    }
+
+    //request the server to perform the actions
+    $.post("{{route('admin.users.update')}}",{'career_advisior_id': career_advisior_id,'_token':"{{csrf_token()}}",'status':status},function(data){
+      if(data.status == "success"){
+        //show the swal alert success message
+        swal({
+              title: "User has been " + status_msg + " !",
+              text: "Career seeker account status has been updated successfully !!",
+              type: "success",
+              closeOnConfirm: true,
+            });
+        //reload the user table 
+        user_table.ajax.reload();
+      }
+    });
   });
+
+  //deactive users
 
 });// end document.ready function
 

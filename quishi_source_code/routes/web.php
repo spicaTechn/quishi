@@ -97,7 +97,14 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],function(){
 	Route::get('/', [
         'as'        =>'admin.dashboard',
-        'uses'      =>'Admin\DashboardController@index'
+        'uses'      =>'Admin\Dashboard\DashboardController@index'
+	]);
+
+	//get the user chart ratio
+
+	Route::get('/users/userChartRatio',[
+		'as'		 => 'admin.users.monthlyChart',
+		'uses'		 => 'Admin\Dashboard\DashboardController@showMonthlyUserRegistrationRatio'
 	]);
 
 	Route::get('/industryJobs', [
@@ -280,16 +287,25 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
     ]);
 
-	// Route related to education
-	Route::get('/educations', [
-	        'as'        =>'admin.educations',
-	        'uses'      =>'Admin\Education\EducationController@index'
-	]);
+	
 
 	Route::get('/users', [
         'as'        =>'admin.users',
         'uses'      =>'Admin\User\UserController@index'
 	]);
+
+
+	Route::post('/users/update',[
+		'as'	=> 'admin.users.update',
+		'uses'	=> 'Admin\User\UserController@update'
+	]);
+
+	//get admin reviews to users
+	Route::get('/users/admin/reviews',[
+		'as'		=> 'admin.users.admin_reviews',
+		'uses'		=> 'Admin\User\UserController@showAdminReviews'
+	]);
+
 
 	//get the career advisior only
 
@@ -299,12 +315,72 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-	// Route related to education
+	Route::post('/users/reviews/',[
+		'as' 		=> 'admin.careerAdvisior.reviews',
+		'uses' 		=> 'Admin\User\UserController@createReview'
+	]);
+
+
+	Route::post('/users/reviews/changeStatus',[
+		'as'	=> 'admin.reviews.changeStatus',
+		'uses'  => 'Admin\user\UserController@updateCareerReviewStatus'
+	]);
+
+
+	
 	Route::get('/userProfile', [
 	        'as'        =>'admin.userProfile',
 	        'uses'      =>'Admin\UserProfile\UserProfileController@index'
 	]);
 
+	// Route related to education
+	Route::get('/educations', [
+	        'as'        =>'admin.educations',
+	        'uses'      =>'Admin\Education\EducationController@index'
+	]);
+
+
+	//store the education major cateogry and education major
+	Route::post('/educations',[
+		'as'		=> 'admin.educations.store',
+		'uses'		=> 'Admin\Education\EducationController@store'
+	]);
+
+
+	Route::get('/educations/majorCategory',[
+		'as'	=> 'admin.educations.getMajorCategory',
+		'uses'	=> 'Admin\Education\EducationController@getMajorCategory'
+	]);
+
+	Route::get('/educations/getMajorCategory',[
+		'as'	=> 'admin.educations.majorCategory',
+		'uses'	=> 'Admin\Education\EducationController@getEducationMajorCategory'
+	]);
+
+	Route::get('/educations/getMajor',[
+		'as'	=> 'admin.educations.major',
+		'uses'	=> 'Admin\Education\EducationController@getEducationMajor'
+	]);
+
+	//show education major category and education major
+	Route::get('/educations/{id}',[
+		'as'	=> 'admin.educations.show',
+		'uses'  => 'Admin\Education\EducationController@show'
+	]);
+
+	//update education major category and education major
+
+	Route::post('/educations/{id}',[
+		'as'	=> 'admin.educations.update',
+		'uses'  => 'Admin\Education\EducationController@update'
+	]);
+
+	//delete the education by the id
+
+	Route::delete('/educations/{id}',[
+		'as'	=> 'admin.educations.destroy',
+		'uses'	=> 'Admin\Education\EducationController@destroy'
+	]);
 
 
 });
@@ -331,9 +407,3 @@ Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
 
-// //frontends
-
-// Route::get('/career-advisior/{id}',[
-// 	'as'	=> 'show.career-advisior',
-// 	//'uses'	=> 'Front\'
-// ]);

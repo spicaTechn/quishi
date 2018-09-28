@@ -124,7 +124,6 @@ class IndustryController extends Controller
     public function destroy($id)
     {
         //
-
         $career_industry        =  Career::findOrFail($id);
         $parent_id              = $career_industry->parent;
         //check if has child or not

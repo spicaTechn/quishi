@@ -16,7 +16,7 @@ class CreateUserProfile extends Migration
         Schema::create('user_profile', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->enum('status',[0,1])->default(0)->index();
+            $table->enum('status',[1,0])->default(0)->index();
             $table->string('first_name',50);
             $table->string('last_name',50);
             $table->integer('profile_views')->unsigned()->default(0);

@@ -1,7 +1,7 @@
 @extends('front.career-advisor.layout.master')
 @section('content')
                 <div class="profile-main-section">
-                    @foreach(Auth::user()->reviews as $review)
+                    @foreach($reviews as $review)
                     <div class="profile-admin-review-section">
                         <div class="profile-admin-review-answer">
                             <p>{{$review->content}}</p>

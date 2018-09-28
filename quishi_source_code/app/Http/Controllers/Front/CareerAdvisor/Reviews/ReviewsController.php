@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\CareerAdvisor\Reviews;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User, Auth;
+use App\Model\Review;
 
 class ReviewsController extends Controller
 {
@@ -17,7 +18,8 @@ class ReviewsController extends Controller
     {
         //
         //get the reviews of the current users if any
-        return view('front.career-advisor.reviews.admin-review');
+        $reviews = Review::where('user_id', Auth::user()->id)->where('status','0')->get();
+        return view('front.career-advisor.reviews.admin-review')->with(['reviews'=>$reviews]);
     }
 
     /**
