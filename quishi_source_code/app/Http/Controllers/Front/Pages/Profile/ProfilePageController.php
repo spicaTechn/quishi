@@ -17,16 +17,29 @@ class ProfilePageController extends BaseCareerAdvisorController
      *
      * @return \Illuminate\Http\Response
      */
+    protected $offset   = 0;
+    protected $per_page = 2;
+
     public function index()
     {
         //
-        $user     = User::where('logged_in_type','0')->get();
+
+        $user     = User::where('logged_in_type','0')->take(2)->get();
+        $record   = $user->count();
+        $show_more= false;
+        if($user){
+            if($this->per_page = $record){
+                $show_more = true;
+            }
+        }
+
         //$user_tag = User::with('tags')->where('logged_in_type','0')->get();
-        //echo "<pre>";print_r($user-); echo "</pre>";exit;
+        //echo "<pre>";print_r($user); echo "</pre>";exit;
         return view('front.pages.profile.profile')->with(array(
             'site_title'     => 'Quishi',
             'page_title'     => 'Profile',
             'users'          => $user,
+            'show_more'      => $show_more
 
         ));
     }
@@ -138,6 +151,35 @@ class ProfilePageController extends BaseCareerAdvisorController
     public function destroy($id)
     {
         //
+    }
+
+    public function loadMoreCareer(Request $request)
+    {
+
+
+        $result = $request->record;
+
+        $new_data     = User::where('logged_in_type','0')->skip(2*$result)->take(2)->get();
+        $record   = $new_data->count();
+        $loadmore= false;
+        //echo "<pre>"; print_r($user); echo "</pre>";exit;
+        if($new_data){
+            if($this->per_page = $record){
+                $loadmore = true;
+            }
+        }
+
+        $returnHTML = view('front.pages.profile.loadmore')->with(array(
+            'site_title'      => 'Quishi',
+            'page_title'      => 'Profile',
+            'users'           => $new_data,
+            'show_more'       => $loadmore,
+            'record_increment'=> $result
+
+        ))->render();
+        return response()->json(array('success' => true, 'html'=>$returnHTML));
+
+
     }
 
 

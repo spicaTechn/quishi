@@ -1,5 +1,6 @@
 @extends('front.layout.master')
 @section('content')
+<div id="main" class="main">
   <div class="top-filter-section">
             <div class="container">
                 <div class="row">
@@ -161,13 +162,25 @@
                     @endforeach
 
                 </div>
-                <div class="view-more text-center"><a href="#" class="btn btn-default">load more</a></div>
+                @if($show_more)
+                <div class="view-more text-center">
+                    <a href="javascript:void(0);" data-count-record="0" class="btn btn-default load_more" id="load_more">load more</a>
+                </div>
+                @endif
             </div>
         </div>
+</div>
+<div class="loadmoredata" id="loamoredata"></div>
 @endsection
 
 @section('page_specific_js')
 <script type="text/javascript">
+$.ajaxSetup({
+    headers:{
+        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(document).ready(function () {
     $( ".total_likes" ).on( "click", function() {
       var user_profile_id = $(this).attr('data-profile-id');
@@ -196,6 +209,38 @@ $(document).ready(function () {
           });
     });
 
+    $('.load_more').on("click", function(){
+
+        //var _token          = $("input[name='_token']").val();
+        var count_record = $(this).attr('data-count-record');
+        var added_record = parseInt(count_record+1);
+        //alert(added_record);
+        $.ajax({
+              //make the ajax request to either add or update the
+          url:"{{url('')}}" + "/loadMoreCareer",
+          type:"GET",
+          data:{record:added_record},
+          cache: false,
+          dataType:'json',
+
+          success:function(data)
+          {
+
+            if(data.success == true) {
+                //alert("success");
+              $(".main").css("display", "none");
+              $('.loadmoredata').append(data.html);
+            }
+          },
+          error:function(event)
+          {
+              console.log('cannot get profile data from quishi. Please try again later on..');
+          }
+        });
+    });
+
+
 });
+
 </script>
 @endsection

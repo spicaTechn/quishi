@@ -36,6 +36,11 @@ Route::post('/career-advisior/{id}',[
 	'uses'  =>  'Front\Pages\Profile\ProfilePageController@update'
 ]);
 
+Route::get('/loadMoreCareer',[
+	'as'	=>	'loadMoreCareer',
+	'uses'  =>  'Front\Pages\Profile\ProfilePageController@loadMoreCareer'
+]);
+
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){
