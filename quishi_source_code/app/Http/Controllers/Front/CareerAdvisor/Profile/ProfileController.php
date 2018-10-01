@@ -18,16 +18,22 @@ class ProfileController extends BaseCareerAdvisorController
     protected $user_profile_image ="";
     protected $user_profile = "";
     protected $career;
+    protected $user_link;
 
     public function __construct(){
+
     	return $this->career = Career::where('parent',"=",'0')->where('status','1')->get();
     }
 
     public function index(Request $reqeust)
     {
+
+        //get the user links
+        $this->user_link    = UserLink::where('user_id',Auth::user()->id)->get();
         return view('front.career-advisor.profile.profile')->with(array(
-            'site_title' => 'Quishi',
-            'page_title' => 'Profile'
+            'site_title'        => 'Quishi',
+            'page_title'        => 'Profile',
+            'user_links'        => $this->user_link,
         ));
     }
 
@@ -86,13 +92,13 @@ class ProfileController extends BaseCareerAdvisorController
     public function profileSetupTwo(Request $request)
     {
         //redirect to the third page if the user filled in the step two
-        // if(Auth::user()->user_profile()->count() > 0){
-        //     if(Auth::user()->user_profile->profile_setup_steps == '2'){
-        //         return redirect()->route('profile.setup.step3');
-        //     }elseif(Auth::user()->user_profile->profile_setup_steps == '3'){
-        //          return redirect()->route('profile');
-        //     }
-        // }
+        if(Auth::user()->user_profile()->count() > 0){
+            if(Auth::user()->user_profile->profile_setup_steps == '2'){
+                return redirect()->route('profile.setup.step3');
+            }elseif(Auth::user()->user_profile->profile_setup_steps == '3'){
+                 return redirect()->route('profile');
+            }
+        }
         $redirect_to_origin = false;
         $redirect_message   = '';
         if($request->has('_token')){
@@ -237,6 +243,9 @@ class ProfileController extends BaseCareerAdvisorController
                     ]);
        }
 
+       //after the all the questions has been set up insert the dummy user links in the user_link table
+        $this->updateUserLinkTable(Auth::user()->id);
+
        //after that redirect to the profile route after the complete of the profile setup
 
        return redirect()->route('profile')->with(array(
@@ -291,6 +300,39 @@ class ProfileController extends BaseCareerAdvisorController
 
 
 
+    ///////////////////////////////////////                   ////////////////////////////////////    ///////////////////////////////////////USER PROFILE LINKS////////////////////////////////////
+    //////////////////////////////////////                   //////////////////////////////////
+
+    /**
+    * add new user profile for the external link
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+    public function create_user_link(Request $request){
+
+    }
+
+
+    /**
+    * delete user profile link for the external link
+    *
+    * @param int (link_id)
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+
+    public function delete_user_link($id){
+        
+    }
+
+
+
 
     /**
     * function to update or insert the user links
@@ -308,7 +350,7 @@ class ProfileController extends BaseCareerAdvisorController
            //
             $career_link->label         = $request->input('link_type');
             $career_link->link          = $request->input('_social_link_input');
-            $career_link->type          = '0';
+            $career_link->type          = (preg_match( '/^external_link.*/', $request->input('link_type'))) ? '1' : '0';
             $career_link->user_id       = Auth::user()->id;
             if($career_link->save() > 0){
                 return response()->json(array('status'=>'success','result'=>'Successfully updated! '),200);
@@ -318,11 +360,13 @@ class ProfileController extends BaseCareerAdvisorController
             $career_link = new UserLink();
             $career_link->label         = $request->input('link_type');
             $career_link->link          = $request->input('_social_link_input');
-            $career_link->type          = '0';
+            $career_link->type          = (preg_match( '/^external_link.*/', $request->input('link_type'))) ? '1' : '0';
             $career_link->user_id       = Auth::user()->id;
             if($career_link->save() > 0){
                 return response()->json(array('status'=>'success','result'=>'Successfully updated! '),200);
             }
         }
     }
+    
+
 }

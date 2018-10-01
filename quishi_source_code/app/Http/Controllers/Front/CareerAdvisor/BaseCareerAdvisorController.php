@@ -9,6 +9,7 @@ use App\Model\Question;
 use App\Model\User;
 use DB,Auth;
 use App\Model\Tag;
+use App\Model\UserLink;
 
 class BaseCareerAdvisorController extends Controller
 {
@@ -122,4 +123,82 @@ class BaseCareerAdvisorController extends Controller
         }   
         return response()->json(array('status'=>'success','result'=>$return_html),200);
     }
+
+
+
+
+    /**
+    *
+    * update the user links table when the user complete the profile setup
+    *
+    * @param int user_id
+    * @return boolean true / false
+    *
+    *
+    **/
+
+    protected function updateUserLinkTable($user_id){
+
+        $data           = array(
+                                array(
+                                    'user_id'       =>$user_id,
+                                    'label'         =>'facebook_link',
+                                    'link'          => 'https://www.facebook.com/',
+                                    'type'          => '0', //0 for the social links and 1 for the external links
+                                    'created_at'    => now(),
+                                    'updated_at'    => now()
+                                ),
+                                array(
+                                    'user_id'       => $user_id,
+                                    'lable'         =>'twitter_link',
+                                    'link'          => 'https:://www.twiiter.com/',
+                                    'type'          => '0', // 0 for the social links and 1 for the external links
+                                    'created_at'    => now(),
+                                    'updated_at'    => now(),
+                                ),
+                                array(
+                                    'user_id'       => $user_id,
+                                    'label'         => 'google_plus_link',
+                                    'link'          => 'https://plus.google.com/discover',
+                                    'type'          => '0', // 0 for the social links and 1 for the external links
+                                    'created_at'    => now(),
+                                    'updated_at'    => now()
+                                ),
+                                array(
+                                    'user_id'       => $user_id,
+                                    'label'         => 'linkedin_link',
+                                    'link'          => 'https://www.linkedin.com/',
+                                    'type'          => '0',
+                                    'created_at'    => now(),
+                                    'updated_at'    => now()
+                                ),
+                                array(
+                                    'user_id'       => $user_id,
+                                    'label'         => 'external_link1',
+                                    'link'          => 'https://www.google.com/',
+                                    'type'          => '1',
+                                    'created_at'    => now(),
+                                    'updated_at'    => now()
+                                ),
+                                array(
+                                    'user_id'       => $user_id,
+                                    'label'         => 'external_link2',
+                                    'link'          => 'https://www.youtube.com/',
+                                    'type'          => '1',
+                                    'created_at'    => now(),
+                                    'updated_at'    => now()
+                                )
+                            );
+        //now insert the data into the table
+        if(UserLink::insert($data) > 0)
+        {
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+
 }

@@ -117,12 +117,13 @@
                                 </div>
                                 <div class="social-media-body">
                                     <div class="row">
+                                        @foreach($user_links as $user_link)
                                         <div class="col-md-6">
                                             <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-social-facebook"></i><span>facebook.com/jondeo</span></a>
-                                                <form action=""  style="display: none;" data_link_type="facebook_link">
+                                                <a href="#" class="hide-social-icon"> <i class="{{get_link_icon_class($user_link->label)}}"></i><span>{{$user_link->link}}</span></a>
+                                                <form action=""  style="display: none;" data_link_type="{{$user_link->label}}">
                                                     <div class="form-group">
-                                                        <input type="text" name="facebook-link" class="form-control"  value="https://facebook.com/jondeo">
+                                                        <input type="text" name="facebook-link" class="form-control"  value="{{$user_link->link}}">
                                                     </div>
                                                     <div class="button-groups">
                                                         <button class="btn btn-success btn-save">Save</button>
@@ -133,129 +134,15 @@
                                                     <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
                                                         <i class="icon-pencil"></i>
                                                     </a>
+                                                @if($user_link->type == "1")
                                                     <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
                                                         <i class="icon-trash"></i>
                                                     </a>
+                                                @endif
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- end col -->
-                                        <div class="col-md-6">
-                                            <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-social-twitter"></i><span>https://www.twitter.com/jondeo</span></a>
-                                                <form action=""  style="display: none;" data_link_type="twitter_link">
-                                                    <div class="form-group">
-                                                        <input type="text" name="twitter_link-link" class="form-control"  value="https://facebook.com/jondeo">
-                                                    </div>
-                                                    <div class="button-groups">
-                                                        <button class="btn btn-success btn-save">Save</button>
-                                                        <button class="btn btn-secondary btn-cancel">Cancel</button>
-                                                    </div>
-                                                </form>
-                                                <div class="editable-icon">
-                                                    <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                                        <i class="icon-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
-                                                        <i class="icon-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-md-6">
-                                            <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-social-google"></i><span>https://www.plus.google.com/jondeo</span></a>
-                                                <form action=""  style="display: none;" data_link_type="google_plus_link">
-                                                    <div class="form-group">
-                                                        <input type="text" name="twitter_link-link" class="form-control"  value="https://facebook.com/jondeo">
-                                                    </div>
-                                                    <div class="button-groups">
-                                                        <button class="btn btn-success btn-save">Save</button>
-                                                        <button class="btn btn-secondary btn-cancel">Cancel</button>
-                                                    </div>
-                                                </form>
-                                                <div class="editable-icon">
-                                                    <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                                        <i class="icon-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
-                                                        <i class="icon-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                       <div class="col-md-6">
-                                            <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-social-linkedin"></i><span>https://www.twitter.com/jondeo</span></a>
-                                                <form action=""  style="display: none;" data_link_type="twitter_link">
-                                                    <div class="form-group">
-                                                        <input type="text" name="twitter_link-link" class="form-control"  value="https://facebook.com/jondeo">
-                                                    </div>
-                                                    <div class="button-groups">
-                                                        <button class="btn btn-success btn-save">Save</button>
-                                                        <button class="btn btn-secondary btn-cancel">Cancel</button>
-                                                    </div>
-                                                </form>
-                                                <div class="editable-icon">
-                                                    <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                                        <i class="icon-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
-                                                        <i class="icon-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-md-6">
-                                            <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-link"></i><span>https://www.twitter.com/jondeo</span></a>
-                                                    <form action=""  style="display: none;" data_link_type="external_link1">
-                                                        <div class="form-group">
-                                                            <input type="text" name="twitter_link-link" class="form-control"  value="https://facebook.com/jondeo">
-                                                        </div>
-                                                        <div class="button-groups">
-                                                            <button class="btn btn-success btn-save">Save</button>
-                                                            <button class="btn btn-secondary btn-cancel">Cancel</button>
-                                                        </div>
-                                                    </form>
-                                                    <div class="editable-icon">
-                                                        <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-                                                        <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
-                                                            <i class="icon-trash"></i>
-                                                        </a>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-md-6">
-                                            <div class="editable-section">
-                                                <a href="#" class="hide-social-icon"> <i class="icon-link"></i><span>https://www.twitter.com/jondeo</span></a>
-                                                    <form action=""  style="display: none;" data_link_type="external_link2">
-                                                        <div class="form-group">
-                                                            <input type="text" name="twitter_link-link" class="form-control"  value="https://facebook.com/jondeo">
-                                                        </div>
-                                                        <div class="button-groups">
-                                                            <button class="btn btn-success btn-save">Save</button>
-                                                            <button class="btn btn-secondary btn-cancel">Cancel</button>
-                                                        </div>
-                                                    </form>
-                                                    <div class="editable-icon">
-                                                        <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-                                                        <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
-                                                            <i class="icon-trash"></i>
-                                                        </a>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <!-- end col -->
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -314,6 +201,14 @@
                     //show the hide-social -icon
                     _parent_div.find('.hide-social-icon').show();
                 }
+            });
+
+
+            //delete external link
+            $('.edit-link').on('click',function(e){
+                e.preventDefault();
+                console.log('i need to remove the item');
+                alert('i need to remove the user link');
             });
 
 
