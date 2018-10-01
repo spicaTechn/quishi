@@ -182,6 +182,7 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
+    alert("hello");
     $( ".total_likes" ).on( "click", function() {
       var user_profile_id = $(this).attr('data-profile-id');
       var _token          = $("input[name='_token']").val();
@@ -210,6 +211,7 @@ $(document).ready(function () {
     });
 
     $('.load_more').on("click", function(){
+
 
         //var _token          = $("input[name='_token']").val();
         var count_record = $(this).attr('data-count-record');

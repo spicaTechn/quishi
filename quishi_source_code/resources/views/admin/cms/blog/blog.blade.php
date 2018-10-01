@@ -18,11 +18,17 @@
 <style type="text/css">
   /*wysisyg editor initial notification hiding*/
 
+#mceu_70,#mceu_68,#mceu_69 {
+
+    display: none;
+}
+
 
 img {
   max-width: 100%;
   height: auto;
 }
+
 </style>
 @endsection
 @section('content')
@@ -60,9 +66,7 @@ img {
                                   <th>Description</th>
                                   <th>Abstract</th>
 
-                                  <th>Facebook</th>
-                                  <th>Twitter</th>
-                                  <th>Instragram</th>
+
                                   <th>Date</th>
                                   <th>Action</th>
 
@@ -84,9 +88,7 @@ img {
                                       <td>{{ $all_blog->title }}</td>
                                       <td>{{ $all_blog->content }}</td>
                                       <td>{{ $blog_unserialize['abstract'] }}</td>
-                                      <td>{{ $blog_unserialize['facebook'] }}</td>
-                                      <td>{{ $blog_unserialize['twitter'] }}</td>
-                                      <td>{{ $blog_unserialize['instragram'] }}</td>
+
                                       <td>{{ $blog_unserialize['date'] }}</td>
                                       <td>
 
@@ -149,21 +151,35 @@ img {
                 <input type="hidden" name="blog_id" class="blog_id" value=""/>
                 <input type="hidden" name="page_detail_id" class="page_detail_id" value="">
                 <div class="row">
-                  <div class="col-sm-6 col-xl-6 m-b-30">
+                  <div class="col-sm-12 col-xl-12 m-b-30">
                        <h4 class="sub-title">Title *</h4>
                        <input type="text" class="form-control blog_title" name="blog_title" placeholder="Title" value="">
                    </div>
-                   <div class="col-sm-6 col-xl-6 m-b-30">
-                       <h4 class="sub-title">Abstract *</h4>
-                       <input type="text" class="form-control blog_abstract" name="blog_abstract" placeholder="Abstract" value="">
-                   </div>
+
                 </div>
 
                 <div class="row">
-                   <div class="col-sm-6 col-xl-6 m-b-30">
+                   <div class="col-sm-12 col-xl-12 m-b-30">
                        <h4 class="sub-title">Description *</h4>
-                       <textarea style="height: 283px;"  class="form-control blog_description" name="blog_description" placeholder="Description"></textarea>
+                       <textarea id="add-tinymce" style="height: 283px;"  class="form-control blog_description" name="blog_description" placeholder="Description"></textarea>
                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xl-6 m-b-30">
+                      <div class="row">
+                        <div class="col-sm-12 col-xl-12 m-b-30">
+                           <h4 class="sub-title">Date *</h4>
+                           <input type="text" class="form-control date" id="select_date" name="date" placeholder="Date" value="">
+                        </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-sm-12 col-xl-12 m-b-30">
+                             <h4 class="sub-title">Abstract *</h4>
+                             <textarea  type="text" class="form-control blog_abstract" style="height: 250px;" name="blog_abstract" placeholder="Abstract" value="">
+                             </textarea>
+                         </div>
+                       </div>
+                    </div>
                     <div class="col-sm-6 col-xl-6 m-b-30">
                        <h4 class="sub-title">Image *</h4>
                        <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -184,26 +200,85 @@ img {
                            </div>
                        </div>
                     </div>
+
+                </div>
+              </div>
+
+              <div class="modal-footer">
+               <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+               <button type="submit"  class="btn btn-primary waves-effect waves-light">Save changes</button>
+              </div>
+         </form>
+        </div>
+    </div>
+</div>
+<!-- edit modal -->
+<div class="modal fade" id="edit-blog" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <form role="form" name="edit-blog-form" id="edit-blog-form" enctype="multipart/form-data">
+            @csrf
+
+              <div class="modal-header">
+                  <h4 class="modal-title"><span>Add Blog </span></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="blog_id" class="blog_id" value=""/>
+                <input type="hidden" name="page_detail_id" class="page_detail_id" value="">
+                <div class="row">
+                  <div class="col-sm-12 col-xl-12 m-b-30">
+                       <h4 class="sub-title">Title *</h4>
+                       <input type="text" class="form-control blog_title" name="blog_title" placeholder="Title" value="">
+                   </div>
+
+                </div>
+
+                <div class="row">
+                   <div class="col-sm-12 col-xl-12 m-b-30">
+                       <h4 class="sub-title">Description *</h4>
+                       <textarea id="edit-tinymce" style="height: 283px;"  class="form-control edit_blog_description" name="blog_description" placeholder="Description"></textarea>
+                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-6 col-xl-6 m-b-30">
-                       <h4 class="sub-title">Facebook *</h4>
-                       <input type="text" class="form-control facebook" name="facebook" placeholder="Facebook" value="">
-                   </div>
-                   <div class="col-sm-6 col-xl-6 m-b-30">
-                       <h4 class="sub-title">Twitter *</h4>
-                       <input type="text" class="form-control twitter" name="twitter" placeholder="Twitter" value="">
-                   </div>
-                </div>
-                <div class="row">
-                   <div class="col-sm-6 col-xl-6 m-b-30">
-                       <h4 class="sub-title">Instragram *</h4>
-                       <input type="text" class="form-control instragram" name="instragram" placeholder="Instragram" value="">
-                   </div>
-                   <div class="col-sm-6 col-xl-6 m-b-30">
-                       <h4 class="sub-title">Date *</h4>
-                       <input type="text" class="form-control date" id="select_date" name="date" placeholder="Date" value="">
-                   </div>
+                    <div class="col-sm-6 col-xl-6 m-b-30">
+                      <div class="row">
+                        <div class="col-sm-12 col-xl-12 m-b-30">
+                           <h4 class="sub-title">Date *</h4>
+                           <input type="text" class="form-control date" id="edit_date" name="date" placeholder="Date" value="">
+                        </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-sm-12 col-xl-12 m-b-30">
+                             <h4 class="sub-title">Abstract *</h4>
+                             <textarea type="text" class="form-control blog_abstract" style="height: 250px;" name="blog_abstract" placeholder="Abstract" value="">
+                             </textarea>
+                         </div>
+                       </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-6 m-b-30">
+                       <h4 class="sub-title">Image *</h4>
+                       <div class="fileinput fileinput-new" data-provides="fileinput">
+                           <div class="fileinput-new thumbnail"  data-trigger="fileinput">
+
+                            <img src="{{asset('/front')}}/images/blogs/career.jpg" id="edit-blog-image">
+
+                           </div>
+                           <div class="fileinput-preview fileinput-exists thumbnail">
+                           </div>
+                           <div>
+                             <span class="btn btn-file btn-block btn-primary btn-sm">
+                               <span class="fileinput-new">Select Profile Image</span>
+                               <span class="fileinput-exists">Change</span>
+                               <input name="blog_image" accept="image/*" type="file">
+                             </span>
+                             <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                           </div>
+                       </div>
+                    </div>
+
                 </div>
               </div>
 
@@ -311,11 +386,6 @@ $(document).ready(function () {
           {
               URI = "{{route('admin.cms.blog')}}";
           }
-          else{
-              var blog_id  = $(".blog_id").val();
-              //var team_update_id = $(this).attr('data-serialize-id');
-              URI = "{{url('/admin/cms/blog/updateBlog')}}" +"/" +  blog_id;
-          }
 
           // get the form input values
           result = new FormData($("#blog-form")[0]);
@@ -349,8 +419,83 @@ $(document).ready(function () {
                     $('#blog-form')[0].reset();
                     $('#blog-form').data('formValidation').resetForm(true);
                    }
-                   else
-                   {
+              }
+          },
+          error:function(event)
+          {
+              console.log('Cannot add new blog into the quishi system. Please try again later on..');
+          }
+
+        });
+      });
+
+
+      $('#edit-blog-form').on('init.field.fv', function(e, data) {
+          var $parent = data.element.parents('.form-group'),
+              $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+          $icon.on('click.clearing', function() {
+              // Check if the field is valid or not via the icon class
+              if ($icon.hasClass('fa fa-remove')) {
+                  // Clear the field
+                  data.fv.resetField(data.element);
+              }
+          });
+      })
+      .formValidation({
+          framework: 'bootstrap',
+          icon: {
+              valid: 'fa fa-check',
+              invalid: 'fa fa-times',
+              validating: 'fa fa-refresh'
+          },
+          fields: {
+              'blog_title': {
+                  validators: {
+                      notEmpty: {
+                          message: 'The title is required'
+                      }
+                  }
+              },
+              'blog_description': {
+                  validators: {
+                      notEmpty: {
+                             message: 'The description is required'
+                         },
+                  }
+              },
+              'blog_abstract': {
+                  validators: {
+                      notEmpty: {
+                             message: 'The abstract is required'
+                         },
+                  }
+              }
+          }
+      }).on('success.form.fv', function(e) {
+          // Prevent form submission
+          e.preventDefault();
+
+          var blog_id  = $(".blog_id").val();
+          //var team_update_id = $(this).attr('data-serialize-id');
+          URI = "{{url('/admin/cms/blog/updateBlog')}}" +"/" +  blog_id;
+
+          // get the form input values
+          result = new FormData($("#edit-blog-form")[0]);
+
+          $.ajax({
+          //make the ajax request to either add or update the
+          url:URI,
+          data:result,
+          dataType:"Json",
+          contentType: false,
+          processData: false,
+          type:"POST",
+          success:function(data)
+          {
+              if(data.status == "success"){
+                  //hide the modal
+                   $('#edit-blog').modal('hide');
                     setTimeout(function()
                       {
                               swal({
@@ -362,15 +507,15 @@ $(document).ready(function () {
                                   window.location = "{{route('admin.cms.blog')}}";
                               });
                     }, 1000);
-                    $('#blog-form')[0].reset();
-                    $('#blog-form').data('formValidation').resetForm(true);
-                   }
+                    $('#edit-blog-form')[0].reset();
+                    $('#edit-blog-form').data('formValidation').resetForm(true);
+
 
               }
           },
           error:function(event)
           {
-              console.log('Cannot add new blog into the quishi system. Please try again later on..');
+              console.log('Cannot add update blog into the quishi system. Please try again later on..');
           }
 
         });
@@ -396,17 +541,17 @@ $(document).ready(function () {
                       $(".blog_id").val(blog_id);
                       $(".page_detail_id").val(blog_page_detail_id);
                       $(".blog_title").val(data.result.title);
-                      $(".blog_description").val(data.result.description);
+                      $(".edit_blog_description").val(data.result.description);
                       $(".blog_abstract").val(data.result.abstract);
-                      $(".facebook").val(data.result.facebook);
-                      $(".twitter").val(data.result.twitter);
-                      $(".instragram").val(data.result.instragram);
+                      // $(".facebook").val(data.result.facebook);
+                      // $(".twitter").val(data.result.twitter);
+                      // $(".instragram").val(data.result.instragram);
                       $(".date").val(data.result.date);
 
                       var image="{{asset('/front')}}/images/blogs" + "/" +data.result.image;
-                      $("#blog-image").attr('src',image);
+                      $("#edit-blog-image").attr('src',image);
 
-                       $('#add-blog').modal('show'); // show bootstrap modal
+                       $('#edit-blog').modal('show'); // show bootstrap modal
                        $('.modal-title').text('Update Team'); // Set Title to Bootstrap modal title
                       //console.log(data.result);
                   }
@@ -485,7 +630,40 @@ $(document).ready(function () {
       });
 
       //Datepicker
-      $( "#select_date" ).datepicker({ dateFormat: 'M-yy' });
+      $( "#select_date" ).datepicker({ dateFormat: 'M d, yy' });
+      $( "#edit_date" ).datepicker({ dateFormat: 'M d, yy' });
+
+
+
+      // installing wysiwyg editor
+      tinymce.init({
+        selector: '#add-tinymce',
+        height: 300,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor textcolor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+          '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+          '//www.tinymce.com/css/codepen.min.css']
+      });
+      tinymce.init({
+        selector: '#edit-tinymce',
+        height: 300,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor textcolor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+          '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+          '//www.tinymce.com/css/codepen.min.css']
+      });
 
 
 });

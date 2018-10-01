@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Front\Pages\Blog;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Page;
-use PageDetail;
+use App\Page;
+use App\PageDetail;
+use App\User;
+use App\Model\UserProfile;
+use Auth;
+
 
 class BlogPageController extends Controller
 {
@@ -17,6 +21,14 @@ class BlogPageController extends Controller
     public function index()
     {
         //
+        $blog         = Page::with('page_detail')->where('slug','blog')->get();
+        //echo "<pre>"; print_r($blog); echo "</pre>";exit;
+
+        return view('front.pages.blog.blog')->with(array(
+             'site_title'    =>    'Quishi',
+             'page_title'    =>    'Blog',
+             'blogs'         =>    $blog
+        ));
     }
 
     /**
@@ -38,7 +50,7 @@ class BlogPageController extends Controller
     public function store(Request $request)
     {
         //storing blog content to database
-        echo "<pre>";print_r($request->all()); echo "</pre>";exit;
+
     }
 
     /**
@@ -50,6 +62,24 @@ class BlogPageController extends Controller
     public function show($id)
     {
         //
+
+        $blog = Page::with('page_detail')->find($id);
+        //$user = Auth::id();
+        //echo "<pre>"; print_r($blog); echo "</pre>";exit;
+
+        foreach ($blog->page_detail as $blog_details) {
+           $blog_details_value = unserialize($blog_details->meta_value);
+           //echo "<pre>"; print_r($blog_details_value); echo "</pre>";exit;
+        }
+
+
+        return view('front.pages.single-pages.single-blog')->with(array(
+            'site_title'   => 'Quishi',
+            'page_title'   => 'Single Blog',
+            'blog'         => $blog,
+            'blog_details' => $blog_details_value,
+
+        ));
     }
 
     /**

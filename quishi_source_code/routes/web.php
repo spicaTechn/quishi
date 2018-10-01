@@ -24,6 +24,12 @@ Route::get('/blog', [
 	'as'		=>	'blog',
 	'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
 ]);
+Route::get('/blog/{id}', [
+	'as'		=>	'blog',
+	'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
+]);
+
+
 // Route for profile front
 Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');
 // route for showing single profile
@@ -287,7 +293,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 
     ]);
 
-	
+
 
 	Route::get('/users', [
         'as'        =>'admin.users',
@@ -327,7 +333,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
-	
+
 	Route::get('/userProfile', [
 	        'as'        =>'admin.userProfile',
 	        'uses'      =>'Admin\UserProfile\UserProfileController@index'

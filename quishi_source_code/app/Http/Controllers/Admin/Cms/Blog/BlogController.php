@@ -52,12 +52,13 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         //storing blog content to database
-        //echo "<pre>";print_r($request->all()); echo "</pre>";exit;
+        $user = Auth::user();
+        //echo "<pre>";print_r($user->id); echo "</pre>";exit;
         $blog              = new Page();
         $blog->title       = $request->input('blog_title');
         $blog->content     = $request->input('blog_description');
         $blog->slug        = 'blog';
-        $blog->user_id     = 1;
+        $blog->user_id     = $user->id;
         $blog->save();
 
 
@@ -71,9 +72,9 @@ class BlogController extends Controller
         $new_blog = array();
 
         $new_blog['abstract']       = $request->input('blog_abstract');
-        $new_blog['facebook']       = $request->input('facebook');
-        $new_blog['twitter']        = $request->input('twitter');
-        $new_blog['instragram']     = $request->input('instragram');
+        // $new_blog['facebook']       = $request->input('facebook');
+        // $new_blog['twitter']        = $request->input('twitter');
+        // $new_blog['instragram']     = $request->input('instragram');
         $new_blog['date']           = $request->input('date');
         $new_blog['image']          = $name;
 
@@ -177,9 +178,9 @@ class BlogController extends Controller
         $new_blog_detail['title']       = $blogs->title;
         $new_blog_detail['description'] = $blogs->content;
 
-        $new_blog_detail['facebook']   = $blog_detail['facebook'];
-        $new_blog_detail['twitter']    = $blog_detail['twitter'];
-        $new_blog_detail['instragram'] = $blog_detail['instragram'];
+        // $new_blog_detail['facebook']   = $blog_detail['facebook'];
+        // $new_blog_detail['twitter']    = $blog_detail['twitter'];
+        // $new_blog_detail['instragram'] = $blog_detail['instragram'];
         $new_blog_detail['date']       = $blog_detail['date'];
         $new_blog_detail['image']      = $blog_detail['image'];
         $new_blog_detail['abstract']   = $blog_detail['abstract'];
@@ -235,9 +236,9 @@ class BlogController extends Controller
 
 
         $blog_detail['abstract']       = $request->input('blog_abstract');
-        $blog_detail['facebook']       = $request->input('facebook');
-        $blog_detail['twitter']        = $request->input('twitter');
-        $blog_detail['instragram']     = $request->input('instragram');
+        // $blog_detail['facebook']       = $request->input('facebook');
+        // $blog_detail['twitter']        = $request->input('twitter');
+        // $blog_detail['instragram']     = $request->input('instragram');
         $blog_detail['date']           = $request->input('date');
         $blog_detail['image']          = $name;
 
