@@ -28,9 +28,30 @@
                         
                     @else
                         @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
-                            <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }} </a></li>
+                          
+                            <li class="dropdown nav-item logdin">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}</a>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    <li><a class="dropdown-item" href="#"> {{ __('Change Password') }}</a></li>
+                                </ul>
+                            </li>
                         @else
                             <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ ucwords(auth()->user()->name) }} </a></li>
+
+                            <li class="dropdown nav-item logdin">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}</a>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    <li><a class="dropdown-item" href="#"> {{ __('Change Password') }}</a></li>
+                                </ul>
+                            </li>
                         @endif
                     @endguest
                 </ul>

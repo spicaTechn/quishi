@@ -180,3 +180,42 @@ if(!function_exists('show_tags_color')){
 	}
 }
 
+
+/**
+*
+* show the link class in the career advisior profile
+*
+* @param string label
+*
+* @return string icon_class
+*
+*
+**/
+
+
+if(!function_exists('get_link_icon_class')){
+	function get_link_icon_class($label){
+		$icon_class = "";
+		switch($label){
+			case 'facebook_link':
+				$icon_class = 'icon-social-facebook';
+				break;
+			case 'twitter_link':
+				$icon_class = 'icon-social-twitter';
+				break;
+			case 'google_plus_link':
+				$icon_class = 'icon-social-google';
+				break;
+			case 'linkedin_link':
+				$icon_class = 'icon-social-linkedin';
+				break;
+			default:
+				$icon_class = 'icon-link external_link';
+				break;
+
+		}
+
+		return $icon_class;
+	}
+}
+

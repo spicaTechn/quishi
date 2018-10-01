@@ -6,7 +6,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('/front/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-    <!-- <link rel="stylesheet" href="{{ asset('/front/css/nice-select.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('/front/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/responsive.css') }}">
     <link rel="icon" href="{{ asset('/front/i mages/fav-icon.png') }}">
+    <!-- Load the sweetalert css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
