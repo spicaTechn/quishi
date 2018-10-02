@@ -6,6 +6,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('/front/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{asset('/front/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('/front/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/responsive.css') }}">
