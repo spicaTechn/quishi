@@ -116,7 +116,7 @@
                                     <span id="add-skill"><i class="icon-plus"></i></span>
                                 </div>
                                 <div class="social-media-body">
-                                    <div class="row">
+                                    <div class="row link_row">
                                         @foreach($user_links as $user_link)
                                         <div class="col-md-6">
                                             <div class="editable-section">
@@ -135,7 +135,7 @@
                                                         <i class="icon-pencil"></i>
                                                     </a>
                                                 @if($user_link->type == "1")
-                                                    <a class="remove-link" data-toggle="tooltip" data-placement="top" title="Delete Link">
+                                                    <a class="link-delete" data-toggle="tooltip" data-placement="top" title="Delete Link" data-link-id="{{$user_link->id}}">
                                                         <i class="icon-trash"></i>
                                                     </a>
                                                 @endif
@@ -158,6 +158,31 @@
         <!-- profile-main-section -->
     </div>
 </div>
+
+
+<!-- modal to show to display the add link model-->
+<div class="modal fade add-link" id="external-link" tabindex="-1" role="dialog" aria-labelledby="external-linkLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="external-linkLabel">Add New External Link</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>External Link</label>
+                    <input type="text" name="new_external_link" class="form-control new_external_link" placeholder="https://www.google.com/" required="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default btn-save-link" disabled="disabled">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('page_specific_js')
@@ -165,7 +190,7 @@
     $(document).ready(function(){
        
        //make the process back to normal when the user click the cancel button 
-        $('.btn-cancel').on('click',function(e){
+        $(document).on('click',".btn-cancel", function(e){
            //prevent the default action 
            e.preventDefault();
            var _parent_div       = $(this).parents('div.editable-section');
@@ -175,9 +200,53 @@
            _parent_div.find('.hide-social-icon').show();
         });
 
+
+        //delete external link
+        $(document).on('click',"a.link-delete", function(e){
+            var link_id    = $(this).attr('data-link-id');
+            var parent_col = $(this).parents('div.col-md-6');
+            //make the ajax delete request to delete the link
+            $.ajax({
+                url      : "{{URL::to('/profile/links')}}" + "/" + link_id,
+                type     : 'DELETE',
+                data     : {
+                    '_token'  : "{{csrf_token()}}"
+                },
+                dataType : 'JSON',
+                success  : function(data){
+                   if(data.status == "success"){
+                        parent_col.remove();
+                        //show the swal message
+                         swal({
+                          title: "Link Deleted!!",
+                          text: "Link has been deleted successfully!",
+                          type: "success",
+                          closeOnConfirm: true,
+                        });
+                   } 
+                },
+                error    : function(event){
+
+                }
+            });
+        });
+
+
+        //action when the edit link was clicked on the user profile link
+        $(document).on('click',".edit-link", function(e) {
+            e.preventDefault();
+            
+            var _parent_div       = $(this).parents('div.editable-section');
+               //hide the form and show the editiable sections and socail icon class
+           _parent_div.find('form').show();
+           _parent_div.find('.editable-icon').hide();
+           _parent_div.find('.hide-social-icon').hide();
+
+        });
+
         //update the process when the user click the save button
 
-        $('.btn-save').on('click',function(e){
+        $(document).on('click', ".btn-save", function(e){
             //prevent the default action
             e.preventDefault();
             var _parent_div             = $(this).parents('div.editable-section');
@@ -203,18 +272,55 @@
                 }
             });
 
-
-            //delete external link
-            $('.edit-link').on('click',function(e){
-                e.preventDefault();
-                console.log('i need to remove the item');
-                alert('i need to remove the user link');
-            });
-
-
         });
 
 
+        $("#add-skill").on('click',function(e){
+            e.preventDefault();
+            $('.add-link').modal('show');
+        });
+
+
+        //check the external link 
+        $('.new_external_link').on('keyup',function(e){
+            if($(this).val().length <= 0){
+                $('.btn-save-link').prop('disabled',true);
+            }else{
+                $('.btn-save-link').prop('disabled',false);
+            }
+        });
+
+
+        //add new link in the if btn save clicked!!
+
+        $('.btn-save-link').on('click',function(e){
+            //now make the request to add the new link
+            $.post("{{route('profile.links.store')}}",{_token: "{{csrf_token()}}",'new_link_data':$(".new_external_link").val()},function(data){
+                if(data.status == "success"){
+                    //close the modal
+                    $('.add-link').modal('hide');
+                    //set the value to empty
+                    $('.new_external_link').val('');
+                    //disabled the input field
+                    $('.btn-save-link').prop('disabled',true);
+                    //append the data
+                    $('.link_row').append(data.result);
+                    //reset the tooltip    
+                    $('[data-toggle="tooltip"]').tooltip();
+                    //show alert message
+                    swal({
+                      title: "Link has been added!!",
+                      text: "New external Link has been added successfully!",
+                      type: "success",
+                      closeOnConfirm: true,
+                    });
+
+
+
+                }
+            });
+        });
+        
 
     });
 </script>

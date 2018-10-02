@@ -105,6 +105,19 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'as'   	=> 'profile.links.udpate',
 		'uses'  => 'Front\CareerAdvisor\Profile\ProfileController@udpate_advisior_links'
 	]);
+
+
+	Route::delete('/links/{id}',[
+		'as'	=> 'profile.links.destroy',
+		'uses'	=> 'Front\CareerAdvisor\Profile\ProfileController@delete_user_link'
+	]);
+
+
+	Route::post('/links/store',[
+		'as'	=> 'profile.links.store',
+		'uses'	=> 'Front\CareerAdvisor\Profile\ProfileController@create_user_link'
+	]);
+
 });
 
 
