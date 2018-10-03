@@ -3,11 +3,27 @@
 namespace App\Http\Controllers\Front\CareerAdvisor\Profile;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Front\CareerAdvisor\BaseCareerAdvisorController;
 use App\Http\Controllers\Controller;
+use App\Model\Career;
+use App\Model\Education, App\Model\Tag;
+use App\User, App\Model\UserProfile;
+use App\Model\Answer;
+use Auth,DB,File,Input,Session;
 
-class MyAccountController extends Controller
+class MyAccountController extends BaseCareerAdvisorController
 {
     //
+
+    protected $career;
+    protected $major;
+    protected $user_tags = array();
+    protected $user_profile_image_path = "front/images/profile";
+    protected $user_profile_image  = "";
+
+    public function __construct(){
+    	$this->career = Career::where('parent',"=",'0')->where('status','1')->get();
+    }
 
     /**
     * to show the particular account resource
@@ -19,12 +35,49 @@ class MyAccountController extends Controller
     **/
 
     public function index(){
-    	//
-    	return view('front.career-advisor.my-account.index');
+
+    	//render the education major and the education major category
+    	$education_major   		=  Education::where('parent','>',0)->get();
+
+    	$user_selected_careers 	= Auth::user()->careers()->select('careers.id','careers.title')->first();
+    	$user_selected_industry = Career::where('id', $user_selected_careers->id)->get();
+
+    	//user selected industry
+    	foreach($user_selected_industry as $selected_industry):
+	    	$user_industry_id = $selected_industry->parent_career->id;
+
+    	endforeach;
+
+
+    	//render the curent user questions
+    	$user_questions    		= $this->getCurrentUserCareer(Auth::user()->id);
+    	$i = 0;
+    	//add user anwer on the render current user questions
+    	foreach($user_questions as $user_question){
+    		 $questions_id = $user_question['question_id'];
+	         $answers = DB::table('answers')->where('question_id',$questions_id)->where('user_id', Auth::user()->id)->select('content')->first();
+	         $user_questions[$i]['answer'] = $answers->content;
+	         $i++;
+
+    	}
+
+    	//loop through the each user tags
+    	foreach(Auth::user()->tags as $tag){
+    		$this->user_tags[] = $tag->title;
+    	}
+
+    	//return view with the requried parameters
+    	return view('front.career-advisor.my-account.index')->with([
+    				'industries'					=> $this->career,
+    				'majors'						=> $education_major,
+    				'user_tags'						=> $this->user_tags,
+    				'user_questions_and_answers'	=> $user_questions,
+    				'user_careers'					=> $user_selected_careers,
+    				'user_industry_id'				=> $user_industry_id,
+    				'user_selected_industry_details'=> $user_selected_industry,
+    	]);
 
     }
-
-
 
     /**
     * to show the form to create the new resources
@@ -40,7 +93,86 @@ class MyAccountController extends Controller
     }
 
 
+
+    /**
+    * update the resource
+    * @param \Illuminate\Http\Request 
+    * @param int id
+    * @return \Illuminate\Http\Response
+    *
+    *
+    *
+    **/
+
     public function update(Request $request,$id){
-    	echo $id;
+    	//udpate the user profile
+    	$user   				  		= User::findOrFail(Auth::user()->id);
+    	//check the user_image was set or not
+    	if($request->hasFile('user_image')){
+    		//user image was set then need to upload the image 
+    		$user_profile_pic    		= $request->file('user_image');
+    		$name                		= time() . '.'.$user_profile_pic->getClientOriginalExtension();
+    		$user_profile_pic->move($this->user_profile_image_path,$name);
+    		$this->user_profile_image   = $name;
+    		//only save the image 
+
+    		//delete the old image if any
+	        $file = $user->user_profile->image_path;
+	        if($file):
+	        	 $filename = $_SERVER["DOCUMENT_ROOT"].'/quishi/front/images/profile/'.$file;
+	        	 \File::delete($filename);
+	        endif;
+	      
+    	}else{
+    		$this->user_profile_image  = $user->user_profile->image_path;
+    	}
+
+    	//initalize the user profile 
+    	$user_profile 			  		 = $user->user_profile ? : new UserProfile();
+    	$user_profile->first_name 		 = $request->input('fullname');
+    	$user_profile->age_group    	 = $request->input('age_group');
+    	$user_profile->location     	 = $request->input('address');
+    	$user_profile->description  	 = $request->input('description');
+    	$user_profile->image_path   	 = $this->user_profile_image;
+    	$user_profile->educational_level = $request->input('education');
+    	$user_profile->job_experience    = $request->input('job_experience');
+    	$user_profile->education_id      = $request->input('faculty');
+    	$user_profile->salary_range      = $request->input('salary');
+    	$user_profile->skills             = $request->input('skills');
+    	$user_profile->save();
+    	//remove the , from the skills
+
+    	$user_skills_array               = explode(',', $request->input('skills'));
+
+    	$tag_ids 						= array();
+    	foreach($user_skills_array as $user_skill){
+    		$tag        = Tag::where('slug',str_slug($user_skill))->first();
+    		if($tag):
+    			$tag_ids[]   = $tag->id;
+    		endif;
+    	}
+
+    	//udate the data in the user tags pivot table
+    	$user->tags()->sync($tag_ids);
+
+    	//update user job title 
+    	//$user->careers()->sync(array($request->input('job_title')));
+
+
+
+    	//update user answer
+    	$submitted_user_answer = $request->input('answer_id');
+    	$submitted_question    = $request->input('question_id');
+    	for($i=0; $i<count($submitted_question); $i++){
+    		$user_answer      = Answer::where('question_id',$submitted_question[$i])
+    									->where('user_id',Auth::user()->id)
+    									->update(['content'=> $submitted_user_answer[$i]]);
+    	}
+
+    	Session::flash('user_profile_update', 'Your profile has been updated successfully!!');
+
+    	return redirect()->route('careerAdvisior.my-account.index');
+
+
     }
 }

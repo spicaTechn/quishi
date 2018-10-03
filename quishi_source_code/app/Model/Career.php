@@ -14,7 +14,7 @@ class Career extends Model
     }
 
 
-   public function parent() {
+   public function parent_career() {
     return $this->belongsTo(static::class, 'parent');
   }
 
