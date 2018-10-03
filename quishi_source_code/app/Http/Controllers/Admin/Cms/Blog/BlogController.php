@@ -194,6 +194,8 @@ class BlogController extends Controller
 
     public function updateBlog(Request $request, $id)
     {
+
+        //echo "<pre>"; print_r($request->all()); echo "</pre>"; exit;
         $blog_id        = $request->blog_id;
         $page_detail_id = $request->page_detail_id;
         $name           = '';
@@ -209,9 +211,11 @@ class BlogController extends Controller
         //echo "<pre>"; print_r($blogs['id']); echo "</pre>"; exit;
 
         $blog->title       = $request->input('blog_title');
-        $blog->content     = $request->input('blog_description');
+        $blog->content     = $request->input('edit_blog_description');
         $blog->slug        = 'blog';
         $blog->user_id     = 1;
+        //echo "<pre>"; print_r($blogs['id']); echo "</pre>"; exit;
+
         $blog->save();
 
 
@@ -242,7 +246,7 @@ class BlogController extends Controller
         $blog_detail['date']           = $request->input('date');
         $blog_detail['image']          = $name;
 
-        $new_blog_serialize         = serialize($blog_detail);
+        $new_blog_serialize      = serialize($blog_detail);
         $page_detail             = PageDetail::find($page_detail_id);
         $page_detail->meta_key   = 'blog';
         $page_detail->page_id    = $blog_id;
