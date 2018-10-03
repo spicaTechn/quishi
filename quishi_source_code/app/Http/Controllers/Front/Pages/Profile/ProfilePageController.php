@@ -9,6 +9,7 @@ use App\PageDetail;
 use App\User;
 use DB;
 use App\Model\UserProfile;
+use App\Model\Education, App\Model\Career;
 
 class ProfilePageController extends BaseCareerAdvisorController
 {
@@ -18,20 +19,29 @@ class ProfilePageController extends BaseCareerAdvisorController
      * @return \Illuminate\Http\Response
      */
     protected $offset   = 0;
-    protected $per_page = 2;
+    protected $per_page = 6;
 
-    public function index()
+    public function index(Request $request)
     {
         //
 
-        $user     = User::where('logged_in_type','0')->take(2)->get();
-        $record   = $user->count();
-        $show_more= false;
-        if($user){
-            if($this->per_page = $record){
-                $show_more = true;
+        if($request->has('search')):
+            
+        else:
+            $user     = User::where('logged_in_type','0')->take($this->per_page)->get();
+            $record   = $user->count();
+            $show_more= false;
+            if($user){
+                if($this->per_page = $record){
+                    $show_more = true;
+                }
             }
-        }
+        endif;
+        //load the education
+
+        $career    = Career::where('parent','=','0')->get();
+        
+        //load industry
 
         //$user_tag = User::with('tags')->where('logged_in_type','0')->get();
         //echo "<pre>";print_r($user); echo "</pre>";exit;
@@ -39,7 +49,8 @@ class ProfilePageController extends BaseCareerAdvisorController
             'site_title'     => 'Quishi',
             'page_title'     => 'Profile',
             'users'          => $user,
-            'show_more'      => $show_more
+            'show_more'      => $show_more,
+            'industries'     => $career,        
 
         ));
     }

@@ -6,38 +6,40 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="top-filter-dropdown">
-                            <select class="form-control">
-                                <option>Age Group</option>
-                                <option>Age Group</option>
-                                <option>Age Group</option>
-                                <option>Age Group</option>
+                            <select class="form-control" name="age_group">
+                                <option value="0" disabled="disabled" selected="">{{ __('Age Group')}} </option>
+                                <option value="1">0-15 years</option>
+                                <option value="2">15-30 years</option>
+                                <option value="3">30-45 years</option>
+                                <option value="4">45-50 years</option>
+                                <option value="5">50 above</option>
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
                         <div class="top-filter-dropdown">
-                            <select class="form-control">
-                                <option>Education</option>
-                                <option>Education</option>
-                                <option>Education</option>
-                                <option>Education</option>
+                            <select class="form-control" name="education">
+                                <option value="0" disabled="disabled" selected="selected">Education</option>
+                                <option value="high school">High School</option>
+                                <option value="associate">Associate</option>
+                                <option value="bachelor">Bachelor</option>
+                                <option value="masters">Masters</option>
+                                <option value="phd">PHD</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
                         <div class="top-filter-dropdown">
-                            <select class="form-control">
-                                <option>Location</option>
-                                <option>Location</option>
-                                <option>Location</option>
-                                <option>Location</option>
+                            <select class="form-control" name="address">
+                                <option value="0" disabled="disabled" selected="selected">Location</option>
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
                         <div class="top-filter-dropdown">
-                            <select class="form-control">
-                                <option>Industry</option>
-                                <option>Industry</option>
-                                <option>Industry</option>
-                                <option>Industry</option>
+                            <select class="form-control industry " name="industry">
+                                <option value="0" disabled="disabled" selected="selected">Industry</option>
+                                @foreach($industries as $industry)
+                                    <option value="{{$industry->id}}">{{ucwords($industry->title)}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
@@ -68,35 +70,21 @@
                         <div class="filter-dropdown">
                             <div class="sort-by">Sort By: </div>
                             <div class="sort-dropdown">
-                                <select class="form-control">
-                                    <option>Recent</option>
-                                    <option>Recent</option>
-                                    <option>Recent</option>
-                                    <option>Recent</option>
+                                <select class="form-control" name="career_advisor_order">
+                                    <option value="1">Recent</option>
+                                    <option value="2">Oldest</option>
                                 </select>
                             </div>
                             <div class="sort-dropdown">
-                                <select class="form-control">
-                                    <option>Oldest</option>
-                                    <option>Oldest</option>
-                                    <option>Oldest</option>
-                                    <option>Oldest</option>
+                                <select class="form-control" name="profile_like">
+                                    <option value='1'>Profile Likes Desc</option>
+                                    <option vlaue='2'>Profile Likes Asc</option>
                                 </select>
                             </div>
                             <div class="sort-dropdown">
-                                <select class="form-control">
-                                    <option>Likes</option>
-                                    <option>Likes</option>
-                                    <option>Likes</option>
-                                    <option>Likes</option>
-                                </select>
-                            </div>
-                            <div class="sort-dropdown">
-                                <select class="form-control">
-                                    <option>Views</option>
-                                    <option>Views</option>
-                                    <option>Views</option>
-                                    <option>Views</option>
+                                <select class="form-control" name="profile_view">
+                                    <option value="1">Profile Views Desc</option>
+                                    <option value="2">Profile Views Asc</option>
                                 </select>
                             </div>
                         </div>
