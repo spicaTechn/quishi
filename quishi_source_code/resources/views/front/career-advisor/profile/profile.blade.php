@@ -1,6 +1,13 @@
 @extends('front.career-advisor.layout.master')
 @section('content')
         <div class="profile-main-section">
+            @if(Auth::user()->user_profile->status != 1)
+            <div class="email-verification alert alert-danger">
+                {{ __('Please verify your email address')}}
+                <a href="#">{{ __('Reset activation') }}</a>
+                <span id="close">×</span>
+            </div> 
+            @endif
             <div class="profile-first-section">
                 <div class="row">
                     <div class="col-md-3">

@@ -9,7 +9,7 @@ use App\Model\Career;
 use App\Model\Education, App\Model\Tag;
 use App\User, App\Model\UserProfile;
 use App\Model\Answer;
-use Auth,DB,File,Input,Session;
+use Auth,DB,File,Input,Session,Hash;
 
 class MyAccountController extends BaseCareerAdvisorController
 {
@@ -112,15 +112,13 @@ class MyAccountController extends BaseCareerAdvisorController
     		//user image was set then need to upload the image 
     		$user_profile_pic    		= $request->file('user_image');
     		$name                		= time() . '.'.$user_profile_pic->getClientOriginalExtension();
-    		$user_profile_pic->move($this->user_profile_image_path,$name);
+    		//$user_profile_pic->move($this->user_profile_image_path,$name);
     		$this->user_profile_image   = $name;
-    		//only save the image 
-
     		//delete the old image if any
-	        $file = $user->user_profile->image_path;
-	        if($file):
-	        	 $filename = $_SERVER["DOCUMENT_ROOT"].'/quishi/front/images/profile/'.$file;
-	        	 \File::delete($filename);
+    	
+	        $file = $_SERVER['DOCUMENT_ROOT'].'/quishi/front/images/profile/'.$user->user_profile->image_path;
+	        if(file_exists($file)):
+	        	 \File::delete($file);
 	        endif;
 	      
     	}else{
@@ -155,10 +153,8 @@ class MyAccountController extends BaseCareerAdvisorController
     	//udate the data in the user tags pivot table
     	$user->tags()->sync($tag_ids);
 
-    	//update user job title 
+    	//update user job title but not applicable here 
     	//$user->careers()->sync(array($request->input('job_title')));
-
-
 
     	//update user answer
     	$submitted_user_answer = $request->input('answer_id');
@@ -174,5 +170,31 @@ class MyAccountController extends BaseCareerAdvisorController
     	return redirect()->route('careerAdvisior.my-account.index');
 
 
+    }
+
+
+    //CHANGE PASSOWRD
+
+    //show the form to change the password
+
+    public function change_logged_in_user_password(){
+        return view('front.career-advisor.my-account.change-password');
+    }
+
+
+    public function change_password(Request $request){
+        $old_input_password = $request->input('old_password');
+        if(Hash::check($old_input_password,Auth::user()->password)){
+            //the input old password matches with the store passowrd
+            //proceed forward
+            $user = User::findOrFail(Auth::user()->id);
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+            //logout from all devices and redirect to the login page with the session message
+            Auth::logout();
+            return redirect()->route('login');
+        }else{
+            return redirect()->back()->withErrors(['old_password'=> 'Old password is invalid!!']);
+        }
     }
 }

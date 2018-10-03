@@ -9,7 +9,6 @@
 <body>
     @include('front.career-advisor.inc.header')
     <!-- end header -->
-
     @yield('content')
 
 
