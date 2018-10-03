@@ -12,16 +12,7 @@ jQuery(document).ready(function($) {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(".edit-link").on('click',function(e) {
-        e.preventDefault();
-        
-        var _parent_div       = $(this).parents('div.editable-section');
-           //hide the form and show the editiable sections and socail icon class
-       _parent_div.find('form').show();
-       _parent_div.find('.editable-icon').hide();
-       _parent_div.find('.hide-social-icon').hide();
-
-    });
+  
 
     $(".reply").click(function() {
         //alert("The paragraph was clicked.");

@@ -82,8 +82,28 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'		=> 'Front\CareerAdvisor\Answer\AnswerController@destroy'
 	]);
 
+	Route::get('/answers/show/{answer_id}',[
+		'as'		=> 'careerAdvisior.answer.show',
+		'uses'		=> 'Front\CareerAdvisor\Answer\AnswerController@show'
+	]);
+
+	Route::post('/answers/{answer_id}',[
+		'as'		=> 'careerAdvisior.answer.update',
+		'uses'		=> 'Front\CareerAdvisor\Answer\AnswerController@update'
+	]);
+
 
 	//my account section
+
+	Route::get('/my-account',[
+		'as'		=> 'careerAdvisior.my-account.index',
+		'uses'		=> 'Front\CareerAdvisor\Profile\MyAccountController@index'
+	]);
+
+	Route::post('/my-account/{id}',[
+		'as'		=> 'profile.my-account.udpate',
+		'uses'		=> 'Front\CareerAdvisor\Profile\MyAccountController@update'
+	]);
 
 
 
@@ -105,6 +125,19 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'as'   	=> 'profile.links.udpate',
 		'uses'  => 'Front\CareerAdvisor\Profile\ProfileController@udpate_advisior_links'
 	]);
+
+
+	Route::delete('/links/{id}',[
+		'as'	=> 'profile.links.destroy',
+		'uses'	=> 'Front\CareerAdvisor\Profile\ProfileController@delete_user_link'
+	]);
+
+
+	Route::post('/links/store',[
+		'as'	=> 'profile.links.store',
+		'uses'	=> 'Front\CareerAdvisor\Profile\ProfileController@create_user_link'
+	]);
+
 });
 
 

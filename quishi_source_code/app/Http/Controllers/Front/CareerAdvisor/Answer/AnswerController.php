@@ -75,8 +75,9 @@ class AnswerController extends Controller
 
     	//show the current users questions with the answers provided 
 
-    	echo $id;
-    	exit;
+    	$user_answer           = Answer::findOrFail($id);
+        $user_answer_question  = $user_answer->question->title;
+        return response()->json(array('status'=>'success','result'=>$user_answer,'question'=>$user_answer_question),200);
 
     }
 
@@ -105,8 +106,27 @@ class AnswerController extends Controller
     *
     */
 
-    public function update(Request $reqeust,$id){
+    public function update(Request $request,$id){
 
+        $user_answer            = Answer::findOrFail($id);
+        $return_message         = "";
+        if($request->has('type')):
+            //need to update the status only
+            $user_answer->status = ($user_answer->status) ? '0' : '1';
+            if($user_answer->status):
+                $return_message  = "Your answer is visible to the career seeker now!!";
+                
+            else:
+                $return_message = "Your answer is not visible to the career seeker!!";
+            endif;
+
+        else:
+            //udpate the user content
+             $user_answer->content   = $request->input('answer_content');
+        endif;
+        //save the user answer
+        $user_answer->save();
+        return response()->json(array('status'=> 'success','result'=>'success','message'=> $return_message),200);
     }
 
 

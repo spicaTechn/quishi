@@ -2870,3 +2870,27 @@ button#comment-toogle {
     width: 100%;
 
 }
+
+.question-remove-link i {
+    position: relative;
+}
+
+.eye-on i:after {
+    content: "";
+    height: 16px;
+    width: 2px;
+    position: absolute;
+    background: #676767;
+    transform: rotate(30deg);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50% , -50%) rotate(30deg) scale(0,0);
+    transform: translate(-50% , -50%) rotate(30deg) scale(0,0);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.eye-close i::after {
+    -webkit-transform: translate(-50% , -50%) rotate(30deg) scale(1,1);
+    transform: translate(-50% , -50%) rotate(30deg) scale(1,1);
+}

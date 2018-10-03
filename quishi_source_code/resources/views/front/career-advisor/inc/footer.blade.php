@@ -39,7 +39,7 @@
             <div class="footer-copyright">
                 <div class="container">
                     <div class="copyright text-center">
-                        &copy; 2018 Quishi. All rights reserved.
+                        &copy; {{date('Y')}} Quishi. All rights reserved.
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-<script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script>
+<script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>

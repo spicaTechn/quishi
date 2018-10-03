@@ -314,6 +314,60 @@ class ProfileController extends BaseCareerAdvisorController
 
     public function create_user_link(Request $request){
 
+       //get the last link from the db
+       $user_external_link_last = UserLink::where('label','like','external_link%')
+                                            ->orderBy('created_at','desc')
+                                            ->select('label')
+                                            ->first();
+
+        if($user_external_link_last):
+            //increment the external link by 1 and create new resource
+            $external_link_label        = $user_external_link_last->label;
+            $external_label             = trim($external_link_label,'external_link');
+            $external_label++;
+            $new_external_label         = "external_link" . $external_label;
+
+        else:
+            //create new resource
+            $new_external_label        = "external_link1";
+        endif;
+
+
+        //now save the data
+        $user_external_link             = new UserLink();
+        $user_external_link->label      = $new_external_label;
+        $user_external_link->link       = $request->input('new_link_data');
+        $user_external_link->type       = "1";
+        $user_external_link->user_id    = Auth::user()->id;
+        $user_external_link->save();
+
+
+        //return response
+
+        $return_html = '<div class="col-md-6">
+                            <div class="editable-section">
+                                <a href="#" class="hide-social-icon"> <i class="icon-link external_link"></i><span>'.$request->input('new_link_data').'</span></a>
+                                <form action=""  style="display: none;" data_link_type="'.$new_external_label.'">
+                                    <div class="form-group">
+                                        <input type="text" name="facebook-link" class="form-control"  value="'.$request->input('new_link_data').'">
+                                    </div>
+                                    <div class="button-groups">
+                                        <button class="btn btn-success btn-save">Save</button>
+                                        <button class="btn btn-secondary btn-cancel">Cancel</button>
+                                    </div>
+                                </form>
+                                <div class="editable-icon">
+                                    <a class="edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                
+                                    <a class="link-delete" data-toggle="tooltip" data-placement="top" title="Delete Link" data-link-id="'.$user_external_link->id.'">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>';
+        return response()->json(array('status'=>'success','result'=>$return_html),200);
     }
 
 
@@ -328,7 +382,12 @@ class ProfileController extends BaseCareerAdvisorController
 
 
     public function delete_user_link($id){
-        
+        //get the resource by the id
+        $user_profile_link = UserLink::findOrFail($id);
+        //now delete the user link resource
+        $user_profile_link->delete();
+        //send the json response
+        return response()->json(array('status'=>'success','result'=>'Link has been deleted!!'),200); 
     }
 
 
