@@ -29,6 +29,7 @@ Route::get('/blog/{id}', [
 	'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
 ]);
 
+Route::get('/blog-share/{user_id}/{blog_id}','Front\Pages\Blog\BlogShareController@show');
 
 // Route for profile front
 Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');

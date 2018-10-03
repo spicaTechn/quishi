@@ -162,9 +162,11 @@
         </div>
         @if($show_more)
             <div class="view-more text-center">
-                <a href="javascript:void(0);" data-count-record="{{ $record_increment }}" class="btn btn-default load_more" id="load_more">load more</a>
+                <a href="javascript:void(0);" data-count-record="{{ $record_increment }}" class="btn btn-default more_content" id="more_content">load more</a>
             </div>
         @endif
     </div>
 </div>
+
+
 

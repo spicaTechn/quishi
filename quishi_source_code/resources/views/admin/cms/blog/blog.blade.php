@@ -228,6 +228,7 @@ img {
               <div class="modal-body">
                 <input type="hidden" name="blog_id" class="blog_id" value=""/>
                 <input type="hidden" name="page_detail_id" class="page_detail_id" value="">
+                <input type="hidden" name="edit_description" class="edit_description" value="">
                 <div class="row">
                   <div class="col-sm-12 col-xl-12 m-b-30">
                        <h4 class="sub-title">Title *</h4>
@@ -239,7 +240,8 @@ img {
                 <div class="row">
                    <div class="col-sm-12 col-xl-12 m-b-30">
                        <h4 class="sub-title">Description *</h4>
-                       <textarea id="edit-tinymce" style="height: 283px;"  class="form-control edit_blog_description" name="blog_description" placeholder="Description"></textarea>
+                       <textarea id="edit-tinymce" style="height: 283px;"  class="form-control edit_blog_description"
+                       name="edit_blog_description" placeholder="Description" value=""></textarea>
                    </div>
                 </div>
                 <div class="row">
@@ -284,7 +286,7 @@ img {
 
               <div class="modal-footer">
                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-               <button type="submit"  class="btn btn-primary waves-effect waves-light">Save changes</button>
+               <button type="submit"  class="btn btn-primary waves-effect waves-light " id="saveBlog">Save changes</button>
               </div>
          </form>
         </div>
@@ -330,6 +332,7 @@ $(document).ready(function () {
     var save_method, URI;
     $( ".blog-add-btn" ).on( "click", function() {
       save_method = 'add';
+      $('.modal-title').text('Add New Blog'); // Set Title to Bootstrap modal title
       $('#add-blog').modal('show');
     });
 
@@ -430,6 +433,61 @@ $(document).ready(function () {
       });
 
 
+
+      // blog edit model pop up
+      $( ".edit-blog" ).on( "click", function(e) {
+          e.preventDefault();
+          var blog_id = $(this).attr('data-blog-id');
+          var blog_page_detail_id = $(this).attr('data-serialize-id');
+          //alert(blog_page_detail_id);
+
+          $.ajax({
+              url:"{{url('')}}" + "/admin/cms/blog/editBlog/" + blog_id,
+              type:"GET",
+              dataType:"json",
+              //data: {'edit_id':blog_id,'hidden_id':blog_page_detail_id},
+              success:function(data){
+                  //check for the success status only
+                  if(data.status == "success"){
+                      //insert the data in the modal
+
+                      //alert(data.result.description);
+                      $(".blog_id").val(blog_id);
+                      $(".page_detail_id").val(blog_page_detail_id);
+                      $(".blog_title").val(data.result.title);
+
+                      var content = tinymce.activeEditor.setContent(data.result.description);
+                      $("textarea#edit-tinymce").val(content);
+                      //$(".edit_blog_description").val();
+
+                      $("textarea#edit-tinymce").attr("value", data.result.description);
+
+
+                      $(".blog_abstract").val(data.result.abstract);
+
+
+                      // $(".facebook").val(data.result.facebook);
+                      // $(".twitter").val(data.result.twitter);
+                      // $(".instragram").val(data.result.instragram);
+                      $(".date").val(data.result.date);
+
+                      var image="{{asset('/front')}}/images/blogs" + "/" +data.result.image;
+                      $("#edit-blog-image").attr('src',image);
+
+                       $('#edit-blog').modal('show'); // show bootstrap modal
+                       $('.modal-title').text('Update Blog'); // Set Title to Bootstrap modal title
+                      //console.log(data.result);
+                  }
+
+              },
+              error:function(event){
+                      console.log('Cannot get the particular team');
+              }
+          });
+
+      });
+
+      // updating blog content
       $('#edit-blog-form').on('init.field.fv', function(e, data) {
           var $parent = data.element.parents('.form-group'),
               $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
@@ -457,7 +515,7 @@ $(document).ready(function () {
                       }
                   }
               },
-              'blog_description': {
+              'edit_blog_description': {
                   validators: {
                       notEmpty: {
                              message: 'The description is required'
@@ -472,16 +530,20 @@ $(document).ready(function () {
                   }
               }
           }
-      }).on('success.form.fv', function(e) {
+      });
+      $( "#saveBlog" ).on( "click", function(e) {
           // Prevent form submission
           e.preventDefault();
+          tinymce.triggerSave();
+
 
           var blog_id  = $(".blog_id").val();
+
           //var team_update_id = $(this).attr('data-serialize-id');
           URI = "{{url('/admin/cms/blog/updateBlog')}}" +"/" +  blog_id;
 
           // get the form input values
-          result = new FormData($("#edit-blog-form")[0]);
+          var result = new FormData($("#edit-blog-form")[0]);
 
           $.ajax({
           //make the ajax request to either add or update the
@@ -521,48 +583,6 @@ $(document).ready(function () {
         });
       });
 
-      // blog edit model pop up
-      $( ".edit-blog" ).on( "click", function(e) {
-          e.preventDefault();
-          var blog_id = $(this).attr('data-blog-id');
-          var blog_page_detail_id = $(this).attr('data-serialize-id');
-          //alert(blog_page_detail_id);
-
-          $.ajax({
-              url:"{{url('')}}" + "/admin/cms/blog/editBlog/" + blog_id,
-              type:"GET",
-              dataType:"json",
-              //data: {'edit_id':blog_id,'hidden_id':blog_page_detail_id},
-              success:function(data){
-                  //check for the success status only
-                  if(data.status == "success"){
-                      //insert the data in the modal
-                      //alert(data.result.image);
-                      $(".blog_id").val(blog_id);
-                      $(".page_detail_id").val(blog_page_detail_id);
-                      $(".blog_title").val(data.result.title);
-                      $(".edit_blog_description").val(data.result.description);
-                      $(".blog_abstract").val(data.result.abstract);
-                      // $(".facebook").val(data.result.facebook);
-                      // $(".twitter").val(data.result.twitter);
-                      // $(".instragram").val(data.result.instragram);
-                      $(".date").val(data.result.date);
-
-                      var image="{{asset('/front')}}/images/blogs" + "/" +data.result.image;
-                      $("#edit-blog-image").attr('src',image);
-
-                       $('#edit-blog').modal('show'); // show bootstrap modal
-                       $('.modal-title').text('Update Team'); // Set Title to Bootstrap modal title
-                      //console.log(data.result);
-                  }
-
-              },
-              error:function(event){
-                      console.log('Cannot get the particular team');
-              }
-          });
-
-      });
 
 
       $( ".delete-blog" ).on( "click", function(e) {
@@ -637,7 +657,13 @@ $(document).ready(function () {
 
       // installing wysiwyg editor
       tinymce.init({
+        forced_root_block : "",
         selector: '#add-tinymce',
+        setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+         });
+        },
         height: 300,
         menubar: false,
         plugins: [
@@ -651,7 +677,13 @@ $(document).ready(function () {
           '//www.tinymce.com/css/codepen.min.css']
       });
       tinymce.init({
+        forced_root_block : "",
         selector: '#edit-tinymce',
+        setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+         });
+        },
         height: 300,
         menubar: false,
         plugins: [

@@ -22,13 +22,13 @@
 	                        </div>
 	                        <div class="blog-content">
 	                            <h3><a href="{{ url('/blog').'/'.$blog->id }}">{{ $blog->title }}</a></h3>
-	                            <div class="blog-author-category">
+	                            <!-- <div class="blog-author-category">
 	                                <ul>
 	                                    <li><a href="#"><i class="icon-user" aria-hidden="true"></i>author</a></li>
 	                                    <li><a href="#"><i class="icon-tag" aria-hidden="true"></i>category</a></li>
 	                                    <li><a href="#"><i class="icon-bubbles" aria-hidden="true"></i>comments</a></li>
 	                                </ul>
-	                            </div>
+	                            </div> -->
 	                            <p>{{ str_limit($blog->content,130) }}</p>
 	                            <a href="{{ url('/blog').'/'.$blog->id }}" class="blog-read-more">read more</a>
 	                        </div>
