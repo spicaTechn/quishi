@@ -1,14 +1,14 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
     //
     protected $table = 'pages';
-    protected $fillable = ['page_id','meta_key', 'meta_value'];
+    //protected $fillable = ['title','slug', 'content','user_id','type'];
+
 
     public function page_detail()
     {

@@ -21,9 +21,10 @@ class PagesController extends Controller
 
     public function index()
     {
-        //
-        $about          = Page::where('slug','about-us')->first();
 
+
+
+        $about          = Page::where('slug','about-us')->first();
         // check if about data is in database or not. If not then pass empty value to display in about us  top section so tha error not occure
         if($about):
             $about_data = $about;
@@ -96,7 +97,29 @@ class PagesController extends Controller
         endif;
 
 
-        $home = Page::where('slug','home')->get();
+        $services = Page::where('slug','home')->get();
+        if(count($services)>0){
+            $home = $services;
+        }
+        else
+        {
+            for($i=0; $i<3; $i++){
+                $home_save                = new Page();
+                $home_save->title         = 'title';
+                $home_save->content       = 'description';
+                $home_save->slug          = 'home';
+                $home_save->user_id       = '1';
+                //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
+                $home_save->save();
+
+                $home_page_detail             = new PageDetail();
+                $home_page_detail->meta_key   = 'home-icon';
+                $home_page_detail->page_id    = $home_save->id;
+                $home_page_detail->meta_value = 'hello.jpg';
+
+                $home_page_detail->save();
+            }
+        }
 
 
         return view('admin.cms.pages.pages')
@@ -656,5 +679,7 @@ class PagesController extends Controller
         return response()->json(array('status'=>'success','result'=>'successfully updated blog in the quishi system'),200);
 
     }
+
+
 
 }
