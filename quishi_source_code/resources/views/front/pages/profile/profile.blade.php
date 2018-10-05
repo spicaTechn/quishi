@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row hide-div" id="hide-div">
                     @foreach($users as $user)
                     <div class="col-lg-4">
                         <div class="trending-profiles-section">
@@ -162,6 +162,9 @@
                     @endforeach
 
                 </div>
+                <div class=" show-div" id="show-div">
+
+                </div>
                 @if($show_more)
                 <div class="view-more text-center">
                     <a href="javascript:void(0);" data-count-record="0" class="btn btn-default load_more" id="load_more">load more</a>
@@ -170,7 +173,6 @@
             </div>
         </div>
 </div>
-<div class="loadmoredata" id="loamoredata"></div>
 @endsection
 
 @section('page_specific_js')
@@ -215,7 +217,8 @@ $(document).ready(function () {
 
         //var _token          = $("input[name='_token']").val();
         var count_record = $(this).attr('data-count-record');
-        var added_record = parseInt(count_record+1);
+        var added_record = parseInt(count_record)+parseInt(1);
+        $('#load_more').attr('data-count-record',added_record); //setter
         //alert(added_record);
         $.ajax({
               //make the ajax request to either add or update the
@@ -230,8 +233,9 @@ $(document).ready(function () {
 
             if(data.success == true) {
                 //alert("success");
-              $(".main").css("display", "none");
-              $('.loadmoredata').append(data.html);
+              $(".hide-div").css("display", "none");
+              $('#show-div').append(data.html);
+
             }
           },
           error:function(event)

@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Page;
 use App\PageDetail;
+use App\User;
+use App\Model\UserProfile;
+use App\Model\Tag;
+use DB;
 
 
 class MainPageController extends Controller
@@ -20,17 +24,19 @@ class MainPageController extends Controller
         //fetching contact data to show in footer section
 
         $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
-        $blog = $blogs ?? '';
-        //echo "<pre>";print_r($blog); echo "</pre>";exit;
+        $blog  = $blogs ?? '';
+        $user_profiles = UserProfile::orderBy('profile_views','desc')->take(3)->get();
+        $service      = Page::where('slug','home')->get();
+
         return view('front.index')
                     ->with(array(
-                        'site_title'          => 'Quishi',
-                        'page_title'          => 'Home',
-
-                        'blogs'           => $blog,
-                    )
-
-                );
+                            'site_title'          => 'Quishi',
+                            'page_title'          => 'Home',
+                            'blogs'               => $blog,
+                            'users_profile'       => $user_profiles,
+                            'services'            => $service,
+                        )
+                    );
     }
 
     /**

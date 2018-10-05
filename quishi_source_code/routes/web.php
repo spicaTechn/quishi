@@ -235,6 +235,17 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'as'		=>	'admin.cms.pages',
 		'uses'		=>	'Admin\Cms\Pages\PagesController@index'
 	]);
+	// Route for home page content
+
+	Route::get('/cms/pages/editHome/{id}', [
+		'as'		=>	'admin.cms.pages.editHome',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@editHome'
+	]);
+
+	Route::post('/cms/pages/homeUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.homeUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@homeUpdate'
+	]);
 
 	// Route to store about page top section content to quishi
 	Route::any('/cms/pages/aboutUpdate/', [

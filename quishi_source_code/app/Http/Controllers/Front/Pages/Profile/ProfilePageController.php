@@ -39,7 +39,8 @@ class ProfilePageController extends BaseCareerAdvisorController
             'site_title'     => 'Quishi',
             'page_title'     => 'Profile',
             'users'          => $user,
-            'show_more'      => $show_more
+            'show_more'      => $show_more,
+
 
         ));
     }
