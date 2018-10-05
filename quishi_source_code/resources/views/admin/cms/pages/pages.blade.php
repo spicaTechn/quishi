@@ -59,6 +59,21 @@
                      <div class="tab-content" >
                         <!-- Home Tab -->
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <div class="card-block">
+                              <h4>Video ID</h4>
+                              <br>
+                              <form name="home-video" id="home-video" enctype="multipart/form-data">
+                                @csrf
+                              <input type="hidden" name="home_video_id" class="home_video_id" value=""/>
+                              <div class="row">
+                                <div class="col-sm-12 col-xl-12 m-b-30">
+                                   <h4 class="sub-title">Video ID *</h4>
+                                   <input type="text" class="form-control home_video" name="home_video" placeholder="Video ID" value="">
+                                 </div>
+                              </div>
+                              <button class="btn btn-grd-primary updateVideoId" data-video-id="">Update</button>
+                              </form>
+                           </div>
                            <div class="card-block">
                             <div class="row">
                                <div class="col-md-6">
@@ -589,6 +604,82 @@
 
 
       // Home page section
+          // form validation home video section
+          $('#home-video').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+          })
+          .formValidation({
+              framework: 'bootstrap',
+              icon: {
+                  valid: 'fa fa-check',
+                  invalid: 'fa fa-times',
+                  validating: 'fa fa-refresh'
+              },
+              fields: {
+                  'home_video': {
+                      validators: {
+                          notEmpty: {
+                              message: 'The video id is required'
+                          }
+                      }
+                  }
+              }
+          });
+          $( ".updateVideoId" ).on( "click", function(e) {
+            e.preventDefault();
+
+            var id = $('.home_video_id').val();
+            //alert(id);
+            var URI = "{{url('/admin/cms/pages/homeVideoIdUpdate')}}"+"/" +  id;
+
+            // get the input values
+            var result = new FormData($("#home-video")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      $('#edit-home').modal('hide');
+                      setTimeout(function() {
+                                swal({
+                                  title: "Video ID  has been added!",
+                                  text: "A  video id  has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update video id in quishi. Please try again later on..');
+              }
+
+            });
+        });
+
+
+
           //loading edit  modal
           $( ".edit-home-content" ).on( "click", function(e) {
             e.preventDefault();

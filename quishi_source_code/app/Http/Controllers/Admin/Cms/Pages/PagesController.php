@@ -680,6 +680,19 @@ class PagesController extends Controller
 
     }
 
+    public function homeVideoIdUpdate(Request $request, $id)
+    {
+        $home_video_id          = Page::find($id);
+        $user_id                = Auth::id();
+        $home_video_id->title   = 'Home Video ID';
+        $home_video_id->slug    = 'home-video-id';
+        $home_video_id->content = $request->input('home_video');
+        $home_video_id->user_id = $user_id;
+        $home_video_id->save();
+        return response()->json(array('status'=>'success','result'=>'successfully updated home video id in the quishi system'),200);
+
+    }
+
 
 
 }

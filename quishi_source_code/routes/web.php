@@ -11,42 +11,54 @@
 |
 */
 
-Route::get('/', 'Front\MainPageController@index');
 
-Route::get('/about', 'Front\Pages\About\AboutPageController@index');
-Route::get('/contact',[
-	'as'	=>	'contact',
-	'uses'	=>	'Front\Pages\Contact\ContactPageController@index'
+// All Route for pages
+	Route::get('/', 'Front\MainPageController@index');
 
-]);
-// route for in the media
-Route::get('/blog', [
-	'as'		=>	'blog',
-	'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
-]);
-Route::get('/blog/{id}', [
-	'as'		=>	'blog',
-	'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
-]);
+	Route::get('/about', 'Front\Pages\About\AboutPageController@index');
+	Route::get('/contact',[
+		'as'	=>	'contact',
+		'uses'	=>	'Front\Pages\Contact\ContactPageController@index'
 
-Route::get('/blog-share/{user_id}/{blog_id}','Front\Pages\Blog\BlogShareController@show');
+	]);
+	// route for in the media
+	Route::get('/blog', [
+		'as'		=>	'blog',
+		'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
+	]);
+	Route::get('/blog/{id}', [
+		'as'		=>	'blog',
+		'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
+	]);
 
-// Route for profile front
-Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');
-// route for showing single profile
-Route::get('/career-advisior/{id}', [
-	'as'		=>	'career-advisior',
-	'uses'		=>	'Front\Pages\Profile\ProfilePageController@show'
-]);
-Route::post('/career-advisior/{id}',[
-	'as'	=>	'career-advisior.like',
-	'uses'  =>  'Front\Pages\Profile\ProfilePageController@update'
-]);
+	Route::get('/blog-share/{user_id}/{blog_id}','Front\Pages\Blog\BlogShareController@show');
 
-Route::get('/loadMoreCareer',[
-	'as'	=>	'loadMoreCareer',
-	'uses'  =>  'Front\Pages\Profile\ProfilePageController@loadMoreCareer'
-]);
+	// Route for profile front
+	Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');
+	// route for showing single profile
+	Route::get('/career-advisior/{id}', [
+		'as'		=>	'career-advisior',
+		'uses'		=>	'Front\Pages\Profile\ProfilePageController@show'
+	]);
+	Route::post('/career-advisior/{id}',[
+		'as'	=>	'career-advisior.like',
+		'uses'  =>  'Front\Pages\Profile\ProfilePageController@update'
+	]);
+
+	Route::get('/loadMoreCareer',[
+		'as'	=>	'loadMoreCareer',
+		'uses'  =>  'Front\Pages\Profile\ProfilePageController@loadMoreCareer'
+	]);
+
+	// route for forum page
+	Route::get('/forum', [
+		'as'		=>	'forum',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@index'
+	]);
+	Route::get('/forum/{id}', [
+		'as'		=>	'forum',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@show'
+	]);
 
 // Route for profile
 
@@ -245,6 +257,10 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	Route::post('/cms/pages/homeUpdate/{id}', [
 		'as'		=>	'admin.cms.pages.homeUpdate',
 		'uses'		=>	'Admin\Cms\Pages\PagesController@homeUpdate'
+	]);
+	Route::post('/cms/pages/homeVideoIdUpdate/{id}', [
+		'as'		=>	'admin.cms.pages.homeVideoIdUpdate',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@homeVideoIdUpdate'
 	]);
 
 	// Route to store about page top section content to quishi
