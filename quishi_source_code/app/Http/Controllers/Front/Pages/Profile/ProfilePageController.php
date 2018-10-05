@@ -18,39 +18,48 @@ class ProfilePageController extends BaseCareerAdvisorController
      *
      * @return \Illuminate\Http\Response
      */
-    protected $offset   = 0;
-    protected $per_page = 6;
+    protected $offset           = 0;
+    protected $current_page     = 1;
+    protected $per_page         = 4;
+    protected $total_record     = 0;
+    protected $job_title        = '';
+    protected $user_location    = '';
+
+    protected $search_users_list = "";
+    protected $total_record_shown = 0;
+    protected $view_render_user_list = array();
+
 
     public function index(Request $request)
     {
-        //
-
-        if($request->has('search')):
-            
-        else:
-            $user     = User::where('logged_in_type','0')->take($this->per_page)->get();
-            $record   = $user->count();
-            $show_more= false;
-            if($user){
-                if($this->per_page = $record){
-                    $show_more = true;
-                }
-            }
-        endif;
-        //load the education
-
-        $career    = Career::where('parent','=','0')->get();
         
-        //load industry
 
-        //$user_tag = User::with('tags')->where('logged_in_type','0')->get();
-        //echo "<pre>";print_r($user); echo "</pre>";exit;
+        //first set the current page showing
+        if($request->has('current_page')):
+            $this->offset       = $request->input('current_page') * $this->per_page;
+            $this->current_page = $request->input('current_page') + 1;
+        else:
+            $this->offset       = 0;
+        endif;
+
+      
+
+        $this->search_user_career_by_search_params($request,$order = "orderBy('users_profile.profile_views','desc')");
+
+
+        $career                 = Career::where('parent','>','1')->get();
+        $career_location        = UserProfile::select(DB::raw('distinct(location) as address'))
+                                              ->get();
+        //return view
         return view('front.pages.profile.profile')->with(array(
-            'site_title'     => 'Quishi',
-            'page_title'     => 'Profile',
-            'users'          => $user,
-            'show_more'      => $show_more,
-            'industries'     => $career,        
+            'site_title'            => 'Quishi',
+            'page_title'            => 'Profile',
+            'users_lists'           => $this->view_render_user_list,
+            'show_more'             => ($this->total_record > ($this->per_page * ($this->current_page + 1))) ? true : false,
+            'industries'            => $career,
+            'current_page'          => $this->current_page,
+            'career_locations'      => $career_location,
+
 
         ));
     }
@@ -167,30 +176,185 @@ class ProfilePageController extends BaseCareerAdvisorController
     public function loadMoreCareer(Request $request)
     {
 
+        $this->current_page      = ($request->has('current_page')) ? $request->input('current_page') : 0 ;
+        $this->offset            = ($this->per_page * $this->current_page);
 
-        $result = $request->record;
+        
+        
+        
+        //call the function to render the data
+        $this->search_user_career_by_search_params($request,$order);
 
-        $new_data     = User::where('logged_in_type','0')->skip(2*$result)->take(2)->get();
-        $record   = $new_data->count();
-        $loadmore= false;
-        //echo "<pre>"; print_r($user); echo "</pre>";exit;
-        if($new_data){
-            if($this->per_page = $record){
-                $loadmore = true;
-            }
-        }
 
+        //render the user list data into the blade before sending the response back to the browser
         $returnHTML = view('front.pages.profile.loadmore')->with(array(
-            'site_title'      => 'Quishi',
-            'page_title'      => 'Profile',
-            'users'           => $new_data,
-            'show_more'       => $loadmore,
-            'record_increment'=> $result
+            'site_title'            => 'Quishi',
+            'page_title'            => 'Profile',
+            'users_lists'           => $this->view_render_user_list,
+            'per_page'              => $this->per_page,
 
         ))->render();
-        return response()->json(array('success' => true, 'html'=>$returnHTML));
+
+        $show_read_more     = ($this->total_record  > ($this->per_page  * ($this->current_page + 1))) ? true : false;
+
+        //return the response back to the browser
+        return response()->json(array(
+
+                                    'success'           => true,
+                                    'html'              =>$returnHTML,
+                                    'read_more'         =>$show_read_more,
+                                    'per_page'          => $this->per_page
+                                ),200);
 
 
+    }
+
+
+    /**
+    *
+    * function to search the user by the user search parameters by joing the tables
+    * @param \Illuminate\Http\Request
+    * 
+    * @return object career_advisior_lists 
+    *
+    *
+    **/
+
+    protected function search_user_career_by_search_params($request,$order){
+       
+        $career_advisior_lists = DB::table('users')
+                                    ->join('user_profile','users.id','=','user_profile.user_id')
+                                    ->join('user_career','users.id','=','user_career.user_id')
+                                    ->join('careers','user_career.career_id','=','careers.id')
+                                    ->where('users.logged_in_type','0')
+                                    //if the request has search by job title option
+                                    ->where(function($query) use($request){
+                                        if($request->has('industry') && !empty($request->input('industry'))):
+                                                $job_title_id = $request->input('industry');
+                                                $query->where('careers.id',$job_title_id);
+                                        endif;
+
+                                        if($request->has('search_by_job_title') && !empty($request->input('search_by_job_title'))):
+                                             $job_title = $request->input('search_by_job_title');
+                                             $query->where('careers.title','like',"%{$job_title}%");
+                                        endif;
+                                    })
+                                    //if the request has search by location
+                                    ->where(function($query) use($request){
+                                        if($request->has('search_by_location') && !empty($request->input('search_by_location'))):
+                                                $user_location = $request->input('search_by_location');
+                                                $query->where('user_profile.location','like',"%{$user_location}%");
+                                        endif;
+                                    })
+
+                                    //if the request has age_group
+                                    ->where(function($query) use($request){
+                                        if($request->has('age_group') && !empty($request->input('age_group'))):
+                                                $age_group = $request->input('age_group');
+                                                $query->where('user_profile.age_group',$age_group);
+
+                                        endif;
+                                    })
+
+                                    //if the request has education
+                                    ->where(function($query) use($request){
+                                        if($request->has('education') && !empty($request->input('education'))):
+                                                $education = $request->input('education');
+                                                $query->where('user_profile.educational_level',"{$education}");
+                                        endif;
+                                    })
+                                  
+                                        
+                                 
+                        ;
+
+
+        if($request->has('sort_order') && !$request->input('sort_order')){
+            switch($request->input('sort_order')){
+                case 'asc':
+                  $career_advisior_lists ->  orderBy('users.created_at','asc');
+                  break;
+                case 'desc':
+                  $$career_advisior_lists -> orderBy('users.created_at','desc');
+                  break;
+                case 'profile_desc':
+                  $career_advisior_lists ->  orderBy('user_profile.total_likes','desc');
+                  break;
+                case 'profile_asc':
+                  $career_advisior_lists ->  orderBy('user_profile.total_likes','asc');
+                  break;
+                case 'view_desc':
+                  $career_advisior_lists -> orderBy('user_profile.profile_views','desc');
+                  break;
+                case 'view_asc':
+                  $career_advisior_lists -> orderBy('user_profile.profile_views','asc');
+                  break;
+                default:
+                   $career_advisior_lists -> orderBy('user_profile.profile_views','desc');
+                   break;
+
+
+            }
+        }else{
+            $career_advisior_lists .= -> orderBy('user_profile.profile_views','desc');
+        }
+
+
+        //switch through the sort_order
+        
+
+
+      $this->total_record    = $career_advisior_lists->count();
+
+      $career_advisior_lists = $career_advisior_lists
+                              ->skip($this->offset)
+                              ->take($this->per_page)
+                              ->select('user_profile.user_id','user_profile.first_name','user_profile.total_likes','user_profile.profile_views','user_profile.image_path','user_profile.description','user_profile.id')
+                              ->get();
+     
+                        
+       //returns value
+       
+       $this->search_users_list  = $career_advisior_lists;
+       $this->render_data_to_the_view_required();
+    
+    }
+
+
+
+
+    protected function render_data_to_the_view_required(){
+        $i =0; 
+
+        foreach($this->search_users_list    as $user_list){
+
+
+            //render the user data from the search list
+            $this->view_render_user_list[$i]['first_name']   = $user_list->first_name;
+            $this->view_render_user_list[$i]['total_likes']  = $user_list->total_likes;
+            $this->view_render_user_list[$i]['total_views']  = $user_list->profile_views;
+            $this->view_render_user_list[$i]['user_id']      = $user_list->user_id;
+            $this->view_render_user_list[$i]['user_image']   = $user_list->image_path;
+            $this->view_render_user_list[$i]['descripiton']  = $user_list->description;
+
+
+            //user eqloquent detail by the user id
+            $user        = User::findOrFail($user_list->user_id);
+            //get the user first career becuase a user can assign to only one job title for now
+            $user_career = $user->careers()->first();
+
+            $this->view_render_user_list[$i]['career']  = $user_career->title;
+
+            //loop through each tags to get the tags
+            $j = 0;
+            // 
+            foreach($user->tags()->take(3)->get() as $user_tag){
+                $this->view_render_user_list[$i]['user_tag'][$j]['tag_title']  = $user_tag->title;
+                $j++;
+            }
+            //increments the integer
+            $i++;
+        }
     }
 
 
