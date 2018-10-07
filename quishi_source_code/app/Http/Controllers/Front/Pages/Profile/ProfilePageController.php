@@ -53,6 +53,7 @@ class ProfilePageController extends BaseCareerAdvisorController
                                               ->get();
         //return view
         return view('front.pages.profile.profile')->with(array(
+<<<<<<< HEAD
             'site_title'            => 'Quishi',
             'page_title'            => 'Profile',
             'users_lists'           => $this->view_render_user_list,
@@ -61,6 +62,12 @@ class ProfilePageController extends BaseCareerAdvisorController
             'total_record_shown'    => count($this->view_render_user_list),
             'current_page'          => 1,
             'career_locations'      => $career_location,
+=======
+            'site_title'     => 'Quishi',
+            'page_title'     => 'Profile',
+            'users'          => $user,
+            'show_more'      => $show_more,
+>>>>>>> refs/remotes/origin/master
 
 
         ));

@@ -45,128 +45,61 @@
             <h2>trending profiles</h2>
         </div>
         <div class="row">
+            @foreach($users_profile as $user_profile)
             <div class="col-lg-4">
                 <div class="trending-profiles-section">
                     <div class="profile-image">
-                        <img src="{{asset('/front')}}/images/profile/1.jpg">
+                        @if($user_profile->image_path)
+                            <img src="{{asset('/front')}}/images/profile/{{ $user_profile->image_path }}">
+                        @else
+                           <img src="{{asset('/front')}}/images/profile/1.jpg">
+                        @endif
                     </div>
                     <div class="profile-desination">
-                        <h3>Felicity Smoak</h3>
+                        <h3>{{ $user_profile->first_name }}</h3>
                         <span>UI/UX Designer</span>
                     </div>
+
                     <div class="profile-slills">
                         <ul>
-                            <li><a href="#">CSS</a></li>
-                            <li><a href="#">jQuery</a></li>
-                            <li><a href="#">HTML5</a></li>
+                            @foreach($user_profile->user->tags as $user_tag)
+                                <li><a href="#">{{$user_tag->title}}</a></li>
+                            @endforeach
+
                         </ul>
                     </div>
                     <div class="profile-info">
-                        <p>Felicity is a dedicated UI/UX designer for web and mobile applications.</p>
+                        <p>{{ str_limit($user_profile->description,70) }}</p>
                     </div>
                     <div class="like-view">
                         <div class="row">
                             <div class="col-sm-6">
+                                @csrf
                                 <div class="view-section">
-                                    <a href="#"><i class="icon-like"></i></a>
-                                    <span>10k Likes</span>
+                                    <a href="javascript:void(0);" class="total_likes" data-profile-id="{{ $user_profile->user->id }}" id="total_likes">
+                                        <i class="icon-like"></i>
+                                    </a>
+                                    <span class="like{{ $user_profile->user->id }}" id="like" value="{{ $user_profile->user->id }}">
+                                        {{ $user_profile->total_likes }} Likes</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="view-section">
                                     <a href="#"><i class="icon-eye"></i></a>
-                                    <span>10k Views</span>
+                                    <span>{{ $user_profile->profile_views }} Views</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="view-profile">
-                        <a href="#">view profile</a>
+                        <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">view profile</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="trending-profiles-section">
-                    <div class="profile-image">
-                        <img src="{{asset('/front')}}/images/profile/2.jpg">
-                    </div>
-                    <div class="profile-desination">
-                        <h3>Felicity Smoak</h3>
-                        <span>UI/UX Designer</span>
-                    </div>
-                    <div class="profile-slills">
-                        <ul>
-                            <li><a href="#">CSS</a></li>
-                            <li><a href="#">jQuery</a></li>
-                            <li><a href="#">HTML5</a></li>
-                        </ul>
-                    </div>
-                    <div class="profile-info">
-                        <p>Felicity is a dedicated UI/UX designer for web and mobile applications.</p>
-                    </div>
-                    <div class="like-view">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="view-section">
-                                    <a href="#"><i class="icon-like"></i></a>
-                                    <span>10k Likes</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="view-section">
-                                    <a href="#"><i class="icon-eye"></i></a>
-                                    <span>10k Views</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="view-profile">
-                        <a href="#">view profile</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="trending-profiles-section">
-                    <div class="profile-image">
-                        <img src="{{asset('/front')}}/images/profile/3.jpg">
-                    </div>
-                    <div class="profile-desination">
-                        <h3>Felicity Smoak</h3>
-                        <span>UI/UX Designer</span>
-                    </div>
-                    <div class="profile-slills">
-                        <ul>
-                            <li><a href="#">CSS</a></li>
-                            <li><a href="#">jQuery</a></li>
-                            <li><a href="#">HTML5</a></li>
-                        </ul>
-                    </div>
-                    <div class="profile-info">
-                        <p>Felicity is a dedicated UI/UX designer for web and mobile applications.</p>
-                    </div>
-                    <div class="like-view">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="view-section">
-                                    <a href="#"><i class="icon-like"></i></a>
-                                    <span>10k Likes</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="view-section">
-                                    <a href="#"><i class="icon-eye"></i></a>
-                                    <span>10k Views</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="view-profile">
-                        <a href="#">view profile</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
         </div>
-        <div class="view-more text-center"><a href="#" class="btn btn-default">view more</a></div>
+        <div class="view-more text-center"><a href="{{URL::to('/career-advisior')}}" class="btn btn-default">view more</a></div>
     </div>
 </div>
 <!-- trending-profiles -->
@@ -190,7 +123,7 @@
                             <h4>{{ $blog->title }}</h4>
                             <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
                             <p>{{ str_limit($blog->content,160) }}</p>
-                            <a href="#">Full Story <i class="icon-arrow-right"></i></a>
+                            <a href="{{ url('/blog').'/'.$blog->id }}">Full Story <i class="icon-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -198,52 +131,30 @@
             @endforeach
 
         </div>
-        <div class="view-more text-center"><a href="#" class="btn btn-default">all blogs</a></div>
+        <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">all blogs</a></div>
     </div>
 </div>
 <!-- trending-profiles -->
 <div class="page-section about-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="about-inner-section">
-                    <div class="about-icon-section">
-                        <img src="{{asset('/front')}}/images/icons/expert.png" alt="expert">
-                    </div>
-                    <div class="about-content-section">
-                        <h4>TALK TO AN EXPERT</h4>
-                        <p>Suspendisse sollicitudin tincidunt ex, vitae porta ante pretium a. Vestibulum ultricies velit urna, id eleifend tellus iaculis ac. Nullam tristique sagittis magna id eleifend.</p>
-                        <a href="#">More about our experts <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
-            <div class="col-md-4">
-                <div class="about-inner-section">
-                    <div class="about-icon-section">
-                        <img src="{{asset('/front')}}/images/icons/career-review.png" alt="career-review">
-                    </div>
-                    <div class="about-content-section">
-                        <h4>CAREER REVIEWS</h4>
-                        <p>Suspendisse sollicitudin tincidunt ex, vitae porta ante pretium a. Vestibulum ultricies velit urna, id eleifend tellus iaculis ac. Nullam tristique sagittis magna id eleifend.</p>
-                        <a href="#">More about our experts <i class="icon-arrow-right"></i></a>
+            @foreach($services as $service)
+             @foreach($service->page_detail as $service_icon)
+                <div class="col-md-4">
+                    <div class="about-inner-section">
+                        <div class="about-icon-section">
+                            <img src="{{asset('/front')}}/images/pages/{{ $service_icon['meta_value'] }}" alt="expert">
+                        </div>
+                        <div class="about-content-section">
+                            <h4>{{ $service->title }}</h4>
+                            <p>{{ $service->content }}</p>
+                            <a href="#">More about our experts <i class="icon-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- end col -->
-            <div class="col-md-4">
-                <div class="about-inner-section">
-                    <div class="about-icon-section">
-                        <img src="{{asset('/front')}}/images/icons/about-quishi.png" alt="quishi icon">
-                    </div>
-                    <div class="about-content-section">
-                        <h4>ABOUT US</h4>
-                        <p>Suspendisse sollicitudin tincidunt ex, vitae porta ante pretium a. Vestibulum ultricies velit urna, id eleifend tellus iaculis ac. Nullam tristique sagittis magna id eleifend.</p>
-                        <a href="#">More about our experts <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
+             @endforeach
+            @endforeach
+
         </div>
     </div>
 </div>
@@ -252,4 +163,45 @@
 @endsection
 
 @section('page_specific_js')
+
+<script type="text/javascript">
+$.ajaxSetup({
+    headers:{
+        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(document).ready(function () {
+    //alert("hello");
+    $( ".total_likes" ).on( "click", function() {
+      var user_profile_id = $(this).attr('data-profile-id');
+      var _token          = $("input[name='_token']").val();
+      var total_likes     = (parseInt($(".like"+user_profile_id).html())+1);
+      //alert(total_likes);
+      $.ajax({
+              url:"{{url('')}}" + "/career-advisior/" + user_profile_id,
+              type:"POST",
+              dataType:"json",
+              data: {_token:_token,user_profile_id:user_profile_id,total_likes:total_likes},
+              success:function(data){
+                  //check for the success status only
+                  if(data.status == "success"){
+                      //insert the data in the modal
+                      // alert('success');
+                      //$(this).closest('.total_likes').find('.like'+user_profile_id).html(total_likes + " " + "Likes");
+                      $('.like'+user_profile_id).html(total_likes+" "+"Likes");
+
+                  }
+
+              },
+              error:function(event){
+                      console.log('Cannot get the particular team');
+              }
+          });
+    });
+
+
+});
+
+</script>
 @endsection

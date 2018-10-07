@@ -58,9 +58,75 @@
 
                      <div class="tab-content" >
                         <!-- Home Tab -->
-                        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <div class="card-block">
+                              <h4>Video ID</h4>
+                              <br>
+                              <form name="home-video" id="home-video" enctype="multipart/form-data">
+                                @csrf
+                              <input type="hidden" name="home_video_id" class="home_video_id" value=""/>
+                              <div class="row">
+                                <div class="col-sm-12 col-xl-12 m-b-30">
+                                   <h4 class="sub-title">Video ID *</h4>
+                                   <input type="text" class="form-control home_video" name="home_video" placeholder="Video ID" value="">
+                                 </div>
+                              </div>
+                              <button class="btn btn-grd-primary updateVideoId" data-video-id="">Update</button>
+                              </form>
+                           </div>
                            <div class="card-block">
+                            <div class="row">
+                               <div class="col-md-6">
+                                  <h4>Services</h4>
+                               </div>
 
+                            </div>
+                            <div class="dt-responsive table-responsive">
+                                <table id="our_team_table" class="table table-striped table-bordered our_team_table">
+                                    <thead>
+                                    <tr>
+                                        <th>S.N.</th>
+                                        <th>Icon</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <?php $i=1; ?>
+                                      @foreach($home as $home_content)
+
+                                        <tr>
+                                            <td>{{ $i }}</td>
+                                            <td>
+                                              @foreach($home_content->page_detail as $home_icon)
+
+                                              <img src="{{asset('/front')}}/images/pages/{{ $home_icon['meta_value'] }}" style="height: 40px; width: 40px;">
+                                              @endforeach
+                                            </td>
+                                            <td>{{ $home_content['title'] }}</td>
+
+                                            <td>{{ $home_content['content'] }}</td>
+                                            <td>
+
+                                              <a href="#" class="m-r-15 text-muted edit-home-content"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title=""
+                                                    data-original-title="Edit"
+                                                    data-home-id="{{ $home_content['id'] }}"
+                                                    >
+                                                 <i class="icofont icofont-ui-edit" ></i>
+                                                 </a>
+
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                      @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                            </div>
                         </div>
                         <!-- End Home  Tap -->
@@ -417,6 +483,75 @@
     </div>
 </div>
 
+<!-- Home Page Content Model is here -->
+<!-- edit home content model -->
+<div class="modal fade" id="edit-home" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <form role="form" name="home-form" id="home-form" enctype="multipart/form-data">
+
+            @csrf
+            <input type="hidden" name="home_id" class="home_id" value=""/>
+            <input type="hidden" name="page_id" class="page_id" value=""/>
+              <div class="modal-header">
+                  <h4 class="modal-title"><span>Update This Content</span></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body" name="our-team-add-field" id="our-team-add-field">
+                  <div class="row">
+                     <div class="col-sm-6 col-xl-6 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Title *</h4>
+                               <input type="text" class="form-control home_title" name="home_title" placeholder="Title">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Description *</h4>
+                               <textarea  class="form-control home_description" style="height: 144px;" name="home_description" placeholder="Description"></textarea>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6 col-xl-6 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Icon *</h4>
+                               <div class="fileinput fileinput-new" data-provides="fileinput">
+                                   <div class="fileinput-new thumbnail" style="max-width: 250px; max-height: 217px;" data-trigger="fileinput">
+                                   <img src="{{asset('/front')}}/images/blog1.jpg" id="home_icon">
+                                   </div>
+                                   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height:177px;">
+                                   </div>
+                                   <div>
+                                     <span class="btn btn-file btn-block btn-primary btn-sm">
+                                       <span class="fileinput-new">Select Profile Image</span>
+                                       <span class="fileinput-exists">Change</span>
+                                       <input name="home_icon" id="home_icon" class="form-control home_icon" accept="image/*" type="file" />
+                                     </span>
+                                     <a href="#" class="btn btn-orange fileinput-exists btn-sm btn-block" data-dismiss="fileinput">Remove</a>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+              </div>
+
+
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                   <button type="submit"  class="btn btn-primary waves-effect waves-light updateHome">Save changes</button>
+               </div>
+         </form>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- end add modal -->
 @endsection
@@ -467,6 +602,201 @@
           '//www.tinymce.com/css/codepen.min.css']
       });
 
+
+      // Home page section
+          // form validation home video section
+          $('#home-video').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+          })
+          .formValidation({
+              framework: 'bootstrap',
+              icon: {
+                  valid: 'fa fa-check',
+                  invalid: 'fa fa-times',
+                  validating: 'fa fa-refresh'
+              },
+              fields: {
+                  'home_video': {
+                      validators: {
+                          notEmpty: {
+                              message: 'The video id is required'
+                          }
+                      }
+                  }
+              }
+          });
+          $( ".updateVideoId" ).on( "click", function(e) {
+            e.preventDefault();
+
+            var id = $('.home_video_id').val();
+            //alert(id);
+            var URI = "{{url('/admin/cms/pages/homeVideoIdUpdate')}}"+"/" +  id;
+
+            // get the input values
+            var result = new FormData($("#home-video")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      $('#edit-home').modal('hide');
+                      setTimeout(function() {
+                                swal({
+                                  title: "Video ID  has been added!",
+                                  text: "A  video id  has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update video id in quishi. Please try again later on..');
+              }
+
+            });
+        });
+
+
+
+          //loading edit  modal
+          $( ".edit-home-content" ).on( "click", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('data-home-id');
+
+            $.ajax({
+                url:"{{url('')}}" + "/admin/cms/pages/editHome/" + id,
+                type:"GET",
+                dataType:"json",
+                success:function(data){
+                    //check for the success status only
+                    if(data.status == "success"){
+                        //insert the data in the modal
+                        //alert(data.result.image);
+                        $(".home_id").val(id);
+                        $(".page_id").val(data.result.id);
+                        $(".home_title").val(data.result.title);
+                        $(".home_description").val(data.result.description);
+                        var image="{{asset('/front')}}/images/pages" + "/" +data.result.image;
+                         $("#home_icon").attr('src',image);
+                         $('#edit-home').modal('show');
+                         $('.modal-title').text('Update Home Content'); // Set Title to Bootstrap modal title
+                        //console.log(data.result);
+                    }
+                },
+                error:function(event){
+                        console.log('Cannot get the particular team');
+                }
+            });
+
+          });
+
+          // Formvalidation
+          $('#home-form').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+          })
+          .formValidation({
+              framework: 'bootstrap',
+              icon: {
+                  valid: 'fa fa-check',
+                  invalid: 'fa fa-times',
+                  validating: 'fa fa-refresh'
+              },
+              fields: {
+                  'home_title': {
+                      validators: {
+                          notEmpty: {
+                              message: 'The title is required'
+                          }
+                      }
+                  },
+                  'home_description': {
+                      validators: {
+                          notEmpty: {
+                                 message: 'The description  is required'
+                             },
+
+                      }
+                  }
+              }
+          });
+          $( ".updateHome" ).on( "click", function(e) {
+            e.preventDefault();
+
+            var id = $('.home_id').val();
+            //alert(id);
+            var URI = "{{url('/admin/cms/pages/homeUpdate')}}"+"/" +  id;
+
+            // get the input values
+            var result = new FormData($("#home-form")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+              url:URI,
+              data:result,
+              dataType:"Json",
+              contentType: false,
+              processData: false,
+              type:"POST",
+              success:function(data)
+              {
+                  if(data.status == "success"){
+                      $('#edit-home').modal('hide');
+                      setTimeout(function() {
+                                swal({
+                                  title: "Contact content has been added!",
+                                  text: "A  contact content has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#home-form')[0].reset();
+                      $('#home-form').data('formValidation').resetForm(true);
+                      //console.log(data);
+                  }
+              },
+              error:function(event)
+              {
+                  console.log('Cannot update contact data in quishi. Please try again later on..');
+              }
+
+            });
+        });
+
+
+      // End home page section
 
       // Fomvalidation setup about us top section
       $('#about-us').on('init.field.fv', function(e, data) {

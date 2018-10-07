@@ -150,6 +150,9 @@
                 @endif
 
                 </div>
+                <div class=" show-div" id="show-div">
+
+                </div>
                 @if($show_more)
                 <div class="view-more text-center read_more">
                     <a href="javascript:void(0);" data_current_page="{{$current_page}}" class="btn btn-default load_more" id="load_more">load more</a>
@@ -158,7 +161,6 @@
             </div>
         </div>
 </div>
-<div class="loadmoredata" id="loamoredata"></div>
 @endsection
 
 @section('page_specific_js')
@@ -277,8 +279,6 @@ $(document).ready(function () {
               }
 
               $('span.search_number').html(data.total_record_shown);
-
-              
             }
           },
           complete:function(data){

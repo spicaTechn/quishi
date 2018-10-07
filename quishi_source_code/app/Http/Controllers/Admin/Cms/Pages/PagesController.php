@@ -21,15 +21,16 @@ class PagesController extends Controller
 
     public function index()
     {
-        //
-        $about          = Page::where('slug','about-us')->first();
 
+
+
+        $about          = Page::where('slug','about-us')->first();
         // check if about data is in database or not. If not then pass empty value to display in about us  top section so tha error not occure
         if($about):
             $about_data = $about;
         else:
-            $about_data             =  new Page();
-            $about_data->id         =  '';
+            $about_data             = new Page();
+            $about_data->id         = '';
             $about_data->title      = '';
             $about_data->content    = '';
             $about_data->user_id    = '';
@@ -95,7 +96,31 @@ class PagesController extends Controller
             $contact_social_unserialize['instragram']  = '';
         endif;
 
-        //echo "<pre>"; print_r($contact_social_unserialize['address']); echo "</pre>";exit;
+
+        $services = Page::where('slug','home')->get();
+        if(count($services)>0){
+            $home = $services;
+        }
+        else
+        {
+            for($i=0; $i<3; $i++){
+                $home_save                = new Page();
+                $home_save->title         = 'title';
+                $home_save->content       = 'description';
+                $home_save->slug          = 'home';
+                $home_save->user_id       = '1';
+                //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
+                $home_save->save();
+
+                $home_page_detail             = new PageDetail();
+                $home_page_detail->meta_key   = 'home-icon';
+                $home_page_detail->page_id    = $home_save->id;
+                $home_page_detail->meta_value = 'hello.jpg';
+
+                $home_page_detail->save();
+            }
+        }
+
 
         return view('admin.cms.pages.pages')
                 ->with(array(
@@ -110,6 +135,7 @@ class PagesController extends Controller
                     'contact_social_unserialize'  => $contact_social_unserialize,
 
                     'contact'             => $contact_data,
+                    'home'                => $home,
                     )
                 );
     }
@@ -583,4 +609,90 @@ class PagesController extends Controller
 
 
     }
+
+    public function editHome(Request $request,$id)
+    {
+        $home_content = Page::find($id);
+        $home_icon    = PageDetail::where('page_id',$home_content['id'])->first();
+        //echo "<pre>";print_r($home_content); echo "<pre>";exit;
+
+        $new_data = array();
+
+        $new_data['id']             =   $home_icon['id'];
+        $new_data['title']          =   $home_content['title'];
+        $new_data['description']    =   $home_content['content'];
+        $new_data['image']          =   $home_icon['meta_value'];
+
+        return response()->json(array('result'=>$new_data,'status'=>'success'),200);
+
+    }
+
+    public function homeUpdate(Request $request, $id)
+    {
+        $user_id       = Auth::id();
+        $id            = $request->input('home_id');
+        $page_id       = $request->input('page_id');
+        $home          = Page::find($id);
+        $found_image   = false;
+
+        //echo "<pre>";print_r($page_id); echo "<pre>";exit;
+        $home->title         = $request->input('home_title');
+        $home->content       = $request->input('home_description');
+        $home->slug          = 'home';
+        $home->user_id       = $user_id;
+        $home->save();
+
+        if($request->hasFile('home_icon')) {
+            $image = $request->file('home_icon');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = $this->image_path;
+            $image->move($destinationPath, $name);
+            $team_image    = $name;
+            $found_image   = true;
+
+            foreach ($home->page_detail as $home_icon)
+            {
+                //echo "<pre>";print_r($home_icon); echo "</pre>";exit;
+                if($home_icon['meta_value'] && ($home_icon['page_id'] == $id) )
+                {
+                        $path=$this->image_path.'/'.$home_icon['meta_value'];
+                        File::delete($path);
+                }
+            }
+        }
+
+
+
+        if(!$found_image){
+            foreach($home->page_detail as $home_icon){
+                $name = $home_icon->meta_value;
+            }
+        }
+
+        $page_detail             = PageDetail::find($page_id);
+        $page_detail->meta_key   = 'home-icon';
+        $page_detail->page_id    = $id;
+        $page_detail->meta_value = $name;
+
+        $page_detail->save();
+
+        return response()->json(array('status'=>'success','result'=>'successfully updated blog in the quishi system'),200);
+
+    }
+
+    public function homeVideoIdUpdate(Request $request, $id)
+    {
+        $home_video_id          = Page::find($id);
+        $user_id                = Auth::id();
+        $home_video_id->title   = 'Home Video ID';
+        $home_video_id->slug    = 'home-video-id';
+        $home_video_id->content = $request->input('home_video');
+        $home_video_id->user_id = $user_id;
+        $home_video_id->save();
+        return response()->json(array('status'=>'success','result'=>'successfully updated home video id in the quishi system'),200);
+
+    }
+
+
+
 }
