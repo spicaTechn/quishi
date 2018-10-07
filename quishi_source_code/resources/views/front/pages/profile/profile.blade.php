@@ -64,7 +64,7 @@
                     <div class="col-lg-6">
                         <div class="section-title">
 
-                              <h2>Search Results (<span class="search_number">{{count($users_lists)}}</span> Profiles)</h2>
+                              <h2>Search Results (<span class="search_number">{{$total_record_shown}}</span> Profiles)</h2>
 
                         </div>
                     </div>
@@ -85,6 +85,7 @@
                     </div>
                 </div>
                 <div class="row show_more_career_advisior">
+                    @if(count($users_lists) > 0)
                     @foreach($users_lists as $user_list)
                     <div class="col-lg-4">
                         <div class="trending-profiles-section">
@@ -144,6 +145,9 @@
                         </div>
                     </div>
                 @endforeach
+                @else
+                      <p>Sorry no career advisior were found, please try with others parameters</p>
+                @endif
 
                 </div>
                 @if($show_more)
@@ -255,7 +259,6 @@ $(document).ready(function () {
               if(type == true){
                     if(data.read_more){
                         $('.read_more').show();
-                        $('span.search_number').html(data.per_page * next_page);
                         $("#load_more").attr('data_current_page',next_page);
                     }else{
                            $('.read_more').hide();
@@ -273,6 +276,7 @@ $(document).ready(function () {
                     $('.show_more_career_advisior').html(data.html);
               }
 
+              $('span.search_number').html(data.total_record_shown);
 
               
             }

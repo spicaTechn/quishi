@@ -40,11 +40,12 @@ class ProfilePageController extends BaseCareerAdvisorController
             $this->current_page = $request->input('current_page') + 1;
         else:
             $this->offset       = 0;
+            $this->current_page = 0;
         endif;
 
       
 
-        $this->search_user_career_by_search_params($request,$order = "orderBy('users_profile.profile_views','desc')");
+        $this->search_user_career_by_search_params($request);
 
 
         $career                 = Career::where('parent','>','1')->get();
@@ -57,7 +58,8 @@ class ProfilePageController extends BaseCareerAdvisorController
             'users_lists'           => $this->view_render_user_list,
             'show_more'             => ($this->total_record > ($this->per_page * ($this->current_page + 1))) ? true : false,
             'industries'            => $career,
-            'current_page'          => $this->current_page,
+            'total_record_shown'    => count($this->view_render_user_list),
+            'current_page'          => 1,
             'career_locations'      => $career_location,
 
 
@@ -183,7 +185,7 @@ class ProfilePageController extends BaseCareerAdvisorController
         
         
         //call the function to render the data
-        $this->search_user_career_by_search_params($request,$order);
+        $this->search_user_career_by_search_params($request);
 
 
         //render the user list data into the blade before sending the response back to the browser
@@ -200,10 +202,10 @@ class ProfilePageController extends BaseCareerAdvisorController
         //return the response back to the browser
         return response()->json(array(
 
-                                    'success'           => true,
-                                    'html'              =>$returnHTML,
-                                    'read_more'         =>$show_read_more,
-                                    'per_page'          => $this->per_page
+                                    'success'                   => true,
+                                    'html'                      =>$returnHTML,
+                                    'read_more'                 =>$show_read_more,
+                                    'total_record_shown'        => $this->total_record_shown
                                 ),200);
 
 
@@ -220,7 +222,9 @@ class ProfilePageController extends BaseCareerAdvisorController
     *
     **/
 
-    protected function search_user_career_by_search_params($request,$order){
+    protected function search_user_career_by_search_params($request){
+
+        $order = $request->input('sort_order');
        
         $career_advisior_lists = DB::table('users')
                                     ->join('user_profile','users.id','=','user_profile.user_id')
@@ -262,6 +266,37 @@ class ProfilePageController extends BaseCareerAdvisorController
                                                 $education = $request->input('education');
                                                 $query->where('user_profile.educational_level',"{$education}");
                                         endif;
+                                    })->when($order,function($query,$order){
+
+
+                                         switch($order){
+                                            case 'asc':
+                                              $query ->  orderBy('users.created_at','asc');
+                                              break;
+                                            case 'desc':
+                                              $query -> orderBy('users.created_at','desc');
+                                              break;
+                                            case 'profile_desc':
+                                              $query ->  orderBy('user_profile.total_likes','desc');
+                                              break;
+                                            case 'profile_asc':
+                                              $query ->  orderBy('user_profile.total_likes','asc');
+                                              break;
+                                            case 'view_desc':
+                                              $query -> orderBy('user_profile.profile_views','desc');
+                                              break;
+                                            case 'view_asc':
+                                              $query -> orderBy('user_profile.profile_views','asc');
+                                              break;
+                                            default:
+                                               $query -> orderBy('user_profile.profile_views','desc');
+                                               break;
+
+
+                                        }
+
+                                    },function($query){
+                                        $query->orderBy('user_profile.profile_views','desc');
                                     })
                                   
                                         
@@ -269,35 +304,7 @@ class ProfilePageController extends BaseCareerAdvisorController
                         ;
 
 
-        if($request->has('sort_order') && !$request->input('sort_order')){
-            switch($request->input('sort_order')){
-                case 'asc':
-                  $career_advisior_lists ->  orderBy('users.created_at','asc');
-                  break;
-                case 'desc':
-                  $$career_advisior_lists -> orderBy('users.created_at','desc');
-                  break;
-                case 'profile_desc':
-                  $career_advisior_lists ->  orderBy('user_profile.total_likes','desc');
-                  break;
-                case 'profile_asc':
-                  $career_advisior_lists ->  orderBy('user_profile.total_likes','asc');
-                  break;
-                case 'view_desc':
-                  $career_advisior_lists -> orderBy('user_profile.profile_views','desc');
-                  break;
-                case 'view_asc':
-                  $career_advisior_lists -> orderBy('user_profile.profile_views','asc');
-                  break;
-                default:
-                   $career_advisior_lists -> orderBy('user_profile.profile_views','desc');
-                   break;
-
-
-            }
-        }else{
-            $career_advisior_lists .= -> orderBy('user_profile.profile_views','desc');
-        }
+        
 
 
         //switch through the sort_order
@@ -355,6 +362,28 @@ class ProfilePageController extends BaseCareerAdvisorController
             //increments the integer
             $i++;
         }
+
+        //generate the number of total record show on the frontend
+
+        $this->calculate_total_recored_shown();
+    }
+
+
+    /**
+    *
+    * function to calucate the total record shown current now
+    *
+    * @param void
+    * @return void 
+    *
+    **/
+
+
+    protected function calculate_total_recored_shown(){
+
+        //get the current page show
+        $this->total_record_shown  = $this->search_users_list->count() + ($this->current_page * $this->per_page);
+
     }
 
 
