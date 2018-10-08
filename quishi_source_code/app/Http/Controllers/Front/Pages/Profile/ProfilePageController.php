@@ -10,6 +10,7 @@ use App\User;
 use DB;
 use App\Model\UserProfile;
 use App\Model\Education, App\Model\Career;
+use Cartalyst\Stripe\Stripe;
 
 class ProfilePageController extends BaseCareerAdvisorController
 {
@@ -34,6 +35,29 @@ class ProfilePageController extends BaseCareerAdvisorController
     {
         
 
+
+        //make payment by using the fake user details
+
+        // $stripe = Stripe::make('sk_test_fHZhPEI4DHtnKAvE2DgG74xU');
+        // $token = $stripe->tokens()->create([
+        //     'card' => [
+        //         'number'    => '4242424242424242',
+        //         'exp_month' => 6,
+        //         'exp_year'  => 2019,
+        //         'cvc'       => 123,
+        //     ],
+        // ]);
+
+        // $charge   = $stripe->charges()->create([
+        //     'amount'        => 10,
+        //     'currency'      => 'USD',
+        //     'source'        => $token['id'],
+        //     'description'   => 'Donation received from lamanoj11@gmail.com'
+        // ]);
+
+        // echo $charge['id'];
+
+        // exit;
         //first set the current page showing
         if($request->has('current_page')):
             $this->offset       = $request->input('current_page') * $this->per_page;
