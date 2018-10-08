@@ -16,11 +16,13 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->enum('logged_in_type',[0,1])->default(0); //0 is for the social logged in and 1 for the normal
+            $table->string('email')->unique()->nullable();
+            $table->enum('logged_in_type',[0,1,2])->default(0); //0 is for the social logged in and 1 for the normal 2 for the 
             $table->timestamp('last_logged_in');
             $table->string('last_logged_in_ip')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('provider_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
