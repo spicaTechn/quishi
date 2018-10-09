@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="most-search-job">
@@ -163,6 +164,7 @@
 @endsection
 
 @section('page_specific_js')
+
 
 <script type="text/javascript">
 $.ajaxSetup({

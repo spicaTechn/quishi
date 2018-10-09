@@ -411,6 +411,7 @@ class ProfileController extends BaseCareerAdvisorController
             $career_link->link          = $request->input('_social_link_input');
             $career_link->type          = (preg_match( '/^external_link.*/', $request->input('link_type'))) ? '1' : '0';
             $career_link->user_id       = Auth::user()->id;
+            $career_link->status        = '1';
             if($career_link->save() > 0){
                 return response()->json(array('status'=>'success','result'=>'Successfully updated! '),200);
             }

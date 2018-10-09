@@ -31,7 +31,7 @@
                 <!-- profile-main-section -->
             </div>
         </div>
-        <div class="modal modal-quishi fade" id="editanswer" tabindex="-1" role="dialog" aria-labelledby="editanswerLabel" aria-hidden="true">
+        <div class="modal modal-quishi modal-answer fade" id="editanswer modal-quishi" tabindex="-1" role="dialog" aria-labelledby="editanswerLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -118,7 +118,7 @@
                         $('.question').html(data.question);
                         $('#answer_id').val(data.result.id);
                         $('.user_question_answer').html(data.result.content);
-                        $('.modal-quishi').modal('show');
+                        $('.modal-answer').modal('show');
                     }
                 });
                 
@@ -139,7 +139,7 @@
                 $.post("{{URL::to('/profile/answers')}}" + "/" + answer_id,data,function(data){
                     if(data.status == "success"){
                         //hide the modal 
-                        $('.modal-quishi').modal('hide');
+                        $('.modal-answer').modal('hide');
                         //load the new answer in the user answer
                         $("#user_answer_" + answer_id).html('<p>' + $('.user_question_answer').val() + '</p>');
                         

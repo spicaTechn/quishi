@@ -510,3 +510,8 @@ Route::get('/register/verify/{email}/{token}',function(){
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+
+//payments routes
+
+Route::post('makePayment','Front\MainPageController@makeDonationPayment')->name('makePayment');
+

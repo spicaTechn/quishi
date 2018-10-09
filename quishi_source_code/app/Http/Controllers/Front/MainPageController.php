@@ -11,6 +11,9 @@ use App\Model\UserProfile;
 use App\Model\Tag;
 use DB;
 
+use Cartalyst\Stripe\Stripe;
+use Stripe\Error\Card;
+
 
 class MainPageController extends Controller
 {
@@ -115,5 +118,72 @@ class MainPageController extends Controller
         //echo "<pre>";print_r($contact_social_data); echo "</pre>";exit;
         return $contact_social_data;
 
+    }
+
+
+
+    //process the payment gatway request and make the payement here
+
+
+    /**
+    * fuunction to make the donation payment
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+    public function makeDonationPayment(Request $request){
+
+       //make the payment form here 
+       
+       try{
+            $stripe = Stripe::make('sk_test_fHZhPEI4DHtnKAvE2DgG74xU');
+            $token = $stripe->tokens()->create([
+                'card' => [
+                    'number'    => $request->input('card_number'),
+                    'exp_month' => $request->input('expiration_month'),
+                    'exp_year'  => $request->input('expiration_year'),
+                    'cvc'       => $request->input('card_code'),
+                ],
+            ]);
+
+            $charge   = $stripe->charges()->create([
+                'amount'        => $request->input('amount'),
+                'currency'      => $request->input('currency'),
+                'source'        => $token['id'],
+                'description'   => 'Donation received from '.$request->input('name_on_card')
+            ]);
+          if($charge['id']):
+            return response()->json(array('status'=>'success','result'=>'Payment completed!!'),200);
+          endif;
+           
+       }catch(\Cartalyst\Stripe\Exception\CardErrorException $e){
+
+            return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+
+       }catch(\Cartalyst\Stripe\Exception\BadRequestException $e){
+
+        // This exception will be thrown when the data sent through the request is mal formed.
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }catch(\Cartalyst\Stripe\Exception\UnauthorizedException $e){
+        // This exception will be thrown if your Stripe API Key is incorrect.
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }catch(\Cartalyst\Stripe\Exception\InvalidRequestException $e){
+         // This exception will be thrown whenever the request fails for some reason.
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }catch(\Cartalyst\Stripe\Exception\NotFoundException $e){
+         // This exception will be thrown whenever a request results on a 404.
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }catch(\Cartalyst\Stripe\Exception\ServerErrorException $e){
+         // This exception will be thrown whenever Stripe does something wrong.
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }catch(\Cartalyst\Stripe\Exception\MissingParameterException $e){
+        // this exception will be thrown when some of the parameters missed for the stripe
+         return response()->json(array('status'=>'failed','result'=>$e->getMessage()),200);
+       }
+       
+       
     }
 }
