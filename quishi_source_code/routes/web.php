@@ -197,6 +197,14 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 			'as'        => 'admin.add.industryJobs',
 			'uses'		=> 'Admin\Industry\IndustryController@store'
 	]);
+
+
+	//prevent the industryJobs title dublication 
+
+	Route::get('/industryJobs/checkIndustryTitle',[
+		'as'		  => 'admin.industryJobs.checkIndustryTitle',
+		'uses'	      => 'Admin\Industry\IndustryController@checkIndustryTitle'
+	]);
 	//show the careers by id
 
 	Route::get('/industry',[
@@ -464,6 +472,13 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'  => 'Admin\Education\EducationController@show'
 	]);
 
+
+	//check for the title exists or not
+	Route::get('/education/checkEducationTitle',[
+		'as'	=> 'admin.education.checkEducationTitle',
+		'uses'  => 'Admin\Education\EducationController@checkEducationTitle'
+	]);
+
 	//update education major category and education major
 
 	Route::post('/educations/{id}',[
@@ -514,4 +529,6 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 //payments routes
 
 Route::post('makePayment','Front\MainPageController@makeDonationPayment')->name('makePayment');
+
+Route::post('page_like','Front\Pages\Blog\BlogPageController@page_like')->name('page_like');
 

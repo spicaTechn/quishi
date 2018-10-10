@@ -67,6 +67,7 @@
                                              <tr>
                                                 <th>{{ __('S.N')}}</th>
                                                 <th>{{ __('Title')}}</th>
+                                                <th>{{__('Industry')}}</th>
                                                 <th>{{ __('Description')}}</th>
                                                 <th>{{ __('Usage')}}</th>
                                                 <th>{{ __('Action')}}</th>
@@ -250,6 +251,7 @@ $(document).ready(function () {
              }
         },
         {"data" :"title","name":"title"},
+        {"data": "parent_industry", "name": "parent_industry"},
         {"data":'description', "name":"description"},
         {"data":"usage",'name':"usage"},
         {"data":"action" , "name" :"action"},
@@ -287,6 +289,11 @@ $(document).ready(function () {
                     validators: {
                         notEmpty: {
                             message: 'The title is required'
+                        },
+                        remote  : {
+                          message : 'The title is already taken',
+                          method  : 'GET',
+                          url     : "{{route('admin.industryJobs.checkIndustryTitle')}}"
                         }
                     }
                 },
@@ -430,7 +437,7 @@ $(document).ready(function () {
         //show the alert notification
         swal({
             title: "Are you sure?",
-            text: "You will not be able to recover industry!",
+            text: "You will not be able to recover this!",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",

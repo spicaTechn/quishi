@@ -723,6 +723,7 @@ p {
 
 .search-results-found .section-title h2 {
     text-align: left;
+    margin-bottom: 40px;
 }
 
 .filter-dropdown {
@@ -793,6 +794,7 @@ p {
     border-color: #f0f7f9;
     height: 44px;
     border-radius: 30px;
+    padding-left: 45px;
 }
 
 .top-filter-section .search-form {
@@ -2470,7 +2472,7 @@ p {
 }
 
 .profile-pic-detail a {
-    color: #8ac43f;
+    color: #fff;
 }
 
 .view-all-comment {
@@ -3222,3 +3224,10 @@ background: #8ac43f;
 .donation-modal-btn {
     cursor: pointer;
 }
+
+.top-filter-section.search_by_name {
+    border: none;
+    padding-top: 0;
+    max-width: 300px;
+}
+

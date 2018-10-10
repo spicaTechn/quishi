@@ -261,6 +261,13 @@ class ProfilePageController extends BaseCareerAdvisorController
 
                                         endif;
                                     })
+                                    ->where(function($query) use($request){
+                                        if($request->has('career_name') && !empty($request->input('career_name'))):
+                                                $career_name = $request->input('career_name');
+                                                $query->where('user_profile.first_name','like',"%{$career_name}%");
+
+                                        endif;
+                                    })
 
                                     //if the request has education
                                     ->where(function($query) use($request){

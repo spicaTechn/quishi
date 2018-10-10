@@ -75,15 +75,21 @@
                                 <select class="form-control" name="career_advisor_order" id="sort_order">
                                     <option value="desc">Recent</option>
                                     <option value="asc">Oldest</option>
-                                    <option value='profile_desc'>Profile Likes Desc</option>
-                                    <option value='profile_asc'>Profile Likes Asc</option>
-                                    <option value="view_desc" selected="">Profile Views Desc</option>
-                                    <option value="view_asc">Profile Views Asc</option>
+                                    <option value='profile_desc'>Most Liked</option>
+                                    <option value='profile_asc'>Least Liked</option>
+                                    <option value="view_desc" selected="">Most Views</option>
+                                    <option value="view_asc">Least Views</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
+                  </div>
                 </div>
+                <div class="top-filter-section search_by_name">
+                  <div class="search-form">
+                      <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
+                      <input type="text" name="search_by_name" id="search_by_name" class="form-control" placeholder="search by name">
+                  </div>
+                </div>        
                 <div class="row show_more_career_advisior">
                     @if(count($users_lists) > 0)
                     @foreach($users_lists as $user_list)
@@ -212,6 +218,12 @@ $(document).ready(function () {
     });
 
 
+    $(document).on('keyup', '#search_by_name',function(){
+        var type = false;
+        $("#load_more").attr('data_current_page',0);
+        renderSearchDataAndAjaxCall(type);
+    });
+
     $(document).on('change','.industry,#education,#age_group,#likes_order,#views_order,#sort_order',function(){
         var type = false;
         $("#load_more").attr('data_current_page',0);
@@ -227,6 +239,7 @@ $(document).ready(function () {
 
         //get the other field on-page search parameters
         var age_group               = $('#age_group').val();
+        var career_name             = $('#search_by_name').val();
         var education               = $('#education').val();
         var address                 = $('#location').val();
         var industry                = $('#industry').val();
@@ -244,6 +257,7 @@ $(document).ready(function () {
           data:{
                 current_page            : current_page,
                 search_by_location      : search_by_location,
+                career_name             : career_name,
                 age_group               : age_group,
                 education               : education,
                 industry                : industry,

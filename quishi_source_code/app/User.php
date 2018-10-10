@@ -54,6 +54,17 @@ class User extends Authenticatable
     }
 
 
-    //get the user
+    //get the user links 
+
+    public function user_links(){
+        return $this->hasMany('App\Model\UserLink');
+    }
+
+
+    //users post the pages
+
+    public function pages(){
+        return $this->hasMany('App\Page');
+    }
 
 }

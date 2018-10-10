@@ -26,18 +26,27 @@
                             <!-- end about-profile-detail -->
                             <div class="personal-contacts">
                                 <ul>
-                                    <li><a href="#">www.jessicajones.com</a></li>
-                                    <li><a href="#">www.marvel.com</a></li>
-                                    <li><a href="#">www.marvelcomics.com</a></li>
+                               @foreach($user->user_links as $user_link)
+                                   @if($user_link->type == '1' && $user_link->status == '1')
+                                     <li><a href="{{$user_link->link}}">{{$user_link->link}}</a></li>
+                                    @endif
+                                @endforeach
                                 </ul>
                             </div>
                             <!-- end personal-contacts -->
                             <div class="profile-social-media">
                                 <ul>
-                                    <li><a href="#"><i class="icon-social-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-youtube"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-twitter"></i></a></li>
-                                    <li><a href="#"><i class="icon-social-dribbble"></i></a></li>
+                                    @foreach($user->user_links as $user_link)
+                                       @if($user_link->type == '0' && $user_link->status == '1' && $user_link->label == "facebook_link")
+                                          <li><a href="{{$user_link->link}}"><i class="icon-social-facebook"></i></a></li>
+                                        @elseif($user_link->type == '0' && $user_link->status == '1' && $user_link->label == "twitter_link")
+                                          <li><a href="{{$user_link->link}}"><i class="icon-social-twitter"></i></a></li>
+                                        @elseif($user_link->type == '0' && $user_link->status == '1' && $user_link->label == "linkedin_link")
+                                           <li><a href="{{$user_link->link}}"><i class="icon-social-linkedin"></i></a></li>
+                                        @elseif($user_link->type == '0' && $user_link->status == '1' && $user_link->label == "google_plus_link")
+                                            <li><a href="{{$user_link->link}}"><i class="icon-social-google"></i></a></li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                             <!-- end profile-social-media -->
@@ -80,16 +89,15 @@
                             <div class="personal-detail">
                                 <h4>More Info:</h4>
                                 <ul>
-                                    <li><span>Address:</span>{{ $user->user_profile->location }}</li>,
-                                    <li><span>Age</span> Group: {{ $user->user_profile->age_group }} year</li>,
-                                    <li><span>Education Level:</span> {{ $user->user_profile->educational_level }}</li>,
-                                    <li><span>Major Subject:</span> Information Technology and Science</li>,
-                                    <li><span>Feculty:</span> {{ $user->user_profile->faculty }}</li>,
+                                    <li><span>Address:</span>{{ ucwords($user->user_profile->location) }}</li>,
+                                    <li><span>Age</span> Group: {{ show_career_advisior_age_group($user->user_profile->age_group) }}</li>,
+                                    <li><span>Education Level:</span> {{ ucwords($user->user_profile->educational_level) }}</li>,
+                                    <li><span>Faculty:</span> {{ucwords($user->user_profile->education->name)}}</li>,
                                      @foreach($user->careers as $career)
-                                    <li><span>Job Title:</span> {{ $career->title }}</li>,
+                                    <li><span>Job Title:</span> {{ ucwords($career->title) }}</li>,
                                     @endforeach
-                                    <li><span>Salary Range:</span> {{ $user->user_profile->salary_range }}/annum</li>,
-                                    <li><span>Experience:</span> {{ $user->user_profile->job_experience }} Years</li>
+                                    <li><span>Salary Range:</span> {{ show_career_advisior_salary_range($user->user_profile->salary_range) }}</li>,
+                                    <li><span>Experience:</span> {{ show_career_advisior_job_experience($user->user_profile->job_experience) }}</li>
                                 </ul>
                             </div>
                             <!-- end personal-detail -->
@@ -97,7 +105,7 @@
                             <div class="profile-slills">
                                 <ul>
                                     @foreach($user->tags as $tag)
-                                        <li><a href="#">{{$tag->title}}</a></li>
+                                        <li><a href="#">{{ucwords($tag->title)}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
