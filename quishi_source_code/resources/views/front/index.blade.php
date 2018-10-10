@@ -19,19 +19,19 @@
     <div class="container">
         <div class="search-absolute-content text-center">
             <h1>search</h1>
-            <form>
+            <form name="search_career_advisor" id="search_career_advisor" class="search_career_advisor" action="{{URL::to('/career-advisior')}}">
                 <div class="search-wrapper">
 
                     <div class="form-group">
                         <i class="icon-magnifier"></i>
-                        <input type="text" name="" class="form-control" placeholder="Search keyword or title">
+                        <input type="text" name="search_by_job_title" class="form-control" placeholder="Search keyword or title" id="search_by_job_title">
                     </div>
                     <div class="form-group">
                         <i class="icon-location-pin"></i>
-                        <input type="text" name="" class="form-control" placeholder="Location" style="background: #f4f4f4;">
+                        <input type="text" name="search_by_location"  id="search_by_location" class="form-control search_by_location" placeholder="Location" style="background: #f4f4f4;">
                     </div>
 
-                    <button class="btn btn-transpatent"><i class="icon-magnifier"></i></button>
+                    <button class="btn btn-transpatent" ><i class="icon-magnifier"></i></button>
 
                 </div>
             </form>
@@ -191,6 +191,7 @@
 @endsection
 
 @section('page_specific_js')
+
 <script type="text/javascript">
 //feature video modal
     $("#play-video").click(function() {

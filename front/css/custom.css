@@ -2922,6 +2922,7 @@ button#comment-toogle {
     -webkit-transform: translate(-50% , -50%) rotate(30deg) scale(1,1);
     transform: translate(-50% , -50%) rotate(30deg) scale(1,1);
 }
+
 @media (min-width: 992px) {
     .sidebar-toggler {
         display: none;
@@ -3219,4 +3220,15 @@ background: #8ac43f;
 
 .donation-modal-btn {
     cursor: pointer;
+
+
+
+.invalid-feedback{
+    display: block !important;
+}
+
+.email-verification {
+    display: flex;
+    justify-content: space-between;
+
 }

@@ -84,7 +84,7 @@ class BaseCareerAdvisorController extends Controller
         $tags_array = explode(",", $tags);
         foreach($tags_array as $tag_array){
             //check the tag is in the database or not
-            $tag_exists = Tag::where('title',$tag_array)->first();
+            $tag_exists = Tag::where('slug',str_slug($tag_array))->first();
             if($tag_exists){
                 //tag exists in the db now need to update the user tags in the pivot table only
                 $tag_exists->users()->attach(Auth::user()->id);

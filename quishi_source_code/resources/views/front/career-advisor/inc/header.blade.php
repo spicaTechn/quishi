@@ -17,7 +17,7 @@
                     <li class="nav-item"><a href="" class="nav-link">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">{{ __('Profiles')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link">{{ __('Profiles')}}</a></li>
                 </ul>
             </div>
             <div class="login-menu login-menu-sm">
@@ -36,7 +36,7 @@
 
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
-                                    <li><a class="dropdown-item" href="#"> {{ __('Change Password') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
                                 </ul>
                             </li>
                         @else
@@ -49,7 +49,7 @@
 
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
-                                    <li><a class="dropdown-item" href="#"> {{ __('Change Password') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
                                 </ul>
                             </li>
                         @endif

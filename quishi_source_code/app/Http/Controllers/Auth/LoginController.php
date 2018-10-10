@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -56,5 +57,29 @@ class LoginController extends Controller
 
         //now check for the user profile if the user is the career advisior not for the super admin
 
+    }
+
+    /**
+     * Redirect the user to the provider(facebook and google) authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Obtain the user information from provider(facebook, google).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+
+        // $user->token;
+
+        return $user;
     }
 }

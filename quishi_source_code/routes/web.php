@@ -131,10 +131,24 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'		=> 'Front\CareerAdvisor\Profile\MyAccountController@index'
 	]);
 
+	
+
+	Route::get('/my-account/change-password',[
+		'as'	=> 'profile.my-account.change-password',
+		'uses'  => 'Front\CareerAdvisor\Profile\MyAccountController@change_logged_in_user_password'
+	]);
+
+
+	Route::post('/my-account/change-advisior-password',[
+		'as'	=> 'profile.my-account.reset-password',
+		'uses'  => 'Front\CareerAdvisor\Profile\MyAccountController@change_password'
+	]);
+
 	Route::post('/my-account/{id}',[
 		'as'		=> 'profile.my-account.udpate',
 		'uses'		=> 'Front\CareerAdvisor\Profile\MyAccountController@update'
 	]);
+
 
 
 
@@ -506,4 +520,11 @@ Auth::routes();
 Route::get('/register/verify/{email}/{token}',function(){
 		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
 });
+
+
+
+//route for the soical login
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 

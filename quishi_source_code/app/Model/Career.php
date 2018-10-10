@@ -9,12 +9,12 @@ class Career extends Model
 {
     //
 
-    public function getParentCareer(){
+    public static function getParentCareer(){
     	return $this->where('parent',0)->get();
     }
 
 
-   public function parent() {
+   public function parent_career() {
     return $this->belongsTo(static::class, 'parent');
   }
 
