@@ -64,11 +64,11 @@
                               <br>
                               <form name="home-video" id="home-video" enctype="multipart/form-data">
                                 @csrf
-                              <input type="hidden" name="home_video_id" class="home_video_id" value=""/>
+                              <input type="hidden" name="home_video_id" class="home_video_id" value="{{ $home_video->id }}"/>
                               <div class="row">
                                 <div class="col-sm-12 col-xl-12 m-b-30">
                                    <h4 class="sub-title">Video ID *</h4>
-                                   <input type="text" class="form-control home_video" name="home_video" placeholder="Video ID" value="">
+                                   <input type="text" class="form-control home_video" name="home_video" placeholder="Video ID" value="{{ $home_video->content }}">
                                  </div>
                               </div>
                               <button class="btn btn-grd-primary updateVideoId" data-video-id="">Update</button>

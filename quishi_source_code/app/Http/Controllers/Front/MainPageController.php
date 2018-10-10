@@ -27,6 +27,7 @@ class MainPageController extends Controller
         $blog  = $blogs ?? '';
         $user_profiles = UserProfile::orderBy('profile_views','desc')->take(3)->get();
         $service      = Page::where('slug','home')->get();
+        $home_video = Page::where('slug','home-video')->first();
 
         return view('front.index')
                     ->with(array(
@@ -35,6 +36,7 @@ class MainPageController extends Controller
                             'blogs'               => $blog,
                             'users_profile'       => $user_profiles,
                             'services'            => $service,
+                            'home_video'          => $home_video
                         )
                     );
     }

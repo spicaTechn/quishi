@@ -31,7 +31,7 @@ class User extends Authenticatable
 
 
 
-    //a user have one user_profile 
+    //a user have one user_profile
 
     public function user_profile(){
         return $this->hasOne('App\Model\UserProfile');
@@ -53,6 +53,15 @@ class User extends Authenticatable
         return $this->hasMany(Review::class,'user_id');
     }
 
+    public function forum_questions()
+    {
+        return $this->hasMany('App\Model\ForumQuestion');
+    }
+
+    public function forum_question_answers()
+    {
+        return $this->hasMany('App\Model\ForumQuestionAnswer');
+    }
 
     //get the user
 

@@ -51,14 +51,32 @@
 	]);
 
 	// route for forum page
-	Route::get('/forum', [
+	Route::get('/forums', [
 		'as'		=>	'forum',
 		'uses'		=>	'Front\Pages\Forum\ForumPageController@index'
 	]);
-	Route::get('/forum/{id}', [
-		'as'		=>	'forum',
+
+	Route::post('/forums', [
+		'as' 		=> 'forum.store',
+		'uses'      => 'Front\Pages\Forum\ForumPageController@store'
+	]);
+	Route::get('/forums/{id}', [
+		'as'		=>	'forum.show',
 		'uses'		=>	'Front\Pages\Forum\ForumPageController@show'
 	]);
+	Route::post('/forums/answer/anonmously', [
+		'as'		=>	'forums.answer-anonmously',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveAnonmously'
+	]);
+	Route::post('/forums/answer/loggedin', [
+		'as'		=>	'forums.answer-loggedin',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveLoggedin'
+	]);
+	Route::post('/forums/answer/post-anonmously', [
+		'as'		=>	'forums.answer.post-anonmously',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@savePostAnonmously'
+	]);
+
 
 // Route for profile
 
