@@ -28,7 +28,7 @@ class MainPageController extends Controller
 
         $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
         $blog  = $blogs ?? '';
-        $user_profiles = UserProfile::orderBy('profile_views','desc')->take(3)->get();
+        $user_profiles = UserProfile::where('status','1')->orderBy('profile_views','desc')->take(3)->get();
         $service      = Page::where('slug','home')->get();
         $home_video = Page::where('slug','home-video')->first();
 

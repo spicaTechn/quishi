@@ -86,8 +86,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::any('/', 'Front\CareerAdvisor\Profile\ProfileController@index')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\Profile\ProfileController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\Profile\ProfileController@profileAccount');
+
+	//route realted to the profile setup step1
 	Route::any('/setup/step1', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupOne')->name('profile.setup.step1');
+
+	//back button implemented here 
+	Route::get('/setup/step1/back','Front\CareerAdvisor\Profile\ProfileController@backToStepOne')->name('profile.setup.step1.back');
+
 	Route::any('/setup/step2', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupTwo')->name('profile.setup.step2');
+
+
+	Route::get('/setup/step2/back','Front\CareerAdvisor\Profile\ProfileController@backToStepTwo')->name('profile.setup.step2.back');
+
 
 	Route::get('/setup/getMajor','Front\CareerAdvisor\Profile\ProfileController@getMajor');
 	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');

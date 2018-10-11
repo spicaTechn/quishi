@@ -154,25 +154,13 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <!-- Select 2 -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
+@yield('page_specific_js')
 <script>
     $(document).ready(function(){
         
-
         //form validation here for the forntend form validaton
-        $('#donate_now').on('init.field.fv', function(e, data) {
-            e.preventDefault();
-            var $parent = data.element.parents('.form-group'),
-                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
-
-            $icon.on('click.clearing', function() {
-                // Check if the field is valid or not via the icon class
-                if ($icon.hasClass('fa fa-remove')) {
-                    // Clear the field
-                    data.fv.resetField(data.element);
-                }
-            });
-        })
-        .formValidation({
+  
+        $("#donate_now").formValidation({
             framework: 'bootstrap',
             icon: {
                 valid: 'fa fa-check',

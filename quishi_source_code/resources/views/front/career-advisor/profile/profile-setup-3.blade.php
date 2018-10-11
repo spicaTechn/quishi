@@ -12,10 +12,30 @@
                     <textarea class="form-control" name="answer_id[]{{$user_question['question_id']}}" {{($user_question['question_type'] == '1') ? 'required' : ''}}></textarea>
                 </div>
             @endforeach
-            <div class="text-left">
-                <button type="submit" class="btn btn-default">Setup my profile</button>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="text-left">
+                        <button type="submit" class="btn btn-default">Setup my profile</button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-left">
+                        <button type="button" class="btn btn-default" id="profile_setup_back">Back</button>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
+@endsection
+@section('page_specific_js')
+<script>
+    $(document).ready(function(){
+        $("#profile_setup_back").on('click',function(e){
+            e.preventDefault();
+            window.location.href = "{{URL::to('/profile/setup/step2/back')}}";
+        });
+    });
+
+</script>
 @endsection

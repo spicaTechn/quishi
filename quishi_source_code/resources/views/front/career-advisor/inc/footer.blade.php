@@ -159,7 +159,7 @@
 <script>
     $(document).ready(function(){
         
-
+       
         //form validation here for the forntend form validaton
         $('#donate_now').on('init.field.fv', function(e, data) {
             e.preventDefault();

@@ -58,13 +58,15 @@
                     </div>
                     <div class="profile-desination">
                         <h3>{{ $user_profile->first_name }}</h3>
-                        <span>UI/UX Designer</span>
+                        @foreach($user_profile->user->careers as $user_career)
+                            <span>{{ucwords($user_career->title)}}</span>
+                        @endforeach
                     </div>
 
                     <div class="profile-slills">
                         <ul>
                             @foreach($user_profile->user->tags as $user_tag)
-                                <li><a href="#">{{$user_tag->title}}</a></li>
+                                <li><a href="#">{{ucwords($user_tag->title)}}</a></li>
                             @endforeach
 
                         </ul>

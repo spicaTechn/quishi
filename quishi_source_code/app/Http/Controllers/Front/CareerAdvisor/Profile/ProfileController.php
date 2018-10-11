@@ -81,6 +81,31 @@ class ProfileController extends BaseCareerAdvisorController
 
 
 
+    /**
+    *
+    * function to show the career advisior step1 with the back action
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    */
+
+    public function backToStepOne(Request $request){
+
+        //update the profile se
+        if(Auth::user()->user_profile()->count() > 0){
+            //the user has created the profile
+            //change the profile complete step to 0
+            $this->user_profile    = UserProfile::where('user_id',Auth::user()->id)->firstOrFail();
+            $this->user_profile->profile_setup_steps = '0';
+            $this->user_profile->save();
+
+        }
+         return redirect()->route('profile.setup.step1');
+    }
+
+
 
     /**
     * function to store the user information if the data was set
@@ -99,6 +124,7 @@ class ProfileController extends BaseCareerAdvisorController
                  return redirect()->route('profile');
             }
         }
+        $user_major = "";
         $redirect_to_origin = false;
         $redirect_message   = '';
         if($request->has('_token')){
@@ -122,10 +148,21 @@ class ProfileController extends BaseCareerAdvisorController
                 $this->user_profile_image   = $name;
 
                 //$user_profile->image_path = 'image_name';
+            }else{
+                if(Auth::user()->user_profile()->count() > 0)
+                {
+                    $this->user_profile_image   = Auth::user()->user_profile->image_path;
+                }
             }
 
                 //need to insert the data in the db
-                $this->user_profile               = new UserProfile();
+                //check the user has submitted data or not
+                if(Auth::user()->user_profile()->count() > 0):
+                    $this->user_profile               = UserProfile::where('user_id',Auth::user()->id)->firstOrFail();
+                else:
+                     $this->user_profile              = new UserProfile();
+                endif;
+               
                 $this->user_profile->first_name  = $request->input('name');
                 $this->user_profile->last_name   = '';
                 $this->user_profile->location    = $request->input('address');
@@ -147,7 +184,8 @@ class ProfileController extends BaseCareerAdvisorController
                                     ]);
             else:
                 return view('front.career-advisor.profile.profile-setup-2')->with([
-                    'industries'      => $this->career
+                    'industries'      => $this->career,
+                    'majors'          => Education::where('parent','>',0)->get(),
                 ])->with(array(
                     'site_title' => 'Quishi',
                     'page_title' => 'Profile'
@@ -156,7 +194,8 @@ class ProfileController extends BaseCareerAdvisorController
 
         }else{
             return view('front.career-advisor.profile.profile-setup-2')->with([
-                    'industries'      => $this->career
+                    'industries'      => $this->career,
+                     'majors'          => Education::where('parent','>',0)->get(),
                 ])->with(array(
                     'site_title' => 'Quishi',
                     'page_title' => 'Profile'
@@ -165,6 +204,43 @@ class ProfileController extends BaseCareerAdvisorController
 
 
     }
+
+
+
+    /**
+    *
+    * function to show the profile setup step2 back again
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+    public function backToStepTwo(Request $request){
+
+        if(Auth::user()->user_profile()->count() > 0){
+            //the user has created the profile
+            //change the profile complete step to 0
+            $this->user_profile    = UserProfile::where('user_id',Auth::user()->id)->firstOrFail();
+            $this->user_profile->profile_setup_steps = '1';
+            $this->user_profile->save();
+
+        }
+         return redirect()->route('profile.setup.step2');
+    }
+
+
+    /**
+    *
+    * function to show the update the step up step 2 and show the profile setup step
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
     public function profileSetupThree(Request $request)
     {
 

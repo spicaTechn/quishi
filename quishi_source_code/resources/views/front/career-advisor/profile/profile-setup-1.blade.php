@@ -10,14 +10,35 @@
                     <h6>{{ __('Upload your profile picture')}}</h6>
                     <div class="file-upload">
 
-                        <div class="image-upload-wrap">
+                        <div class="image-upload-wrap" 
+                         @if(Auth::user()->user_profile()->count() > 0)
+                            @if(Auth::user()->user_profile->image_path != "")
+                                {{ 'style=display:none;'}}
+                            @endif
+                         @endif
+
+                        >
                             <input class="file-upload-input" type='file' name="user_image" onchange="readURL(this);" accept="image/*" />
                             <div class="drag-text">
                                 <h3>{{ __('Drag and drop a file or select add Image')}}</h3>
                             </div>
                         </div>
-                        <div class="file-upload-content">
-                            <img class="file-upload-image" src="#" alt="your image" />
+                        <div class="file-upload-content" 
+                        @if(Auth::user()->user_profile()->count() > 0)
+                            @if(Auth::user()->user_profile->image_path != "")
+                                {{ 'style=display:block;'}}
+                            @endif
+                         @endif
+                        >
+                            @if(Auth::user()->user_profile()->count() > 0)
+                                @if(Auth::user()->user_profile->image_path != "")
+                                    <img class="file-upload-image" src='{{asset("/front/images/profile/")."/".Auth::user()->user_profile->image_path}}' alt="your image" />
+                                @else
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                @endif
+                            @else
+                                 <img class="file-upload-image" src="#" alt="your image" />
+                            @endif
 
 
                         </div>
@@ -40,11 +61,11 @@
                     <div class="form-group">
                         <select class="form-control"  name="age_group">
                             <option value="0" disabled="disabled" selected="">{{ __('Select Age Group')}} </option>
-                            <option value="1" {{ (old('age_group') == 1) ? 'selected' : '' }}>0-15 years</option>
-                            <option value="2" {{ (old('age_group') == 2) ? 'selected' : '' }}>15-30 years</option>
-                            <option value="3" {{ (old('age_group') == 3) ? 'selected' : '' }}>30-45 years</option>
-                            <option value="4" {{ (old('age_group') == 4) ? 'selected' : '' }}>45-50 years</option>
-                            <option value="5" {{ (old('age_group') == 5) ? 'selected' : '' }}>50 above</option>
+                            <option value="1" {{ (old('age_group') == 1) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 1)  {{ 'selected' }} @endif @endif>0-15 years</option>
+                            <option value="2" {{ (old('age_group') == 2) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 2)  {{ 'selected' }} @endif @endif>15-30 years</option>
+                            <option value="3" {{ (old('age_group') == 3) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 3)  {{ 'selected' }} @endif @endif>30-45 years</option>
+                            <option value="4" {{ (old('age_group') == 4) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 4)  {{ 'selected' }} @endif @endif>45-50 years</option>
+                            <option value="5" {{ (old('age_group') == 5) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 5)  {{ 'selected' }} @endif @endif>50 above</option>
                         </select>
 
                         @if ($errors->has('age_group'))
@@ -54,7 +75,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="address" placeholder="Enter your address" value="{{old('address')}}" id="autocomplete">
+                        <input type="text" class="form-control" name="address" placeholder="Enter your address" value="{{old('address')}} @if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete">
 
                         @if ($errors->has('address'))
                             <span class="invalid-feedback" role="alert">
@@ -69,7 +90,7 @@
                 <div class="col-md-10">
                     <div class="form-group">
                         <label>Describe a little bit about you</label>
-                        <textarea class="form-control" name="description" id="description">{{old('description')}}</textarea>
+                        <textarea class="form-control" name="description" id="description">{{old('description')}} @if(Auth::user()->user_profile()->count() > 0) {{ auth::user()->user_profile->description}} @endif</textarea>
                     </div>
                     <div class="text-right">
                         <button type="submit" class="btn btn-default"> Proceed and Continue</button>

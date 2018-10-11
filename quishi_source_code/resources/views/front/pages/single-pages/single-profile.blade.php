@@ -13,9 +13,9 @@
                             </div>
                             <!-- end front-profile -->
                             <div class="profile-name-detail profile-name-detail-xs">
-                                <h2>{{ $user->user_profile->first_name }}</h2>
+                                <h2>{{ ucwords($user->user_profile->first_name) }}</h2>
                                 @foreach($user->careers as $career)
-                                 <span class="small">{{ $career->title }}</span>
+                                 <span class="small">{{ ucwords($career->title) }}</span>
                                 @endforeach
                                 <span class="small">{{ $user->email }}</span>
                             </div>

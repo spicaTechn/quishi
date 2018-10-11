@@ -21,7 +21,7 @@ class ProfilePageController extends BaseCareerAdvisorController
      */
     protected $offset           = 0;
     protected $current_page     = 1;
-    protected $per_page         = 4;
+    protected $per_page         = 9;
     protected $total_record     = 0;
     protected $job_title        = '';
     protected $user_location    = '';
@@ -233,6 +233,7 @@ class ProfilePageController extends BaseCareerAdvisorController
                                     ->join('user_career','users.id','=','user_career.user_id')
                                     ->join('careers','user_career.career_id','=','careers.id')
                                     ->where('users.logged_in_type','0')
+                                    ->where('user_profile.status','1')
                                     //if the request has search by job title option
                                     ->where(function($query) use($request){
                                         if($request->has('industry') && !empty($request->input('industry'))):

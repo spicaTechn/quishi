@@ -164,7 +164,7 @@
                         @foreach($user_tags as $user_tag)
                             <input type="hidden"  class="selected_user_tag" value="{{$user_tag}}"/>
                         @endforeach
-                        <input class="input-tags form-control" name="skills" type="text" data-role="tagsinput">
+                        <input class="input-tags form-control" name="skills" type="text" data-role="tagsinput" >
                     </div>
             </div>
         </div>
