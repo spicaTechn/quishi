@@ -130,7 +130,7 @@ class PagesController extends Controller
         {
             $video_id                = new Page();
             $video_id->title         = 'Home Video ID';
-            $video_id->content       = '123';
+            $video_id->content       = 'https://www.youtube.com/embed/1jhkEtvH6s8';
             $video_id->slug          = 'home-video';
             $video_id->user_id       = Auth::id();
             //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;

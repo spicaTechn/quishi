@@ -64,17 +64,14 @@
 		'as'		=>	'forum.show',
 		'uses'		=>	'Front\Pages\Forum\ForumPageController@show'
 	]);
-	Route::post('/forums/answer/anonmously', [
-		'as'		=>	'forums.answer-anonmously',
-		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveAnonmously'
+
+	Route::post('/forums/answer/', [
+		'as'		=>	'forums.answer',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveAnswer'
 	]);
-	Route::post('/forums/answer/loggedin', [
-		'as'		=>	'forums.answer-loggedin',
-		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveLoggedin'
-	]);
-	Route::post('/forums/answer/post-anonmously', [
-		'as'		=>	'forums.answer.post-anonmously',
-		'uses'		=>	'Front\Pages\Forum\ForumPageController@savePostAnonmously'
+	Route::post('/forums/answer/reply', [
+		'as'		=>	'forums.answer.reply',
+		'uses'		=>	'Front\Pages\Forum\ForumPageController@saveAnswerReply'
 	]);
 
 
@@ -131,7 +128,7 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'		=> 'Front\CareerAdvisor\Profile\MyAccountController@index'
 	]);
 
-	
+
 
 	Route::get('/my-account/change-password',[
 		'as'	=> 'profile.my-account.change-password',

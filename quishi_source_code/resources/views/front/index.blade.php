@@ -121,9 +121,16 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
+                        @if($home_video)
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" src="{{ $home_video->content }}" allowfullscreen></iframe>
                         </div>
+                        @else
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/1jhkEtvH6s8" allowfullscreen></iframe>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
