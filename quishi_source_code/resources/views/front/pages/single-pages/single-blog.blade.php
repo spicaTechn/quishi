@@ -10,6 +10,17 @@
                         <p>{{ $blog_details['abstract'] }}</p>
                     </div>
                     <div class="blog-single-post clearfix">
+                        @if($user = Auth::user())
+                          @if($image = $user->user_profile()->where('user_id',$user->id)->select('image_path')->first())
+                            <div class="post-img">
+                                <img src="asset('/front/images/profile/'.$image)" alt="">
+                            </div>
+                          @else
+                            <div class="post-img">
+                               <img src="{{ asset('/front/images/profile/users.png') }}" >
+                            </div>
+                          @endif
+                        @else
                         <div class="post-img">
                             @if(!empty($blog->user->user_profile->image_path))
                                 <img src="{{asset('front/images/profile') .'/'. $blog->user->user_profile->image_path}}" alt="">
@@ -17,6 +28,7 @@
                                 <img src="{{asset('front/images/1536744763.png')}}" alt="">
                             @endif
                         </div>
+                        @endif
                         <div class="post-date">
                             <ul>
                                 <li>Published on

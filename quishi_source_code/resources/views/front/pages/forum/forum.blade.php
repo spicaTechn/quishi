@@ -38,11 +38,26 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        @if(Auth::id())
                                         <div class="user-question-adds">
-                                            <a href="#"><img src="images/blog1.jpg">Laxman Tako </a>added
+                                            <a href="#">
+                                              <?php $image = Auth::user()->user_profile['image_path']; ?>
+                                              @if($image)
+                                              <img src="{{asset('/front/images/profile/'.$image)}}">
+                                              @else
+                                              <img src="{{ asset('/front/images/profile/user.png') }}">
+                                              @endif
+                                              {{ Auth::user()->name}}
+                                            </a>
+                                            added
                                         </div>
+                                        @else
+                                        <div class="user-question-adds">
+                                            <a href="{{asset('/login')}}">Login </a>
+                                        </div>
+                                        @endif
                                         <div class="user-Anonymous-question-adds">
-                                            <img src="images/blog1.jpg">Anonymous asks
+                                            <img src="{{ asset('/front/images/profile/user.png') }}">Anonymous asks
                                         </div>
                                         <div class="form-group" style="display: none;" id="anonymous_question">
                                           <input type="email" name="ask-anonymous" placeholder="Email" class="form-control">
