@@ -18,7 +18,7 @@
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link">{{ __('Profiles')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/forum')}}" class="nav-link">{{ __('Forum')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link">{{ __('Forum')}}</a></li>
                 </ul>
             </div>
             <div class="login-menu login-menu-sm">

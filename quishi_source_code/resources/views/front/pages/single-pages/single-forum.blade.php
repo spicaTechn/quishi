@@ -1,5 +1,11 @@
 @extends('front.layout.master')
 @section('content')
+@section('page_specific_css')
+<!-- Load the sweetalert css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
+<!-- Load the formvalidation css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
+@endsection
 <div class="forum-comment-section">
     <div class="container">
         <div class="forum-title-section forum-comment-title-section">
@@ -48,27 +54,188 @@
         <div class="forum-comment-description">
             <div class="clearfix">
                 <div class="forum-image-left">
-                    <img src="images/blog1.jpg">
+                  @if($question->user->user_profile['image_path'])
+                    <img src="{{ asset('/front/images/profile/'.$question->user->user_profile['image_path'])}}">
+                  @else
+                    <img src="{{ asset('/front/images/profile/user.png') }}">
+                  @endif
                 </div>
                 <div class="forum-content-right">
-                    <h5>Jone Deo</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam numquam in rem eum perspiciatis ratione voluptatibus, cum, dolorem debitis, dolores id officia sunt quae eos maiores! Laboriosam labore culpa consequuntur.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia accusantium dolor ad. Non veritatis ab obcaecati, earum porro, quia repellendus atque iste velit ex ratione explicabo molestiae quasi fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque cum soluta necessitatibus perspiciatis magnam ab rem blanditiis porro et, accusamus rerum, repellendus assumenda quisquam non quae minima vero quia quidem!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates beatae odit quas laudantium itaque asperiores deserunt. Enim ipsam, facere earum excepturi, nihil, provident obcaecati magni eligendi adipisci maiores dignissimos voluptas.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam numquam in rem eum perspiciatis ratione voluptatibus, cum, dolorem debitis, dolores id officia sunt quae eos maiores! Laboriosam labore culpa consequuntur.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia accusantium dolor ad. Non veritatis ab obcaecati, earum porro, quia repellendus atque iste velit ex ratione explicabo molestiae quasi fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque cum soluta necessitatibus perspiciatis magnam ab rem blanditiis porro et, accusamus rerum, repellendus assumenda quisquam non quae minima vero quia quidem!</p>
+
+                    @if(($question->user->logged_in_type == '0') || ($question->user->logged_in_type == '1'))
+                           <h5>By {{ $question->user->name }}   about 1 hour ago</h5>
+                          @else
+                           <h5>By {{ $question->user->name }}   about 1 hour ago</h5>
+                          @endif
+                    <p>{{ $question->title }}</p>
 
                     <div class="btn btn-outline-secondary">Reply</div>
+                    <div class="profile-leave-comment" style="display: none;">
+
+                        <h4>Reply answer</h4>
+                        <!-- for logdin user -->
+                        <form name="reply-form-loggedin" id="reply-form-loggedin">
+                            @csrf
+                            <input type="hidden" class="question_id" name="question_id" id="question_id" value="{{ $question->id }}">
+                            <input type="hidden" class="user_id" name="user_id" id="user_id" value="{{ $question->user_id }}">
+                            <div class="profile-reply-form">
+                                <div class="reply-user-image">
+                                    @if($id = Auth::id())
+                                      <?php $image = $question->user->user_profile()->where('id',$id)->first(); ?>
+                                      @if($image)
+                                        <img src="{{ asset('/front/images/profile/'.$question->user->user_profile['image_path'])}}">
+                                      @else
+                                        <img src="{{ asset('/front/images/profile/user.png') }}">
+                                      @endif
+                                    @else
+                                      <img src="{{ asset('/front/images/profile/user.png') }}">
+                                    @endif
+                                </div>
+                                <div class="reply-coment-box">
+                                    <div class="comment-method">
+                                        <ul>
+                                          @if(Auth::id())
+                                          <li><a href="#">{{ Auth::user()->name }}</a></li>
+                                          @else
+                                          <li><a href="{{asset('/login')}}">Login</a></li>
+                                          @endif
+                                          <li>
+                                            <a>
+                                              <input type="checkbox" name="post-anonymously" id="check-for-login">
+                                              <label for="check-for-login">Reply Anonymously</label>
+                                            </a>
+                                          </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group anonymously-user">
+                                        <input type="email" name="email" placeholder="Email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Your Message Here !" name="answer"></textarea>
+                                    </div>
+                                    <button type="submit" id="saveLoggedin" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- for Anonymously user -->
+                        <form name="reply-form-anonymously" id="reply-form-anonymously">
+                            @csrf
+                            <input type="hidden" class="question_id" name="question_id" id="question_id" value="{{ $question->id }}">
+                            <div class="profile-reply-form">
+                                <div class="reply-user-image">
+                                    <img src="{{ asset('/front/images/profile/user.png') }}">
+                                </div>
+                                <div class="reply-coment-box">
+                                    <div class="comment-method">
+                                        <ul>
+                                            <li><a href="{{asset('/login')}}">Login</a></li>
+                                            <li>
+                                                <a>
+                                                    <input type="checkbox" name="post-anonymously" id="check-for-login">
+                                                    <label for="check-for-login">Post Anonymously</label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group anonymously-user">
+                                        <input type="email" name="email" placeholder="Email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Your Message Here !" name="answer"></textarea>
+                                    </div>
+                                    <button type="submit" id="saveAnonmously" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
              <!-- end comment reply -->
-
+            @foreach($question->forum_question_answers()->where('parent','0')->get() as $answer)
             <div class="media-block">
                 <div class="media">
-                    <img class="mr-3" src="images/blog1.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                        <h5 class="mt-0">Media heading</h5>
-                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                        <div class="reply"><i class="icon-action-undo"></i> Reply</div>
-                        <div class="reply-form">
+                    @if($answer->user->user_profile['image_path'])
+                      <img class="mr-3" src="{{ asset('/front/images/profile/'.$answer->user->user_profile['image_path'])}}">
+                    @else
+                      <img class="mr-3" src="{{ asset('/front/images/profile/user.png') }}">
+                    @endif
+                    <div class="media-body reply-to" id="reply-to">
+                        @if(($answer->user->logged_in_type == '0') || ($answer->user->logged_in_type == '1'))
+                           <h5 class="mt-0">By {{ $answer->user->name }}   about 1 hour ago</h5>
+                          @else
+                           <h5 class="mt-0">By {{ $answer->user->name }}   about 1 hour ago</h5>
+                          @endif
+                        <p>{{ $answer->content }}</p>
+                      <a href="javascript:void(0);" class="reply-to-answer" id="reply-to-answer"><i class="icon-action-undo"></i> Reply</a>
+
+                        <div class="profile-leave-comment-to-answer" style="display: none;">
+
+                        <!-- for logdin user -->
+                       <form name="reply-answer-form-loggedin" class="reply-answer-form-loggedin" id="reply-answer-form-loggedin">
+                        @csrf
+                        <input type="hidden" class="question_id" name="question_id" id="question_id" value="{{ $answer->forum_question_id }}">
+                        <input type="hidden" class="answer_id" name="answer_id" id="answer_id" value="{{ $answer->id }}">
+                        <input type="hidden" class="user_id" name="user_id" id="user_id" value="{{ $answer->user_id }}">
+                            <div class="profile-reply-form">
+                                <div class="reply-user-image">
+                                    <img src="images/profile/1.jpg">
+                                </div>
+                                <div class="reply-coment-box">
+                                    <div class="comment-method">
+                                        <ul>
+
+                                            <li><a href="#">Your Name</a></li>
+                                            <li>
+                                              <a>
+                                                <input type="checkbox" name="answer_anonymously" id="check-for-login">
+                                                <label for="check-for-login">Reply Anonymously</label>
+                                              </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group anonymously-user">
+                                        <input type="email" name="reply_email" placeholder="Email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Your Message Here !" name="reply_answer" required></textarea>
+                                    </div>
+                                    <button  type="submit" id="saveReplyAnonymously" class="btn btn-default">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- for Anonymously user -->
+                        <form name="reply-answer-form-anonymously" class="reply-answer-form-anonymously" id="reply-answer-form-anonymously">
+                        @csrf
+                        <input type="hidden" class="question_id" name="question_id" id="question_id" value="{{ $answer->forum_question_id }}">
+                        <input type="hidden" class="answer_id" name="answer_id" id="answer_id" value="{{ $answer->id }}">
+                            <div class="profile-reply-form">
+                                <div class="reply-user-image">
+                                    <img src="images/profile/1.jpg">
+                                </div>
+                                <div class="reply-coment-box">
+                                    <div class="comment-method">
+                                        <ul>
+                                            <li><a href="{{asset('/login')}}">Login</a></li>
+                                            <li>
+                                                <a>
+                                                    <input type="checkbox" name="answer_anonymously" id="check-for-login">
+                                                    <label for="check-for-login">Post Anonymously</label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group anonymously-user">
+                                        <input type="email" name="post_email" placeholder="Email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Your Message Here !" name="post_answer" required></textarea>
+                                    </div>
+                                    <button  id="savePostAnonymously" class="btn btn-default">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                        <div class="reply-form" style="display: none;">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
                                 <div class="input-group-append">
@@ -81,30 +248,238 @@
                     </div>
                 </div>
             </div>
-            <!--End media-block -->
+            @endforeach
 
-            <div class="media-block">
-                <div class="media">
-                    <img class="mr-3" src="images/blog1.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                        <h5 class="mt-0">Media heading</h5>
-                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                        <div class="reply"><i class="icon-action-undo"></i> Reply</div>
-                        <div class="reply-form">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="icon-cursor"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End media-block -->
         </div>
     </div>
 </div>
+@endsection
+@section('page_specific_js')
+<!-- Sweetalert -->
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<!-- Formvalidation -->
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+     // show answer field when click reply button
+    $( ".btn-outline-secondary" ).click( function() {
+      $('#reply-form-loggedin')[0].reset();
+      $('#reply-form-loggedin').data('formValidation').resetForm(true);
+      $('#reply-form-anonymously')[0].reset();
+      $('#reply-form-anonymously').data('formValidation').resetForm(true);
+      $( ".profile-leave-comment" ).toggle( 'slow' );
+    });
+
+    $( ".reply-to-answer" ).click( function() {
+
+      var parent_div = $(this).parent('div.reply-to').find('.profile-leave-comment-to-answer');
+
+      parent_div.toggle('slow');
+    });
+
+    // from validation for reply answer logged in user
+    $('#reply-form-loggedin').on('init.field.fv', function(e, data) {
+          var $parent = data.element.parents('.form-group'),
+              $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+          $icon.on('click.clearing', function() {
+              // Check if the field is valid or not via the icon class
+              if ($icon.hasClass('fa fa-remove')) {
+                  // Clear the field
+                  data.fv.resetField(data.element);
+              }
+          });
+      })
+      .formValidation({
+          framework: 'bootstrap',
+          icon: {
+              valid: 'fa fa-check',
+              invalid: 'fa fa-times',
+              validating: 'fa fa-refresh'
+          },
+          fields: {
+              'answer': {
+                  validators: {
+                      notEmpty: {
+                          message: 'The answer  is required'
+                      }
+                  }
+              }
+          }
+    })
+    .on('success.form.fv', function(e) {
+          // Prevent form submission
+          e.preventDefault();
+          //alert("success");
+          // get the form input value
+          var result = new FormData($("#reply-form-loggedin")[0]);
+
+          $.ajax({
+          //make the ajax request to either add or update the
+          url:"{{url('')}}" + "/forums/answer/loggedin",
+          data:result,
+          dataType:"Json",
+          contentType: false,
+          processData: false,
+          type:"POST",
+          success:function(data)
+          {
+            if(data.status == "success"){
+              //hide the modal
+               //$('#add-new-question-modal').modal('hide');
+                setTimeout(function()
+                  {
+                  swal({
+                    title: "Answer has been added to Question!",
+                    text: "A  answer  has been added to Question",
+                    type: "success",
+                    closeOnConfirm: true,
+                  }, function() {
+                      window.location.reload();
+                  });
+                }, 1000);
+                $('#reply-form-loggedin')[0].reset();
+                $('#reply-form-loggedin').data('formValidation').resetForm(true);
+
+            }
+          },
+          error:function(event)
+          {
+              console.log('Cannot reply answer  to the question . Please try again later on..');
+          }
+
+        });
+    });
+
+    // form validation for reply answer anonymoulsy
+    $('#reply-form-anonymously').on('init.field.fv', function(e, data) {
+          var $parent = data.element.parents('.form-group'),
+              $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
+
+          $icon.on('click.clearing', function() {
+              // Check if the field is valid or not via the icon class
+              if ($icon.hasClass('fa fa-remove')) {
+                  // Clear the field
+                  data.fv.resetField(data.element);
+              }
+          });
+      })
+      .formValidation({
+          framework: 'bootstrap',
+          icon: {
+              valid: 'fa fa-check',
+              invalid: 'fa fa-times',
+              validating: 'fa fa-refresh'
+          },
+          fields: {
+              'email': {
+                  validators: {
+                      notEmpty: {
+                          message: 'The email  is required'
+                      }
+                  }
+              }
+          },
+          fields: {
+              'answer': {
+                  validators: {
+                      notEmpty: {
+                          message: 'The answer  is required'
+                      }
+                  }
+              }
+          }
+    })
+    .on('success.form.fv', function(e) {
+          // Prevent form submission
+          e.preventDefault();
+
+          // get the form input values
+          var result = new FormData($("#reply-form-anonymously")[0]);
+
+          $.ajax({
+          //make the ajax request to either add or update the
+          url:"{{url('')}}" + "/forums/answer/anonmously",
+          data:result,
+          dataType:"Json",
+          contentType: false,
+          processData: false,
+          type:"POST",
+          success:function(data)
+          {
+            if(data.status == "success"){
+              //hide the modal
+               //$('#add-new-question-modal').modal('hide');
+                setTimeout(function()
+                  {
+                  swal({
+                    title: "Answer has been added to Question!",
+                    text: "A  answer  has been added to Question",
+                    type: "success",
+                    closeOnConfirm: true,
+                  }, function() {
+                      window.location.reload();
+                  });
+                }, 1000);
+                $('#reply-form-anonymously')[0].reset();
+                $('#reply-form-anonymously').data('formValidation').resetForm(true);
+
+            }
+          },
+          error:function(event)
+          {
+              console.log('Cannot add new blog into the quishi system. Please try again later on..');
+          }
+
+        });
+    });
+
+
+    // saving reply to answer post-anonymously
+    $("#savePostAnonymously").click( function() {
+
+          // Prevent form submission
+          e.preventDefault();
+
+          var data = new FormData($("#reply-answer-form-anonymously")[0]);
+          $.ajax({
+          //make the ajax request to either add or update the
+          url:"{{url('')}}" + "/forums/answer/post-anonmously",
+          data:data,
+          dataType:"Json",
+          contentType: false,
+          processData: false,
+          type:"POST",
+          success:function(data)
+          {
+            if(data.status == "success"){
+              //hide the modal
+               //$('#add-new-question-modal').modal('hide');
+                setTimeout(function()
+                  {
+                  swal({
+                    title: "Reply has been added to Answer!",
+                    text: "A  reply  has been added to Answer",
+                    type: "success",
+                    closeOnConfirm: true,
+                  });
+                }, 1000);
+                $('#reply-answer-form-anonymously')[0].reset();
+                $('#reply-answer-form-anonymously').data('formValidation').resetForm(true);
+
+            }
+          },
+          error:function(event)
+          {
+              console.log('Cannot reply answer to the quesiton . Please try again later on..');
+          }
+
+        });
+    });
+
+
+
+});
+</script>
 @endsection

@@ -104,6 +104,34 @@
     </div>
 </div>
 <!-- trending-profiles -->
+<!-- video section -->
+<div class="video-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Your gateway to find a right career</h2>
+        </div>
+        <div class="circle-animation">
+            <div class="btn-play" id="play-video">
+                <span class="icon ion-ios-play"></span>
+            </div> See How it Works
+        </div>
+        <div class="modal modal-quishi" id="feature-video">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{ $home_video->content }}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- end video section -->
 <div class="page-section the-media">
     <div class="container">
         <div class="section-title">
@@ -167,6 +195,17 @@
 
 
 <script type="text/javascript">
+//feature video modal
+    $("#play-video").click(function() {
+        //alert("closed");
+        $("#feature-video").fadeIn();
+    });
+
+    $("#feature-video .close").click(function() {
+        $("#feature-video").fadeOut();
+    });
+
+
 $.ajaxSetup({
     headers:{
         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')

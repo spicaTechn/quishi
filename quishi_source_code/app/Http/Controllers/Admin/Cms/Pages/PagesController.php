@@ -121,6 +121,22 @@ class PagesController extends Controller
             }
         }
 
+        $home_video = Page::where('slug','home-video')->first();
+        if(!empty($home_video))
+        {
+            $video_id = $home_video;
+        }
+        else
+        {
+            $video_id                = new Page();
+            $video_id->title         = 'Home Video ID';
+            $video_id->content       = '123';
+            $video_id->slug          = 'home-video';
+            $video_id->user_id       = Auth::id();
+            //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
+            $video_id->save();
+        }
+
 
         return view('admin.cms.pages.pages')
                 ->with(array(
@@ -136,6 +152,7 @@ class PagesController extends Controller
 
                     'contact'             => $contact_data,
                     'home'                => $home,
+                    'home_video'            => $video_id
                     )
                 );
     }
@@ -685,7 +702,7 @@ class PagesController extends Controller
         $home_video_id          = Page::find($id);
         $user_id                = Auth::id();
         $home_video_id->title   = 'Home Video ID';
-        $home_video_id->slug    = 'home-video-id';
+        $home_video_id->slug    = 'home-video';
         $home_video_id->content = $request->input('home_video');
         $home_video_id->user_id = $user_id;
         $home_video_id->save();
