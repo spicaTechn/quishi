@@ -48,7 +48,6 @@
                                              <tr>
                                                 <th>{{ __('S.N')}}</th>
                                                 <th>{{ __('Title')}}</th>
-                                                <th>{{__('Slug')}}</th>
                                                 <th>{{ __('No Of Majors')}}</th>
                                                 <th>{{ __('Action')}}</th>
                                              </tr>
@@ -115,7 +114,7 @@
 
                     <div class="row">
                        <div class="col-sm-12 col-xl-12 m-b-30">
-                            <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as manoj else system will terat as major category</small></h4>
+                            <h4 class="sub-title">Select parent <small>If you select parent it automatically recognize as major else system will treat as major category</small></h4>
                             <select class="form-control parent-major-category" name="parent_id">
                             </select>
                         </div> 
@@ -216,7 +215,6 @@ $(document).ready(function () {
                 }
               },
               {"data" :"name","name":"name"},
-              {"data":"slug", "name": "slug"},
               {"data":"major",'name':"major"},
               {"data":"action" , "name" :"action"},
           
@@ -287,6 +285,11 @@ $(document).ready(function () {
                     validators: {
                         notEmpty: {
                             message: 'The title is required'
+                        },
+                        remote:{
+                          message : 'The title is already taken',
+                          method  : 'GET',
+                          url     : "{{route('admin.education.checkEducationTitle')}}"
                         }
                     }
                 },

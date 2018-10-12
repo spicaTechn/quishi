@@ -115,4 +115,31 @@ class BlogPageController extends Controller
     {
         //
     }
+
+
+    /**
+    * function to increase the total like in the blog page when the user clicks the total like
+    *
+    * @param \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    *
+    *
+    **/
+
+    public function page_like(Request $request){
+        $page_id = $request->page_id;
+        //get the total page like 
+
+        $page_details = Page::findOrFail($page_id);
+        $current_page_like = $page_details->total_likes;
+        $page_details->total_likes = $page_details->total_likes + 1;
+        $page_details->save();
+
+
+        //return response
+
+        return response()->json(array('status'=>'success','result'=>($current_page_like + 1)));
+
+
+    }
 }

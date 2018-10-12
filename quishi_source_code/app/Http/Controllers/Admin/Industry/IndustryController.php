@@ -69,7 +69,7 @@ class IndustryController extends Controller
 
         $career_details = Career::findOrFail($id);
         //get the parent category 
-        $parent_job_category = $this->career->getParentCareer();
+        $parent_job_category = Career::where('parent','=','0')->get();
         $return_html         = "<option value='0'>None</option>";
         if($parent_job_category->count() > 0){
             foreach($parent_job_category as $parent_job){
@@ -159,7 +159,7 @@ class IndustryController extends Controller
     public function getCareerIndustry(){
 
         //get the career having the parent 0
-        $parent_job_category = $this->career->getParentCareer();
+        $parent_job_category = Career::where('parent','=','0')->get();
         $return_html         = "<option value='0'>None</option>";
         if($parent_job_category->count() > 0){
             foreach($parent_job_category as $parent_job){
@@ -176,8 +176,11 @@ class IndustryController extends Controller
 
 
     public function getJobs(){
-        $jobs = Career::select('id','title','description')->where('parent' ,'>',0);
+        $jobs = Career::where('parent' ,'>',0);
         return Datatables($jobs)
+                                ->addColumn('parent_industry',function($job){
+                                    return ucwords($job->parent_career->title);
+                                })
                                 ->addColumn('action',function($job){
                                     $return_html = '<a href="#" class="m-r-15 text-muted edit-job" 
                                                       data-toggle="tooltip" 
@@ -275,5 +278,34 @@ class IndustryController extends Controller
         }
 
        return response()->json(array('status'=>'success','result'=>$return_jobs),200);
+    }
+
+
+
+
+    //function to check the dublication title for the industry and job title
+
+
+    public function checkIndustryTitle(Request $request){
+
+        //get the career requested title
+        $career_title     = $request->input('title');
+        //convert the tilte into the slug cause slug is unique 
+        $career_slug     = str_slug($career_title);
+
+        //get the career details by the career slug
+        $career_details = Career::where('slug',$career_slug)->first();
+        //initialize the variable here with boolean true value
+        $isAvailable    = true;
+
+        if($career_details){
+            //found return false
+            $isAvailable  = false;
+        }else{
+            //not found return true
+        }
+
+        //now send the response back to the requestor
+        return response()->json(array('valid'=> $isAvailable),200);
     }
 }

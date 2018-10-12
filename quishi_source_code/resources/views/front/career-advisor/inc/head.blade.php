@@ -13,3 +13,6 @@
     <link rel="icon" href="{{ asset('/front/i mages/fav-icon.png') }}">
     <!-- Load the sweetalert css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
+    <!--Select 2-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">

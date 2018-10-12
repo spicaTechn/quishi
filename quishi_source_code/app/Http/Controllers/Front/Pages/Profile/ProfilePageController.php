@@ -10,7 +10,7 @@ use App\User;
 use DB;
 use App\Model\UserProfile;
 use App\Model\Education, App\Model\Career;
-use Cartalyst\Stripe\Stripe;
+
 
 class ProfilePageController extends BaseCareerAdvisorController
 {
@@ -21,7 +21,7 @@ class ProfilePageController extends BaseCareerAdvisorController
      */
     protected $offset           = 0;
     protected $current_page     = 1;
-    protected $per_page         = 4;
+    protected $per_page         = 9;
     protected $total_record     = 0;
     protected $job_title        = '';
     protected $user_location    = '';
@@ -33,31 +33,7 @@ class ProfilePageController extends BaseCareerAdvisorController
 
     public function index(Request $request)
     {
-        
-
-
-        //make payment by using the fake user details
-
-        // $stripe = Stripe::make('sk_test_fHZhPEI4DHtnKAvE2DgG74xU');
-        // $token = $stripe->tokens()->create([
-        //     'card' => [
-        //         'number'    => '4242424242424242',
-        //         'exp_month' => 6,
-        //         'exp_year'  => 2019,
-        //         'cvc'       => 123,
-        //     ],
-        // ]);
-
-        // $charge   = $stripe->charges()->create([
-        //     'amount'        => 10,
-        //     'currency'      => 'USD',
-        //     'source'        => $token['id'],
-        //     'description'   => 'Donation received from lamanoj11@gmail.com'
-        // ]);
-
-        // echo $charge['id'];
-
-        // exit;
+      
         //first set the current page showing
         if($request->has('current_page')):
             $this->offset       = $request->input('current_page') * $this->per_page;
@@ -257,6 +233,7 @@ class ProfilePageController extends BaseCareerAdvisorController
                                     ->join('user_career','users.id','=','user_career.user_id')
                                     ->join('careers','user_career.career_id','=','careers.id')
                                     ->where('users.logged_in_type','0')
+                                    ->where('user_profile.status','1')
                                     //if the request has search by job title option
                                     ->where(function($query) use($request){
                                         if($request->has('industry') && !empty($request->input('industry'))):
@@ -282,6 +259,13 @@ class ProfilePageController extends BaseCareerAdvisorController
                                         if($request->has('age_group') && !empty($request->input('age_group'))):
                                                 $age_group = $request->input('age_group');
                                                 $query->where('user_profile.age_group',$age_group);
+
+                                        endif;
+                                    })
+                                    ->where(function($query) use($request){
+                                        if($request->has('career_name') && !empty($request->input('career_name'))):
+                                                $career_name = $request->input('career_name');
+                                                $query->where('user_profile.first_name','like',"%{$career_name}%");
 
                                         endif;
                                     })

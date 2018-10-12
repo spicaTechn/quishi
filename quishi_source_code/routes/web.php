@@ -83,8 +83,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::any('/', 'Front\CareerAdvisor\Profile\ProfileController@index')->name('profile')->middleware('userProfile');
 	Route::get('/profileLogin', 'Front\CareerAdvisor\Profile\ProfileController@profileLogin');
 	Route::get('/profileAccount', 'Front\CareerAdvisor\Profile\ProfileController@profileAccount');
+
+	//route realted to the profile setup step1
 	Route::any('/setup/step1', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupOne')->name('profile.setup.step1');
+
+	//back button implemented here 
+	Route::get('/setup/step1/back','Front\CareerAdvisor\Profile\ProfileController@backToStepOne')->name('profile.setup.step1.back');
+
 	Route::any('/setup/step2', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupTwo')->name('profile.setup.step2');
+
+
+	Route::get('/setup/step2/back','Front\CareerAdvisor\Profile\ProfileController@backToStepTwo')->name('profile.setup.step2.back');
+
 
 	Route::get('/setup/getMajor','Front\CareerAdvisor\Profile\ProfileController@getMajor');
 	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');
@@ -211,6 +221,14 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	Route::post('/industryJobs',[
 			'as'        => 'admin.add.industryJobs',
 			'uses'		=> 'Admin\Industry\IndustryController@store'
+	]);
+
+
+	//prevent the industryJobs title dublication 
+
+	Route::get('/industryJobs/checkIndustryTitle',[
+		'as'		  => 'admin.industryJobs.checkIndustryTitle',
+		'uses'	      => 'Admin\Industry\IndustryController@checkIndustryTitle'
 	]);
 	//show the careers by id
 
@@ -479,6 +497,13 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'  => 'Admin\Education\EducationController@show'
 	]);
 
+
+	//check for the title exists or not
+	Route::get('/education/checkEducationTitle',[
+		'as'	=> 'admin.education.checkEducationTitle',
+		'uses'  => 'Admin\Education\EducationController@checkEducationTitle'
+	]);
+
 	//update education major category and education major
 
 	Route::post('/educations/{id}',[
@@ -524,4 +549,11 @@ Route::get('/register/verify/{email}/{token}',function(){
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+
+//payments routes
+
+Route::post('makePayment','Front\MainPageController@makeDonationPayment')->name('makePayment');
+
+Route::post('page_like','Front\Pages\Blog\BlogPageController@page_like')->name('page_like');
 

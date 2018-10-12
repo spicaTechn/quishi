@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="profile-details text-center">
-                            <a id="profile-edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link">
+                            <a id="profile-edit-link" data-toggle="tooltip" data-placement="top" title="Edit Link" href="{{route('careerAdvisior.my-account.index')}}">
                                 <i class="icon-pencil"></i>
                             </a>
                             <div class="profile-picture">

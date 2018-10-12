@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="most-search-job">
@@ -57,13 +58,15 @@
                     </div>
                     <div class="profile-desination">
                         <h3>{{ $user_profile->first_name }}</h3>
-                        <span>UI/UX Designer</span>
+                        @foreach($user_profile->user->careers as $user_career)
+                            <span>{{ucwords($user_career->title)}}</span>
+                        @endforeach
                     </div>
 
                     <div class="profile-slills">
                         <ul>
                             @foreach($user_profile->user->tags as $user_tag)
-                                <li><a href="#">{{$user_tag->title}}</a></li>
+                                <li><a href="#">{{ucwords($user_tag->title)}}</a></li>
                             @endforeach
 
                         </ul>
@@ -198,6 +201,7 @@
 @endsection
 
 @section('page_specific_js')
+
 
 <script type="text/javascript">
 //feature video modal

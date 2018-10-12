@@ -225,4 +225,30 @@ class EducationController extends Controller
         //return response back to the browser
         return response()->json(array('status'=>'success','result'=>$return_html),200);
     }
+
+
+    //function to check the education title exists or not
+
+
+    public function checkEducationTitle(Request $request){
+        $education_title = $request->input('title');
+        //convert the education title into the slug
+
+        $education_slug = str_slug($education_title);
+
+        $education_details = Education::where('slug',$education_slug)->first();
+
+        $isAvailable   = true;
+        if($education_details){
+            //the education title found return true 
+
+            $isAvailable = false;
+        }else{
+            //the education title not found return false
+        }
+
+
+        //return response
+        return response()->json(array('valid'=> $isAvailable));
+    }
 }

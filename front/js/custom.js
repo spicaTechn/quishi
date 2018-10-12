@@ -65,6 +65,17 @@ jQuery(document).ready(function($) {
     // });
 
 
+    // donation-modal
+    $(".donation-modal-btn").click(function() {
+        //alert("closed");
+        $("#donation-Modal").modal('show');
+    });
+
+    $("#donation-Modal .close").click(function() {
+        $("#donate_now")[0].reset();
+        $("#donation-Modal").modal('hide');
+    });
+
 
     //equal height
     equalheight = function(container) {
