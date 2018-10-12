@@ -51,10 +51,10 @@
                     <div class="share-blog" style="display: block;">
                         <ul>
                             <li>Share this post</li>
-                            <li><a href="#"><i class="icon-social-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="icon-social-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="icon-social-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="icon-social-google" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::path() }}" target="_blank"><i class="icon-social-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="https://twitter.com/intent/tweet?url={{ Request::path() }}" target="_blank"#"><i class="icon-social-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ Request::path() }}" target="_blank""><i class="icon-social-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="https://plus.google.com/share?url={{ Request::path() }}" target="_blank""><i class="icon-social-google" aria-hidden="true"></i></a></li>
                         </ul>
 
                         <ul>
