@@ -78,9 +78,8 @@ class ForumPageController extends Controller
               $anonymous_user->password  = Hash::make('12345');
               $anonymous_user->save();
 
-              $last_user = DB::table('users')->latest()->first();
-              //echo "<pre>"; print_r($last_user); echo "</pre>"; exit;
-              $forum->user_id              = $last_user->id;
+
+              $forum->user_id              = $anonymous_user->id;
               $forum->title                = $question;
               $forum->total_publish_answer = '2';
               $forum->save();
@@ -109,7 +108,7 @@ class ForumPageController extends Controller
     {
         //
         $question  = ForumQuestion::find($id);
-         //echo "<pre>"; print_r($question); echo "</pre>"; exit;
+
         return view('front.pages.single-pages.single-forum')->with(array(
             'site_title'   =>  'Quishi',
             'page_title'   =>  'Forum',
@@ -208,10 +207,9 @@ class ForumPageController extends Controller
 
     public function saveAnswerReply(Request $request)
     {
-      echo "<pre>"; print_r($request->all()); echo "</pre>"; exit;
+      //echo "<pre>"; print_r($request->all()); echo "</pre>"; exit;
       $question_id  = $request->input('question_id');
       $answer_id    = $request->input('answer_id');
-
       if($request->input('reply_answer_anonymously')=='on'){
           $email        = $request->input('reply_answer_email');
           $anonymous_email = User::where('email', '=', $email)->first();

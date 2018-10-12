@@ -20,4 +20,16 @@ class ForumQuestionAnswer extends Model
     	return $this->belongsTo('App\User');
     }
 
+    public function children(){
+    	return $this->hasMany('App\Model\ForumQuestionAnswer','parent','id');
+
+    }
+
+
+    //echo education major may have one education major category
+    public function parent_answer(){
+    	return $this->hasOne('App\Model\ForumQuestionAnswer','id','parent');
+
+    }
+
 }
