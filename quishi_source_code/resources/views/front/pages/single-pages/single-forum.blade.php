@@ -187,7 +187,26 @@
                                 </div>
                             </div>
                         </form>
+                        @foreach($answer->children as $child_answer)
 
+                        <div class="media-block">
+                          <div class="media">
+                              @if($child_answer->user->user_profile['image_path'])
+                                <img class="mr-3" src="{{ asset('/front/images/profile/'.$child_answer->user->user_profile['image_path'])}}">
+                              @else
+                                <img class="mr-3" src="{{ asset('/front/images/profile/user.png') }}">
+                              @endif
+                              <div class="media-body reply-to" id="reply-to">
+                                  @if(($child_answer->user->logged_in_type == '0') || ($child_answer->user->logged_in_type == '1'))
+                                     <h5 class="mt-0">By {{ $child_answer->user->name }}   about 1 hour ago</h5>
+                                    @else
+                                     <h5 class="mt-0">By {{ $child_answer->user->name }}   about 1 hour ago</h5>
+                                    @endif
+                                  <p>{{ $child_answer->content }}</p>
+                              </div>
+                          </div>
+                        </div>
+                        @endforeach
                     <div class="reply-form" style="display: none;">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -314,9 +333,10 @@ $(document).ready(function () {
 
           //var id =$(this).parent('div.reply-to').find('.reply-to-answer');
 
-          var answer_id = $('.reply-to-answer').attr('data-answer-id');
-          //alert(answer_id);
-          var data = new FormData($(".reply-answer-form")[0]);
+          //var answer_id = $('.reply-to-answer').attr('data-answer-id');
+          //alert(answer_id);\
+          var form = $(this).parents('form.reply-answer-form');
+          var data = new FormData($(form)[0]);
           //alert(data);
           $.ajax({
           //make the ajax request to either add or update the
