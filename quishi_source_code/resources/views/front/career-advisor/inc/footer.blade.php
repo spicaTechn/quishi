@@ -144,9 +144,11 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+
 <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
+<script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
+
+
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
@@ -156,6 +158,8 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <!-- Select 2 -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
+
+@yield('page_specific_js')
 <script>
     $(document).ready(function(){
         

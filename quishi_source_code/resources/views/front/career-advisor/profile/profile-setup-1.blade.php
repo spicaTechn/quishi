@@ -50,23 +50,24 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control" placeholder="Full Name" name="name" required="">
+                        <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control required" placeholder="Full Name" name="name" required><span class="required">*</span>
                        
                     </div>
 
                     <div class="form-group">
-                        <input type="email"  name="email" value="{{Auth::user()->email}}" class="form-control" placeholder="Email" disabled="disabled">
+                        <input type="email"  name="email" value="{{Auth::user()->email}}" class="form-control required" placeholder="Email" disabled="disabled"><span class="required">*</span>
                     </div>
 
                     <div class="form-group">
-                        <select class="form-control"  name="age_group">
-                            <option value="0" disabled="disabled" selected="">{{ __('Select Age Group')}} </option>
+                        <select class="form-control required"  name="age_group" required>
+                            <option value="" disabled="disabled" selected="">{{ __('Select Age Group')}} </option>
                             <option value="1" {{ (old('age_group') == 1) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 1)  {{ 'selected' }} @endif @endif>0-15 years</option>
                             <option value="2" {{ (old('age_group') == 2) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 2)  {{ 'selected' }} @endif @endif>15-30 years</option>
                             <option value="3" {{ (old('age_group') == 3) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 3)  {{ 'selected' }} @endif @endif>30-45 years</option>
                             <option value="4" {{ (old('age_group') == 4) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 4)  {{ 'selected' }} @endif @endif>45-50 years</option>
                             <option value="5" {{ (old('age_group') == 5) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 5)  {{ 'selected' }} @endif @endif>50 above</option>
                         </select>
+                        <span class="required">*</span>
 
                         @if ($errors->has('age_group'))
                             <span class="invalid-feedback" role="alert">
@@ -75,7 +76,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="address" placeholder="Enter your address" value="{{old('address')}} @if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete">
+                        <input type="text" class="form-control required" name="address" placeholder="Enter your address" value="{{old('address','')}}@if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete" required><span class="required">*</span>
 
                         @if ($errors->has('address'))
                             <span class="invalid-feedback" role="alert">

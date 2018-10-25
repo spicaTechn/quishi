@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
 <!--Select 2-->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
+
 @endsection
 @section('content')
     <div class="profile-main-section">
@@ -191,21 +192,14 @@
 </div>
 @endsection
 @section('page_specific_js')
-<!-- Formvalidation -->
-<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
-<!--form validation -->
-<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
-<!-- Select 2 -->
-<script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
 <script>
     $(document).ready(function(){
         $('.faculty').select2();
         $('.industry').select2();
       
-        $('.selected_user_tag').each(function(){
-            $('input.input-tags').tagsinput('add', $(this).val());
-        });
-
+        
 
         //on industry selected 
         $('.industry').on('select2:select',function(e){
@@ -289,6 +283,11 @@
 
             }
         });
+
+        $('.selected_user_tag').each(function(){
+            $('input.input-tags').tagsinput('add', $(this).val());
+        });
+
 
     });
 </script>
