@@ -53,12 +53,12 @@
                 </div>
             </div>
             <div class="view-profile">
-                <a href="{{URL::to('/career-advisior').'/'.$user_list['user_id']}}">view profile</a>
+                <a href="{{URL::to('/career-advisior').'/'.$user_list['user_id']}}">{{ _('view profile') }}</a>
             </div>
         </div>
     </div>
 </div>
 @endforeach
 @else
-   <p>Sorry no career advisior were found, please try with others parameters</p>
+   <p>{{ __('Sorry no career advisior were found, please try with others parameters') }}</p>
 @endif
