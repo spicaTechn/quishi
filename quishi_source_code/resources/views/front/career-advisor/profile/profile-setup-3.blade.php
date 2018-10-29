@@ -23,7 +23,7 @@
                         <button type="button" class="btn btn-default" id="profile_setup_back">Back</button>
                     </div>
                 </div>
-            </div>
+            </div> 
         </form>
     </div>
 </div>
