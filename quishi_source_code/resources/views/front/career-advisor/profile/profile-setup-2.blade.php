@@ -16,9 +16,9 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{ __('Tell us your education level') }}</label>
+                        <label>{{ __('Tell us your education level *') }}</label>
                         <select class="form-control educational_level" name="education">
-                            <option  value="0" selected="selected" disabled="disabled">Select Education Level</option>
+                            <option  value="" selected="selected" disabled="disabled">Select Education Level</option>
                             <option value="high school" @if (auth::user()->user_profile->educational_level == 'high school')  {{ 'selected' }} @endif >High School</option>
                             <option value="associate" @if (auth::user()->user_profile->educational_level == 'associate')  {{ 'selected' }} @endif>Associate</option>
                             <option value="bachelor" @if (auth::user()->user_profile->educational_level == 'bachelor')  {{ 'selected' }} @endif>Bachelor</option>
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Choose your industry</label>
+                        <label>Choose your industry *</label>
                         <select class="industry  form-control form-control-default open default" name="parent_industry">
                            <option value="0" selected="selected" disabled="disabled">Select Industry</option>
                                 @foreach($industries as $industry)
@@ -50,7 +50,7 @@
                    @csrf
 
                     <div class="form-group">
-                        <label>Job experience (in years)</label>
+                        <label>Job experience (in years) *</label>
                         <select class="form-control" name="job_experience">
                             <option value="0" selected="selected" disabled="disabled">Select Job Experience</option>
                             <option value="1" @if (auth::user()->user_profile->job_experience == 1)  {{ 'selected' }} @endif>0 to 2</option>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-md-6">
                      <div class="form-group">
-                        <label>Choose your Major</label>
+                        <label>Choose your Major *</label>
                         <select class="form-control faculty" name="faculty">
                             @foreach($majors as $major)
                               <option value="{{$major->id}}" {{(Auth::user()->user_profile->education_id == $major->id) ? 'selected': ''}}>{{$major->name . ' - '. $major->parent_education->name}}
@@ -74,7 +74,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Choose you job title</label>
+                        <label>Choose you job title *</label>
                         <select class="form-control form-control-default open" name="job_title" id="job_title">
                             @if(Auth::user()->careers()->count() > 0)
                                 
@@ -191,6 +191,13 @@
                                     message: 'The faculty is required'
                                 }
                             }
+                        },
+                        'job_experience':{
+                            validators:{
+                                notEmpty:{
+                                    message: "Job experience is required field"
+                                }
+                            }
                         }
                     }
                 }).on('success.form.fv', function(e) {
@@ -236,9 +243,8 @@
                 });
 
 
-
                    $('.selected_user_tag').each(function(){
-                        $('input.input-tags').tagsinput('refresh');
+                        
                         $('input.input-tags').tagsinput('add', $(this).val());
                    });
                 

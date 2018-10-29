@@ -4,22 +4,22 @@
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="most-search-job">
         <ul>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
-            <li>Graphics Designer</li>
+            <li> {{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
+            <li>{{ __('Graphics Designer') }}</li>
         </ul>
     </div>
     <div class="container">
         <div class="search-absolute-content text-center">
-            <h1>search</h1>
+            <h1>{{ __('search') }}</h1>
             <form name="search_career_advisor" id="search_career_advisor" class="search_career_advisor" action="{{URL::to('/career-advisior')}}">
                 <div class="search-wrapper">
 
@@ -36,14 +36,14 @@
 
                 </div>
             </form>
-            <p>Your career guide with sincere and honest tales of experiences from professionals around the world.</p>
+            <p>{{ __('Your career guide with sincere and honest tales of experiences from professionals around the world.') }}</p>
         </div>
     </div>
 </div>
 <div class="page-section trending-profiles">
     <div class="container">
         <div class="section-title">
-            <h2>trending profiles</h2>
+            <h2>{{ __('trending profiles') }}</h2>
         </div>
         <div class="row">
             @foreach($users_profile as $user_profile)
@@ -95,14 +95,14 @@
                         </div>
                     </div>
                     <div class="view-profile">
-                        <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">view profile</a>
+                        <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('view profile') }}</a>
                     </div>
                 </div>
             </div>
             @endforeach
 
         </div>
-        <div class="view-more text-center"><a href="{{URL::to('/career-advisior')}}" class="btn btn-default">view more</a></div>
+        <div class="view-more text-center"><a href="{{URL::to('/career-advisior')}}" class="btn btn-default">{{ __('view more') }}</a></div>
     </div>
 </div>
 <!-- trending-profiles -->
@@ -110,12 +110,12 @@
 <div class="video-section">
     <div class="container">
         <div class="section-title">
-            <h2>Your gateway to find a right career</h2>
+            <h2>{{ __('Your gateway to find a right career') }}</h2>
         </div>
         <div class="circle-animation">
             <div class="btn-play" id="play-video">
                 <span class="icon ion-ios-play"></span>
-            </div> See How it Works
+            </div> {{ __('See How it Works') }}
         </div>
         <div class="modal modal-quishi" id="feature-video">
             <div class="modal-dialog" role="document">
@@ -144,7 +144,7 @@
 <div class="page-section the-media">
     <div class="container">
         <div class="section-title">
-            <h2>In the Media</h2>
+            <h2>{{ __('In the Media') }}</h2>
         </div>
         <div class="row">
             @foreach($blogs as $blog)
@@ -161,7 +161,7 @@
                             <h4>{{ $blog->title }}</h4>
                             <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
                             <p>{{ str_limit($blog->content,160) }}</p>
-                            <a href="{{ url('/blog').'/'.$blog->id }}">Full Story <i class="icon-arrow-right"></i></a>
+                            <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
             @endforeach
 
         </div>
-        <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">all blogs</a></div>
+        <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('all blogs') }}</a></div>
     </div>
 </div>
 <!-- trending-profiles -->
@@ -186,7 +186,7 @@
                         <div class="about-content-section">
                             <h4>{{ $service->title }}</h4>
                             <p>{{ $service->content }}</p>
-                            <a href="#">More about our experts <i class="icon-arrow-right"></i></a>
+                            <a href="#">{{ __('More about our experts') }} <i class="icon-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

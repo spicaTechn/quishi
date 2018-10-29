@@ -270,6 +270,9 @@ class ProfileController extends BaseCareerAdvisorController
                 //now need to update user career table to record the user job title
                 if($request->has('job_title')){
                     //$user_career = new U
+
+                    //delete the recored first and insert new one
+                    DB::table('user_career')->where('user_id', Auth::user()->id)->delete();
                     DB::table('user_career')->insert(array('user_id'=> Auth::user()->id,'career_id'=>$request->input('job_title'),'created_at'=> now(),'updated_at'=> now()));
                 }
                 //now insert the tag in the db

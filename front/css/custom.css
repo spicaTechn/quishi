@@ -1412,6 +1412,7 @@ p {
 
 .profile-setup .form-group {
     margin-bottom: 25px;
+    position: relative;
 }
 /*my-profile page*/
 .my-profile {
@@ -3505,4 +3506,11 @@ background: #8ac43f;
     border: none;
     padding-top: 0;
     max-width: 300px;
+}
+
+span.required {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    color: red;
 }

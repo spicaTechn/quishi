@@ -15,7 +15,6 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     @include('front.career-advisor.inc.footer')
 
-    @yield('page_specific_js')
 
 </body>
 </html>

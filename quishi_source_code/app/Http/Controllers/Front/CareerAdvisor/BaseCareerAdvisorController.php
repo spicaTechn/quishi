@@ -87,6 +87,8 @@ class BaseCareerAdvisorController extends Controller
             $tag_exists = Tag::where('slug',str_slug($tag_array))->first();
             if($tag_exists){
                 //tag exists in the db now need to update the user tags in the pivot table only
+                //delete the recored first
+                DB::table('user_tag')->where('user_id',Auth::user()->id)->delete();
                 $tag_exists->users()->attach(Auth::user()->id);
             }else{
                 //tage does not exists inerst the tag and update the user tags in the pivot table

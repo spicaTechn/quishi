@@ -12,23 +12,23 @@
                         <div class="top-filter-dropdown">
                             <select class="form-control" name="age_group" id="age_group">
                                 <option value="0" disabled="disabled" selected="">{{ __('Age Group')}} </option>
-                                <option value="1">0-15 years</option>
-                                <option value="2">15-30 years</option>
-                                <option value="3">30-45 years</option>
-                                <option value="4">45-50 years</option>
-                                <option value="5">50 above</option>
+                                <option value="1">{{ __('0-15 years') }}</option>
+                                <option value="2">{{ __('15-30 years') }}</option>
+                                <option value="3">{{ __('30-45 years') }}</option>
+                                <option value="4">{{ __('45-50 years') }}</option>
+                                <option value="5">{{ __('50 above') }}</option>
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
                         <div class="top-filter-dropdown">
                             <select class="form-control" name="education" id="education">
-                                <option value="0" disabled="disabled" selected="selected">Education</option>
-                                <option value="high school">High School</option>
-                                <option value="associate">Associate</option>
-                                <option value="bachelor">Bachelor</option>
-                                <option value="masters">Masters</option>
-                                <option value="phd">PHD</option>
-                                <option value="other">Other</option>
+                                <option value="0" disabled="disabled" selected="selected">{{ __('Education') }}</option>
+                                <option value="high school">{{ __('High School') }}</option>
+                                <option value="associate">{{ __('Associate') }}</option>
+                                <option value="bachelor">{{ __('Bachelor') }}</option>
+                                <option value="masters">{{ __('Masters') }}</option>
+                                <option value="phd">{{ __('PHD') }}</option>
+                                <option value="other">{{ __('Other') }}</option>
                             </select>
                         </div>
                       
@@ -64,7 +64,7 @@
                     <div class="col-lg-6">
                         <div class="section-title">
 
-                              <h2>Search Results (<span class="search_number">{{$total_record_shown}}</span> Profiles)</h2>
+                              <h2>{{ __('Search Results') }} (<span class="search_number">{{$total_record_shown}}</span> Profiles)</h2>
 
                         </div>
                     </div>
@@ -73,12 +73,12 @@
                             <div class="sort-by">Sort By: </div>
                             <div class="sort-dropdown">
                                 <select class="form-control" name="career_advisor_order" id="sort_order">
-                                    <option value="desc">Recent</option>
-                                    <option value="asc">Oldest</option>
-                                    <option value='profile_desc'>Most Liked</option>
-                                    <option value='profile_asc'>Least Liked</option>
-                                    <option value="view_desc" selected="">Most Views</option>
-                                    <option value="view_asc">Least Views</option>
+                                    <option value="desc">{{ __('Recent') }}</option>
+                                    <option value="asc">{{ __('Oldest') }}</option>
+                                    <option value='profile_desc'>{{ __('Most Liked') }}</option>
+                                    <option value='profile_asc'>{{ __('Least Liked') }}</option>
+                                    <option value="view_desc" selected="">{{ __('Most Views') }}</option>
+                                    <option value="view_asc">{{ __('Least Views') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                     </div>
                 @endforeach
                 @else
-                      <p>Sorry no career advisior were found, please try with others parameters</p>
+                      <p> {{ __('Sorry no career advisior were found, please try with others parameters') }}</p>
                 @endif
 
                 </div>
@@ -161,7 +161,7 @@
                 </div>
                 @if($show_more)
                 <div class="view-more text-center read_more">
-                    <a href="javascript:void(0);" data_current_page="{{$current_page}}" class="btn btn-default load_more" id="load_more">load more</a>
+                    <a href="javascript:void(0);" data_current_page="{{$current_page}}" class="btn btn-default load_more" id="load_more">{{ __('load more') }}</a>
                 </div>
                 @endif
             </div>
