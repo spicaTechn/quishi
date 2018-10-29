@@ -3,9 +3,11 @@
             <div class="main-footer">
                 <div class="container">
                     <div class="row">
+                        @if($contact_social):
                         <div class="col-md-4">
                             <div class="footer-section">
                                 <h4>Address</h4>
+
                                 <p>{{ $contact_social['address'] }}</p>
                             </div>
                         </div>
@@ -16,6 +18,7 @@
                                 <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
                             </div>
                         </div>
+                        @endif
                         <div class="col-md-4">
                             <div class="footer-section">
                                 <h4>Donate</h4>
@@ -121,14 +124,17 @@
                             </div>
                         </div>
                     </div>
+                    @if($contact_social):
                     <div class="footer-social-media">
                         <ul>
                             <li><a href="{{ $contact_social['facebook'] }}"><i class="icon-social-facebook"></i></a></li>
                             <li><a href="{{ $contact_social['twitter'] }}"><i class="icon-social-twitter"></i></a></li>
                         </ul>
                     </div>
+                     @endif
                 </div>
             </div>
+             
             <div class="footer-copyright">
                 <div class="container">
                     <div class="copyright text-center">
@@ -136,6 +142,7 @@
                     </div>
                 </div>
             </div>
+           
         </footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
