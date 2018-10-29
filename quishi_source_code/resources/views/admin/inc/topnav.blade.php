@@ -39,7 +39,7 @@
                                     </a>
                                 <ul class="show-notification profile-notification">
                                     <li>
-                                        <a href="{{url('/admin_assets/users/userProfile')}}">
+                                        <a href="{{url('/admin/userProfile')}}">
                                                 <i class="ti-user"></i> Profile
                                             </a>
                                     </li>
