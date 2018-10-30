@@ -1,7 +1,31 @@
-@media (min-width:768px) {
-
-}
+@media (min-width:768px) {}
 
 @media (max-width:767px) {
+    .forum-title-bar h4 {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
 
+    .forum-share-bar {
+        margin-top: 13px;
+    }
+}
+
+@media (max-width: 767px) and (orientation:portrait) {
+	.reply-user-image img {
+	    height: 40px;
+	    width: 40px;
+	}
+
+	.reply-user-image, .profile-coment-user {
+	    width: 40px;
+	}
+
+	.reply-coment-box, .profile-coment-comment {
+	    width: calc(100% - 40px);
+	}
+
+	.comment-method ul li a {
+	    font-size: 14px;
+	}
 }
