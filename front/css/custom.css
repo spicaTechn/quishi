@@ -3514,3 +3514,24 @@ span.required {
     top: 0;
     color: red;
 }
+
+/*updated css*/
+.search-wrapper .form-control {
+    height: 60px;
+    font-size: 1rem;
+}
+
+.search-wrapper .btn-transpatent {
+    margin-top: 0;
+    height: 60px;
+    font-size: 1.2rem;
+}
+
+.banner-bg {
+    margin-top: 0;
+    background: #8ac43f;
+}
+.most-search-job ul li:nth-child(2n) {
+    position: relative;
+    bottom: -100px;
+}

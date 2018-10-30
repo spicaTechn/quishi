@@ -3,7 +3,7 @@
             <div class="main-footer">
                 <div class="container">
                     <div class="row">
-                        @if($contact_social):
+                        @if($contact_social)
                         <div class="col-md-4">
                             <div class="footer-section">
                                 <h4>Address</h4>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    @if($contact_social):
+                    @if($contact_social)
                     <div class="footer-social-media">
                         <ul>
                             <li><a href="{{ $contact_social['facebook'] }}"><i class="icon-social-facebook"></i></a></li>
