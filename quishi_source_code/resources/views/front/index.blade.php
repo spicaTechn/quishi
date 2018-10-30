@@ -94,7 +94,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="view-profile">
+                    <div class="view-profile row">
+                         <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('Follow us') }}</a>
                         <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('view profile') }}</a>
                     </div>
                 </div>
