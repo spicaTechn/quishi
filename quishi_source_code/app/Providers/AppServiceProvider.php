@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        //create the default length string lenth
+        Schema::defaultStringLength(191);
         $contact_data = array();
         $contact          = Page::where('slug','contact-us')->first();
         if($contact):
