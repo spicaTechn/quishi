@@ -94,6 +94,7 @@ p {
     border-bottom: none;
     position: relative;
     z-index: 10;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -199,7 +200,7 @@ p {
 /*end main nav*/
 
 .banner-bg {
-    min-height: 450px;
+    min-height: 350px;
     position: relative;
     overflow: hidden;
 }
@@ -218,6 +219,7 @@ p {
     display: flex;
     align-items: center;
     text-align: center;
+    display: none;
 }
 
 .most-search-job ul {
@@ -226,7 +228,7 @@ p {
 
 .most-search-job ul li {
     display: inline-block;
-    margin: 5% 3%;
+    margin: 4.5% 3%;
     font-size: 22px;
     color: #5a8716;
 }
@@ -250,9 +252,6 @@ p {
     justify-content: center;
 }
 
-.search-wrapper {
-    display: flex;
-}
 
 .search-absolute-content h1 {
     font-size: 38px;
@@ -273,7 +272,7 @@ p {
     overflow: hidden;
     margin-bottom: 25px;
     width: 100%;
-    max-width: 650px;
+    max-width: 800px;
     position: relative;
 }
 
@@ -328,7 +327,7 @@ p {
 }
 
 .search-absolute-content form {
-    max-width: 650px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -344,7 +343,7 @@ p {
 }
 
 .page-section {
-    padding: 70px 0;
+    padding: 55px 0;
 }
 
 .section-title h2 {
@@ -352,7 +351,7 @@ p {
     font-size: 24px;
     text-transform: capitalize;
     color: #8cc63e;
-    margin-bottom: 70px;
+    margin-bottom: 45px;
 }
 
 .trending-profiles-section {
@@ -413,7 +412,7 @@ p {
 }
 
 .view-more.text-center {
-    margin-top: 70px;
+    margin-top: 45px;
 }
 
 .profile-slills ul li a:hover {
@@ -658,7 +657,7 @@ p {
 }
 
 .footer-section {
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .footer-section h4 {
@@ -725,9 +724,15 @@ p {
 
 .inner-header .login-menu li.dropdown>a,
 .inner-header .login-menu li>a {
-    background: #fff;
-    color: #8ac43f;
+    background: #8ac43f;
+    color: #fff;
 }
+.inner-header .login-menu li.dropdown>a:hover,
+.inner-header .login-menu li>a:hover {
+    background: #f59b43;
+    color: #fff;
+}
+
 
 .search-results-found .section-title h2 {
     text-align: left;
@@ -971,7 +976,7 @@ p {
 
 .about-section {
     background: #fff;
-    padding: 60px 0;
+    padding: 55px 0;
 }
 
 .about-content-top p {
@@ -1252,8 +1257,13 @@ p {
     box-shadow: none;
 }
 
+.profile-setup select.form-control:not([size]):not([multiple]) {
+    height: 40px;
+}
+
 .profile-setup textarea.form-control {
     height: 100px;
+    margin-bottom: 20px;
 }
 
 .nice-select.open .list {
@@ -1401,7 +1411,7 @@ p {
 }
 
 .profile-setup label {
-    display: block;
+    display: inline-block;
     margin-bottom: 5px;
 }
 
@@ -1420,8 +1430,16 @@ p {
 
 .profile-setup .form-group {
     margin-bottom: 25px;
+    /*margin-bottom: 5px;*/
     position: relative;
 }
+
+.row-direction-inverse {
+
+    flex-direction: row-reverse;
+
+}
+
 /*my-profile page*/
 .my-profile {
     padding: 60px 0;
@@ -3259,7 +3277,7 @@ background: #8ac43f;
 
 .video-section {
     background: #f6fdff;
-    padding: 70px 0;
+    padding: 55px 0 65px 0;
 }
 
 .video-section .section-title h2 {
@@ -3517,10 +3535,15 @@ background: #8ac43f;
 }
 
 span.required {
-    position: absolute;
+    /*position: absolute;
     right: 5px;
-    top: 0;
-    color: red;
+    top: 0;*/
+    color: #ff0000;
+    font-size: 20px;
+    font-family: "Segoe UI";
+    margin-left: 2px;
+    position: relative;
+    top: 4px;
 }
 
 /*updated css*/

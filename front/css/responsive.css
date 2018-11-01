@@ -29,3 +29,30 @@
 	    font-size: 14px;
 	}
 }
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.the-media .col-md-6 {
+	    -webkit-box-flex: 0;
+	    -ms-flex: 0 0 100%;
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+
+	.our-team .row {
+	    margin: 0 -15px;
+	}
+
+	.our-team .row [class*="col"] {
+	    padding: 0 15px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.trending-profiles-section {
+	    margin: 15px 0;
+	}
+}
+
+.team-section img {
+    object-fit: cover;
+}

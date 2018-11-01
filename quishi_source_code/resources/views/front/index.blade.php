@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
-    <div class="most-search-job">
+<!--     <div class="most-search-job">
         <ul>
             <li> {{ __('Graphics Designer') }}</li>
             <li>{{ __('Graphics Designer') }}</li>
@@ -16,10 +16,10 @@
             <li>{{ __('Graphics Designer') }}</li>
             <li>{{ __('Graphics Designer') }}</li>
         </ul>
-    </div>
+    </div> -->
     <div class="container">
         <div class="search-absolute-content text-center">
-            <h1>{{ __('search') }}</h1>
+            <!-- <h1>{{ __('search') }}</h1> -->
             <form name="search_career_advisor" id="search_career_advisor" class="search_career_advisor" action="{{URL::to('/career-advisior')}}">
                 <div class="search-wrapper">
 
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="view-profile row">
-                         <a href="javascript:void(0);">{{ __('Follow us') }}</a>
+                         <a href="javascript:void(0);">{{ __('Follow') }}</a>
                         <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('view profile') }}</a>
                     </div>
                 </div>
