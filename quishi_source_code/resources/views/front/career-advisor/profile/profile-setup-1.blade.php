@@ -4,9 +4,9 @@
     <div class="container">
         <h3>Welcome {{ucwords(Auth::user()->name)}}, please setup your profile to continue.. </h3>
         <form action="{{route('profile.setup.step2')}}" method="post" enctype="multipart/form-data">
-            <div class="row">
+            <div class="row row-direction-inverse">
                 @csrf
-                <div class="col-md-4">
+                <div class="col-md-3 offset-md-1">
                     <h6>{{ __('Upload your profile picture')}}</h6>
                     <div class="file-upload">
 
@@ -48,55 +48,82 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control required" placeholder="Full Name" name="name" required><span class="required">*</span>
-                       
-                    </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Full Name</label><span class="required">*</span>
+                                <input type="text"  value="{{ucwords(Auth::user()->name)}}" class="form-control required" placeholder="Full Name" name="name" required>
+                               
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <input type="email"  name="email" value="{{Auth::user()->email}}" class="form-control required" placeholder="Email" disabled="disabled"><span class="required">*</span>
-                    </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                               <label>Email</label><span class="required">*</span>
+                               <input type="email"  name="email" value="{{Auth::user()->email}}" class="form-control required" placeholder="Email" disabled="disabled">
+                           </div> 
+                        </div>
 
-                    <div class="form-group">
-                        <select class="form-control required"  name="age_group" required>
-                            <option value="" disabled="disabled" selected="">{{ __('Select Age Group')}} </option>
-                            <option value="1" {{ (old('age_group') == 1) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 1)  {{ 'selected' }} @endif @endif>0-15 years</option>
-                            <option value="2" {{ (old('age_group') == 2) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 2)  {{ 'selected' }} @endif @endif>15-30 years</option>
-                            <option value="3" {{ (old('age_group') == 3) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 3)  {{ 'selected' }} @endif @endif>30-45 years</option>
-                            <option value="4" {{ (old('age_group') == 4) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 4)  {{ 'selected' }} @endif @endif>45-50 years</option>
-                            <option value="5" {{ (old('age_group') == 5) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 5)  {{ 'selected' }} @endif @endif>50 above</option>
-                        </select>
-                        <span class="required">*</span>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Select age group</label><span class="required">*</span>
+                                <select class="form-control required"  name="age_group" required>
+                                    <option value="" disabled="disabled" selected="">{{ __('Select Age Group')}} </option>
+                                    <option value="1" {{ (old('age_group') == 1) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 1)  {{ 'selected' }} @endif @endif>0-15 years</option>
+                                    <option value="2" {{ (old('age_group') == 2) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 2)  {{ 'selected' }} @endif @endif>15-30 years</option>
+                                    <option value="3" {{ (old('age_group') == 3) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 3)  {{ 'selected' }} @endif @endif>30-45 years</option>
+                                    <option value="4" {{ (old('age_group') == 4) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 4)  {{ 'selected' }} @endif @endif>45-50 years</option>
+                                    <option value="5" {{ (old('age_group') == 5) ? 'selected' : '' }} @if(Auth::user()->user_profile()->count() > 0) @if (auth::user()->user_profile->age_group == 5)  {{ 'selected' }} @endif @endif>50 above</option>
+                                </select>
+                                
 
-                        @if ($errors->has('age_group'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('age_group') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control required" name="address" placeholder="Enter your address" value="{{old('address','')}}@if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete" required><span class="required">*</span>
+                                @if ($errors->has('age_group'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('age_group') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
-                        @if ($errors->has('address'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('address') }}</strong>
-                            </span>
-                        @endif
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label>Address</label><span class="required">*</span>
+                                <input type="text" class="form-control required" name="address" placeholder="Enter your address" value="{{old('address','')}}@if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete" required>
+
+                                @if ($errors->has('address'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
+                    
+                    
+                        <div class="form-group">
+                            <label>Describe a little bit about you</label>
+                            <textarea class="form-control" name="description" id="description">{{old('description')}} @if(Auth::user()->user_profile()->count() > 0) {{ auth::user()->user_profile->description}} @endif</textarea>
+                        </div>
+                        
+                   
+              
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-10">
+                <!-- <div class="col-md-12">
                     <div class="form-group">
                         <label>Describe a little bit about you</label>
                         <textarea class="form-control" name="description" id="description">{{old('description')}} @if(Auth::user()->user_profile()->count() > 0) {{ auth::user()->user_profile->description}} @endif</textarea>
+                    </div>-->
+                    <div class="col-md-12">
+                        <div class="text-right-none">
+                            <button type="submit" class="btn btn-default"> Proceed and Continue</button>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-default"> Proceed and Continue</button>
-                    </div>
-                </div>
+                </div> 
             </div>
         </form>
     </div>
