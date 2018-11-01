@@ -6,6 +6,7 @@ use App\Model\UserProfile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Model\Career, App\Model\Review;
+use App\Model\Follower;
 
 class User extends Authenticatable
 {
@@ -74,6 +75,19 @@ class User extends Authenticatable
 
     public function pages(){
         return $this->hasMany('App\Page');
+    }
+
+
+    //a user is followed by one to many users
+    public function followers(){
+        return $this->belongsToMany(User::class,'followers','leader_id','follower_id')->withTimestamps();
+    }
+
+
+    // a user can follow one to many users 
+
+    public function following(){
+        return $this->belongsToMany(User::class,'followers','follower_id','leader_id')->withTimestamps();
     }
 
 }

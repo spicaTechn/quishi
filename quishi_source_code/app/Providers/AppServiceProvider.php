@@ -34,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('contact_social', $contact_data);
 
         View::share('site_title','Quishi');
-        View::share('page_title','Online Career Seeker')
-;    }
+        View::share('page_title','Online Career Seeker');    
+    }
 
     /**
      * Register any application services.
