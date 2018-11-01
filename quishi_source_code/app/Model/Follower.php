@@ -8,7 +8,7 @@ class Follower extends Model
 {
     //
 
-    protected $table ="followers";
+    //protected $table ="followers";
 
 
 }

@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="view-profile row">
-                         <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('Follow us') }}</a>
+                         <a href="javascript:void(0);">{{ __('Follow us') }}</a>
                         <a href="{{URL::to('/career-advisior').'/'.$user_profile->user->id}}">{{ __('view profile') }}</a>
                     </div>
                 </div>
@@ -250,6 +250,9 @@ $(document).ready(function () {
               }
           });
     });
+
+
+    //follow and unfollow the user 
 
 
 });

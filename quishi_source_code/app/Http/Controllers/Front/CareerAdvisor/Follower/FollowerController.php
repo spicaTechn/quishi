@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Front\CareerAdvisor\Follower;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Follower;
+use App\User;
+use DB;
 
 class FollowerController extends Controller
 {
@@ -15,6 +18,7 @@ class FollowerController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -81,5 +85,42 @@ class FollowerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+    /**
+    * function to follow the career advisor  by the logged in career advisor
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    *
+    *
+    */
+
+    public function followCareerAdvisor($id){
+
+        //follow the user 
+
+        //send the notification to the career advisor about the logged in user has followed you
+    }
+
+
+    /**
+    * function to unfollow the career advisor by the logged in career advisor
+    * 
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
+
+    public function unfollowCareerAdvisor($id){
+
+        //get the profile details of the clicked 
+
+
+        //logged in user should be remove from the follower list
+
+
+        //send the notification to the career advisor about the logged in user has unfollowed you 
+
     }
 }
