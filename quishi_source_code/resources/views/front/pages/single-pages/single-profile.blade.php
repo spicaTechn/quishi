@@ -125,6 +125,142 @@
                 <div class="profile-question-answer-section">
                     <h4><i class="icon-check"></i> {{ $question['question_title'] }}</h4>
                     <p>{{ $question['answer'] }}</p>
+                    <div class="like-comment-view">
+                        <ul>
+                            <li><a href="#"><span class="like-numbers">20</span> <i class="icon-like"></i> Like</a></li>
+                            <li><a href="#"><span class="like-numbers">20</span> <i class="icon-bubble"></i> Comments</a></li>
+                        </ul>
+                    </div>
+                    <!-- end like comment view -->
+
+                    <div class="profile-leave-comment">
+                        <h4 class="small">Leave a Comment</h4>
+                        <form action="">
+                            <div class="profile-reply-form">
+                                <div class="reply-user-image">
+                                    <img src="{{ asset('/front')}} /images/profile/1.jpg">
+                                </div>
+                                <div class="reply-coment-box">
+                                    <div class="comment-method">
+                                        <ul>
+                                            <li><a href="#">Login</a></li>
+                                            <li>
+                                                <a>
+                                                    <input type="checkbox" id="check-for-login">
+                                                    <label for="check-for-login">Post Anonymously</label>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group anonymously-user">
+                                        <input type="email" name="" placeholder="Email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" ></textarea>
+                                        <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                                    </div>
+                                    <button class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group" id="comment-1" style="display: block;">
+                                        <input type="text" class="form-control">
+                                        <span class="Submit"><i class="icon-cursor"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end profile-comment-section 1 -->
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-2"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group" id="comment-2">
+                                        <input type="text" class="form-control">
+                                        <span class="Submit"><i class="icon-cursor"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end profile-comment-section 2 -->
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a href="#"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end profile-comment-section 3 -->
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a href="#"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end profile-comment-section 4 -->
+                            <div class="profile-comment-section">
+                                <div class="http://localhost/quishi/front /profile-coment-user">
+                                    <img src="images/profile/1.jpg">
+                                </div>
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a href="#"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end profile-comment-section 5 -->                                            
+                        </div>
+                    </div>
+                    <!-- end profile-leave-comment -->
 
                 </div>
                 @endforeach
@@ -139,7 +275,7 @@
                 <div class="profile-comment-wrapper">
                     <div class="profile-comment-section">
                         <div class="profile-coment-user">
-                            <img src="images/profile/1.jpg">
+                            <img src="{{ asset('/front')}} /images/profile/1.jpg">
                         </div>
                         <div class="profile-coment-comment">
                             <h5>Sarah Conner</h5>
@@ -160,7 +296,7 @@
                     <!-- end profile-comment-section 1 -->
                     <div class="profile-comment-section">
                         <div class="profile-coment-user">
-                            <img src="images/profile/1.jpg">
+                            <img src="{{ asset('/front')}} /images/profile/1.jpg">
                         </div>
                         <div class="profile-coment-comment">
                             <h5>Sarah Conner</h5>
@@ -181,7 +317,7 @@
                     <!-- end profile-comment-section 2 -->
                     <div class="profile-comment-section">
                         <div class="profile-coment-user">
-                            <img src="images/profile/1.jpg">
+                            <img src="{{ asset('/front')}} /images/profile/1.jpg">
                         </div>
                         <div class="profile-coment-comment">
                             <h5>Sarah Conner</h5>
@@ -198,7 +334,7 @@
                     <!-- end profile-comment-section 3 -->
                     <div class="profile-comment-section">
                         <div class="profile-coment-user">
-                            <img src="images/profile/1.jpg">
+                            <img src="{{ asset('/front')}} /images/profile/1.jpg">
                         </div>
                         <div class="profile-coment-comment">
                             <h5>Sarah Conner</h5>
@@ -214,7 +350,7 @@
                     </div>
                     <!-- end profile-comment-section 4 -->
                     <div class="profile-comment-section">
-                        <div class="profile-coment-user">
+                        <div class="{{ asset('/front')}} /profile-coment-user">
                             <img src="images/profile/1.jpg">
                         </div>
                         <div class="profile-coment-comment">
@@ -284,6 +420,8 @@
                                 </div>
                             </div>
                         </form>
+
+
                     </div>
                 </div>
                 <!-- end  profile-comment-wrapper -->
