@@ -158,6 +158,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 
 
 
+	//follow /  unfollow the career advisor
+
+	Route::post('/followCareerAdvisor/{id}',[
+		'as'	  => 'profile.follow.careerAdvisor',
+		'uses'	  => 'Front\CareerAdvisor\Follower\FollowerController@followCareerAdvisor'
+	]);
+
+
+	Route::post('/unfollowCareerAdvisor/{id}',[
+		'as'	=> 'profile.unfollow.careerAdvisor',
+		'uses'	=> 'Front\CareerAdvisor\Follower\FollowerController@unfollowCareerAdvisor'
+	]);
 
 
 	//get the job title by the parent industry for the job seeker

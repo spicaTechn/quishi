@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        //create the default length string lenth
+        Schema::defaultStringLength(191);
         $contact_data = array();
         $contact          = Page::where('slug','contact-us')->first();
         if($contact):
@@ -31,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('contact_social', $contact_data);
 
         View::share('site_title','Quishi');
-        View::share('page_title','Online Career Seeker')
-;    }
+        View::share('page_title','Online Career Seeker');    
+    }
 
     /**
      * Register any application services.
