@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Follower;
 use App\User;
-use DB;
+use DB, Auth;
 
 class FollowerController extends Controller
 {
@@ -99,7 +99,25 @@ class FollowerController extends Controller
 
     public function followCareerAdvisor($id){
 
-        //follow the user 
+        //get the follower details by the clicked id
+        $following_career_advisor = User::find($id);
+
+        //check the current logged in user is same as the following career advisor id
+        if($following_career_advisor->id  == Auth::user()->id){
+            return response()->json(array('status'=>'failed','message'=>'You cannot be the followers of your own'),200);
+        }
+
+        //check the  logged in users has already followed the career advisor
+        if($following_career_advisor->followers()->where('follower_id', Auth::user()->id)->get()->count() >= 1){
+            //logged in user has already 
+            return response()->json(array('status'=>'failed','message'=>'You are already followers of '.$following_career_advisor->name,'name'=>$following_career_advisor->name),200);
+        }
+
+        //attach the data 
+        $following_career_advisor_status = $following_career_advisor->followers()->attach(Auth::user()->id);
+        //send the json success message
+        return response()->json(array('status'=>'success','message'=> ucwords(Auth::user()->name) .' has started following ' .$following_career_advisor->name,'name'=>$following_career_advisor->name),200);
+       
 
         //send the notification to the career advisor about the logged in user has followed you
     }
@@ -116,10 +134,16 @@ class FollowerController extends Controller
 
         //get the profile details of the clicked 
 
+        $unfollowing_career_advisor   = User::find($id);
+        if(!$unfollowing_career_advisor){
+            return response()->json(array('status'=>'failed','message'=> 'Career Advisor does not exists in Quishi system'),200);
+        }else{
 
-        //logged in user should be remove from the follower list
-
-
+            //detach the customer 
+            $unfollowing_career_advisor->followers()->detach(Auth::user()->id);
+            return response()->json(array('status'=>'success','message'=>'You have unfollow '.$unfollowing_career_advisor->name,'name'=>$unfollowing_career_advisor->name),200);
+        }
+       
         //send the notification to the career advisor about the logged in user has unfollowed you 
 
     }

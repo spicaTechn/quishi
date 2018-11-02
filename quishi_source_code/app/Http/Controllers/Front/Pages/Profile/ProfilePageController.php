@@ -7,7 +7,7 @@ use App\Http\Controllers\Front\CareerAdvisor\BaseCareerAdvisorController;
 use App\Page;
 use App\PageDetail;
 use App\User;
-use DB;
+use DB, Auth;
 use App\Model\UserProfile;
 use App\Model\Education, App\Model\Career;
 
@@ -369,6 +369,22 @@ class ProfilePageController extends BaseCareerAdvisorController
                 $this->view_render_user_list[$i]['user_tag'][$j]['tag_title']  = $user_tag->title;
                 $j++;
             }
+
+            //checked the user is logged in or not 
+            if(Auth::check()){
+               //check the current logged in user is the follower of the current loop career advisor
+               $following_career_advisor   = User::find($user_list->user_id);
+               if($user->followers()->where('follower_id',Auth::user()->id)->get()->count() >= 1) {
+                 $this->view_render_user_list[$i]['follow']  = true;
+              }else{
+                 $this->view_render_user_list[$i]['follow']  = false;
+              }
+            }
+            else{
+               $this->view_render_user_list[$i]['follow']  = false;
+            }
+
+            $this->view_render_user_list[$i]['following_id'] = $user_list->user_id;
             //increments the integer
             $i++;
         }

@@ -52,7 +52,16 @@
                     </div>
                 </div>
             </div>
-            <div class="view-profile">
+            <div class="view-profile row">
+                @if(auth::check())
+                    @if($user_list['follow'])
+                      <a href="javascript:void(0);" class="unfollow_career_advisor" data-following-id="{{$user_list['following_id']}}"> {{ __('Unfollow')}}</a>
+                    @else
+                       <a href="javascript:void(0);" class="follow_career_advisor" data-following-id="{{$user_list['following_id']}}"> {{ __('Follow')}}</a>
+                    @endif
+                @else
+                    <a href="javascript:void(0);" class="follow_career_advisor" data-following-id="{{$user_list['following_id']}}"> {{ __('Follow')}}</a>
+                @endif
                 <a href="{{URL::to('/career-advisior').'/'.$user_list['user_id']}}">{{ _('view profile') }}</a>
             </div>
         </div>
