@@ -128,7 +128,7 @@
                     <div class="like-comment-view">
                         <ul>
                             <li><a href="#"><span class="like-numbers">20</span> <i class="icon-like"></i> Like</a></li>
-                            <li><a href="#"><span class="like-numbers">20</span> <i class="icon-bubble"></i> Comments</a></li>
+                            <li><a href="#" class="go-to-comment"><span class="like-numbers">20</span> <i class="icon-bubble"></i> Comments</a></li>
                         </ul>
                     </div>
                     <!-- end like comment view -->
@@ -504,7 +504,7 @@ $(document).ready(function () {
           });
     });
 
-    autosize(document.querySelectorAll('textarea'));
+    autosize(document.querySelectorAll('.profile-question-answer-section textarea'));
 
 });
 </script>

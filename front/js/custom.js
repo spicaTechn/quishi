@@ -64,6 +64,11 @@ jQuery(document).ready(function($) {
     //     $("#add-new-question-modal").removeClass("show");
     // });
 
+    $('.like-comment-view a.go-to-comment').click(function(){
+
+        $('.profile-question-answer-section .profile-leave-comment textarea').focus();
+    });
+
 
     // donation-modal
     $(".donation-modal-btn").click(function() {
