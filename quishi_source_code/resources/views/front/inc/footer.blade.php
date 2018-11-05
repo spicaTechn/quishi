@@ -152,6 +152,7 @@
 <!-- <script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script> -->
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('/front/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <!-- Formvalidation -->

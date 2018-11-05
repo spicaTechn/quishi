@@ -2331,8 +2331,8 @@ p {
 }
 
 .profile-coment-user img {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -2348,8 +2348,8 @@ p {
 .profile-comment-wrapper {
     /*background: #f0f7f9;*/
     /*border: 1px solid #eee;*/
-    margin-left: 105px;
-    margin-top: 50px;
+    /*margin-left: 105px;*/
+    /*margin-top: 50px;*/
 }
 
 .profile-comment-section {
@@ -2419,15 +2419,15 @@ p {
 
 .reply-user-image,
 .profile-coment-user {
-    width: 80px;
+    width: 40px;
     border-radius: 50%;
     overflow: hidden;
     float: left;
 }
 
 .reply-user-image img {
-    height: 80px;
-    width: 80px;
+    height: 40px;
+    width: 40px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -2446,15 +2446,31 @@ p {
     clear: both;
 }
 
+.reply-coment-box .form-group {
+    position: relative;
+    max-width: 500px;
+
+}
+
 .profile-reply-form textarea.form-control {
     border-radius: 0;
     border: 1px solid #ccc;
     margin-bottom: 30px;
     resize: none;
-    max-width: 500px;
+    /*max-width: 500px;*/
     border-radius: 30px;
     height: auto;
 
+}
+
+.reply-coment-box .btn-default {
+    background: none;
+    color: #8ac43f;
+    text-shadow: 1px 0px 0px #8ac43f;
+    min-width: 1px;
+    position: absolute;
+    top: 3px;
+    right: 10px;
 }
 
 .profile-reply-form {
@@ -2463,7 +2479,7 @@ p {
 
 .comment-method ul {
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .comment-method ul li {
@@ -2534,11 +2550,28 @@ p {
     top: 4px;
 }
 .profile-comment-section {
-    display: none;
+    /*display: none;*/
 }
 .profile-comment-section:nth-child(1),
 .profile-comment-section:nth-child(2) {
-    display: block !important;
+    /*display: block !important;*/
+}
+
+.reply-inner {
+    margin-left: 65px;
+}
+
+.reply-inner .profile-coment-comment h5 {
+
+    font-size: 1rem;
+
+}
+
+.reply-inner .profile-coment-comment p {
+
+    font-size: 14px;
+    line-height: 1.2;
+
 }
 
 .comment-on i::before {
@@ -3684,3 +3717,4 @@ span.required {
     color: #8ac43f;
     text-shadow: 1px 0px 0px #8ac43f;
 }
+

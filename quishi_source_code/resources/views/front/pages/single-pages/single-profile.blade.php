@@ -158,8 +158,9 @@
                                     <div class="form-group">
                                         <textarea class="form-control" rows="1" placeholder="Your Message Here !" ></textarea>
                                         <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                                        <button class="btn btn-default"><i class="icon-cursor"></i></button>
                                     </div>
-                                    <button class="btn btn-default">Submit</button>
+                                    
                                 </div>
                             </div>
                         </form>
@@ -169,6 +170,7 @@
                                 <div class="profile-coment-user">
                                     <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                 </div>
+
                                 <div class="profile-coment-comment">
                                     <h5>Sarah Conner</h5>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
@@ -185,8 +187,52 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="reply-inner">
+                                <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 1 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 1 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 1 -->
+                            </div>
                             <!-- end profile-comment-section 1 -->
-                            <div class="profile-comment-section">
+                            <!-- <div class="profile-comment-section">
                                 <div class="profile-coment-user">
                                     <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                 </div>
@@ -205,9 +251,9 @@
                                         <span class="Submit"><i class="icon-cursor"></i></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end profile-comment-section 2 -->
-                            <div class="profile-comment-section">
+                            <!-- <div class="profile-comment-section">
                                 <div class="profile-coment-user">
                                     <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                 </div>
@@ -222,9 +268,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end profile-comment-section 3 -->
-                            <div class="profile-comment-section">
+                            <!-- <div class="profile-comment-section">
                                 <div class="profile-coment-user">
                                     <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                 </div>
@@ -239,9 +285,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end profile-comment-section 4 -->
-                            <div class="profile-comment-section">
+                            <!-- <div class="profile-comment-section">
                                 <div class="http://localhost/quishi/front /profile-coment-user">
                                     <img src="images/profile/1.jpg">
                                 </div>
@@ -256,7 +302,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end profile-comment-section 5 -->                                            
                         </div>
                     </div>
@@ -457,6 +503,8 @@ $(document).ready(function () {
               }
           });
     });
+
+    autosize(document.querySelectorAll('textarea'));
 
 });
 </script>
