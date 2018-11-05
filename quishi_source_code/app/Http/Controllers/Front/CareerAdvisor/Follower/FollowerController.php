@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Follower;
 use App\User;
 use DB, Auth;
+use App\Notifications\NewFollowersNotification;
 
 class FollowerController extends Controller
 {
@@ -115,11 +116,15 @@ class FollowerController extends Controller
 
         //attach the data 
         $following_career_advisor_status = $following_career_advisor->followers()->attach(Auth::user()->id);
+        //send the notification to the career advisor about the logged in user has followed you
+        $user = User::find(Auth::user()->id);
+        $following_career_advisor->notify(new NewFollowersNotification($user));
         //send the json success message
         return response()->json(array('status'=>'success','message'=> ucwords(Auth::user()->name) .' has started following ' .$following_career_advisor->name,'name'=>$following_career_advisor->name),200);
        
 
-        //send the notification to the career advisor about the logged in user has followed you
+        
+
     }
 
 
