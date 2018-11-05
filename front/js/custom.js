@@ -64,10 +64,29 @@ jQuery(document).ready(function($) {
     //     $("#add-new-question-modal").removeClass("show");
     // });
 
-    $('.like-comment-view a.go-to-comment').click(function(){
+    /*$('.like-comment-view a.go-to-comment').click(function(){
+    	alert("clicked");
 
         $('.profile-question-answer-section .profile-leave-comment textarea').focus();
+        $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "red");
+    });*/
+
+    $('.like-comment-view a.go-to-comment').click(function() {
+          setTimeout(function() {
+               $('.profile-question-answer-section .profile-leave-comment textarea').focus();
+        $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
+          }, 0);
+      });
+
+    $(document).on('click', '.like-comment-view a[href^="#"]', function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
     });
+
+
 
 
     // donation-modal

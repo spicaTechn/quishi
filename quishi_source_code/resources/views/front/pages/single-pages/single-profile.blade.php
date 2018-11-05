@@ -136,7 +136,7 @@
                     <div class="profile-leave-comment">
                         <h4 class="small">Leave a Comment</h4>
                         <form action="">
-                            <div class="profile-reply-form">
+                            <div class="profile-reply-form" id="profile-reply-form">
                                 <div class="reply-user-image">
                                     <img src="{{ asset('/front')}} /images/profile/1.jpg">
                                 </div>
