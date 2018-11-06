@@ -29,6 +29,8 @@ jQuery(document).ready(function($) {
         $("#add-new-question-modal").removeClass("show");
     });
 
+     $('.profile-coment-comment .form-group').hide();
+
      $(".user-Anonymous-question-adds").hide();
 
      $("#anonymous-user").click(function(){
@@ -36,20 +38,21 @@ jQuery(document).ready(function($) {
         $(".user-Anonymous-question-adds").toggleClass("show");
      });
 
-     $(".view-all-comment").click(function() {
+     $(".reply-inner .view-all-comment span").click(function() {
         $(this).toggleClass('comment-on');
-         $('.profile-comment-section').slideToggle(500);
+         $('.reply-inner .profile-comment-section').toggle(500);
      });
 
 
      //$('.profile-coment-comment .form-group').hide();
      //show on click its div only
-     $('#write-comment-1').click(function() {
-        $('#comment-1').slideToggle(500);
+     $('.profile-comment-section .write-comment').click(function() {
+        //$(this).find('.form-group').slideToggle("fast");
+        $('.profile-comment-section .form-group').slideToggle();
      });
 
      $('#write-comment-2').click(function() {
-        $('#comment-2').slideToggle(500);
+        $('#comment-2').slideToggle();
      });
 
      $('.comment-method input[type="checkbox"').click(function() {
@@ -80,7 +83,7 @@ jQuery(document).ready(function($) {
 
     $(document).on('click', '.like-comment-view a[href^="#"]', function (event) {
         event.preventDefault();
-
+        alert('clicked');
         $('html, body').animate({
             scrollTop: $($.attr(this, 'href')).offset().top
         }, 500);

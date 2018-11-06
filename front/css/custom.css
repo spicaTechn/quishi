@@ -2255,7 +2255,8 @@ p {
 }
 
 .profileq-profilea {
-    padding-top: 40px;
+    /*padding-top: 40px;*/
+    padding: 40px 0;
 }
 
 .profileq-profilea h4 {
@@ -2449,13 +2450,13 @@ p {
 .reply-coment-box .form-group {
     position: relative;
     max-width: 500px;
-
+    margin-bottom: 5px;
 }
 
 .profile-reply-form textarea.form-control {
     border-radius: 0;
     border: 1px solid #ccc;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     resize: none;
     /*max-width: 500px;*/
     border-radius: 30px;
@@ -2474,7 +2475,7 @@ p {
 }
 
 .profile-reply-form {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .comment-method ul {
@@ -2527,35 +2528,39 @@ p {
 }
 
 .view-all-comment {
-    background: #8ac43f;
-    color: #fff;
-    text-align: center;
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-    font-size: 20px;
-    border-radius: 50%;
-    position: absolute;
-    top: -24px;
+    margin-bottom: 15px;
+}
+
+.view-all-comment span{
+    /*background: #8ac43f;*/
+    display: inline-block;
+    color: #8ac43f;
+    /*text-align: center;*/
+/*    height: 40px;
+    width: 40px;*/
+    /*line-height: 40px;*/
+    font-size: 12px;
+/*  position: absolute;
+    bottom: -18px;
     left: 50%;
     -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    transform: translateX(-50%);*/
     cursor: pointer;
 }
 .view-all-comment:hover {
-    background: #f59b43;
+    /*background: #f59b43;*/
 }
 
 .view-all-comment i {
     position: relative;
     top: 4px;
 }
-.profile-comment-section {
-    /*display: none;*/
+.reply-inner .profile-comment-section {
+    display: none;
 }
-.profile-comment-section:nth-child(1),
-.profile-comment-section:nth-child(2) {
-    /*display: block !important;*/
+.reply-inner .profile-comment-section:nth-child(1),
+.reply-inner .profile-comment-section:nth-child(2) {
+    display: block !important;
 }
 
 .reply-inner {
@@ -3705,8 +3710,8 @@ span.required {
 
 .profile-question-answer-section .profile-leave-comment {
     background: rgba(255,255,255,0.5);
-    padding: 40px;
-    margin: 20px 0;
+    padding: 20px 30px;
+    /*margin: 20px 0;*/
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.1);
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
