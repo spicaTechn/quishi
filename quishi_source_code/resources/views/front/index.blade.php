@@ -180,6 +180,123 @@
 
         </div>
         <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('all blogs') }}</a></div>
+        <h2>News</h2>
+        <div class="row row-news">
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Sports</h2>
+        <div class="row row-news">
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- trending-profiles -->
