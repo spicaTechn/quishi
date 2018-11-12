@@ -63,6 +63,8 @@
                                     </li>
                                     <li><a href="#"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
                                     <li><a href="#"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
+                                    <li><a href="#"><i class="icon-user"></i> Followers</a><span>1,00</span></li>
+                                    <li><a href="#"><i class="icon-feed"></i> Blog</a><span>4</span></li>
 
                                 </ul>
                             </div>
@@ -89,14 +91,14 @@
                             <div class="personal-detail">
                                 <h4>More Info:</h4>
                                 <ul>
-                                    <li><span>Address:</span>{{ ucwords($user->user_profile->location) }}</li>,
-                                    <li><span>Age</span> Group: {{ show_career_advisior_age_group($user->user_profile->age_group) }}</li>,
-                                    <li><span>Education Level:</span> {{ ucwords($user->user_profile->educational_level) }}</li>,
-                                    <li><span>Faculty:</span> {{ucwords($user->user_profile->education->name)}}</li>,
+                                    <li><span>Address: </span>{{ ucwords($user->user_profile->location) }}</li>
+                                    <li><span>Age Group:</span> {{ show_career_advisior_age_group($user->user_profile->age_group) }}</li>
+                                    <li><span>Education Level:</span> {{ ucwords($user->user_profile->educational_level) }}</li>
+                                    <li><span>Faculty:</span> {{ucwords($user->user_profile->education->name)}}</li>
                                      @foreach($user->careers as $career)
-                                    <li><span>Job Title:</span> {{ ucwords($career->title) }}</li>,
+                                    <li><span>Job Title:</span> {{ ucwords($career->title) }}</li>
                                     @endforeach
-                                    <li><span>Salary Range:</span> {{ show_career_advisior_salary_range($user->user_profile->salary_range) }}</li>,
+                                    <li><span>Salary Range:</span> {{ show_career_advisior_salary_range($user->user_profile->salary_range) }}</li>
                                     <li><span>Experience:</span> {{ show_career_advisior_job_experience($user->user_profile->job_experience) }}</li>
                                 </ul>
                             </div>
@@ -113,6 +115,57 @@
                         </div>
                         <!-- end profile-detail-right -->
                     </div>
+
+                </div>
+
+                <div class="profile-blog-section the-media container">                        
+                        <div class="section-title">
+                            <h2>{{ __('Recent blog') }}</h2>
+                        </div>
+                        <div class="row row-news">
+                            <div class="col-lg-4">
+                                <div class="news-blog-section">
+                                    <div class="blog-image">
+                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+                                    </div>
+                                    <div class="blog-conten">
+                                        <h4>Blog Four</h4>
+                                        <span class="time">Eva Marcel on Sep-2018</span>
+                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
+                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="news-blog-section">
+                                    <div class="blog-image">
+                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+                                    </div>
+                                    <div class="blog-conten">
+                                        <h4>Blog Four</h4>
+                                        <span class="time">Eva Marcel on Sep-2018</span>
+                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
+                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="news-blog-section">
+                                    <div class="blog-image">
+                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+                                    </div>
+                                    <div class="blog-conten">
+                                        <h4>Blog Four</h4>
+                                        <span class="time">Eva Marcel on Sep-2018</span>
+                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
+                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
 
                 </div>
             </div>
@@ -180,113 +233,9 @@
                                             <li><a href="#"><i class="icon-like"></i> Likes</a></li>
                                             <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
                                         </ul>
-                                        <div class="form-group" id="comment-1" style="display: block;">
-                                            <input type="text" class="form-control">
-                                        <span class="Submit"><i class="icon-cursor"></i></span>
-                                    </div>
-                                    </div>
-                                    <!-- <div class="form-group" id="comment-1" style="display: block;">
-                                        <input type="text" class="form-control">
-                                        <span class="Submit"><i class="icon-cursor"></i></span>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="reply-inner">
-                                <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 1 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 2 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 3 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 4 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 5 -->
-                                <div class="view-all-comment">
-                                    <span>View all comments</span>
-                                </div>
-                            </div>                                                                        
-                        </div>
-                        <!-- end profile comment-wrapper 1-->
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
-
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-
-                                        <div class="form-group" id="comment-1" style="display: block;">
-                                            <input type="text" class="form-control">
-                                            <span class="Submit"><i class="icon-cursor"></i></span>
+                                        <div class="form-group" id="comment-1">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
                                         </div>
                                     </div>
                                     
@@ -364,7 +313,108 @@
                                 </div>
                                 <!-- end inner profile-comment-section 5 -->
                                 <div class="view-all-comment">
-                                    <span>View all comments</span>
+                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
+                                </div>
+                            </div>                                                                        
+                        </div>
+                        <!-- end profile comment-wrapper 1-->
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+
+                                        <div class="form-group" id="comment-1">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="reply-inner">
+                                <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 1 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 2 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 3 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 4 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 5 -->
+                                <div class="view-all-comment">
+                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
                             </div>                                                                        
                         </div>
@@ -386,9 +436,9 @@
                                             <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
                                         </ul>
 
-                                        <div class="form-group" id="comment-1" style="display: block;">
-                                            <input type="text" class="form-control">
-                                            <span class="Submit"><i class="icon-cursor"></i></span>
+                                        <div class="form-group" id="comment-1">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
                                         </div>
                                     </div>
                                     
@@ -466,7 +516,7 @@
                                 </div>
                                 <!-- end inner profile-comment-section 5 -->
                                 <div class="view-all-comment">
-                                    <span>View all comments</span>
+                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
                             </div>                                                                        
                         </div>

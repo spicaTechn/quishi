@@ -24,7 +24,7 @@
             <div class="login-menu login-menu-sm">
                 <ul>
                     @guest
-                        <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+                        <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Log In')}} <i class="icon-power"></i></a></li>
                         <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
 
                     @else

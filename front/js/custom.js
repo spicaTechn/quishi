@@ -41,6 +41,7 @@ jQuery(document).ready(function($) {
      $(".reply-inner .view-all-comment span").click(function() {
         $(this).toggleClass('comment-on');
          $('.reply-inner .profile-comment-section').toggle(500);
+         $('.view-all-comment').hide();
      });
 
 
@@ -79,11 +80,12 @@ jQuery(document).ready(function($) {
                $('.profile-question-answer-section .profile-leave-comment textarea').focus();
         $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
           }, 0);
+          $('.profile-question-answer-section .profile-leave-comment').show();
       });
 
     $(document).on('click', '.like-comment-view a[href^="#"]', function (event) {
         event.preventDefault();
-        alert('clicked');
+        //alert('clicked');
         $('html, body').animate({
             scrollTop: $($.attr(this, 'href')).offset().top
         }, 500);

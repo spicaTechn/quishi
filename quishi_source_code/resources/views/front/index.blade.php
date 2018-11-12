@@ -151,18 +151,49 @@
     </div>
 </div>
         <!-- end video section -->
+        <div class="page-section quishi-works">
+            <div class="container">
+                <div class="section-title">
+                    <h2>{{ __('How Quishi works for you') }}</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 how-col">
+                        <div class="how-col-image">
+                             <img src="{{asset('/front')}}/images/career-review2.png">
+                        </div>
+                        <h4>Search millions of jobs</h4>
+                        <p>We've got more than 5 million of 'em—so you've got plenty of options. Plus, we'll send an alert when a good fit for you is posted.</p>
+                    </div>
+                    <div class="col-md-4 how-col">
+                        <div class="how-col-image">
+                             <img src="{{asset('/front')}}/images/career-review2.png">
+                        </div>
+                        <h4>Get discovered</h4>
+                        <p>Create an account and upload your resume to be found by the recruiters who search Monster's databases every day.</p>
+                    </div>
+                    <div class="col-md-4 how-col">
+                        <div class="how-col-image">
+                            <img src="{{asset('/front')}}/images/career-review2.png">
+                        </div>
+                        <h4>Be a better candidate</h4>
+                        <p>We've got your back. Our career advice, resume services and education partners give you a leg up in the job search.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 <div class="page-section the-media">
     <div class="container">
-        <div class="section-title">
+        <!-- <div class="section-title">
             <h2>{{ __('In the Media') }}</h2>
-        </div>
+        </div> -->
         <div class="row">
             @foreach($blogs as $blog)
                @foreach($blog->page_detail as $blog_detail)
                <?php
                 $blog_unserialize = unserialize($blog_detail->meta_value);
                ?>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="home-blog-section">
                         <div class="blog-image">
                             <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
@@ -174,13 +205,77 @@
                             <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
               @endforeach
             @endforeach
 
         </div>
-        <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('all blogs') }}</a></div>
-        <h2>News</h2>
+        <!-- <div class="view-more text-center"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('all blogs') }}</a></div> -->
+        <div class="section-title">
+            <h2>{{ __('In the Media') }}</h2>
+        </div>
+        <div class="row row-news">
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="news-blog-section">
+                    <div class="blog-image">
+                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
+                    </div>
+                    <div class="blog-conten">
+                        <h4>{{ $blog->title }}</h4>
+                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
+                        <p>{{ str_limit($blog->content,160) }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
+
+        <div class="section-title">
+            <h2>{{ __('Sports') }}</h2>
+        </div>
         <div class="row row-news">
             <div class="col-lg-3 col-sm-6">
                 <div class="news-blog-section">
@@ -239,64 +334,7 @@
             </div>
         </div>
 
-        <h2>Sports</h2>
-        <div class="row row-news">
-            <div class="col-lg-3 col-sm-6">
-                <div class="news-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>{{ $blog->title }}</h4>
-                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
-                        <p>{{ str_limit($blog->content,160) }}</p>
-                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-sm-6">
-                <div class="news-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>{{ $blog->title }}</h4>
-                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
-                        <p>{{ str_limit($blog->content,160) }}</p>
-                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-sm-6">
-                <div class="news-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>{{ $blog->title }}</h4>
-                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
-                        <p>{{ str_limit($blog->content,160) }}</p>
-                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-sm-6">
-                <div class="news-blog-section">
-                    <div class="blog-image">
-                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" alt="#">
-                    </div>
-                    <div class="blog-conten">
-                        <h4>{{ $blog->title }}</h4>
-                        <span class="time">Eva Marcel on {{ $blog_unserialize['date'] }}</span>
-                        <p>{{ str_limit($blog->content,160) }}</p>
-                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+         <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view news') }}</a></div>
     </div>
 </div>
 <!-- trending-profiles -->
