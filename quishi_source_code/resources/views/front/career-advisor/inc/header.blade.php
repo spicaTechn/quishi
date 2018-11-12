@@ -18,7 +18,59 @@
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link">{{ __('Profiles')}}</a></li>
+
+                    <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i><span class="badge">4</span></a>
+                        <div class="notification-list">
+                            <ul>
+                                <li class="notification-list-item">
+                                    <div class="notification-image">
+                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                    </div>
+                                    <div class="notification-content">
+                                        <span>Jon Deo</span>and
+                                        <span>Jal Pari</span> also comment on your status
+                                    </div>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <div class="notification-image">
+                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                    </div>
+                                    <div class="notification-content">
+                                        <span>Jon Deo</span>and
+                                        <span>Jal Pari</span> also comment on your status
+                                    </div>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <div class="notification-image">
+                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                    </div>
+                                    <div class="notification-content">
+                                        <span>Jon Deo</span>and
+                                        <span>Jal Pari</span> also comment on your status
+                                    </div>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <div class="notification-image">
+                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                    </div>
+                                    <div class="notification-content">
+                                        <span>Jon Deo</span>and
+                                        <span>Jal Pari</span> also comment on your status
+                                    </div>
+                                </li>
+                                <!-- end notification item -->
+                            </ul>        
+                        </div>
+                    </li>
+                    
                 </ul>
+
             </div>
             <div class="login-menu login-menu-sm">
                 <ul>

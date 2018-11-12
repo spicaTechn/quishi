@@ -144,12 +144,13 @@ p {
 }
 
 
-
-.dropdown-menu {
+.login-menu ul.dropdown-menu {
     top: 50px;
     border: none;
     border-radius: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    right: 0;
+    left: auto;
 }
 
 .login-menu li {
@@ -158,7 +159,69 @@ p {
     list-style: none;
 }
 
+.navbar-light .navbar-nav li.notification-box a i {
+    font-size: 23px;
+    color: #8ac43f;
+}
 
+.navbar-light .navbar-nav li.notification-box .badge {
+    background: #8ac43f;
+    color: #000;
+    border-radius: 50%;
+    font-weight: 400;
+    position: absolute;
+    top: 5px;
+    right: 1px;
+    min-height: 20px;
+    min-width: 20px;
+    line-height: 15px;
+}
+
+.notification-list ul {
+    padding: 0;
+    margin: 0;
+}
+
+.notification-list ul li.notification-list-item {
+    list-style: none;
+   /* display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;*/
+
+	background: #edf2fa;
+	border-bottom: 1px solid #dddfe2;
+	padding: 12px 20px;
+}
+
+.notification-list ul li.notification-list-item .notification-image {
+    width: 30px;
+    float: left;
+}
+
+.notification-list ul li.notification-list-item .notification-content {
+	width: calc(100% - 30px);
+	float: left;
+	padding-left: 10px;
+	font-size: 12px;
+	color: #424242;
+	}
+
+.notification-list ul li.notification-list-item .notification-image img {
+
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.notification-list ul li.notification-list-item:after {
+	display: table;
+	content: "";
+	clear: both;
+}
 .login-menu li.dropdown>a,
 .login-menu li>a {
     background: #8ac43f;
@@ -170,6 +233,28 @@ p {
 
 .login-menu li:not(:last-child) {
     margin-right: 1rem;
+}
+.nav-item.notification-box {
+
+    position: relative;
+
+}
+.notification-list {
+
+    background: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    color: #1d2129;
+    /*overflow: visible;*/
+    position: absolute;
+    top: 38px;
+    width: 350px;
+    z-index: 1;
+    right: 0;
+
+left: auto;
+
 }
 
 @media (min-width: 992px) {
@@ -1650,8 +1735,8 @@ p {
 
 .inner-header .login-menu li.nav-item.logdin a {
 
-    background: no-repeat;
-    color: #fff;
+    background: none;
+    color: #666;
 
 }
 .inner-header .login-menu li.nav-item.logdin a:hover {
@@ -2230,6 +2315,10 @@ p {
 
 .profile-social-media li:not(:last-child) {
     margin-right: 25px;
+}
+
+.profile-social-media li {
+	display: inline-block;
 }
 .personal-contacts a,
 .profile-social-media a,
