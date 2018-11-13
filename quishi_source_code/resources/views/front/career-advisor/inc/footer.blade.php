@@ -151,6 +151,7 @@
 
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('/front/js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
@@ -162,7 +163,14 @@
 @yield('page_specific_js')
 <script>
     $(document).ready(function(){
-        
+        $(".notification-inner-list").niceScroll({cursorborder:"",cursorcolor:"#999"});
+
+        //remove notification list
+        jQuery(document).keyup(function (e) {
+            if (e.key === "Escape") { // escape key maps to keycode `27`
+                jQuery(".notification-list").hide();
+            }
+        });
        
         //form validation here for the forntend form validaton
         $('#donate_now').on('init.field.fv', function(e, data) {

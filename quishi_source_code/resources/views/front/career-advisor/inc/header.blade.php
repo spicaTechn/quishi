@@ -21,51 +21,142 @@
 
                     <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i><span class="badge">4</span></a>
                         <div class="notification-list">
+                            <!-- <div class="notification-title">
+                                <span>Notification</span><a href="#">Mark as read</a>
+                            </div> -->
+                            <div class="notification-inner-list">
                             <ul>
                                 <li class="notification-list-item">
-                                    <div class="notification-image">
-                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                    </div>
-                                    <div class="notification-content">
-                                        <span>Jon Deo</span>and
-                                        <span>Jal Pari</span> also comment on your status
-                                    </div>
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
                                 </li>
                                 <!-- end notification item -->
 
                                 <li class="notification-list-item">
-                                    <div class="notification-image">
-                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                    </div>
-                                    <div class="notification-content">
-                                        <span>Jon Deo</span>and
-                                        <span>Jal Pari</span> also comment on your status
-                                    </div>
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
                                 </li>
                                 <!-- end notification item -->
 
                                 <li class="notification-list-item">
-                                    <div class="notification-image">
-                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                    </div>
-                                    <div class="notification-content">
-                                        <span>Jon Deo</span>and
-                                        <span>Jal Pari</span> also comment on your status
-                                    </div>
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
                                 </li>
                                 <!-- end notification item -->
 
                                 <li class="notification-list-item">
-                                    <div class="notification-image">
-                                         <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                    </div>
-                                    <div class="notification-content">
-                                        <span>Jon Deo</span>and
-                                        <span>Jal Pari</span> also comment on your status
-                                    </div>
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
                                 </li>
                                 <!-- end notification item -->
-                            </ul>        
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+
+                                <li class="notification-list-item">
+                                    <a href="javascript:void(0)">
+                                        <div class="notification-image">
+                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                        </div>
+                                        <div class="notification-content">
+                                            <span>Jon Deo</span>and
+                                            <span>Jal Pari</span> also comment on your status
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end notification item -->
+                            </ul>
+                            </div>       
                         </div>
                     </li>
                     
