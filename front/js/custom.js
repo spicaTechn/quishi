@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-  
+
 
     $(".reply").click(function() {
         //alert("The paragraph was clicked.");
@@ -24,41 +24,41 @@ jQuery(document).ready(function($) {
         $("#add-new-question-modal").addClass("show");
     });
 
-     $("#add-new-question-modal .close,#add-new-question-modal #cancel").click(function() {
+    $("#add-new-question-modal .close,#add-new-question-modal #cancel").click(function() {
         $("#add-new-question-modal").hide();
         $("#add-new-question-modal").removeClass("show");
     });
 
-     $('.profile-coment-comment .form-group').hide();
+    $('.profile-coment-comment .form-group').hide();
 
-     $(".user-Anonymous-question-adds").hide();
+    $(".user-Anonymous-question-adds").hide();
 
-     $("#anonymous-user").click(function(){
+    $("#anonymous-user").click(function() {
         $(".user-question-adds").toggleClass("d-none");
         $(".user-Anonymous-question-adds").toggleClass("show");
-     });
+    });
 
-     $(".reply-inner .view-all-comment span").click(function() {
+    $(".reply-inner .view-all-comment span").click(function() {
         $(this).toggleClass('comment-on');
-         $('.reply-inner .profile-comment-section').toggle(500);
-         $('.view-all-comment').hide();
-     });
+        $('.reply-inner .profile-comment-section').toggle(500);
+        $('.view-all-comment').hide();
+    });
 
 
-     //$('.profile-coment-comment .form-group').hide();
-     //show on click its div only
-     $('.profile-comment-section .write-comment').click(function() {
+    //$('.profile-coment-comment .form-group').hide();
+    //show on click its div only
+    $('.profile-comment-section .write-comment').click(function() {
         //$(this).find('.form-group').slideToggle("fast");
         $('.profile-comment-section .form-group').slideToggle();
-     });
+    });
 
-     $('#write-comment-2').click(function() {
+    $('#write-comment-2').click(function() {
         $('#comment-2').slideToggle();
-     });
+    });
 
-     $('.comment-method input[type="checkbox"').click(function() {
+    $('.comment-method input[type="checkbox"').click(function() {
         $('.anonymously-user').slideToggle(500);
-     });
+    });
 
 
 
@@ -69,21 +69,21 @@ jQuery(document).ready(function($) {
     // });
 
     /*$('.like-comment-view a.go-to-comment').click(function(){
-    	alert("clicked");
+        alert("clicked");
 
         $('.profile-question-answer-section .profile-leave-comment textarea').focus();
         $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "red");
     });*/
 
     $('.like-comment-view a.go-to-comment').click(function() {
-          setTimeout(function() {
-               $('.profile-question-answer-section .profile-leave-comment textarea').focus();
-        $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
-          }, 0);
-          $('.profile-question-answer-section .profile-leave-comment').show();
-      });
+        setTimeout(function() {
+            $('.profile-question-answer-section .profile-leave-comment textarea').focus();
+            $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
+        }, 0);
+        $('.profile-question-answer-section .profile-leave-comment').show();
+    });
 
-    $(document).on('click', '.like-comment-view a[href^="#"]', function (event) {
+    $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {
         event.preventDefault();
         //alert('clicked');
         $('html, body').animate({
@@ -105,49 +105,84 @@ jQuery(document).ready(function($) {
         $("#donation-Modal").modal('hide');
     });
 
+    /*// notification
+    $(".navbar-light .navbar-nav li.notification-box a ").click(function() {
+        //alert("closed");
+        $(".notification-list").slideDown();
+        $(".navbar-light .navbar-nav li.notification-box .badge").hide();
+    });
 
-    //equal height
-    equalheight = function(container) {
 
-        var currentTallest = 0,
-            currentRowStart = 0,
-            rowDivs = new Array(),
-            $el,
-            topPosition = 0;
-        $(container).each(function() {
+        $(document).on("click", function(event){
+            var $trigger = $(".notification-box");
+            if($trigger !== event.target && !$trigger.has(event.target).length){
+                $(".notification-list").slideUp();
+            }            
+        });*/
 
-            $el = $(this);
-            $($el).height('auto')
-            topPostion = $el.position().top;
+    // Show hide notification
+    $(".notification-box").click(function() {
+        $(this).find(".notification-list").slideToggle();
+        $(".navbar-light .navbar-nav li.notification-box .badge").hide();
+    });
 
-            if (currentRowStart != topPostion) {
-                for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
-                    rowDivs[currentDiv].height(currentTallest);
-                }
-                rowDivs.length = 0; // empty the array
-                currentRowStart = topPostion;
-                currentTallest = $el.height();
-                rowDivs.push($el);
-            } else {
-                rowDivs.push($el);
-                currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-            }
+    $(document).on("click", function(event) {
+        var $trigger = $(".notification-box");
+        if ($trigger !== event.target && !$trigger.has(event.target).length) {
+            $(".notification-list").slideUp();
+        }
+    });
+
+
+
+// read notification
+$(".notification-list li a").click(function() {
+    $(this).addClass("mark-as-read");
+});
+
+
+//equal height
+equalheight = function(container) {
+
+    var currentTallest = 0,
+        currentRowStart = 0,
+        rowDivs = new Array(),
+        $el,
+        topPosition = 0;
+    $(container).each(function() {
+
+        $el = $(this);
+        $($el).height('auto')
+        topPostion = $el.position().top;
+
+        if (currentRowStart != topPostion) {
             for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
                 rowDivs[currentDiv].height(currentTallest);
             }
-        });
-    }
-
-    //on scroll add  and remove class
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
-
-        if (scroll >= 200) {
-            $(".front-profile-menu").addClass("darkHeader");
+            rowDivs.length = 0; // empty the array
+            currentRowStart = topPostion;
+            currentTallest = $el.height();
+            rowDivs.push($el);
         } else {
-            $(".front-profile-menu").removeClass("darkHeader");
+            rowDivs.push($el);
+            currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+        }
+        for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+            rowDivs[currentDiv].height(currentTallest);
         }
     });
+}
+
+//on scroll add  and remove class
+$(window).scroll(function() {
+var scroll = $(window).scrollTop();
+
+if (scroll >= 200) {
+    $(".front-profile-menu").addClass("darkHeader");
+} else {
+    $(".front-profile-menu").removeClass("darkHeader");
+}
+});
 
 
 
@@ -196,6 +231,6 @@ $(window).load(function() {
 });
 
 
-$(window).resize(function(){
+$(window).resize(function() {
     equalheight('.same-height');
 });
