@@ -133,6 +133,8 @@ jQuery(document).ready(function($) {
         }
     });
 
+     autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+
 
 
 // read notification

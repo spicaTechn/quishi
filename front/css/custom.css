@@ -3988,5 +3988,35 @@ span.required {
 .profileq-profilea {
     padding-top: 0;
 }
+.blog-leave-comment.profile-leave-comment {
+    padding: 60px;
+    position: relative;
+    background: rgba(255, 255, 255, 1);
+    padding: 20px 30px;
+    margin: 20px 0;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.blog-leave-comment h4.small {
+    font-size: 18px;
+}
+
+.blog-leave-comment textarea.form-control {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    resize: none;
+    max-width: 500px;
+    border-radius: 30px;
+    height: auto;
+}
+
+ .form-group.anonymously-user {
+    max-width: 500px;
+    margin-bottom: 15px;
+}
+
+.form-group.anonymously-user .form-control {
+    border-radius: 30px;
+}
 
 /*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/
