@@ -41,15 +41,15 @@ jQuery(document).ready(function($) {
     // $(".reply-inner .view-all-comment span").click(function() {
     //     $(this).toggleClass('comment-on');
     //     //$('.reply-inner .profile-comment-section').slideToggle();
-    //     $(this).parent(".profile-comment-section").slideToggle(500);
+    //     $(this).parent(".profile-comment-section").slideDown(500);
     //     $(this).parent('.view-all-comment').hide();
     // });
 
-    // // show profile inner comment
-    // $(".blog-leave-comment .view-all-comment span").click(function() {
-    //     $(".profile-comment-section").slideDown();
-    //     $('.view-all-comment').hide();
-    // });
+    // show profile inner comment
+    $(".profile-leave-comment .view-all-comment span").click(function() {
+        $(".profile-comment-section").slideDown();
+        $('.view-all-comment').hide();
+    });
 
     // // show all profile coments
     // $(".view-all-blog-comments span").click(function() {
@@ -87,25 +87,12 @@ jQuery(document).ready(function($) {
 
 
 
-    //  $("#add-new-question-modal #cancel").click(function() {
-    //     alert("closed");
-    //     $("#add-new-question-modal").hide();
-    //     $("#add-new-question-modal").removeClass("show");
-    // });
-
-    /*$('.like-comment-view a.go-to-comment').click(function(){
-        alert("clicked");
-
-        $('.profile-question-answer-section .profile-leave-comment textarea').focus();
-        $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "red");
-    });*/
-
     $('.like-comment-view a.go-to-comment').click(function() {
         setTimeout(function() {
             $('.profile-question-answer-section .profile-leave-comment textarea').focus();
             $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
         }, 0);
-        $('.profile-question-answer-section .profile-leave-comment').show();
+        $('.profile-question-answer-section .profile-leave-comment').slideToggle(500);
     });
 
     $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {

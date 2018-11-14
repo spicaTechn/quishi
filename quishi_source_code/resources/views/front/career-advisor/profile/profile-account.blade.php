@@ -9,6 +9,8 @@
                 <li><a href="#"><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">3</span></a></li>
                 <li><a href="#"><i class="ti-user"></i> My account</a></li>
                 <li><a href="#"><i class="ti-user"></i> Logout</a></li>
+<!--                 <li><a href="#"><i class="ti-user"></i> My Blog</a></li>
+<li><a href="#"><i class="ti-user"></i> Add Blog</a></li> -->
             </ul>
         </div>
         <div class="profile-main-section">
@@ -221,6 +223,81 @@
                                 </div>
                             </div>
                             <!-- end add-remove-social-media -->
+
+                             <div class="blog-page">
+                                <div class="container">
+                                    <div class="blog-main-body">
+                                        <div class="row isotopeContainer2">
+                                                                                                <div class="col-md-4 isotopeSelector">
+                                                    <div class="blog-category-section">
+                                                        <div class="blog-image">
+                                                            <a href="http://localhost/quishi/blog/36"><img src="http://localhost/quishi/front/images/blogs/1539154047.jpg" alt="#"></a>
+                                                            <div class="blog-date">
+                                                                18<span>Oct</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                            <h3><a href="http://localhost/quishi/blog/36">According to Dior Couture, this taboo fashion accessory is back</a></h3>
+                                                            <!-- <div class="blog-author-category">
+                                                                <ul>
+                                                                    <li><a href="#"><i class="icon-user" aria-hidden="true"></i>author</a></li>
+                                                                    <li><a href="#"><i class="icon-tag" aria-hidden="true"></i>category</a></li>
+                                                                    <li><a href="#"><i class="icon-bubbles" aria-hidden="true"></i>comments</a></li>
+                                                                </ul>
+                                                            </div> -->
+                                                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
+                                                            <a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                                                <div class="col-md-4 isotopeSelector">
+                                                    <div class="blog-category-section">
+                                                        <div class="blog-image">
+                                                            <a href="http://localhost/quishi/blog/37"><img src="http://localhost/quishi/front/images/blogs/1537937998.jpg" alt="#"></a>
+                                                            <div class="blog-date">
+                                                                01<span>Sep</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                            <h3><a href="http://localhost/quishi/blog/37">Blog Four</a></h3>
+                                                            <!-- <div class="blog-author-category">
+                                                                <ul>
+                                                                    <li><a href="#"><i class="icon-user" aria-hidden="true"></i>author</a></li>
+                                                                    <li><a href="#"><i class="icon-tag" aria-hidden="true"></i>category</a></li>
+                                                                    <li><a href="#"><i class="icon-bubbles" aria-hidden="true"></i>comments</a></li>
+                                                                </ul>
+                                                            </div> -->
+                                                            <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
+                                                            <a href="http://localhost/quishi/blog/37" class="blog-read-more">read more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                                                <div class="col-md-4 isotopeSelector">
+                                                    <div class="blog-category-section">
+                                                        <div class="blog-image">
+                                                            <a href="http://localhost/quishi/blog/39"><img src="http://localhost/quishi/front/images/blogs/1537938021.jpg" alt="#"></a>
+                                                            <div class="blog-date">
+                                                                01<span>Nov</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                            <h3><a href="http://localhost/quishi/blog/39">Blog</a></h3>
+                                                            <!-- <div class="blog-author-category">
+                                                                <ul>
+                                                                    <li><a href="#"><i class="icon-user" aria-hidden="true"></i>author</a></li>
+                                                                    <li><a href="#"><i class="icon-tag" aria-hidden="true"></i>category</a></li>
+                                                                    <li><a href="#"><i class="icon-bubbles" aria-hidden="true"></i>comments</a></li>
+                                                                </ul>
+                                                            </div> -->
+                                                            <p>A blog is a discussion or informational website published on the World Wide Web consisting of discrete, often informal diary-style...</p>
+                                                            <a href="http://localhost/quishi/blog/39" class="blog-read-more">read more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                         </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- profile-detail-right -->
                     </div>
