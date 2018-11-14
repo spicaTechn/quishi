@@ -3994,7 +3994,7 @@ span.required {
 .profileq-profilea {
     padding-top: 0;
 }
-.blog-leave-comment.profile-leave-comment {
+.blog-leave-comment.profile-leave-comments {
     padding: 60px;
     position: relative;
     background: rgba(255, 255, 255, 1);
@@ -4045,4 +4045,6 @@ span.required {
 .blog-leave-comment .profile-comment-wrapper:nth-of-type(3) {
     display: block !important;
 }
+
+
 /*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/

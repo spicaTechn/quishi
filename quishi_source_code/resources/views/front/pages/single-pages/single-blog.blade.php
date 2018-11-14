@@ -67,7 +67,7 @@
                         <div id="disqus_thread"></div>
                     </div>
                     <!-- posts -->
-                    <div class="profile-leave-comment blog-leave-comment" style="display: block;">
+                    <div class="profile-leave-comments blog-leave-comment">
                         <h4 class="small">Leave a Comment</h4>
                         <form action="">
                             <div class="profile-reply-form" id="profile-reply-form">
@@ -417,6 +417,8 @@
 @section('page_specific_js')
  <script>
     $(document).ready(function(){
+         autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+
         $('.blog-page-like').on('click', function(e){
             //prevent the default action
             e.preventDefault();

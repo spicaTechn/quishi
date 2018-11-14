@@ -38,18 +38,35 @@ jQuery(document).ready(function($) {
         $(".user-Anonymous-question-adds").toggleClass("show");
     });
 
-    $(".reply-inner .view-all-comment span").click(function() {
-        $(this).toggleClass('comment-on');
-        //$('.reply-inner .profile-comment-section').slideToggle();
-        $(this).parent(".profile-comment-section").slideToggle(500);
-        $(this).parent('.view-all-comment').hide();
+    // $(".reply-inner .view-all-comment span").click(function() {
+    //     $(this).toggleClass('comment-on');
+    //     //$('.reply-inner .profile-comment-section').slideToggle();
+    //     $(this).parent(".profile-comment-section").slideToggle(500);
+    //     $(this).parent('.view-all-comment').hide();
+    // });
+
+    // // show profile inner comment
+    // $(".blog-leave-comment .view-all-comment span").click(function() {
+    //     $(".profile-comment-section").slideDown();
+    //     $('.view-all-comment').hide();
+    // });
+
+    // // show all profile coments
+    // $(".view-all-blog-comments span").click(function() {
+    //     $(".blog-leave-comment").find(".profile-comment-wrapper").show();
+    //     $(".blog-leave-comment").find('.view-all-blog-comments').hide();
+    // });
+
+    // show blog inner comment
+    $(".blog-leave-comment .view-all-comment span").click(function() {
+        $(".profile-comment-section").slideDown();
+        $('.view-all-comment').hide();
     });
 
     // show all coments
     $(".view-all-blog-comments span").click(function() {
-
-        $(".blog-leave-comment .profile-comment-wrapper").toggle();
-        $(this).parent('.view-all-blog-comments').hide();
+        $(".blog-leave-comment").find(".profile-comment-wrapper").show();
+        $(".blog-leave-comment").find('.view-all-blog-comments').hide();
     });
 
 
@@ -141,7 +158,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-     autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+     //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
 
 

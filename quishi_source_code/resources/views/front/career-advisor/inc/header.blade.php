@@ -21,9 +21,9 @@
 
                     <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i><span class="badge">4</span></a>
                         <div class="notification-list">
-                            <!-- <div class="notification-title">
+                            <div class="notification-title">
                                 <span>Notification</span><a href="#">Mark as read</a>
-                            </div> -->
+                            </div>
                             <div class="notification-inner-list">
                             <ul>
                                 <li class="notification-list-item">
