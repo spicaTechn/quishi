@@ -40,8 +40,16 @@ jQuery(document).ready(function($) {
 
     $(".reply-inner .view-all-comment span").click(function() {
         $(this).toggleClass('comment-on');
-        $('.reply-inner .profile-comment-section').toggle(500);
-        $('.view-all-comment').hide();
+        //$('.reply-inner .profile-comment-section').slideToggle();
+        $(this).parent(".profile-comment-section").slideToggle(500);
+        $(this).parent('.view-all-comment').hide();
+    });
+
+    // show all coments
+    $(".view-all-blog-comments span").click(function() {
+
+        $(".blog-leave-comment .profile-comment-wrapper").toggle();
+        $(this).parent('.view-all-blog-comments').hide();
     });
 
 

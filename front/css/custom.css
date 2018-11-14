@@ -2546,7 +2546,7 @@ p {
 
 .profile-author-comment ul li a {
     color: #88917d !important;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
 }
 
@@ -3038,6 +3038,12 @@ a.blog-read-more:hover {
     margin-bottom: 30px;
     max-height: 350px;
     overflow: hidden;
+}
+
+.blog-single-img img {
+    width: 100%;
+    object-fit: cover;
+    height: 350px;
 }
 
 blockquote {
@@ -4019,4 +4025,24 @@ span.required {
     border-radius: 30px;
 }
 
+.view-all-blog-comments span {
+    color: #8ac43f;
+    cursor: pointer;
+    text-decoration: underline;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.view-all-blog-comments span:hover {
+    color: #f59b43;
+}
+
+.blog-leave-comment .profile-comment-wrapper {
+    display: none;
+}
+.blog-leave-comment .profile-comment-wrapper:nth-of-type(1), 
+.blog-leave-comment .profile-comment-wrapper:nth-of-type(2),
+.blog-leave-comment .profile-comment-wrapper:nth-of-type(3) {
+    display: block !important;
+}
 /*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/

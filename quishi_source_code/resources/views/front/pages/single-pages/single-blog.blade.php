@@ -198,7 +198,214 @@
                             </div>                                                                        
                         </div>
                         <!-- end profile comment-wrapper 1-->
-                        
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                        <div class="form-group" id="comment-1" style="display: none;">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div> 
+
+                            <div class="reply-inner">
+                                <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 1 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 2 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 3 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 4 -->
+
+                                 <div class="profile-comment-section">
+                                    <div class="profile-coment-user">
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    </div>
+                                    
+                                    <div class="profile-coment-comment">
+                                        <h5>Sarah Conner</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end inner profile-comment-section 5 -->
+                                <div class="view-all-comment">
+                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
+                                </div>
+                            </div>                                                                      
+                        </div>
+                        <!-- end profile comment-wrapper 2-->
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                        <div class="form-group" id="comment-1" style="display: none;">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>                                                                       
+                        </div>
+                        <!-- end profile comment-wrapper 3-->
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                        <div class="form-group" id="comment-1" style="display: none;">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>                                                                       
+                        </div>
+                        <!-- end profile comment-wrapper 4-->
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                        <div class="form-group" id="comment-1" style="display: none;">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>                                                                       
+                        </div>
+                        <!-- end profile comment-wrapper 5-->
+
+                        <div class="profile-comment-wrapper">
+                            <div class="profile-comment-section">
+                                <div class="profile-coment-user">
+                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                </div>
+
+                                <div class="profile-coment-comment">
+                                    <h5>Sarah Conner</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
+                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <div class="profile-author-comment">
+                                        <ul>
+                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                        </ul>
+                                        <div class="form-group" id="comment-1" style="display: none;">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
+                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>                                                                       
+                        </div>
+                        <!-- end profile comment-wrapper 6-->
+                        <div class="view-all-blog-comments">
+                            <span>View all comments</span>
+                        </div>
                     </div>
                 </div>
             </div>
