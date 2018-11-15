@@ -202,6 +202,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'	=> 'Front\CareerAdvisor\Profile\ProfileController@create_user_link'
 	]);
 
+	//blog section for the blog 
+
+	Route::get('/blogs',[
+		'as'	=> 'profile.blog.index',
+		'uses'	=> 'Front\CareerAdvisor\Blog\BlogController@index'
+	]);
+
+	Route::get('/blogs/create',[
+		'as'	=> 'profile.blog.create',
+		'uses'	=> 'Front\CareerAdvisor\Blog\BlogController@create'
+	]);
+
 });
 
 
