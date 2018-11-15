@@ -37,6 +37,17 @@
                  @endforeach
                 @endforeach
             </div>
+            <!-- blog pagination -->
+            <nav class="navigation blog-pagination">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#"><i class="icon-arrow-left"></i></a></li>
+                    <li class="page-item current-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="icon-arrow-right"></i></a></li>
+                </ul>
+            </nav>
+            <!-- End blog pagination -->
         </div>
     </div>
 </div>
