@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="profile-blog-edit-page profile-main-section">
+	<form>
 	<div class="editable-title">
 		<h2>According to the culture</h2>
 	</div>
@@ -27,9 +28,27 @@
 		<label>Published Date: </label>
 		<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
 		    <input class="form-control" type="text" readonly />
-		    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		    <span class="input-group-addon"><i class="icon-calendar"></i></span>
 		</div>
 	</div>
+	<div class="featured-image">
+		<h5>Featured Image</h5>
+
+		<div class="avatar-upload">
+        <div class="avatar-edit">
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+            <label for="imageUpload"></label>
+        </div>
+        <div class="avatar-preview">
+            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+            </div>
+        </div>
+    </div>
+	</div>
+	<div class="form-group">
+		<button class="btn btn-default">Update</button>
+	</div>
+</form>
 
 </div>
 <!-- profile-main-section -->
@@ -39,13 +58,28 @@
 @section('page_specific_js')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script>
-    	
-    		$(function () {
-  $("#datepicker").datepicker({ 
-        autoclose: true, 
-        todayHighlight: true
-  }).datepicker('update', new Date());
-});
+
+		$(function () {
+			$("#datepicker").datepicker({ 
+				autoclose: true, 
+				todayHighlight: true
+			}).datepicker('update', new Date());
+		});
+
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function(e) {
+		            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+		            $('#imagePreview').hide();
+		            $('#imagePreview').fadeIn(650);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$("#imageUpload").change(function() {
+		    readURL(this);
+		});
     	
         
     </script>
