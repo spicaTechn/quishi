@@ -214,5 +214,7 @@
                 <li class="{{ Request::is('profile/reviews*') ? 'active' : '' }}"><a href=" {{url('/profile/reviews')}} "><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">{{ Auth::user()->reviews()->where('status','0')->count() }}</span></a></li>
                 <li class="{{Request::is('profile/my-account*') ? 'active' : ''}}"><a  href="{{route('careerAdvisior.my-account.index')}}"><i class="ti-user"></i> My account</a></li>
                 <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-user"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                <li><a href="#"><i class="ti-pencil-alt"></i>Blog</a></li>
+                <li><a href="#"><i class="ti-plus"></i>Add Blog</a></li>
             </ul>
         </div>
