@@ -3994,6 +3994,7 @@ span.required {
 .profileq-profilea {
     padding-top: 0;
 }
+
 .blog-leave-comment.profile-leave-comments {
     padding: 60px;
     position: relative;
@@ -4003,6 +4004,7 @@ span.required {
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
 .blog-leave-comment h4.small {
     font-size: 18px;
 }
@@ -4016,7 +4018,7 @@ span.required {
     height: auto;
 }
 
- .form-group.anonymously-user {
+.form-group.anonymously-user {
     max-width: 500px;
     margin-bottom: 15px;
 }
@@ -4040,7 +4042,8 @@ span.required {
 .blog-leave-comment .profile-comment-wrapper {
     display: none;
 }
-.blog-leave-comment .profile-comment-wrapper:nth-of-type(1), 
+
+.blog-leave-comment .profile-comment-wrapper:nth-of-type(1),
 .blog-leave-comment .profile-comment-wrapper:nth-of-type(2),
 .blog-leave-comment .profile-comment-wrapper:nth-of-type(3) {
     display: block !important;
@@ -4052,8 +4055,9 @@ span.required {
 }
 
 @media (min-width: 1200px) {
-    .profile-blog-page.profile-main-section ,
-    .profile-blog-edit-page{
+
+    .profile-blog-page.profile-main-section,
+    .profile-blog-edit-page {
         padding-left: 50px;
     }
 
@@ -4106,8 +4110,8 @@ span.required {
     width: 100%;
     background: #f5f5f5;
     border: 1px solid #e5e5e5;
-	align-items: center;
-	padding-right: 5px;
+    align-items: center;
+    padding-right: 5px;
 }
 
 .published-date #datepicker .form-control {
@@ -4121,13 +4125,13 @@ span.required {
 }
 
 .abstract {
-    background: #fafafa;
+    /*    background: #fafafa;
     padding: 30px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc;*/
     margin: 30px 0;
-    max-width: 400px;
-    font-size: 24px;
-    line-height: 1;
+    /*max-width: 400px;*/
+    /*    font-size: 24px;
+    line-height: 1;*/
 }
 
 .published-date label {
@@ -4139,64 +4143,89 @@ span.required {
 }
 
 .avatar-upload {
-  position: relative;
-  max-width: 205px;
-  margin: 30px 0;
+    position: relative;
+    max-width: 205px;
+    margin: 30px 0;
 }
+
 .avatar-upload .avatar-edit {
-  position: absolute;
-  right: 12px;
-  z-index: 1;
-  top: 10px;
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
 }
+
 .avatar-upload .avatar-edit input {
-  display: none;
+    display: none;
 }
-.avatar-upload .avatar-edit input + label {
-  display: inline-block;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 0;
-  border-radius: 100%;
-  background: #FFFFFF;
-  border: 1px solid transparent;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
-  cursor: pointer;
-  font-weight: normal;
-  transition: all 0.2s ease-in-out;
+
+.avatar-upload .avatar-edit input+label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
 }
-.avatar-upload .avatar-edit input + label:hover {
-  background: #f1f1f1;
-  border-color: #d6d6d6;
+
+.avatar-upload .avatar-edit input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
 }
-.avatar-upload .avatar-edit input + label:after {
-  content: "\f040";
-  font-family: 'FontAwesome';
-  color: #757575;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  margin: auto;
+
+.avatar-upload .avatar-edit input+label:after {
+    content: "\f040";
+    font-family: 'FontAwesome';
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
 }
+
 .avatar-upload .avatar-preview {
-  width: 192px;
-  height: 192px;
-  position: relative;
-  border-radius: 100%;
-  border: 6px solid #F8F8F8;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-}
-.avatar-upload .avatar-preview > div {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+.avatar-upload .avatar-preview>div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.datepicker td,
+.datepicker th {
+    padding: 10px !important;
+}
+
+.datepicker table tr td.today,
+.datepicker table tr td.today:hover,
+.datepicker table tr td.today.disabled,
+.datepicker table tr td.today.disabled:hover {
+    color: #fff !important;
+    background: #8ac43f !important;
+    padding: 10px !important;
+    height: 30px !important;
+}
+.datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active[disabled], .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active.disabled:hover[disabled] {
+    background: #f59b43 !important;
+}
 
 
-/*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/
+
+    /*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/
