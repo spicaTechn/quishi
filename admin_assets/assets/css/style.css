@@ -25020,3 +25020,18 @@ table {
 
 
 /*# sourceMappingURL=style.css.map */
+
+
+/** show the search result for the locations save **/
+.show_country_search, .show_state_search, .show_city_search {
+  border-top: none !important;
+}
+
+.show_country_search ul li, .show_state_search ul li, .show_city_search ul li{
+    line-height: 1.5em;
+    font-weight: bolder;
+}
+
+.show_country_search ul li:hover, .show_country_search ul li:focus, .show_state_search ul li:hover , .show_state_search ul li:focus, .show_city_search ul li:hover, .show_city_search ul li:focus{
+  background: #f1f1f1;
+}

@@ -543,6 +543,50 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
+	//route that are related to locations 
+
+	Route::get('/locations',[
+		'as'   => 'admin.locations.index',
+		'uses' => 'Admin\Location\LocationController@index'
+	]);
+
+	Route::get('/locations/getLocations',[
+		'as'	=> 'admin.location.getLocations',
+		'uses'  => 'Admin\Location\LocationController@getLocations'
+	]);
+
+	Route::get('/locations/{id}',[
+		'as'	=> 'admin.location.edit',
+		'uses'  => 'Admin\Location\LocationController@show'
+	]);
+
+
+	Route::post('/locations',[
+		'as'  => 'admin.add.location',
+		'uses'=> 'Admin\Location\LocationController@store'
+	]);
+
+	//edit the locations
+
+	Route::post('/locations/getQueryResult',[
+		'as'	=> 'admin.location.getSearchLocation',
+		'uses'  => 'Admin\Location\LocationController@getSearchLocation'
+	]);
+
+
+	Route::post('/locations/{id}',[
+		'as'	=> 'admin.update.location',
+		'uses'  => 'Admin\Location\LocationController@update'
+	]);
+
+
+	Route::delete('/locations/{id}',[
+		'as'	=> 'admin.destroy.location',
+		'uses'  => 'Admin\Location\LocationController@destroy'
+	]);
+
+
+
 });
 
 // Route for inquiry Message of contact page

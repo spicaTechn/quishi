@@ -75,6 +75,15 @@
                 </a>
             </li>
 
+
+            <li class="{{Request::is('admin/locations*') ? 'active' : ''}}">
+                <a href="{{route('admin.locations.index')}}">
+                    <span class="pcoded-micon"><i class="ti-location-pin"></i><b>D</b></span>
+                    <span class="pcoded-mtext" >{{ __('Locations')}}</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </nav>
