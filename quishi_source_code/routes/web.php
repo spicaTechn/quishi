@@ -214,6 +214,27 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'	=> 'Front\CareerAdvisor\Blog\BlogController@create'
 	]);
 
+
+	Route::get('/blogs/{id}',[
+		'as'	=> 'profile.blog.show',
+		'uses'  => 'Front\CareerAdvisor\Blog\BlogController@show'
+	]);
+
+	//store the career advisior blog
+
+	Route::post('/blogs',[
+		'as'	=> 'profile.blog.store',
+		'uses'	=> 'Front\CareerAdvisor\Blog\BlogController@store'
+	]);
+
+	Route::post('/blogs/{id}',[
+		'as'	=> 'profile.blog.update',
+		'uses'  => 'Front\CareerAdvisor\Blog\BlogController@update'
+	]);
+
+
+
+
 });
 
 

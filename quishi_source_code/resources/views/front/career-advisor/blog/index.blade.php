@@ -3,159 +3,42 @@
 
 <div class="profile-blog-page profile-main-section">
     <div class="row isotopeContainer2">
+        @foreach($blogs as $blog)
         <div class="col-md-4 isotopeSelector">
             <div class="blog-category-section">
                 <div class="blog-image">
-                    <a href="http://localhost/quishi/blog/36"><img src="http://localhost/quishi/front/images/blogs/1539154047.jpg" alt="#"></a>
+                    <a href="{{URL::to('/blog/'.$blog->id)}}">
+                            @if($blog->image_path != "")
+                                 <img src="{{asset('/front/images/blogs/'.$blog->image_path)}}" alt="#">
+                            @else
+                                <img src="http://localhost/quishi/front/images/blogs/1539154047.jpg" alt="#">
+                            @endif 
+                    </a>
                     <div class="blog-date">
-                        18<span>Oct</span>
+
+                        {{Carbon\Carbon::parse($blog->published_date)->format('d')}}<span>{{Carbon\Carbon::parse($blog->published_date)->format('M')}}</span>
                     </div>
                 </div>
                 <div class="blog-content">
-                    <h3><a href="http://localhost/quishi/blog/36">According to Dior Couture, this taboo fashion accessory is back</a></h3>
+                    <h3><a href="{{URL::to('blog/'.$blog->id)}}">{{$blog->title}}</a></h3>
 
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
+                    <p>{{$blog->abstract}}</p>
                     <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
+                    	<a href="{{URL::to('/blog/'.$blog->id)}}" class="blog-read-more">{{ __('Read more') }}</a>
                     	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
+                    		<a href="javascript:void(0);" class="btn-edit-blog" data-blog-id="{{$blog->id}}">Edit</a>
+                    		<a href="javascript:void(0);" data-blog-id="{{$blog->id}}" class="btn-delete-blog">Delete</a>
                     	</div>
                     </div>
                 </div>
             </div>
         </div>
-         <!-- end col -->
-        <div class="col-md-4 isotopeSelector">
-            <div class="blog-category-section">
-                <div class="blog-image">
-                    <a href="http://localhost/quishi/blog/37"><img src="http://localhost/quishi/front/images/blogs/1537937998.jpg" alt="#"></a>
-                    <div class="blog-date">
-                        01<span>Sep</span>
-                    </div>
-                </div>
-                <div class="blog-content">
-                    <h3><a href="http://localhost/quishi/blog/37">Blog Four</a></h3>
-
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
-                    <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
-                    	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
-                    	</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <!-- end col -->
-        <div class="col-md-4 isotopeSelector">
-            <div class="blog-category-section">
-                <div class="blog-image">
-                    <a href="http://localhost/quishi/blog/39"><img src="http://localhost/quishi/front/images/blogs/1537938021.jpg" alt="#"></a>
-                    <div class="blog-date">
-                        01<span>Nov</span>
-                    </div>
-                </div>
-                <div class="blog-content">
-                    <h3><a href="http://localhost/quishi/blog/39">Blog</a></h3>
-
-                    <p>A blog is a discussion or informational website published on the World Wide Web consisting of discrete, often informal diary-style...</p>
-                    <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
-                    	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
-                    	</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- end col -->
-        <div class="col-md-4 isotopeSelector">
-            <div class="blog-category-section">
-                <div class="blog-image">
-                    <a href="http://localhost/quishi/blog/39"><img src="http://localhost/quishi/front/images/blogs/1537938021.jpg" alt="#"></a>
-                    <div class="blog-date">
-                        01<span>Nov</span>
-                    </div>
-                </div>
-                <div class="blog-content">
-                    <h3><a href="http://localhost/quishi/blog/39">Blog</a></h3>
-
-                    <p>A blog is a discussion or informational website published on the World Wide Web consisting of discrete, often informal diary-style...</p>
-                    <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
-                    	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
-                    	</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <!-- end col -->
-
-         <div class="col-md-4 isotopeSelector">
-             <div class="blog-category-section">
-                 <div class="blog-image">
-                     <a href="http://localhost/quishi/blog/36"><img src="http://localhost/quishi/front/images/blogs/1539154047.jpg" alt="#"></a>
-                     <div class="blog-date">
-                         18<span>Oct</span>
-                     </div>
-                 </div>
-                 <div class="blog-content">
-                     <h3><a href="http://localhost/quishi/blog/36">According to Dior Couture, this taboo fashion accessory is back</a></h3>
-
-                     <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
-                     <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
-                    	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
-                    	</div>
-                    </div>
-                 </div>
-             </div>
-         </div>
-          <!-- end col -->
-
-           <div class="col-md-4 isotopeSelector">
-             <div class="blog-category-section">
-                 <div class="blog-image">
-                     <a href="http://localhost/quishi/blog/36"><img src="http://localhost/quishi/front/images/blogs/1539154047.jpg" alt="#"></a>
-                     <div class="blog-date">
-                         18<span>Oct</span>
-                     </div>
-                 </div>
-                 <div class="blog-content">
-                     <h3><a href="http://localhost/quishi/blog/36">According to Dior Couture, this taboo fashion accessory is back</a></h3>
-
-                     <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa...</p>
-                     <div class="blog-footer">
-                    	<a href="http://localhost/quishi/blog/36" class="blog-read-more">read more</a>
-                    	<div class="edit-blog">
-                    		<a href="">Edit</a>
-                    		<a href="">Delete</a>
-                    	</div>
-                    </div>
-                 </div>
-             </div>
-         </div>
-          <!-- end col -->
+        @endforeach
     </div>
-    <!-- profile blog pagination -->
-    <nav class="navigation blog-pagination">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#"><i class="icon-arrow-left"></i></a></li>
-            <li class="page-item current-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#"><i class="icon-arrow-right"></i></a></li>
-        </ul>
-    </nav>
-    <!-- End profile blog pagination -->
+    <div class="blog_pagination">
+     {{ $blogs->links() }}
+    </div>
+   
 </div>
 <!-- profile-main-section -->
 </div>
@@ -209,5 +92,17 @@
         	$(window).resize(function(){
         	  equalheight('.blog-content h3');
         	});
+
+
+            //edit blog
+            $('.btn-edit-blog').on('click',function(e){
+                var _quishi_blog_id = $(this).data('blog-id');
+                window.open("{{URL::to('/profile/blogs')}}" + "/" + _quishi_blog_id);
+            });
+            //delete blog
+            $('.btn-delete-blog').on('click',function(e){
+                e.preventDefault();
+                console.log('i need to delete the blog');
+            });
     </script>
 @endsection

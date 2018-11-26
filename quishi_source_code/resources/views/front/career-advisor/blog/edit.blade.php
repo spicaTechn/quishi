@@ -2,24 +2,24 @@
 
 @section('content')
 <div class="profile-blog-edit-page profile-main-section">
-	<form action="{{route('profile.blog.store')}}" method="POST" id="add-new-blog" class="add-new-blog" name="add-new-blog" enctype="multipart/form-data">
+	<form action="{{route('profile.blog.update',['id'=>$blog_detail->id])}}" method="POST" id="add-new-blog" class="add-new-blog" name="add-new-blog" enctype="multipart/form-data">
 		{{csrf_field()}}
 		<div class="row">
 		<div class="col-md-8 col-lg-6">
 			<div class="editable-title">
 				<h5>Title</h5>
 				<div class="form-group">
-					<input class="form-control" placeholder="According to the culture" name="blog_title">
+					<input class="form-control" placeholder="According to the culture" name="blog_title" value="{{$blog_detail->title}}">
 				</div>
 			</div>
 			<div class="editable-content">
 				<h5>Description</h5>
-				<textarea class="text-editor input-reset ba b--black-20 pa2 mb2 db w-100" name="blog_description" style = " height:250px;" id="blog_description"></textarea>
+				<textarea class="text-editor input-reset ba b--black-20 pa2 mb2 db w-100" name="blog_description" style = " height:250px;" id="blog_description">{!! $blog_detail->content !!}</textarea>
 			</div>
 
 			<div class="abstract">
 				<h5>Abstract</h5>
-				<textarea class="form-control" placeholder="hello there, I am the abstract" name="blog_abstract"></textarea>
+				<textarea class="form-control" placeholder="hello there, I am the abstract" name="blog_abstract">{{ $blog_detail->abstract }}</textarea>
 				
 			</div>
 		</div>
@@ -27,8 +27,8 @@
 				
 				<div class="published-date">
 					<label>Published Date: </label>
-					<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-					    <input class="form-control" name="_blog_published_date" type="text" readonly />
+					<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy" data-date="{{Carbon\Carbon::parse($blog_detail->published_date)->format('Y-m-d')}}">
+					    <input class="form-control" name="_blog_published_date"  value="{{Carbon\Carbon::parse($blog_detail->published_date)->format('Y-m-d')}}" type="text" readonly />
 					    <span class="input-group-addon"><i class="icon-calendar"></i></span>
 					</div>
 				</div>
@@ -41,8 +41,14 @@
 			            <label for="imageUpload"></label>
 			        </div>
 			        <div class="avatar-preview">
-			            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-			            </div>
+
+			        	@if($blog_detail->image_path  != null )
+			        		 <div id="imagePreview" style="background-image: url({{asset('/front/images/blogs') .'/' .$blog_detail->image_path}});">
+			            	 </div>
+			        	@else
+			        		 <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+			            	</div>
+			            @endif
 			        </div>
 			    </div>
 				</div>
@@ -69,8 +75,8 @@
 			$("#datepicker").datepicker({ 
 				autoclose: true, 
 				format  : 'yyyy-mm-dd',
-				todayHighlight: true
-			}).datepicker('update', new Date());
+				//endDate : new Date(),
+			});
 		});
 
 		function readURL(input) {

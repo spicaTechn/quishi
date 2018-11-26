@@ -329,7 +329,7 @@ $(document).ready(function () {
             var following_id = $(this).attr('data-following-id');
             var _token       = "{{csrf_token()}}";
             //make the post request
-            $.post("{{url::to('/profile/followCareerAdvisor')}}" + "/" + following_id, {_token}, function(data){
+            $.post("{{URL::to('/profile/followCareerAdvisor')}}" + "/" + following_id, {_token}, function(data){
                 //check the return data status
                 if(data.status == "success"){
                     $(current_link).html('Unfollow');
