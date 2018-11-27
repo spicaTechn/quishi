@@ -10,7 +10,7 @@ use App\User;
 use DB, Auth;
 use App\Model\UserProfile;
 use App\Model\Education, App\Model\Career;
-
+use App\Model\Post;
 
 class ProfilePageController extends BaseCareerAdvisorController
 {
@@ -119,6 +119,10 @@ class ProfilePageController extends BaseCareerAdvisorController
          $i++;
         }
 
+
+        //get the recent blog of the career advisior if any
+        $career_advisior_blogs   = Post::where('user_id',$id)->orderBy('published_date','desc')->limit(3)->get();
+
         //echo "<pre>"; print_r($questions); echo "</pre>";exit;
 
         return view('front.pages.single-pages.single-profile')->with(array(
@@ -126,7 +130,8 @@ class ProfilePageController extends BaseCareerAdvisorController
             'page_title'     => 'View Profile',
             'user'           => $user_single,
             'questions'      => $questions,
-            'profile_view'   => $profile_view
+            'profile_view'   => $profile_view,
+            'blogs'          => $career_advisior_blogs
 
         ));
     }

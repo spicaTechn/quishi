@@ -90,4 +90,11 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class,'followers','follower_id','leader_id')->withTimestamps();
     }
 
+
+    //number of blogs written by
+
+    public function posts(){
+        return $this->hasMany('App\Model\Post');
+    }
+
 }

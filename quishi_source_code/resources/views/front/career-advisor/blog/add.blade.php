@@ -47,7 +47,7 @@
 			    </div>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-default" type="submit">Update</button>
+					<button class="btn btn-default" type="submit">Create</button>
 				</div>
 		</div>
 	
@@ -135,6 +135,15 @@
                 		}
                 	}
                 },
+                'blog_abstract':{
+                	validators:{
+                		notEmpty:{
+                			message:{
+                				'Blog abstract is required field'
+                			}
+                		}
+                	}
+                }
                 
                 '_blog_published_date': {
                     validators: {

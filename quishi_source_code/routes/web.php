@@ -26,6 +26,11 @@
 		'as'		=>	'blog',
 		'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
 	]);
+
+	Route::get('/blog/careerAdvisor/{id}',[
+		'as'		=> 'careerAdvisior.blog.index',
+		'uses'      => 'Front\Pages\Blog\BlogPageController@showCareerAdvisiorBlog'
+	]);
 	Route::get('/blog/{id}', [
 		'as'		=>	'blog',
 		'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
@@ -34,9 +39,9 @@
 	Route::get('/blog-share/{user_id}/{blog_id}','Front\Pages\Blog\BlogShareController@show');
 
 	// Route for profile front
-	Route::get('/career-advisior','Front\Pages\Profile\ProfilePageController@index');
+	Route::get('/career-advisor','Front\Pages\Profile\ProfilePageController@index');
 	// route for showing single profile
-	Route::get('/career-advisior/{id}', [
+	Route::get('/career-advisor/{id}', [
 		'as'		=>	'career-advisior',
 		'uses'		=>	'Front\Pages\Profile\ProfilePageController@show'
 	]);
@@ -230,6 +235,11 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::post('/blogs/{id}',[
 		'as'	=> 'profile.blog.update',
 		'uses'  => 'Front\CareerAdvisor\Blog\BlogController@update'
+	]);
+
+	Route::delete('/blogs/{id}',[
+		'as'    => 'profile.blog.destroy',
+		'uses'  => 'Front\CareerAdvisor\Blog\BlogController@destroy'
 	]);
 
 

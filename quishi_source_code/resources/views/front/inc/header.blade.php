@@ -17,7 +17,7 @@
                     <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link {{Request::is('blog*') ? 'active ' : '' }}">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link {{Request::is('about*') ? 'active ' : '' }}">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link {{Request::is('contact*') ? 'active ' : '' }}">{{ __('Contact')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link {{Request::is('career-advisior*') ? 'active ' : '' }}">{{ __('Profiles')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link {{Request::is('career-advisior*') ? 'active ' : '' }}">{{ __('Profiles')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
                 </ul>
             </div>

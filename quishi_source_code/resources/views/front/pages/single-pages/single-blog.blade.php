@@ -6,47 +6,41 @@
             <div class="col-md-12">
                 <div class="blog-single-det">
                     <div class="blog-single-top">
-                        <h1>{{ $blog->title }}</h1>
-                        <p>{{ $blog_details['abstract'] }}</p>
+                        <h1>{{ $blog_details->title }}</h1>
+                        <p>{{  $blog_details->abstract }}</p>
                     </div>
                     <div class="blog-single-post clearfix">
-                        @if($user = Auth::user())
-                          @if($image = $user->user_profile()->where('user_id',$user->id)->select('image_path')->first())
+                          @if($blog_details->user->user_profile()->select('image_path')->first())
                             <div class="post-img">
-                                <img src="asset('/front/images/profile/'.$image)" alt="">
+                                <img src="{{ asset('/front/images/profile/'.$blog_details->user->user_profile->image_path)}}" alt="">
                             </div>
                           @else
                             <div class="post-img">
                                <img src="{{ asset('/front/images/profile/users.png') }}" >
                             </div>
                           @endif
-                        @else
-                        <div class="post-img">
-                            @if(!empty($blog->user->user_profile->image_path))
-                                <img src="{{asset('front/images/profile') .'/'. $blog->user->user_profile->image_path}}" alt="">
-                            @else
-                                <img src="{{asset('front/images/1536744763.png')}}" alt="">
-                            @endif
-                        </div>
-                        @endif
                         <div class="post-date">
                             <ul>
                                 <li>Published on
-                                    <time><b>{{ Carbon\Carbon::parse($blog_details['date'])->format('d M Y') }}</b></time>
+                                    <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
                                 </li>
-                                <li>By: <a href="#" target="_blank">{{ucwords($blog->user->name)}}</a></li>
+                                <li>By: <a href="{{URL::to('/career-advisior/'.$blog_details->user->id)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="blog-single-img">
-                        <img src="{{ asset('/front') }}/images/blogs/{{ $blog_details['image'] }} " alt="" style="">
+                        @if($blog_details->image_path != "")
+                            <img src="{{ asset('/front/images/blogs/'.$blog_details->image_path) }}" alt="" style="">
+                        @else
+                            <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
+                        @endif
                     </div>
                     <div class="single-bl-info">
-                        <p>{{ $blog->content }}</p>
+                        <p>{!! $blog_details->content !!}</p>
 
-                        <blockquote>
+                       <!--  <blockquote>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante adipiscing elit. Integer posuere erat a ante.</p>
-                        </blockquote>
+                        </blockquote> -->
                     </div>
                     <div class="share-blog" style="display: block;">
                         <ul>
@@ -58,7 +52,7 @@
                         </ul>
 
                         <ul>
-                            <li class="blog-page-like"><i class="icon-like"></i> <span class="current_like">{{$blog->total_likes}}</span> {{($blog->total_likes > 1) ? 'Likes' : 'Like' }}</li>
+                            <li class="blog-page-like"><i class="icon-like"></i> <span class="current_like">{{$blog_details->total_like_counts}}</span> {{($blog_details->total_like_counts > 1) ? 'Likes' : 'Like' }}</li>
                         </ul>
                     </div>
 
@@ -424,7 +418,7 @@
             e.preventDefault();
             var current_click = $(this);
             var current_like = $(this).find('span.current_like').html();
-            $.post("{{route('page_like')}}",{_token: "{{csrf_token()}}",page_id: "{{$blog->id}}"},function(data){
+            $.post("{{route('page_like')}}",{_token: "{{csrf_token()}}",blog_id: "{{$blog_details->id}}"},function(data){
                 if(data.status == "success"){
                     $(current_click).find('span.current_like').html(data.result);
                 }

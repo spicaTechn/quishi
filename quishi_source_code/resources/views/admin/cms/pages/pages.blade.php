@@ -77,7 +77,7 @@
                            <div class="card-block">
                             <div class="row">
                                <div class="col-md-6">
-                                  <h4>Services</h4>
+                                  <h4>How Quishi Works For You</h4>
                                </div>
 
                             </div>

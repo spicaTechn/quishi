@@ -97,12 +97,64 @@
             //edit blog
             $('.btn-edit-blog').on('click',function(e){
                 var _quishi_blog_id = $(this).data('blog-id');
-                window.open("{{URL::to('/profile/blogs')}}" + "/" + _quishi_blog_id);
+                window.open("{{URL::to('/profile/blogs')}}" + "/" + _quishi_blog_id,'_self');
             });
+
+
             //delete blog
             $('.btn-delete-blog').on('click',function(e){
                 e.preventDefault();
-                console.log('i need to delete the blog');
+                var _quishi_blog_id = $(this).data('blog-id');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover Blog & Comments !",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel please!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },function(isConfirm){
+                    if(isConfirm){
+                        //make ajax request 
+                        $.ajax({
+                            url:"{{URL::to('/profile/blogs')}}" + "/" + _quishi_blog_id,
+                            type:"DELETE",
+                            dataType:"Json",
+                            data:{_token:"{{csrf_token()}}"},
+                            success:function(data){
+                                if(data.status == "success")
+                                {
+                                    swal({
+                                        title: "Deleted!",
+                                        text : data.message,
+                                        type : "success",
+                                    }, function(){
+                                        window.location.href = "{{route('profile.blog.index')}}";
+                                    });
+                                    
+                                }else{
+                                    swal('Not allowed!!',data.message,'error');
+                                }
+                            },
+                            error:function(jqXHR,textStatus,errorThrown)
+                            {
+                                if(jqXHR.status == '404')
+                                {
+                                    swal('Not found in server','The major-category does not exists','error');
+                                }else if(jqXHR.status == '201')
+                                {
+                                    swal('Not allowed!!','The major-category cannot be deleted because its contains major.','error');
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        swal.close();
+                    }
+                });
             });
     </script>
 @endsection

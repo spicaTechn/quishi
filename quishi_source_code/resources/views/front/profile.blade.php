@@ -150,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile">
-                                    <a href="{{URL::to('/career-advisior').'/'.$user->id}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisor').'/'.$user->id}}">view profile</a>
                                 </div>
                             </div>
                         </div>

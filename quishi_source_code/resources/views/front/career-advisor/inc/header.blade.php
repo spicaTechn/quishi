@@ -17,7 +17,7 @@
                     <li class="nav-item"><a href="" class="nav-link">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/career-advisior')}}" class="nav-link">{{ __('Profiles')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link">{{ __('Profiles')}}</a></li>
 
                     <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i><span class="badge">4</span></a>
                         <div class="notification-list">

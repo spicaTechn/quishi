@@ -148,6 +148,18 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $this->post   = Post::findOrFail($id);
+        $image_path   = $this->post->image_path;
+
+        //delete the image 
+        if($image_path != " " &&   $this->post->delete()):
+            $file = $_SERVER['DOCUMENT_ROOT'].'/quishi/front/images/blogs/'.$image_path;
+            if(file_exists($file)):
+                 \File::delete($file);
+            endif;
+        endif;
+
+        return response()->json(array('status'=>'success','message' => 'Blog has been deleted successfully!!'),200);
     }
 }

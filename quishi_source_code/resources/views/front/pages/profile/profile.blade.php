@@ -154,7 +154,7 @@
                                     @else
                                         <a href="javascript:void(0);" class="follow_career_advisor" data-following-id="{{$user_list['following_id']}}"> {{ __('Follow')}}</a>
                                     @endif
-                                    <a href="{{URL::to('/career-advisior').'/'.$user_list['user_id']}}">view profile</a>
+                                    <a href="{{URL::to('/career-advisor').'/'.$user_list['user_id']}}">view profile</a>
                                 </div>
                             </div>
                         </div>

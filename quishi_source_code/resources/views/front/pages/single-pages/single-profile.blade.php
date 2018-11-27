@@ -61,10 +61,10 @@
                                         <span class="like" id="like" value="{{ $user->user_profile->total_likes }}">{{ $user->user_profile->total_likes }}
                                         </span>
                                     </li>
-                                    <li><a href="#"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
-                                    <li><a href="#"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
-                                    <li><a href="#"><i class="icon-user"></i> Followers</a><span>1,00</span></li>
-                                    <li><a href="#"><i class="icon-feed"></i> Blog</a><span>4</span></li>
+                                    <li><a href="javascript:void(0);"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
+                                    <li><a href="javascript:void(0);"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
+                                    <li><a href="#"><i class="icon-user"></i> Followers</a><span>{{quishi_convert_number_to_human_readable($user->followers()->count())}}</span></li>
+                                    <li><a href="{{URL::to('/blog/careerAdvisor/'.$user->id)}}"><i class="icon-feed"></i> Blog</a><span>{{$user->posts()->count()}}</span></li>
 
                                 </ul>
                             </div>
@@ -117,57 +117,39 @@
                     </div>
 
                 </div>
-
+                @if($blogs->count() > 0)
                 <div class="profile-blog-section the-media container">                        
                         <div class="section-title">
                             <h2>{{ __('Recent blog') }}</h2>
                         </div>
                         <div class="row row-news">
+                            @foreach($blogs as $blog)
                             <div class="col-lg-4">
                                 <div class="news-blog-section">
                                     <div class="blog-image">
-                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+
+                                        @if($blog->image_path != "")
+                                             <img src="{{asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#">
+                                        @else
+                                            <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+                                        @endif
+                                       
                                     </div>
                                     <div class="blog-conten">
-                                        <h4>Blog Four</h4>
-                                        <span class="time">Eva Marcel on Sep-2018</span>
-                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
-                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
+                                        <h4>{{ $blog->title }}</h4>
+                                        <span class="time">Published on {{ Carbon\Carbon::parse($blog->published_date)->format('M-Y')}}</span>
+                                        <p>{!! ($blog->abstract != "" ) ? $blog->abstract : substr($blog->content,0,50) . '..' !!}</p>
+                                        <a href="{{URL::to('/blog/'.$blog->id) }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
-                                <div class="news-blog-section">
-                                    <div class="blog-image">
-                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
-                                    </div>
-                                    <div class="blog-conten">
-                                        <h4>Blog Four</h4>
-                                        <span class="time">Eva Marcel on Sep-2018</span>
-                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
-                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <div class="news-blog-section">
-                                    <div class="blog-image">
-                                        <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
-                                    </div>
-                                    <div class="blog-conten">
-                                        <h4>Blog Four</h4>
-                                        <span class="time">Eva Marcel on Sep-2018</span>
-                                        <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique ullamcorper eros, eu volutpat ipsum. Nulla in varius massa. Sed eget lacinia sapien. Pra...</p>
-                                        <a href="http://localhost/quishi/blog/37">Full Story <i class="icon-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
+                        <div class="view-more"><a href="{{URL::to('/blog/careerAdvisor/'.$user->id)}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
 
                 </div>
+                @endif
             </div>
         </div>
         <!-- end front-profile-details -->
