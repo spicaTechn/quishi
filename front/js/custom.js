@@ -38,6 +38,14 @@ jQuery(document).ready(function($) {
         $(".user-Anonymous-question-adds").toggleClass("show");
     });
 
+    $(".blog-dropdown > a").click(function() {
+        $(".blog-dropdown-menu").slideToggle();
+        $(".blog-dropdown").toggleClass("open");
+    });
+
+
+    $('.dropdown-toggle').dropdown()
+
     // $(".reply-inner .view-all-comment span").click(function() {
     //     $(this).toggleClass('comment-on');
     //     //$('.reply-inner .profile-comment-section').slideToggle();

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
@@ -39,7 +40,8 @@ a {
 }
 
 p {
-    font-family: 'Avenir LT Std';
+    /*font-family: 'Avenir LT Std';*/
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -332,7 +334,7 @@ p {
 .banner-bg {
     min-height: 350px;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 @media (min-width: 992px) {
@@ -399,13 +401,40 @@ p {
     display: flex;
     background: #fff;
     border-radius: 30px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin-bottom: 25px;
     width: 100%;
     max-width: 800px;
     position: relative;
 }
+.search-list {
+    position: absolute;
+    top: 100%;
+    text-align: left;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.20);
+    border-radius: 30px;
+    overflow: hidden;
+}
 
+.search-list ul {
+    padding: 0;
+}
+
+.search-list ul li {
+    list-style: none;
+    padding: 8px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    cursor: default;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-list ul li:hover {
+    background: #fff;
+}
 .search-wrapper .form-group i {
     position: absolute;
     left: 20px;
@@ -784,6 +813,7 @@ p {
 .main-footer {
 
     background: #f0f7f9;
+    background: #fff;
     min-height: 200px;
     padding: 50px 0;
 }
@@ -801,7 +831,8 @@ p {
 
 .footer-section p {
     color: #5f6d4d;
-    font-size: 20px;
+    /*font-size: 20px;*/
+    font-size: 15px;
 }
 
 .footer-section p a {
@@ -1001,6 +1032,18 @@ p {
 
         /*  position: absolute;
         left: 0;*/
+    }
+
+    .view-profile.row.change-list-view {
+
+        /*padding: 0 20px;*/
+
+    }
+
+    .view-profile.row.change-list-view a {
+        max-width: 46%;
+        flex: 0 0 46%;
+        margin: 0 2%;
     }
 }
 
@@ -1631,6 +1674,21 @@ p {
 
 .profile-sidemenu ul li a i {
     margin-right: 7px;
+}
+.blog-dropdown > a .ti-angle-right {
+    float: right;
+    position: relative;
+    top: 3px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.blog-dropdown-menu {
+    display: none;
+}
+
+.blog-dropdown.open > a .ti-angle-right {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .profile-sidemenu ul li a .badge {
@@ -3643,7 +3701,13 @@ span.icon.ion-ios-play:before {
     color: #5f6d4d;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-    font-size: 18px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+.donation-modal-btn.btn.btn-default {
+
+    color: #fff;
+
 }
 
 .footer-section ul li a:hover {
@@ -4226,6 +4290,45 @@ span.required {
     background: #f59b43 !important;
 }
 
+.top-filter-section .form-control {
+    height: 36px;
+}
 
 
-    /*https://www.tutorialrepublic.com/faq/hide-dropdown-menu-on-click-outside-of-the-element-in-jquery.php*/
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 35px !important;
+}
+.blog-search {
+    max-width: 370px;
+}
+
+.blog-search .search-form .form-control {
+    background: #f0f7f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 30px;
+    height: 45px;
+    font-size: 13px;
+}
+
+.blog-search .search-form .form-control::placeholder {
+    color: #6c757d;
+}
+
+.blog-search .top-filter-section {
+    padding: 0;
+    border: none;
+}
+
+.btn.focus, .btn:focus {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+
+}
+
+
+
+

@@ -4,14 +4,14 @@
                 <div class="container">
                     <div class="row">
                         @if($contact_social)
-                        <div class="col-md-4">
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Address</h4>
 
                                 <p>{{ $contact_social['address'] }}</p>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Contact</h4>
                                 <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
@@ -19,11 +19,13 @@
                             </div>
                         </div>
                         @endif
-                        <div class="col-md-4">
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Donate</h4>
                                 <div class="donate-image">
-                                    <a class="donation-modal-btn"><img src="{{asset('front/images/paypal.png')}}" alt="paypals"></a>
+                                    <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
+                                        Donate Now
+                                    </a>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal modal-quishi" id="donation-Modal">
@@ -120,6 +122,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="footer-section">
+                                <h4>Quick links</h4>
+                                <div class="footer-nav">
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Privacy policy</a></li>
+                                        <li><a href="#">Terms of use</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

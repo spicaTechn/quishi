@@ -3,6 +3,14 @@
 <div class="blog-page">
     <div class="container">
         <div class="blog-main-body">
+        	<div class="blog-search">
+        		<div class="top-filter-section">
+                  <div class="search-form form-group">
+                      <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
+                      <input type="text" class="form-control" placeholder="search by name">
+                  </div>
+                </div>
+        	</div>
             <div class="row isotopeContainer2">
              @foreach($blogs as $blog)
 	                <div class="col-md-4 isotopeSelector">

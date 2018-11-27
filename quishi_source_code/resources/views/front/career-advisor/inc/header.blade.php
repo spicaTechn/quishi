@@ -213,8 +213,16 @@
                 <li class="{{ Request::is('profile/answers*') ? 'active' : '' }}"><a href="{{url('/profile/answers')}}"><i class="ti-write"></i> My answers</a></li>
                 <li class="{{ Request::is('profile/reviews*') ? 'active' : '' }}"><a href=" {{url('/profile/reviews')}} "><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">{{ Auth::user()->reviews()->where('status','0')->count() }}</span></a></li>
                 <li class="{{Request::is('profile/my-account*') ? 'active' : ''}}"><a  href="{{route('careerAdvisior.my-account.index')}}"><i class="ti-user"></i> My account</a></li>
-                <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-user"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
-                <li><a href="{{route('profile.blog.index')}}"><i class="ti-pencil-alt"></i>Blogs</a></li>
-                <li><a href="{{route('profile.blog.create')}}"><i class="ti-plus"></i>Add Blog</a></li>
+                <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-lock"></i> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                <li class="blog-dropdown"><a href="#"><i class="ti-pencil-alt"></i>Blogs<i class="ti-angle-right"></i></a>
+                    <ul class="blog-dropdown-menu">
+                        <li><a href="{{route('profile.blog.index')}}"><i class="ti-angle-right"></i> All Blogs</a></li>
+                        <li><a href="{{route('profile.blog.create')}}"><i class="ti-angle-right"></i> Add Blog</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="{{route('profile.blog.create')}}"><i class="ti-comments"></i>Forum</a></li>
+                <li><a href="{{route('profile.blog.create')}}"><i class="ti-user"></i>Followers</a></li>
+                <li><a href="{{route('profile.blog.create')}}"><i class="ti-heart"></i>Following</a></li>
             </ul>
         </div>
