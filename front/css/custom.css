@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
@@ -416,6 +416,8 @@ p {
     box-shadow: 0 0 10px rgba(0,0,0,0.20);
     border-radius: 30px;
     overflow: hidden;
+    width: 100%;
+    margin-top: 3px;
 }
 
 .search-list ul {
@@ -430,6 +432,13 @@ p {
     cursor: default;
     font-size: 13px;
     font-family: 'Montserrat', sans-serif;
+    padding-left: 50px;
+    font-weight: 500;
+    position: relative;
+    text-transform: capitalize;
+}
+.search-wrapper .search-list ul li i {
+    top: 20px;
 }
 
 .search-list ul li:hover {
