@@ -130,8 +130,8 @@
                                 <h4>Quick links</h4>
                                 <div class="footer-nav">
                                     <ul>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="{{URL::to('/about')}}">About</a></li>
+                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
                                         <li><a href="#">Privacy policy</a></li>
                                         <li><a href="#">Terms of use</a></li>
                                     </ul>

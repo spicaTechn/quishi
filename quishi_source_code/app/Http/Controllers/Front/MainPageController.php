@@ -11,6 +11,8 @@ use App\Model\UserProfile;
 use App\Model\Tag;
 use DB;
 use App\Model\Post;
+use App\Model\Address;
+use App\Model\Career;
 
 use Cartalyst\Stripe\Stripe;
 use Stripe\Error\Card;
@@ -191,4 +193,69 @@ class MainPageController extends Controller
        
        
     }
+
+
+    /**
+     * function to show the search option by the user location search
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     *
+     */ 
+
+
+    public function autocompleteByLocation(Request $request){
+        $search_query   = $request->input('q');
+
+        //check for the empty search result
+        if(!empty($search_query)):
+        //make requst to DBMS
+            $search_results = Address::where('full_address','LIKE',"%{$search_query}%")
+                                      ->orderBy('created_at','desc')
+                                      ->limit(7)
+                                      ->select('full_address')
+                                      ->get();
+            if($search_results->count() > 0):
+                //send the success message to the client along with the results
+                return response()->json(array('status'=>'success','result' => $search_results ),200);
+            else:
+                //return failed response back to the client along with the message
+                return response()->json(array('status'=>'failed','message'=>'There are no matching records found in the quishi system'),200);
+            endif;
+        else:
+            //return failed response back to the client along with the message
+            return response()->json(array('status'=>'failed','message'=>'Search query is empty!'),200);
+        endif;
+    }
+
+
+
+    /**
+     * function to show the search option by the user job title search
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     *
+     */
+
+
+    public function autocompleteByJobTitle(Request $request){
+
+        $search_query    = $request->input('q');
+        if(!empty($search_query)):
+            $search_results = Career::where('title','LIKE',"%{$search_query}%")
+                                    ->orderBy('created_at','desc')
+                                    ->limit(7)
+                                    ->select('title')
+                                    ->get();
+            if($search_results->count() > 0):
+                return response()->json(array('status'=>'success','result'=>$search_results),200);
+            else:
+                //return failed
+                return response()->json(array('status'=>'failed','message'=>'No job title matches'),200);
+            endif;
+        else:
+            //return the failure message
+            return response()->json(array('status'=>'failed','message'=>'Search Query empty'),200);
+        endif;
+    }
+
 }

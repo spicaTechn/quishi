@@ -80,6 +80,19 @@
 	]);
 
 
+	//users search on the index page
+
+	Route::post('/searchByLocation',[
+		'as'		=> 'searchByLocation.autocomplete',
+		'uses'		=> 'Front\MainPageController@autocompleteByLocation'
+	]);
+
+	Route::post('/searchByJobTitle',[
+		'as'		=> 'searchByJobTitle.autocomplete',
+		'uses'		=> 'Front\MainPageController@autocompleteByJobTitle'
+	]);
+
+
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){

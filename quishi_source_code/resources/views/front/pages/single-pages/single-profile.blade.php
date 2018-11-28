@@ -78,7 +78,7 @@
                             <div class="profile-name-detail profile-name-detail-md">
                                 <h2>{{ $user->user_profile->first_name }}</h2>
                                 @foreach($user->careers as $career)
-                                 <span class="small">{{ $career->title }}</span>
+                                 <span class="small">{{ ucwords($career->title) }}</span>
                                 @endforeach
                                 <span class="small">{{ $user->email }}</span>
                             </div>

@@ -52,7 +52,7 @@ class LocationController extends Controller
         $this->address->status       = $request->input('status');
 
         //check for the same address in the database
-        $full_address                = $request->input('city') .', '. $request->input('state') .' '. $request->input('country');
+        $full_address                = $request->input('city') .' '. $request->input('state') .' '. $request->input('country');
         $check_for_address           = Address::where('full_address',$full_address)->first();
 
 
@@ -112,7 +112,7 @@ class LocationController extends Controller
         $this->address->city          = $request->input('city');
         $this->address->status        = $request->input('status');
 
-        $full_address                = $request->input('city') .', '. $request->input('state') .' '. $request->input('country');
+        $full_address                = $request->input('city') .' '. $request->input('state') .' '. $request->input('country');
         $check_for_address           = Address::where('full_address',$full_address)->firstOrFail();
 
         if($check_for_address && $check_for_address->id != $id):

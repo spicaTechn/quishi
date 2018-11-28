@@ -278,6 +278,9 @@ class ProfilePageController extends BaseCareerAdvisorController
                                     //if the request has education
                                     ->where(function($query) use($request){
                                         if($request->has('education') && !empty($request->input('education'))):
+                                          //todo need to check the educational_level here 
+
+                                          // if bachelors is selected we need to show the career advisior that have associate and high schools as well 
                                                 $education = $request->input('education');
                                                 $query->where('user_profile.educational_level',"{$education}");
                                         endif;

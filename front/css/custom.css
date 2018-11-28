@@ -4296,7 +4296,11 @@ span.required {
 
 
 .select2-container .select2-selection--single {
-    height: 35px !important;
+    height: 37px !important;
+}
+
+.select2-container--default .select2-selection--single{
+    border: 1px solid #dee2e6 !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {

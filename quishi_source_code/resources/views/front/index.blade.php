@@ -2,50 +2,27 @@
 
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
-<!--     <div class="most-search-job">
-        <ul>
-            <li> {{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-            <li>{{ __('Graphics Designer') }}</li>
-        </ul>
-    </div> -->
     <div class="container">
         <div class="search-absolute-content text-center">
             <!-- <h1>{{ __('search') }}</h1> -->
-            <form name="search_career_advisor" id="search_career_advisor" class="search_career_advisor" action="{{URL::to('/career-advisior')}}">
+            <form name="search_career_advisor" id="search_career_advisor" class="search_career_advisor" action="{{URL::to('/career-advisor')}}" autocomplete="off">
                 <div class="search-wrapper">
 
                     <div class="form-group">
                         <i class="icon-magnifier"></i>
-                        <input type="text" name="search_by_job_title" class="form-control" placeholder="Search keyword or title" id="search_by_job_title">
-                        <div class="search-list" style="display: none;">
+                        <input type="text" name="search_by_job_title" class="form-control search_by_job_title" placeholder="Job title" id="search_by_job_title">
+                        <div class="search-list" style="display: none;" id="_job_title_search_list">
                             <ul>
-                                <li>responsive</li>
-                                <li>design</li>
-                                <li>nepal</li>
-                                <li>rivers</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                               
                             </ul>
                         </div>
                     </div>
                     <div class="form-group">
                         <i class="icon-location-pin"></i>
                         <input type="text" name="search_by_location"  id="search_by_location" class="form-control search_by_location" placeholder="Location" style="background: #f4f4f4;">
-                        <div class="search-list" style="display: none;">
+                        <div class="search-list" style="display: none;" id="_location_search_list">
                             <ul>
-                                <li>responsive</li>
-                                <li>design</li>
-                                <li>nepal</li>
-                                <li>rivers</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -381,6 +358,76 @@ $(document).ready(function () {
         }
         
     });
+
+
+    //show the autocomplete option when the 
+    $('body').on('keyup','.search_by_location',function(e){
+        e.preventDefault();
+        var search_query   =  $(this).val();
+        var _token         = "{{csrf_token()}}";
+
+        //make the post request
+        $.post("{{URL::to('/searchByLocation')}}",{q:search_query, _token : _token},function(data){
+            if(data.status == "success"){
+                var return_lists = "";
+                $.each(data.result, function(index,value){
+                    return_lists += "<li data-location='" + value.full_address + "'><i class='icon-location-pin'></i>" + value.full_address + "</li>";
+                });
+                //now append to ul 
+                $("#_location_search_list ul").html(return_lists);
+                $('#_location_search_list').show();
+            }else{
+                $('#_location_search_list').hide();
+            }
+        });
+    });
+    //trigger the click event
+
+    $('body').on('click','#_location_search_list > ul li', function(e){
+       var selected_address   = $(this).data('location');
+        $(this).closest('div.form-group').find('input').val(selected_address);
+        $('#_location_search_list').hide();
+    });
+
+
+    $('body').click(function(event){
+        var $trigger = $("#_location_search_list > ul li");
+        if ($trigger !== event.target) {
+            $("#_location_search_list").hide();
+        }
+    });
+
+
+    //show the autocomplete for the job title
+
+    $('body').on('keyup','.search_by_job_title',function(e){
+        var search_job_title  = $(this).val();
+        var _token            = "{{csrf_token()}}";
+
+        //make the request 
+        $.post("{{URL::to('/searchByJobTitle')}}",{ q:search_job_title, _token:_token},function(data){
+            if(data.status == "success"){
+               var return_job_lists = "";
+               $.each(data.result,function(index,value){
+                return_job_lists += "<li data-job-title='" + value.title + "'><i class='ti-light-bulb'></i>" + value.title + "</li>";
+               });
+
+               $("#_job_title_search_list ul").html(return_job_lists);
+               $("#_job_title_search_list").show();
+            }else{
+                $("#_job_title_search_list").hide();
+            }
+        });
+    });
+
+    //trigger the click event
+
+    $('body').on('click','#_job_title_search_list > ul li', function(e){
+       var selected_address   = $(this).data('job-title');
+        $(this).closest('div.form-group').find('input').val(selected_address);
+        $('#_job_title_search_list').hide();
+    });
+
 
 
 });
