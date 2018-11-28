@@ -21,7 +21,7 @@
                     <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
                 </ul>
             </div>
-            <div class="login-menu login-menu-sm">
+            <!-- <div class="login-menu login-menu-sm">
                 <ul>
                     @guest
                         <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Log In')}} <i class="icon-power"></i></a></li>
@@ -32,6 +32,45 @@
                             <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }} </a></li>
                         @else
                             <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ ucwords(auth()->user()->name) }} </a></li>
+                        @endif
+                    @endguest
+                </ul>
+            </div> -->
+
+            <div class="login-menu login-menu-sm">
+                <ul>
+                    @guest
+                        <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+                        <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+                        
+                    @else
+                        @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
+                          
+                            <li class="dropdown nav-item logdin">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}</a>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                                </ul>
+                            </li>
+                        @else
+                            <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ ucwords(auth()->user()->name) }} </a></li>
+
+                            <li class="dropdown nav-item logdin">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}</a>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                                </ul>
+                            </li>
                         @endif
                     @endguest
                 </ul>

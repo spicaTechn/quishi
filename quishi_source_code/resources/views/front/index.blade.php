@@ -26,10 +26,28 @@
                     <div class="form-group">
                         <i class="icon-magnifier"></i>
                         <input type="text" name="search_by_job_title" class="form-control" placeholder="Search keyword or title" id="search_by_job_title">
+                        <div class="search-list" style="display: none;">
+                            <ul>
+                                <li>responsive</li>
+                                <li>design</li>
+                                <li>nepal</li>
+                                <li>rivers</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="form-group">
                         <i class="icon-location-pin"></i>
                         <input type="text" name="search_by_location"  id="search_by_location" class="form-control search_by_location" placeholder="Location" style="background: #f4f4f4;">
+                        <div class="search-list" style="display: none;">
+                            <ul>
+                                <li>responsive</li>
+                                <li>design</li>
+                                <li>nepal</li>
+                                <li>rivers</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <button class="btn btn-transpatent" ><i class="icon-magnifier"></i></button>
