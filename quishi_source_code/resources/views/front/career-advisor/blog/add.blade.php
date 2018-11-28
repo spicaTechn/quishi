@@ -138,12 +138,11 @@
                 'blog_abstract':{
                 	validators:{
                 		notEmpty:{
-                			message:{
-                				'Blog abstract is required field'
-                			}
+                			message:'Blog abstract is required field'
+                			
                 		}
                 	}
-                }
+                },
                 
                 '_blog_published_date': {
                     validators: {

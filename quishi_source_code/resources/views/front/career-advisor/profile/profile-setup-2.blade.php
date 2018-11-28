@@ -155,7 +155,7 @@
                     });
                 });
 
-                $('#step2').formValidation({
+                var profile_setup = $('#step2').formValidation({
                     framework: 'bootstrap',
                     icon: {
                         valid: 'fa fa-check',
@@ -200,9 +200,14 @@
                             }
                         }
                     }
-                }).on('success.form.fv', function(e) {
+                });
+
+
+
+                $(profile_setup).on('success.form.fv', function(e) {
                     e.preventDefault();
-                    $('#step2')[0].submit();
+                    $("#step2")[0].submit();
+                    die();
                 });
 
 
