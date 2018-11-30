@@ -43,7 +43,7 @@ img {
                <div class="card px-4 py-4 industry-jobs-tab">
                   <div class="card-header">
                      <div class="card-header-left">
-                        <h5>Manage Blogs</h5>
+                        <h5>Manage In the Media</h5>
                      </div>
                   </div>
                   <div class="tab-pane fade show" id="about" role="tabpanel" aria-labelledby="about-tab">
@@ -52,7 +52,7 @@ img {
 
                          <div class="col-md-6">
                             <h4>
-                               <button class="btn btn-grd-primary blog-add-btn">Add Blog</button>
+                               <button class="btn btn-grd-primary blog-add-btn">Add New Media</button>
                             </h4>
                          </div>
                       </div>
@@ -86,8 +86,8 @@ img {
                                         <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" style="height: 40px; width: 40px;">
                                       </td>
                                       <td>{{ $all_blog->title }}</td>
-                                      <td>{{ $all_blog->content }}</td>
-                                      <td>{{ $blog_unserialize['abstract'] }}</td>
+                                      <td>{{ (strlen($all_blog->content) > 50) ? substr($all_blog->content,0,50) . '..' : $all_blog->content }}</td>
+                                      <td>{{ (strlen($blog_unserialize['abstract']) > 50) ? substr($blog_unserialize['abstract'],0,50) .'...' : $blog_unserialize['abstract']}}</td>
 
                                       <td>{{ $blog_unserialize['date'] }}</td>
                                       <td>
@@ -142,7 +142,7 @@ img {
             @csrf
 
               <div class="modal-header">
-                  <h4 class="modal-title"><span>Add Blog </span></h4>
+                  <h4 class="modal-title"><span>Add New Media </span></h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -220,7 +220,7 @@ img {
             @csrf
 
               <div class="modal-header">
-                  <h4 class="modal-title"><span>Add Blog </span></h4>
+                  <h4 class="modal-title"><span>Edit Media </span></h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -332,7 +332,7 @@ $(document).ready(function () {
     var save_method, URI;
     $( ".blog-add-btn" ).on( "click", function() {
       save_method = 'add';
-      $('.modal-title').text('Add New Blog'); // Set Title to Bootstrap modal title
+      $('.modal-title').text('Add New Media'); // Set Title to Bootstrap modal title
       $('#add-blog').modal('show');
     });
 
@@ -475,7 +475,7 @@ $(document).ready(function () {
                       $("#edit-blog-image").attr('src',image);
 
                        $('#edit-blog').modal('show'); // show bootstrap modal
-                       $('.modal-title').text('Update Blog'); // Set Title to Bootstrap modal title
+                       $('.modal-title').text('Update Media'); // Set Title to Bootstrap modal title
                       //console.log(data.result);
                   }
 
@@ -561,8 +561,8 @@ $(document).ready(function () {
                     setTimeout(function()
                       {
                               swal({
-                                title: "Blog has been updated to Quishi!",
-                                text: "A  blog  has been updated to Quishi",
+                                title: "Media has been updated to Quishi!",
+                                text: "Media has been updated to Quishi",
                                 type: "success",
                                 closeOnConfirm: true,
                               }, function() {
@@ -577,7 +577,7 @@ $(document).ready(function () {
           },
           error:function(event)
           {
-              console.log('Cannot add update blog into the quishi system. Please try again later on..');
+              console.log('Cannot add update media into the quishi system. Please try again later on..');
           }
 
         });
@@ -616,7 +616,7 @@ $(document).ready(function () {
                         {
                           setTimeout(function() {
                             swal({
-                              title: "Blog  has been deleted from Quishi!",
+                              title: "Media  has been deleted from Quishi!",
 
                               type: "success",
                               closeOnConfirm: true,
@@ -630,7 +630,7 @@ $(document).ready(function () {
                         {
                           setTimeout(function() {
                             swal({
-                              title: "Blog has not been updated to Quishi!",
+                              title: "Media has not been updated to Quishi!",
 
                               type: "success",
                               closeOnConfirm: true,

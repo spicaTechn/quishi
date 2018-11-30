@@ -257,6 +257,15 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 
 
 
+	//notifications
+
+	Route::post('/notifications/markAsSeen',[
+		'as'	=> 'notification.markAsSeen',
+		'uses'  => 'Front\CareerAdvisor\Notification\NotificationController@markAsSeen'
+	]);
+
+
+
 
 });
 

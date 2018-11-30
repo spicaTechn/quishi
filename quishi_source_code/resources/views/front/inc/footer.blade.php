@@ -182,7 +182,34 @@
     $(document).ready(function(){
         
         //form validation here for the forntend form validaton
-  
+         $(".notification-box").click(function() {
+            $(this).find(".notification-list").slideToggle();
+            $(".navbar-light .navbar-nav li.notification-box .badge").hide();
+            //now make the ajax request 
+            if("{{Auth::user()}}"){
+                var _token    = "{{csrf_token()}}";
+                $.post("{{URL::to('/profile/notifications/markAsSeen')}}",{ _token : _token }, function(data){
+                    if(data.status == "success"){
+                        console.log('Notifications has been updated!!');
+                    }
+                });  
+            }
+        });
+
+        $(document).on("click", function(event) {
+            var $trigger = $(".notification-box");
+            if ($trigger !== event.target && !$trigger.has(event.target).length) {
+                $(".notification-list").slideUp();
+            }
+        });
+
+       //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+
+        // read notification
+        $(".notification-list li a").click(function() {
+            $(this).addClass("mark-as-read");
+        });
+
         $("#donate_now").formValidation({
             framework: 'bootstrap',
             icon: {
@@ -459,5 +486,7 @@
 
 
             });
+
+
     });
 </script>

@@ -141,26 +141,25 @@ jQuery(document).ready(function($) {
         });*/
 
     // Show hide notification
-    $(".notification-box").click(function() {
-        $(this).find(".notification-list").slideToggle();
-        $(".navbar-light .navbar-nav li.notification-box .badge").hide();
-    });
+    // $(".notification-box").click(function() {
+    //     $(this).find(".notification-list").slideToggle();
+    //     $(".navbar-light .navbar-nav li.notification-box .badge").hide();
+    // });
 
-    $(document).on("click", function(event) {
-        var $trigger = $(".notification-box");
-        if ($trigger !== event.target && !$trigger.has(event.target).length) {
-            $(".notification-list").slideUp();
-        }
-    });
+//     $(document).on("click", function(event) {
+//         var $trigger = $(".notification-box");
+//         if ($trigger !== event.target && !$trigger.has(event.target).length) {
+//             $(".notification-list").slideUp();
+//         }
+//     });
 
-     //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+//      //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
 
-
-// read notification
-$(".notification-list li a").click(function() {
-    $(this).addClass("mark-as-read");
-});
+// // read notification
+// $(".notification-list li a").click(function() {
+//     $(this).addClass("mark-as-read");
+// });
 
 
 //equal height

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use URL;
 
 class NewFollowersNotification extends Notification
 {
@@ -47,7 +48,10 @@ class NewFollowersNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'follower'  => $this->follower
+            'message'  => $this->follower->name .' has stared to following you',
+            'url'      => URL::to('/career-advisor/'.$this->follower->id)
         ];
+
+
     }
 }

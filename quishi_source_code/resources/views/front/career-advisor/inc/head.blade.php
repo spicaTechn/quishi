@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css'}}">
     <link rel="stylesheet" href="{{ asset('/front/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/responsive.css') }}">
-    <link rel="icon" href="{{ asset('/front/i mages/fav-icon.png') }}">
+    <link rel="icon" href="{{ asset('/front/images/fav-icon.png') }}">
     <!-- Load the sweetalert css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">

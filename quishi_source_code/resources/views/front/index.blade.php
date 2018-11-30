@@ -176,30 +176,38 @@
             <h2>{{ __('In the Media') }}</h2>
         </div>
         <div class="row row-news">
-            @foreach($popular_blogs as $popular_blog)
+            @foreach($blogs as $blog)
+            <?php 
+                $blog_details = $blog->page_detail()->first();
+                if($blog_details):
+                    $blog_details = unserialize($blog_details->meta_value);
+                else:
+                    continue;
+                endif;
+            ?>
             <div class="col-lg-3 col-sm-6">
                 <div class="news-blog-section">
                     <div class="blog-image">
-                        @if($popular_blog->image_path != "")
-                            <img src="{{asset('/front')}}/images/blogs/{{ $popular_blog->image_path }}" alt="#">
+                        @if($blog_details['image'] != "")
+                            <img src="{{asset('/front')}}/images/blogs/{{ $blog_details['image'] }}" alt="#">
                         @else
                             <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
                         @endif
                     </div>
                     <div class="blog-conten">
-                        <h4>{{ $popular_blog->title }}</h4>
-                        <span class="time">Published on {{ Carbon\Carbon::parse($popular_blog->published_date)->format('d M Y')}}</span>
-                        <p>{{ ($popular_blog->abstract != "") ? $popular_blog->abstract : substr($popular_blog->content,0,100) . '...' }}</p>
-                        <a href="{{ url('/blog').'/'.$popular_blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                        <h4>{{ $blog->title}}</h4>
+                        <span class="time">Published on {{ Carbon\Carbon::parse($blog_details['date'])->format('d M Y')}}</span>
+                        <p>{{ ($blog_details['abstract'] != "") ? $blog_details['abstract'] : substr($blog->content,0,100) . '...' }}</p>
+                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
+        <!-- <div class="view-more"><a href="{{--{{URL::to('/blog')}}--}}" class="btn btn-default">{{--{{ __('view blogs') }}--}}</a></div> -->
         @endif
         <div class="section-title">
-            <h2>{{ __('Sports') }}</h2>
+            <h2>{{ __('Popular Blogs') }}</h2>
         </div>
         <div class="row row-news">
             @foreach($popular_blogs as $popular_blog)
@@ -215,7 +223,7 @@
                     <div class="blog-conten">
                         <h4>{{ $popular_blog->title }}</h4>
                         <span class="time">Published on {{ Carbon\Carbon::parse($popular_blog->published_date)->format('d M Y')}}</span>
-                        <p>{{ ($popular_blog->abstract != "") ? $popular_blog->abstract : substr($popular_blog->content,0,100) . '...' }}</p>
+                        <p>{{ ($popular_blog->abstract != "") ? substr($popular_blog->abstract,0,150) .'..' : substr($popular_blog->content,0,150) . '...' }}</p>
                         <a href="{{ url('/blog').'/'.$popular_blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
@@ -426,6 +434,13 @@ $(document).ready(function () {
        var selected_address   = $(this).data('job-title');
         $(this).closest('div.form-group').find('input').val(selected_address);
         $('#_job_title_search_list').hide();
+    });
+
+    $('body').click(function(event){
+        var $trigger = $("#_location_search_list > ul li");
+        if ($trigger !== event.target) {
+            $("#_job_title_search_list").hide();
+        }
     });
 
 

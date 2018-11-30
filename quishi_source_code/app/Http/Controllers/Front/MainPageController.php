@@ -29,7 +29,7 @@ class MainPageController extends Controller
     {
         //fetching contact data to show in footer section
 
-        $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(2)->get();
+        $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(4)->get();
         $popular_blogs = Post::orderBy('total_like_counts','desc')->limit(4)->get();
         $blog  = $blogs ?? '';
         $user_profiles = UserProfile::where('status','1')->orderBy('profile_views','desc')->take(3)->get();
@@ -241,7 +241,8 @@ class MainPageController extends Controller
 
         $search_query    = $request->input('q');
         if(!empty($search_query)):
-            $search_results = Career::where('title','LIKE',"%{$search_query}%")
+            $search_results = Career::where('parent','>' , 0)
+                                    ->where('title','LIKE',"%{$search_query}%")
                                     ->orderBy('created_at','desc')
                                     ->limit(7)
                                     ->select('title')
