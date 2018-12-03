@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Model\Post;
 use Carbon\Carbon;
+use App\Model\Follower;
+use App\Notifications\NewBlogCreatedNotification;
+use App\User, App\Model\Blog;
+
 class BlogController extends Controller
 {
 
@@ -22,7 +26,7 @@ class BlogController extends Controller
         //
 
         $logged_in_career_advisor = Auth::user()->id;
-        $career_advisior_blogs    = Post::where('user_id',$logged_in_career_advisor)->orderBy('published_date','desc')->paginate(3);
+        $career_advisior_blogs    = Post::where('user_id',$logged_in_career_advisor)->orderBy('published_date','desc')->paginate(6);
 
         return view('front.career-advisor.blog.index')->with([
             'blogs'         => $career_advisior_blogs
@@ -69,6 +73,17 @@ class BlogController extends Controller
         }
 
         $this->post->save();
+
+        //after saving send the notification to the currently logged in career advisor followers
+        $blog_details     =  Post::findOrFail($this->post->id);
+        $followers        = Auth::user()->followers;
+
+        foreach($followers as $follower){
+            $notifiy_career_advisor  = User::findOrFail($follower->pivot->follower_id);
+            $notifiy_career_advisor->notify(new NewBlogCreatedNotification($blog_details));
+        }
+
+
 
         return redirect()->route('profile.blog.index');
     }

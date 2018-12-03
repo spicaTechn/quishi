@@ -181,19 +181,30 @@
 <script>
     $(document).ready(function(){
         
-        //form validation here for the forntend form validaton
-         $(".notification-box").click(function() {
+        $(".notification-box").click(function() {
             $(this).find(".notification-list").slideToggle();
             $(".navbar-light .navbar-nav li.notification-box .badge").hide();
-            //now make the ajax request 
+            //now make the ajax request
             if("{{Auth::user()}}"){
-                var _token    = "{{csrf_token()}}";
-                $.post("{{URL::to('/profile/notifications/markAsSeen')}}",{ _token : _token }, function(data){
-                    if(data.status == "success"){
-                        console.log('Notifications has been updated!!');
-                    }
-                });  
+                //check for the class name
+                if($(this).hasClass('_all_not_seen')){
+                    var _token    = "{{csrf_token()}}";
+                    $.post("{{URL::to('/profile/notifications/markAsSeen')}}",{ _token : _token }, function(data){
+                        if(data.status == "success"){
+                            console.log('Notifications has been updated!!');
+
+                            $(".notification-box").removeClass('_all_not_seen');
+                        }
+                    });
+                 
+                }
+
+
+                //add class
+                   
+                  
             }
+           
         });
 
         $(document).on("click", function(event) {
@@ -206,9 +217,54 @@
        //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
         // read notification
-        $(".notification-list li a").click(function() {
-            $(this).addClass("mark-as-read");
+        $(".notification-list li a").click(function(e) {
+            //$(this).addClass("mark-as-read");
+            e.preventDefault();
+            var _quishi_notification    = $(this);
+            var _token                  = "{{csrf_token()}}";
+            var _quishi_notification_id = $(this).data('notification-id');
+            var link                    = $(this).attr('href');
+
+            if($(this).hasClass('mark-as-read')){
+                window.location.href    = link;
+            }else {
+                //request the server
+                $.post("{{ URL::to('/profile/notifications/markAsRead') }}", { _token : _token , _quishi_notification_id : _quishi_notification_id} , function(data){
+                    //for the success message
+                    if(data.status == "success"){
+                        $(_quishi_notification).addClass('mark-as-read');
+                        //return back to the link 
+                         window.location.href    = link;
+                    }
+                });
+            }
+            
+            
         });
+
+        //mark all the notifications to read 
+
+        $('._quishi_mark_as_read').on('click',function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(!$(this).hasClass('no_unread_notification')){
+               var _token = "{{ csrf_token() }}";
+                $.post("{{route('profile.markAllAsRead')}}",{ _token : _token }, function(data){
+                    if(data.status  == "success"){
+                        var notification_list = $('.notification-list-item');
+                        $.each(notification_list, function(index,value){
+                            var current_list   = $(this);
+                            $(current_list).find('a').addClass('mark-as-read');
+                        });
+                     $('._quishi_mark_as_read').addClass('no_unread_notification');
+                    }
+                }); 
+            }
+            
+        });
+
+
+
 
         $("#donate_now").formValidation({
             framework: 'bootstrap',

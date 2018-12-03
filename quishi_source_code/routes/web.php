@@ -264,6 +264,18 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'  => 'Front\CareerAdvisor\Notification\NotificationController@markAsSeen'
 	]);
 
+	//route to mark the notification as the read notification
+
+	Route::post('/notifications/markAsRead',[
+		'as'   => 'notification.markAsRead',
+		'uses' => 'Front\CareerAdvisor\Notification\NotificationController@markAsRead'
+	]);
+
+
+	Route::post('/notifications/markAllAsRead',[
+	  'as'	  => 'profile.markAllAsRead',
+	  'uses'  => 'Front\CareerAdvisor\Notification\NotificationController@markAllAsRead'
+	]);
 
 
 

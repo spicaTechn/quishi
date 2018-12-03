@@ -19,147 +19,33 @@
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link">{{ __('Profiles')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
+                    @if(Auth::user()->notifications()->count() > 0)
                     <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i>@if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) <span class="badge">{{Auth::user()->unreadNotifications()->where('seen_flag','0')->count()}}@endif</span></a>
                         <div class="notification-list">
                             <div class="notification-title">
-                                <span>Notification</span><a href="#">Mark as read</a>
+                                <span>{{ __('Notification') }} </span><a href="#" class="_quishi_mark_as_read @if(Auth::user()->unreadNotifications()->count() <= 0) {{ 'no_unread_notification' }} @endif">{{ __('Mark as read') }}</a>
                             </div>
                             <div class="notification-inner-list">
                             <ul>
+                                @foreach(Auth::user()->notifications as $notifications)
                                 <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
+                                    <a href="{{ $notifications->data['url'] }}" class="_quishi_mark_as_read_notification @if($notifications->read_at != '') ? {{ 'mark-as-read' }} : {{ ''}} @endif" data-notification-id="{{$notifications->id }}">
 
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
                                         <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
+                                             <img src="{{ $notifications->data['user_image'] }}" alt="#">
                                         </div>
                                         <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
+                                            {!! ucfirst($notifications->data['message']) !!}
                                         </div>
                                     </a>
                                 </li>
                                 <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
-
-                                <li class="notification-list-item">
-                                    <a href="javascript:void(0)">
-                                        <div class="notification-image">
-                                             <img src="{{asset('/front')}}/images/blog1.jpg" alt="#">
-                                        </div>
-                                        <div class="notification-content">
-                                            <span>Jon Deo</span>and
-                                            <span>Jal Pari</span> also comment on your status
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end notification item -->
+                                @endforeach
                             </ul>
                             </div>       
                         </div>
                     </li>
-                    
+                    @endif
                 </ul>
 
             </div>
