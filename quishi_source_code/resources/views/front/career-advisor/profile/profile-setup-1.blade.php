@@ -90,7 +90,12 @@
                             
                             <div class="form-group">
                                 <label>Address</label><span class="required">*</span>
-                                <input type="text" class="form-control required" name="address" placeholder="Enter your address" value="{{old('address','')}}@if(Auth::user()->user_profile()->count() > 0) {{ Auth::user()->user_profile->location }}@endif" id="autocomplete" required>
+                                <select class="location" name="address" required>
+                                    <option value="0" selected="selected" disabled="disabled">Select Your Address</option>
+                                    @foreach($locations as $location)
+                                      <option value="{{ $location->full_address }}" @if(Auth::user()->user_profile()->count() > 0 ) @if(Auth::user()->user_profile->location == $location->full_address) {{'selected' }} @endif @endif >{{$location->full_address}}</option>
+                                    @endforeach
+                                </select>
 
                                 @if ($errors->has('address'))
                                     <span class="invalid-feedback" role="alert">
@@ -128,4 +133,13 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('page_specific_js')
+<script>
+     $(document).ready(function(e){
+        $('.location').select2();
+     });
+          
+</script>
 @endsection

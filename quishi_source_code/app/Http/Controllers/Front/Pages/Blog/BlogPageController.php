@@ -22,7 +22,7 @@ class BlogPageController extends Controller
     public function index()
     {
         //
-        $blog         = Post::orderBy('published_date','desc')->paginate(4);
+        $blog         = Post::orderBy('published_date','desc')->paginate(6);
         //echo "<pre>"; print_r($blog); echo "</pre>";exit;
 
         return view('front.pages.blog.blog')->with(array(

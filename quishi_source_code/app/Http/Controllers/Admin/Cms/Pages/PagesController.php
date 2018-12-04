@@ -108,7 +108,7 @@ class PagesController extends Controller
                 $home_save->title         = 'title';
                 $home_save->content       = 'description';
                 $home_save->slug          = 'home';
-                $home_save->user_id       = '1';
+                $home_save->user_id       = Auth::user()->id;
                 //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
                 $home_save->save();
 
@@ -132,7 +132,7 @@ class PagesController extends Controller
             $video_id->title         = 'Home Video ID';
             $video_id->content       = 'https://www.youtube.com/embed/1jhkEtvH6s8';
             $video_id->slug          = 'home-video';
-            $video_id->user_id       = Auth::id();
+            $video_id->user_id       = Auth::user()->id;
             //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
             $video_id->save();
         }
@@ -156,6 +156,8 @@ class PagesController extends Controller
                     )
                 );
     }
+
+
 
     /**
      * Show the form for creating a new resource.

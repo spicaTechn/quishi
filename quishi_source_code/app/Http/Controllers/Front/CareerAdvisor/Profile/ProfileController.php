@@ -11,6 +11,7 @@ use App\Model\Career;
 use App\User;
 use App\Model\Education;
 use App\Model\UserLink;
+use App\Model\Address;
 
 class ProfileController extends BaseCareerAdvisorController
 {
@@ -18,11 +19,14 @@ class ProfileController extends BaseCareerAdvisorController
     protected $user_profile_image ="";
     protected $user_profile = "";
     protected $career;
+
+    protected $locations = "";
     protected $user_link;
 
     public function __construct(){
 
     	return $this->career = Career::where('parent',"=",'0')->where('status','1')->get();
+        
     }
 
     public function index(Request $reqeust)
@@ -73,9 +77,12 @@ class ProfileController extends BaseCareerAdvisorController
                  return redirect()->route('profile');
             }
         }
+        $this->locations = Address::where('status','1')->select('full_address')->get();
         return view('front.career-advisor.profile.profile-setup-1')->with(array(
             'site_title' => 'Quishi',
-            'page_title' => 'Profile'
+            'page_title' => 'Profile',
+            'locations'  => $this->locations,
+
         ));
     }
 

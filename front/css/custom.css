@@ -2349,6 +2349,8 @@ p {
 
 .front-profile img {
     width: 100%;
+    height: 370px;
+    object-fit: cover;
 }
 
 .front-profile-details {
@@ -4340,6 +4342,18 @@ span.required {
     -webkit-box-shadow:none;
     box-shadow:none;
 
+}
+
+
+.invalid-feedback{
+    display: block;
+}
+
+
+.profile-image img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
 }
 
 
