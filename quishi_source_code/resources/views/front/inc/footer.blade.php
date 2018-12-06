@@ -72,12 +72,14 @@
                                                         <!-- end col -->
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
-                                                                <label class="col-form-label">Expiration</label>
+                                                                <!-- <label class="col-form-label">Expiration</label> -->
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
+                                                                        <label class="col-form-label">Expiration</label>
                                                                         <input type="text"  class="form-control" placeholder="MM" name="expiration_month">
                                                                     </div>
                                                                     <div class="col-sm-6">
+                                                                        <label class="col-form-label" style="opacity: 0;">Year</label>
                                                                         <input type="text"  class="form-control" placeholder="YYYY" name="expiration_year">
                                                                     </div>
                                                                 </div>
@@ -142,8 +144,8 @@
                     @if($contact_social)
                     <div class="footer-social-media">
                         <ul>
-                            <li><a href="{{ $contact_social['facebook'] }}"><i class="icon-social-facebook"></i></a></li>
-                            <li><a href="{{ $contact_social['twitter'] }}"><i class="icon-social-twitter"></i></a></li>
+                            <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
+                            <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
                         </ul>
                     </div>
                      @endif
@@ -162,12 +164,13 @@
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
 <script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
+<!-- <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script> -->
 <!-- <script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script> -->
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/autosize.min.js') }}"></script>
+<script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <!-- Formvalidation -->
@@ -180,6 +183,21 @@
 @yield('page_specific_js')
 <script>
     $(document).ready(function(){
+        //blog masonary
+          var blogMasonary = window.blogMasonary || {},
+              $win = $(window);
+          blogMasonary.Isotope = function() {
+              // 3 column layout
+              var isotopeContainer2 = $('.isotopeContainer2');
+              if (!isotopeContainer2.length || !jQuery().isotope) return;
+              $win.load(function() {
+                  isotopeContainer2.isotope({
+                      itemSelector: '.isotopeSelector'
+                  });
+
+              });
+          };
+          blogMasonary.Isotope();
         
         $(".notification-box").click(function() {
             $(this).find(".notification-list").slideToggle();
@@ -206,6 +224,8 @@
             }
            
         });
+
+
 
         $(document).on("click", function(event) {
             var $trigger = $(".notification-box");
