@@ -2578,8 +2578,15 @@ p {
     /*border: 1px solid #eee;*/
     /*margin-left: 105px;*/
     /*margin-top: 50px;*/
+    display: none;
 }
 
+
+.profile-comment-wrapper:nth-of-type(1), 
+.profile-comment-wrapper:nth-of-type(2), 
+.profile-comment-wrapper:nth-of-type(3) {
+    display: block !important;
+}
 .profile-comment-section {
     padding: 10px 0;
     /*border-bottom: 1px solid #eee;*/
@@ -2757,11 +2764,11 @@ p {
     color: #fff;
 }
 
-.view-all-comment {
+.view-all-comment, .view-all-profile-comment{
     margin-bottom: 15px;
 }
 
-.view-all-comment span {
+.view-all-comment span, .view-all-profile-comment span {
     /*background: #8ac43f;*/
     display: inline-block;
     color: #8ac43f;
@@ -4354,6 +4361,11 @@ span.required {
     height: 100px;
     width: 100px;
     object-fit: cover;
+}
+
+
+.reply-subinner-image{
+    margin-right:10px;
 }
 
 

@@ -6,25 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use URL;
-use App\User, App\Model\UserProfile;
-
-class NewFollowersNotification extends Notification
+use Auth, URL;
+class BlogLikeNotification extends Notification
 {
     use Queueable;
 
-    protected $follower;
+    protected $blog;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($follower)
+    public function __construct($blog)
     {
         //
-
-        $this->follower = $follower;
+        $this->blog   = $blog;
     }
 
     /**
@@ -38,8 +35,6 @@ class NewFollowersNotification extends Notification
         return ['database'];
     }
 
-
-   
     /**
      * Get the array representation of the notification.
      *
@@ -48,15 +43,12 @@ class NewFollowersNotification extends Notification
      */
     public function toArray($notifiable)
     {
-
-        //find the targeted user image
-        $user_profile_image = User::findOrFail($this->follower->id)->user_profile->image_path;
         return [
-            'message'       => $this->follower->name .' has started to following you',
-            'url'           => URL::to('/career-advisor/'.$this->follower->id),
-            'user_image'    => ($user_profile_image != "") ? asset('/front/images/profile/') .'/' . $user_profile_image : asset('/front/images/blog1.jpg'),
+            //
+
+            'message'  => (Auth::check())  ? Auth::user()->name .' likes your blog "' . $this->blog->title .'"'  : 'anonymous likes your blog "'.$this->blog->title .'"',
+            'user_image' => (Auth::check()) ? (Auth::user()->user_profile->image_path != "") ? asset('/front/images/profile/') .'/' . Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg') : asset('/front/images/blog1.jpg'),
+            'url'       => URL::to('/blog/'.$this->blog->id)
         ];
-
-
     }
 }

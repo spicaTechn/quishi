@@ -27,7 +27,7 @@
 	                        </div>
 	                        <div class="blog-content">
 	                            <h3><a href="{{ url('/blog').'/'.$blog->id }}">{{ $blog->title }}</a></h3>
-	                            <p>{{ $blog->abstract }}</p>
+	                             <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
 	                            <a href="{{ url('/blog').'/'.$blog->id }}" class="blog-read-more">read more</a>
 	                        </div>
 	                    </div>

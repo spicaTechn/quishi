@@ -171,41 +171,35 @@
         </div>
 <div class="page-section the-media">
     <div class="container">
-        @if($popular_blogs->count() > 0) 
+        @if($blogs->count() > 0) 
         <div class="section-title">
             <h2>{{ __('In the Media') }}</h2>
         </div>
         <div class="row row-news">
             @foreach($blogs as $blog)
-            <?php 
-                $blog_details = $blog->page_detail()->first();
-                if($blog_details):
-                    $blog_details = unserialize($blog_details->meta_value);
-                else:
-                    continue;
-                endif;
-            ?>
             <div class="col-lg-3 col-sm-6">
                 <div class="news-blog-section">
                     <div class="blog-image">
-                        @if($blog_details['image'] != "")
-                            <img src="{{asset('/front')}}/images/blogs/{{ $blog_details['image'] }}" alt="#">
+                        @if($blog->image_path != "")
+                            <img src="{{asset('/front')}}/images/blogs/{{ $blog->image_path }}" alt="#">
                         @else
                             <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
                         @endif
                     </div>
                     <div class="blog-conten">
                         <h4>{{ $blog->title}}</h4>
-                        <span class="time">Published on {{ Carbon\Carbon::parse($blog_details['date'])->format('d M Y')}}</span>
-                        <p>{{ ($blog_details['abstract'] != "") ? $blog_details['abstract'] : substr($blog->content,0,100) . '...' }}</p>
+                        <span class="time">Published on {{ Carbon\Carbon::parse($blog->published_date)->format('d M Y')}}</span>
+                        <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
                         <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <!-- <div class="view-more"><a href="{{--{{URL::to('/blog')}}--}}" class="btn btn-default">{{--{{ __('view blogs') }}--}}</a></div> -->
+        <div class="view-more"><a href="{{URL::to('/media')}}" class="btn btn-default">{{ __('All Media') }}</a></div>
         @endif
+
+        @if($popular_blogs->count() > 0) 
         <div class="section-title">
             <h2>{{ __('Popular Blogs') }}</h2>
         </div>
@@ -231,7 +225,9 @@
             @endforeach
         </div>
 
-         <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view news') }}</a></div>
+         <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view Blogs') }}</a></div>
+
+        @endif
     </div>
 </div>
 

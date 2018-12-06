@@ -11,6 +11,8 @@ use App\Model\UserProfile;
 use Auth;
 use App\Model\Post;
 
+//notifications
+use App\Notifications\BlogLikeNotification;
 
 class BlogPageController extends Controller
 {
@@ -22,7 +24,7 @@ class BlogPageController extends Controller
     public function index()
     {
         //
-        $blog         = Post::orderBy('published_date','desc')->paginate(6);
+        $blog         = Post::where('type','1')->orderBy('published_date','desc')->paginate(6);
         //echo "<pre>"; print_r($blog); echo "</pre>";exit;
 
         return view('front.pages.blog.blog')->with(array(
@@ -62,7 +64,7 @@ class BlogPageController extends Controller
      */
     public function show($id)
     {
-        //
+        //check for the request type
 
         $blog_details = Post::findOrFail($id);
         return view('front.pages.single-pages.single-blog')->with(array(
@@ -125,9 +127,24 @@ class BlogPageController extends Controller
         $current_page_like = $page_details->total_like_counts;
         $page_details->total_like_counts = $page_details->total_like_counts + 1;
         $page_details->save();
+        
+        //sends the notification
+        $user   = User::findOrFail($page_details->user_id);
+        if(Auth::check()):
+            if($page_details->user_id != Auth::user()->id):
+                //check for the admin 
+                if($user->logged_in_type == '1'):
+                else:
+                    //send the notification for the career advisor only
+                    $user->notify(new BlogLikeNotification($page_details));
+                endif;
+
+            endif;
+        else:
+            $user->notify(new BlogLikeNotification($page_details));
+        endif;
 
         //return response
-
         return response()->json(array('status'=>'success','result'=>($current_page_like + 1)));
 
 
@@ -149,4 +166,23 @@ class BlogPageController extends Controller
                                                     'blogs'        => $career_advisor_blogs
                                                 ]);
     }
+
+
+    /**
+     * function to show the list of the media
+     * @param \Illuminate\Http\Requset
+     * @return \Illuminate\Http\Response
+     *
+     *
+     */
+
+    public function media(Request $requst){
+        $medias = Post::where('type','2')->orderBy('published_date','desc')->paginate(6);
+        return view('front.pages.blog.blog')->with(array(
+             'site_title'    =>    'Quishi',
+             'page_title'    =>    'Blog',
+             'blogs'         =>    $medias
+        ));
+    }
+
 }

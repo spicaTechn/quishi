@@ -282,6 +282,10 @@
                 }
 
             }
+        }).on('success.form.fv',function(e){
+            e.preventDefault();
+            $('#user_profile_udpate')[0].submit();
+            die();
         });
 
         $('.selected_user_tag').each(function(){

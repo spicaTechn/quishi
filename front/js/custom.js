@@ -55,8 +55,15 @@ jQuery(document).ready(function($) {
 
     // show profile inner comment
     $(".profile-leave-comment .view-all-comment span").click(function() {
-        $(".profile-comment-section").slideDown();
-        $('.view-all-comment').hide();
+        $(this).parent().closest("div.reply-inner").find('.profile-comment-section').slideDown();
+        $(this).hide();
+        //$(this).hide();
+    });
+
+
+    $('.view-all-profile-comment span').click(function(){
+        $(this).parent().closest('div.profile-question-answer-section').find('.profile-comment-wrapper').slideDown();
+        $(this).hide();
     });
 
     // // show all profile coments
@@ -82,12 +89,10 @@ jQuery(document).ready(function($) {
     //show on click its div only
     $('.profile-comment-section .write-comment').click(function() {
         //$(this).find('.form-group').slideToggle("fast");
-        $('.profile-comment-section .form-group').slideToggle();
+        $(this).parent().closest('div.profile-coment-comment').find('.form-group').slideToggle();
+        //$('.profile-comment-section .form-group').slideToggle();
     });
 
-    $('#write-comment-2').click(function() {
-        $('#comment-2').slideToggle();
-    });
 
     $('.comment-method input[type="checkbox"').click(function() {
         $('.anonymously-user').slideToggle(500);
@@ -96,11 +101,13 @@ jQuery(document).ready(function($) {
 
 
     $('.like-comment-view a.go-to-comment').click(function() {
+
         setTimeout(function() {
-            $('.profile-question-answer-section .profile-leave-comment textarea').focus();
-            $(".profile-question-answer-section .profile-leave-comment textarea").css("border-color", "#8ac43f");
+             $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').focus();
+             $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').css("border-color", "#8ac43f");
         }, 0);
-        $('.profile-question-answer-section .profile-leave-comment').slideToggle(500);
+
+        $(this).parent().closest('div.profile-question-answer-section').find('div.profile-leave-comment').slideToggle(500);
     });
 
     $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {

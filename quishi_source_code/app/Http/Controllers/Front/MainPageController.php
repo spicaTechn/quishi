@@ -29,10 +29,9 @@ class MainPageController extends Controller
     {
         //fetching contact data to show in footer section
 
-        $blogs = Page::with('page_detail')->where('slug','blog')->orderBy('id', 'desc')->limit(4)->get();
-        $popular_blogs = Post::orderBy('total_like_counts','desc')->limit(4)->get();
-        $blog  = $blogs ?? '';
-        $user_profiles = UserProfile::where('status','1')->orderBy('profile_views','desc')->take(3)->get();
+        $medias = Post::where('type','2')->limit(4)->get();
+        $popular_blogs = Post::orderBy('total_like_counts','desc')->where('type','1')->limit(4)->get();
+        $user_profiles = UserProfile::where('status','1')->where('profile_setup_status','1')->orderBy('profile_views','desc')->take(3)->get();
         $service      = Page::where('slug','home')->get();
         $home_video = Page::where('slug','home-video')->first();
 
@@ -40,7 +39,7 @@ class MainPageController extends Controller
                     ->with(array(
                             'site_title'          => 'Quishi',
                             'page_title'          => 'Home',
-                            'blogs'               => $blog,
+                            'blogs'               => $medias,
                             'popular_blogs'       => $popular_blogs,
                             'users_profile'       => $user_profiles,
                             'services'            => $service,

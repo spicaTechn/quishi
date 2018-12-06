@@ -11,6 +11,12 @@ use DB, Auth;
 use App\Model\UserProfile;
 use App\Model\Education, App\Model\Career;
 use App\Model\Post;
+use App\Model\Answer;
+use App\Model\UserProfileQueries;
+
+//notifcations
+use App\Notifications\ProfileLikeNotification;
+use App\Notifications\ProfileAnswerLikeNotification;
 
 class ProfilePageController extends BaseCareerAdvisorController
 {
@@ -113,11 +119,21 @@ class ProfilePageController extends BaseCareerAdvisorController
 
         $i =0;
         foreach ($questions as $question) {
+
          $questions_id = $question['question_id'];
-         $answers = DB::table('answers')->where('question_id',$question['question_id'])->where('user_id',$id)->select('content')->first();
-         $questions[$i]['answer'] = $answers->content;
+         $answers = DB::table('answers')->where('question_id',$question['question_id'])->where('user_id',$id)->select('id','content','total_likes')->first();
+         $answers_comments                 = UserProfileQueries::where('answer_id',$answers->id)->where('user_id',$id)->get();
+         $questions[$i]['answer']          = $answers->content;
+         $questions[$i]['question_id']     = $question['question_id'];
+         $questions[$i]['total_likes']     = $answers->total_likes;
+         $questions[$i]['answer_id']       = $answers->id;
+         $questions[$i]['answer_comments'] = $answers_comments;
+         $questions[$i]['total_comments']  = $answers_comments->count();
          $i++;
         }
+
+
+
 
 
         //get the recent blog of the career advisior if any
@@ -167,6 +183,16 @@ class ProfilePageController extends BaseCareerAdvisorController
         $user_like->total_likes = $total_likes;
         //echo "<pre>"; print_r($user_like); echo "</pre>";exit;
         $user_like->save();
+
+        //
+
+        if(Auth::check()):
+          if(Auth::user()->id != $user_id):
+            $user->notify(new ProfileLikeNotification());
+          endif;
+        else:
+           $user->notify(new ProfileLikeNotification());
+        endif;
 
         return response()->json(array('status'=>'success','result'=>'successfully liked user profile'),200);
     }
@@ -419,6 +445,7 @@ class ProfilePageController extends BaseCareerAdvisorController
         $this->total_record_shown  = $this->search_users_list->count() + ($this->current_page * $this->per_page);
 
     }
+
 
 
 }

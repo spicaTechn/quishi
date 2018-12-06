@@ -27,6 +27,13 @@
 		'uses'		=>	'Front\Pages\Blog\BlogPageController@index'
 	]);
 
+
+	Route::get('/media',[
+		'as'      => 'media',
+		'uses'    => 'Front\Pages\Blog\BlogPageController@media'
+	]);
+
+
 	Route::get('/blog/careerAdvisor/{id}',[
 		'as'		=> 'careerAdvisior.blog.index',
 		'uses'      => 'Front\Pages\Blog\BlogPageController@showCareerAdvisiorBlog'
@@ -90,6 +97,23 @@
 	Route::post('/searchByJobTitle',[
 		'as'		=> 'searchByJobTitle.autocomplete',
 		'uses'		=> 'Front\MainPageController@autocompleteByJobTitle'
+	]);
+
+
+	//single profile page routes
+	Route::post('/answers/plusLike',[
+		'as'       => 'answers.increaseLikeCounter',
+		'uses'     => 'Front\Pages\Profile\ProfileCommentController@increaseLikeCounter'
+	]);
+
+	Route::post('/answers/postComment',[
+		'as'      => 'answers.postComment',
+		'uses'    => 'Front\Pages\Profile\ProfileCommentController@createComment'
+	]);
+
+	Route::post('/answers/comments/plusLike',[
+		'as'     => 'answers.comments.increaseLikeCounter',
+		'uses'   =>'Front\Pages\Profile\ProfileCommentController@increaseCommentLikeCounter'
 	]);
 
 

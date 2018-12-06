@@ -73,23 +73,19 @@ img {
                               </tr>
                               </thead>
                               <tbody>
-                                <?php $i=1; ?>
+                                <?php $i=1;?>
                                 @foreach($all_blogs as $all_blog)
-                                  @foreach($all_blog->page_detail as $blog)
-                                  <?php
-                                    $blog_unserialize = unserialize($blog->meta_value);
-                                    //echo "<pre>"; print_r($blog_unserialize); echo "</pre>"; exit;
-                                  ?>
                                   <tr>
                                       <td>{{ $i }}</td>
                                       <td>
-                                        <img src="{{asset('/front')}}/images/blogs/{{ $blog_unserialize['image'] }}" style="height: 40px; width: 40px;">
+                                        <img src="{{ ($all_blog->image_path != '') ? asset('/front/images/blogs').'/'
+                                        .$all_blog->image_path : asset('/front/images/banner.jpg') }}" style="height: 40px; width: 40px;">
                                       </td>
                                       <td>{{ $all_blog->title }}</td>
-                                      <td>{{ (strlen($all_blog->content) > 50) ? substr($all_blog->content,0,50) . '..' : $all_blog->content }}</td>
-                                      <td>{{ (strlen($blog_unserialize['abstract']) > 50) ? substr($blog_unserialize['abstract'],0,50) .'...' : $blog_unserialize['abstract']}}</td>
+                                      <td>{!! (strlen($all_blog->content) > 50) ? substr($all_blog->content,0,50) . '..' : $all_blog->content !!}</td>
+                                      <td>{{ (strlen($all_blog->abstract) > 50) ? substr($all_blog->abstract,0,50) .'...' : $all_blog->abstract }}</td>
 
-                                      <td>{{ $blog_unserialize['date'] }}</td>
+                                      <td>{{ Carbon\Carbon::parse($all_blog->published_date)->format('d-M-Y') }}</td>
                                       <td>
 
                                           <a href="#" class="m-r-15 text-muted edit-blog"
@@ -98,7 +94,7 @@ img {
                                                 title=""
                                                 data-original-title="Edit"
                                                 data-blog-id="{{ $all_blog->id }}"
-                                                data-serialize-id="{{ $blog->id }}"
+                                                data-serialize-id="{{ $all_blog->id }}"
                                                 >
                                              <i class="icofont icofont-ui-edit" ></i>
                                              </a>
@@ -107,15 +103,13 @@ img {
                                                 data-placement="top" title=""
                                                 data-original-title="Delete"
                                                 data-blog-id="{{ $all_blog->id }}"
-                                                data-serialize-id="{{ $blog->id }}"
+                                                data-serialize-id="{{ $all_blog->id }}"
                                                 >
                                              <i class="icofont icofont-delete-alt"></i>
                                              </a>
                                       </td>
                                   </tr>
-                                  @endforeach
-                                  <?php $i++; ?>
-
+                                  <?php $i++;?>
                                 @endforeach
                               </tbody>
                           </table>
@@ -456,11 +450,11 @@ $(document).ready(function () {
                       $(".page_detail_id").val(blog_page_detail_id);
                       $(".blog_title").val(data.result.title);
 
-                      var content = tinymce.activeEditor.setContent(data.result.description);
+                      var content = tinymce.activeEditor.setContent(data.result.content);
                       $("textarea#edit-tinymce").val(content);
                       //$(".edit_blog_description").val();
 
-                      $("textarea#edit-tinymce").attr("value", data.result.description);
+                      $("textarea#edit-tinymce").attr("value", data.result.content);
 
 
                       $(".blog_abstract").val(data.result.abstract);
@@ -469,9 +463,9 @@ $(document).ready(function () {
                       // $(".facebook").val(data.result.facebook);
                       // $(".twitter").val(data.result.twitter);
                       // $(".instragram").val(data.result.instragram);
-                      $(".date").val(data.result.date);
+                      $(".date").val(data.published_date);
 
-                      var image="{{asset('/front')}}/images/blogs" + "/" +data.result.image;
+                      var image="{{asset('/front')}}/images/blogs" + "/" +data.result.image_path;
                       $("#edit-blog-image").attr('src',image);
 
                        $('#edit-blog').modal('show'); // show bootstrap modal
