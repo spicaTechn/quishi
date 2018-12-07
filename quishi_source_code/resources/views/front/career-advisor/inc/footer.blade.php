@@ -70,12 +70,14 @@
                                                         <!-- end col -->
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
-                                                                <label class="col-form-label">Expiration</label>
+                                                                
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
+                                                                        <label class="col-form-label">Expiration</label>
                                                                         <input type="text"  class="form-control" placeholder="MM" name="expiration_month">
                                                                     </div>
                                                                     <div class="col-sm-6">
+                                                                        <label class="col-form-label" style="opacity: 0;">Year</label>
                                                                         <input type="text"  class="form-control" placeholder="YYYY" name="expiration_year">
                                                                     </div>
                                                                 </div>
@@ -126,8 +128,8 @@
                     </div>
                     <div class="footer-social-media">
                         <ul>
-                            <li><a href="#"><i class="icon-social-facebook"></i></a></li>
-                            <li><a href="#"><i class="icon-social-twitter"></i></a></li>
+                             <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
+                            <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -152,6 +154,7 @@
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>

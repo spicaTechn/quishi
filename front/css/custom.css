@@ -333,6 +333,7 @@ p {
 
 .banner-bg {
     min-height: 350px;
+    min-height: 450px;
     position: relative;
     /*overflow: hidden;*/
 }
@@ -4003,7 +4004,14 @@ span.required {
     padding: 15px;
 }
 
-.the-media .section-title h2 {
+.popular-blogs.page-section {
+    background: rgba(247, 253, 255, 0.61);
+    border-top: 1px solid rgba(229, 229, 229, 0.48);
+    border-bottom: 1px solid rgba(229, 229, 229, 0.48);
+}
+
+.the-media .section-title h2,
+.popular-blogs .section-title h2 {
     text-align: left;
 }
 
@@ -4361,6 +4369,25 @@ span.required {
     height: 100px;
     width: 100px;
     object-fit: cover;
+}
+
+.fv-form-bootstrap .has-feedback .form-control {
+    padding-right: .75rem !important;
+}
+.fv-form-bootstrap .help-block {
+    margin-bottom: 0;
+    line-height: 1.3;
+    margin-top: 5px;
+    display: block;
+    color: #ff0000;
+}
+
+.form-group.has-success i {
+    color: #8ac43f;
+}
+
+.form-group.has-error i {
+    color: #ff0000;
 }
 
 

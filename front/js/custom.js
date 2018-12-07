@@ -153,64 +153,66 @@ jQuery(document).ready(function($) {
     //     $(".navbar-light .navbar-nav li.notification-box .badge").hide();
     // });
 
-//     $(document).on("click", function(event) {
-//         var $trigger = $(".notification-box");
-//         if ($trigger !== event.target && !$trigger.has(event.target).length) {
-//             $(".notification-list").slideUp();
-//         }
-//     });
+    //     $(document).on("click", function(event) {
+    //         var $trigger = $(".notification-box");
+    //         if ($trigger !== event.target && !$trigger.has(event.target).length) {
+    //             $(".notification-list").slideUp();
+    //         }
+    //     });
 
-//      //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
-
-
-// // read notification
-// $(".notification-list li a").click(function() {
-//     $(this).addClass("mark-as-read");
-// });
+    //      //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
 
-//equal height
-equalheight = function(container) {
+    // // read notification
+    // $(".notification-list li a").click(function() {
+    //     $(this).addClass("mark-as-read");
+    // });
 
-    var currentTallest = 0,
-        currentRowStart = 0,
-        rowDivs = new Array(),
-        $el,
-        topPosition = 0;
-    $(container).each(function() {
 
-        $el = $(this);
-        $($el).height('auto')
-        topPostion = $el.position().top;
+    //equal height
+    equalheight = function(container) {
 
-        if (currentRowStart != topPostion) {
+        var currentTallest = 0,
+            currentRowStart = 0,
+            rowDivs = new Array(),
+            $el,
+            topPosition = 0;
+        $(container).each(function() {
+
+            $el = $(this);
+            $($el).height('auto')
+            topPostion = $el.position().top;
+
+            if (currentRowStart != topPostion) {
+                for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+                    rowDivs[currentDiv].height(currentTallest);
+                }
+                rowDivs.length = 0; // empty the array
+                currentRowStart = topPostion;
+                currentTallest = $el.height();
+                rowDivs.push($el);
+            } else {
+                rowDivs.push($el);
+                currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+            }
             for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
                 rowDivs[currentDiv].height(currentTallest);
             }
-            rowDivs.length = 0; // empty the array
-            currentRowStart = topPostion;
-            currentTallest = $el.height();
-            rowDivs.push($el);
+        });
+    }
+
+    //on scroll add  and remove class
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 200) {
+            $(".front-profile-menu").addClass("darkHeader");
         } else {
-            rowDivs.push($el);
-            currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-        }
-        for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
-            rowDivs[currentDiv].height(currentTallest);
+            $(".front-profile-menu").removeClass("darkHeader");
         }
     });
-}
 
-//on scroll add  and remove class
-$(window).scroll(function() {
-var scroll = $(window).scrollTop();
-
-if (scroll >= 200) {
-    $(".front-profile-menu").addClass("darkHeader");
-} else {
-    $(".front-profile-menu").removeClass("darkHeader");
-}
-});
+    
 
 
 

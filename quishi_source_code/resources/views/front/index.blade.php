@@ -175,9 +175,9 @@
         <div class="section-title">
             <h2>{{ __('In the Media') }}</h2>
         </div>
-        <div class="row row-news">
+        <div class="row row-news isotopeContainer2">
             @foreach($blogs as $blog)
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-3 col-sm-6 isotopeSelector">
                 <div class="news-blog-section">
                     <div class="blog-image">
                         @if($blog->image_path != "")
@@ -198,14 +198,17 @@
         </div>
         <div class="view-more"><a href="{{URL::to('/media')}}" class="btn btn-default">{{ __('All Media') }}</a></div>
         @endif
-
+    </div>
+</div>
+<div class="popular-blogs page-section">
+    <div class="container">
         @if($popular_blogs->count() > 0) 
         <div class="section-title">
             <h2>{{ __('Popular Blogs') }}</h2>
         </div>
-        <div class="row row-news">
+        <div class="row row-news isotopeContainer2">
             @foreach($popular_blogs as $popular_blog)
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-3 col-sm-6 isotopeSelector">
                  <div class="news-blog-section">
                     <div class="blog-image">
                         @if($popular_blog->image_path != "")
@@ -229,7 +232,7 @@
 
         @endif
     </div>
-</div>
+</div>   
 
 
 @endsection
