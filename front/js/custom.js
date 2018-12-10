@@ -87,7 +87,8 @@ jQuery(document).ready(function($) {
 
     //$('.profile-coment-comment .form-group').hide();
     //show on click its div only
-    $('.profile-comment-section .write-comment').click(function() {
+    $('body').on('click','.write-comment', function(e) {
+        e.preventDefault();
         //$(this).find('.form-group').slideToggle("fast");
         $(this).parent().closest('div.profile-coment-comment').find('.form-group').slideToggle();
         //$('.profile-comment-section .form-group').slideToggle();

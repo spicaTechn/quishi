@@ -11,8 +11,8 @@ class UserProfileQueries extends Model
     protected $table = "user_profile_queries";
 
 
-    public function user(){
-    	return  $this->belongsTo('App\User','user_profile_queries','id','user_id');
+    public function comment_poster(){
+    	return  $this->belongsTo('App\User','posted_by','id');
     }
 
     public function answer(){
@@ -25,5 +25,9 @@ class UserProfileQueries extends Model
 
     public function childern(){
     	return $this->hasMany('App\Model\UserProfileQueries','parent','id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User','user_id','id');
     }
 }
