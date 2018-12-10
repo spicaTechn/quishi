@@ -170,7 +170,7 @@
 
                     <div class="profile-leave-comment">
                         <h4 class="small">{{ __('Leave a Comment') }}</h4>
-                        <form action="" method="post" name="_answer_comment_{{$question['question_id']}}" id="_answer_comment_{{ $question['question_id']}}">
+                        <form action="javascript:void(0);" method="post" name="_answer_comment_{{$question['question_id']}}" id="_answer_comment_{{ $question['question_id']}}">
                             <input type="hidden" name="answer_id" value="{{ $question['answer_id']}}"/>
                             <input type="hidden" name="question_id" value="{{ $question['question_id']}}"/>
                             <input type="hidden" name="question_id" value="{{ $question['question_id']}}"/>
@@ -206,27 +206,27 @@
                                     <div class="form-group">
                                         <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
                                         <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
-                                        <button class="btn btn-default btn_comment" type="submit" data-question-id="{{$question['question_id']}}"><i class="icon-cursor"></i></button>
+                                        <button class="btn btn-default btn_comment"  data-question-id="{{$question['question_id']}}"><i class="icon-cursor"></i></button>
                                     </div>
                                     @endif
                                 </div>
                             </div>
                         </form>
 
-                        @if(count($question['answer_comments']) > 0):
+                        @if(count($question['answer_comments']) > 0)
                         @foreach($question['answer_comments'] as $answer_comment)
-                        <div class="profile-comment-wrapper">
+                        <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$answer_comment->id}}">
                             <div class="profile-comment-section">
                                 <div class="profile-coment-user">
-                                    @if($answer_comment->answer->user->user_profile->image_path != "")
-                                        <img src="{{ asset('/front/images/profile/'.$answer_comment->answer->user->user_profile->image_path)}}">
+                                    @if($answer_comment->comment_poster->user_profile->image_path != "" && $answer_comment->type != '1')
+                                        <img src="{{ asset('/front/images/profile/'.$answer_comment->comment_poster->user_profile->image_path)}}">
                                     @else
                                         <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                     @endif
                                 </div>
 
                                 <div class="profile-coment-comment">
-                                    <h5>{{ $answer_comment->answer->user->user_profile->first_name }}</h5>
+                                    <h5>{{ ($answer_comment->type == '0') ? $answer_comment->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
                                     <p>{{ ucfirst($answer_comment->content) }}</p>
                                     <div class="profile-author-comment">
                                         <ul>
@@ -236,6 +236,8 @@
                                             @endif
                                         </ul>
                                         <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $answer_comment->id }}">
+                                             <input type="hidden" name="_parent_comment_id"  value="{{$answer_comment->id}}"/>
+                                             <input type="hidden" name="_quishi_comment_posted_by" value="{{$answer_comment->posted_by}}"/>
                                             {{csrf_field()}}
                                         <div class="form-group">
                                             <div class="reply-user-image reply-subinner-image">
@@ -261,10 +263,10 @@
                                         </div>
                                         </div>
                                         <div class="form-group" id="comment-1">
-                                                <input type="hidden" name="_comment_parent_id" value=""/>
+                                                <input type="hidden" name="_career_advisor_id" value="{{$answer_comment->user_id}}"/>
                                                 <input type="hidden" name="answer_id" value="{{$question['answer_id']}}"/>
-                                                <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required"></textarea>
-                                                <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
+                                                <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
+                                                <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$answer_comment->id}}"><i class="icon-cursor"></i></button>
                                             
                                         </div>
                                     </div>
@@ -273,39 +275,43 @@
                             </div>
                             @if($answer_comment->childern()->count() > 0)
                             <div class="reply-inner">
-                                @foreach($answer_comment->childern as $comment_reply)
+                                @foreach($answer_comment->childern()->orderBy('created_at','desc')->get() as $comment_reply)
                                 <div class="profile-comment-section">
                                     <div class="profile-coment-user">
-                                        @if($answer_comment->answer->user->user_profile->image_path != "")
-                                        <img src="{{ asset('/front/images/profile/'.$answer_comment->answer->user->user_profile->image_path)}}">
+                                        @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
+                                        <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
                                         @else
                                             <img src="http://localhost/quishi/front /images/profile/1.jpg">
                                         @endif
                                     </div>
                                     
                                     <div class="profile-coment-comment">
-                                        <h5>{{$comment_reply->answer->user->user_profile->first_name}}</h5>
+                                        <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
                                         <p>{{ $comment_reply->content }}</p>
                                         
                                     </div>
                                 </div>
                                 @endforeach
                                 <!-- end inner profile-comment-section 1 -->
+                                @if($answer_comment->childern()->count() > 2)
                                 <div class="view-all-comment">
-                                    <span>View all {{ ($answer_comment->childer()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
+                                    <span>View all {{ ($answer_comment->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
+                                @endif
                             </div> 
                             @endif                                                                   
                         </div>
-                        @endforeach
-                       
-                         <div class="view-all-profile-comment" style=" (count($question['answer_comments']) < 3) ? {{ 'display: none;'}} : {{'display:block;'}} ">
+                        @endforeach  
+                        <div class="view-all-profile-comment" style=" {{ (count($question['answer_comments']) < 4) ? 'display: none;'  : 'display:block;' }} ">
                             <span>View all {{ (count($question['answer_comments']) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
-                        </div>    
+                        </div>  
                         @else
-                            <div class="profile-comment-wrapper">
+                            <div class="view-all-profile-comment" style=" {{ (count($question['answer_comments']) < 4) ? 'display: none;'  : 'display:block;' }} ">
+                                <span>View all {{ (count($question['answer_comments']) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
+                            </div> 
+                            <div class="_no_comment_posted" id="_no_comment_posted">
                                 <div class="profile-comment-section">
-                                    <div class="row">
+                                    <div class="_no_comment_posted_yet">
                                         <p>There are no comment posted yet</p>
                                     </div>
                                 </div>
@@ -371,18 +377,23 @@ $(document).ready(function () {
                 data        : comment_details,
                 success     : function(data){
                     //append new comment
-                   $(current_clicked_btn).parent().closest('div.profile-leave-comment').append(data.result);
+                   $(current_clicked_btn).parent().closest('div.profile-leave-comment').find('form#_answer_comment_' + _current_commented_id ).after(data.result).show('slow');
                    $(current_clicked_btn).parent().closest('div.profile-question-answer-section').find('a.go-to-comment > span').html(data.total_comment);
                    //reset the text area size
                    //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
                    //reset the form
-                   if(data.total_comment > 4){
+                   if(data.total_comment >= 4){
                      $('.view-all-profile-comment span').html('View all ' + (data.total_comment - 3) + ' Comments <i class="fa fa-reply" aria-hidden="true"></i>');
+                     $('.view-all-profile-comment').show();
                  }else{
                     $('.view-all-profile-comment').hide();
                  }
-                  
-                   $("#_answer_comment_" + _current_commented_id)[0].reset();
+
+                  //hide the no comment section
+                  $("._no_comment_posted").hide();
+                  $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
+                  $("#_answer_comment_" + _current_commented_id).slideToggle(500);
+                  $("#_answer_comment_" + _current_commented_id)[0].reset();
 
                 }
 
@@ -437,7 +448,53 @@ $(document).ready(function () {
     });
 
 
+    
+
     //comment new reply
+
+    $('body').on('click','._comment_reply_btn',function(e){
+        e.preventDefault();
+        var current_clicked_btn    = $(this);
+        var _comment_reply_message = $(this).parent().closest('div.form-group').find('textarea').val();
+        if(_comment_reply_message.length > 10){
+               var _current_answer_id  = $(this).data('answer-id');
+               var comment_details        = $("#_comment_reply_form_" + _current_answer_id).serialize();
+               $.ajax({
+                url         : "{{URL::to('/answers/comments/postComment')}}",
+                type        : "POST",
+                dataType    : 'JSON',
+                data        : comment_details,
+                success     : function(data){
+                    //append new comment
+                   $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.reply-inner').prepend(data.result).show('slow');
+                   //reset the text area size
+                   //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
+                   //reset the form
+                   if(data.total_reply >= 3){
+                     $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment span').html('View all ' + (data.total_reply - 2) + ' Replies <i class="fa fa-reply" aria-hidden="true"></i>');
+                     $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').show();
+                 }else if(data.total_reply == 1){
+                    //add new reply box
+                    $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.profile-comment-section').after(data.result);
+                    $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').hide();
+                 }else{
+                      $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').hide();
+                 }
+
+                  //hide the no comment section
+                  //$("._no_comment_posted").hide();
+                   $("#_comment_reply_form_" + _current_answer_id).find('textarea').css('height','37px');
+                   $("#_comment_reply_form_" + _current_answer_id).slideToggle(500);
+                   $("#_comment_reply_form_" + _current_answer_id)[0].reset();
+
+                }
+
+           });
+
+        }else{
+            alert('Your reply should be minimum 10 characters long'); 
+        }
+    });
 
 
 

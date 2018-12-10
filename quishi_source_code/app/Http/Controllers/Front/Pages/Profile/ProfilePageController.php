@@ -122,7 +122,7 @@ class ProfilePageController extends BaseCareerAdvisorController
 
          $questions_id = $question['question_id'];
          $answers = DB::table('answers')->where('question_id',$question['question_id'])->where('user_id',$id)->select('id','content','total_likes')->first();
-         $answers_comments                 = UserProfileQueries::where('answer_id',$answers->id)->where('user_id',$id)->get();
+         $answers_comments                 = UserProfileQueries::where('answer_id',$answers->id)->where('user_id',$id)->where('parent','0')->orderBy('created_at','desc')->get();
          $questions[$i]['answer']          = $answers->content;
          $questions[$i]['question_id']     = $question['question_id'];
          $questions[$i]['total_likes']     = $answers->total_likes;

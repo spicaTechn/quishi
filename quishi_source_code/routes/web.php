@@ -116,6 +116,11 @@
 		'uses'   =>'Front\Pages\Profile\ProfileCommentController@increaseCommentLikeCounter'
 	]);
 
+	Route::post('/answers/comments/postComment',[
+		'as'     => 'answers.comments.increaseLikeCounter',
+		'uses'   =>'Front\Pages\Profile\ProfileCommentController@createCommentReply'
+	]);
+
 
 // Route for profile
 

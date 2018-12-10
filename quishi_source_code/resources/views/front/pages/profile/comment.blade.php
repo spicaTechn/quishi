@@ -1,20 +1,26 @@
-<div class="profile-comment-wrapper">
+  <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$recent_comments->id}}">
     <div class="profile-comment-section">
         <div class="profile-coment-user">
-            <img src="http://localhost/quishi/front /images/profile/1.jpg">
+            @if($recent_comments->comment_poster->user_profile->image_path != "" && $recent_comments->type != '1')
+                <img src="{{ asset('/front/images/profile/'.$recent_comments->comment_poster->user_profile->image_path)}}">
+            @else
+                <img src="http://localhost/quishi/front /images/profile/1.jpg">
+            @endif
         </div>
 
         <div class="profile-coment-comment">
-            <h5>Sarah Conner</h5>
-            <p>{{$recent_comments->content}}</p>
+            <h5>{{ ($recent_comments->type == '0') ? $recent_comments->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
+            <p>{{ ucfirst($recent_comments->content) }}</p>
             <div class="profile-author-comment">
                 <ul>
-                    <li><a href="#"><i class="icon-like"></i> {{$recent_comments->total_likes}} {{ ($recent_comments->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
+                    <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $recent_comments->id}}"><i class="icon-like"></i> {{ $recent_comments->total_likes }} {{ ($recent_comments->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
                     @if(Auth::check())
                         <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
                     @endif
                 </ul>
-                <form action="javascript:void(0);" name="_comment_reply_form">
+                <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $recent_comments->id }}">
+                     <input type="hidden" name="_parent_comment_id"  value="{{$recent_comments->id}}"/>
+                    {{csrf_field()}}
                 <div class="form-group">
                     <div class="reply-user-image reply-subinner-image">
                         @if(Auth::check())
@@ -31,7 +37,7 @@
                     <ul>
                         <li>
                             <a>
-                                <input type="checkbox" id="check-for-login" name="_hide_name">
+                                <input type="checkbox" id="check-for-login" name="_hide_name_{{$recent_comments->id}}">
                                 <label for="check-for-login">Post Anonymously</label>
                             </a>
                         </li>
@@ -40,14 +46,38 @@
                 </div>
                 <div class="form-group" id="comment-1">
                         <input type="hidden" name="_comment_parent_id" value=""/>
-                        <input type="hidden" name="answer_id" value="{{--{{$question['answer_id']}}--}}"/>
+                        <input type="hidden" name="answer_id" value="{{$recent_comments->answer_id}}"/>
                         <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required"></textarea>
-                        <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
+                        <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$recent_comments->id}}" ><i class="icon-cursor"></i></button>
                     
                 </div>
             </div>
             </form>
         </div>
-    </div>                                                                  
+    </div>
+    @if($recent_comments->childern()->count() > 0)
+    <div class="reply-inner">
+        @foreach($recent_comments->childern as $comment_reply)
+        <div class="profile-comment-section">
+            <div class="profile-coment-user">
+                @if($recent_comments->answer->user->user_profile->image_path != "")
+                <img src="{{ asset('/front/images/profile/'.$recent_comments->answer->user->user_profile->image_path)}}">
+                @else
+                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                @endif
+            </div>
+            
+            <div class="profile-coment-comment">
+                <h5>{{$comment_reply->answer->user->user_profile->first_name}}</h5>
+                <p>{{ $comment_reply->content }}</p>
+                
+            </div>
+        </div>
+        @endforeach
+        <!-- end inner profile-comment-section 1 -->
+        <div class="view-all-comment">
+            <span>View all {{ ($recent_comments->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
+        </div>
+    </div> 
+    @endif                                                                   
 </div>
-<!-- end profile comment-wrapper 1-->
