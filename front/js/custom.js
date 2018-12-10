@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
     });
 
 
-    $('.view-all-profile-comment span').click(function(){
+    $('.view-all-profile-comment span').click(function() {
         $(this).parent().closest('div.profile-question-answer-section').find('.profile-comment-wrapper').slideDown();
         $(this).hide();
     });
@@ -98,13 +98,35 @@ jQuery(document).ready(function($) {
         $('.anonymously-user').slideToggle(500);
     });
 
+    $(document).on('click', '.total_likes', function(event) {
+        $(this).parent().closest('div.view-section').addClass('liked');
+    });
+
+
+    $(document).on('click', '.dashboard-toggle', function(event) {
+        $('.profile-sidemenu').toggleClass('profile-sidemenu-show');
+        $('.dashboard-toggle').toggleClass('open');
+    });
+
+
+    $(document).on('click', '.dashboard-toggle-hide', function(event) {
+        $('.profile-sidemenu').toggleClass('profile-sidemenu-show');
+        $('.dashboard-toggle').toggleClass('open');
+    });
+
+    $(document).on('click', '.dashboard-toggle-hide', function(event) {
+        $('.profile-sidemenu').toggleClass('show');
+    });
+
+    //$('.notification-box').prependTo('.navbar-brand');
+
 
 
     $('.like-comment-view a.go-to-comment').click(function() {
 
         setTimeout(function() {
-             $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').focus();
-             $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').css("border-color", "#8ac43f");
+            $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').focus();
+            $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').css("border-color", "#8ac43f");
         }, 0);
 
         $(this).parent().closest('div.profile-question-answer-section').find('div.profile-leave-comment').slideToggle(500);
@@ -212,7 +234,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    
+
 
 
 

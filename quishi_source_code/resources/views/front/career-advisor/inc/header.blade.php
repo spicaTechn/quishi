@@ -93,7 +93,17 @@
 <!-- end header -->
 <div class="my-profile">
     <div class="container">
+        <div class="dashboard-toggle">
+            <i class="dashboard-line"></i>
+            <i class="dashboard-line"></i>
+            <i class="dashboard-line"></i>
+        </div>
         <div class="profile-sidemenu">
+             <div class=" profile-sidemenu--hiden">
+            <div class="dashboard-toggle-hide">
+                &times;
+            </div>
+        </div>
             <ul>
                 <li class="{{ Request::is('profile') ? 'active' : ''}}"><a href="{{route('profile')}}"> <i class="ti-dashboard"></i> Dashboard</a></li>
                 <li class="{{ Request::is('profile/answers*') ? 'active' : '' }}"><a href="{{url('/profile/answers')}}"><i class="ti-write"></i> My answers</a></li>
