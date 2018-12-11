@@ -2,6 +2,10 @@
     .dashboard-toggle {
         display: none;
     }
+
+    .profile-sidemenu--hiden {
+        display: none;
+    }
 }
 
 .team-section img {
@@ -17,6 +21,11 @@
 
 
 @media (max-width: 991px) {
+    .navbar-light .navbar-nav .nav-link {
+        padding: 0.5rem;
+        font-size: 16px;
+    }
+
     .profile-sidemenu {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
@@ -24,7 +33,7 @@
     }
 
     .profile-sidemenu-show {
-    	-webkit-transform: translateX(0);
+        -webkit-transform: translateX(0);
         transform: translateX(0);
     }
 
@@ -36,29 +45,31 @@
         z-index: 100;
         top: -40px;
     }
+
     .dashboard-toggle.open {
-    	display: none;
+        display: none;
     }
 
     .profile-main-section {
-	    margin-left: 0;
-	    padding: 0 15px;
-	}
+        margin-left: 0;
+        padding: 0 15px;
+    }
 
-	.profile-details {
-	    margin-bottom: 30px;
-	}
-	.dashboard-toggle-hide {
-	    width: 35px;
-	    height: 35px;
-	    display: block;
-	    font-size: 30px;
-	    text-align: center;
-	    color: #8ac43f;
-	    cursor: pointer;
-	    top: -20px;
-	    position: relative;
-	}
+    .profile-details {
+        margin-bottom: 30px;
+    }
+
+    .dashboard-toggle-hide {
+        width: 35px;
+        height: 35px;
+        display: block;
+        font-size: 30px;
+        text-align: center;
+        color: #8ac43f;
+        cursor: pointer;
+        top: -20px;
+        position: relative;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -177,7 +188,39 @@
         padding: 20px 0;
     }
 
-    
+    .forum-title-bar ul li {
+        margin-bottom: 20px;
+
+    }
+
+    .forum-search-bar .search-form {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .btn.donate_us {
+        width: 100%;
+    }
+
+    .customer-login .row [class*="col"] {
+        min-height: 0;
+
+    }
+
+    .share-blog ul {
+        float: none;
+    }
+
+    .share-blog li:first-child {
+        display: block;
+        margin-right: 0;
+    }
+
+    #blog_description_ifr {
+        height: 200px !important;
+    }
+
+
 }
 
 

@@ -734,10 +734,17 @@ p {
 
 
 .view-section.liked a,
-.view-section a:hover {
+.view-section a:hover,
+.blog-page-like.liked_2 i,
+.blog-page-like:hover i {
     -webkit-animation-name: shake;
     animation-name: shake;
-    animation: shake .8s ;
+    animation: shake .8s;
+}
+
+.blog-page-like i {
+    cursor: pointer;
+    display: inline-block;
 }
 
 
@@ -893,6 +900,13 @@ p {
     background: #fff;
     min-height: 200px;
     padding: 50px 0;
+    border-top: 1px solid rgba(229, 229, 229, 0.48);
+}
+
+.fixed-footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .footer-section {
@@ -1373,10 +1387,16 @@ p {
     text-transform: uppercase;
 }
 
-.forget-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@media (min-width: 768px) {
+    .forget-row {
+        justify-content: space-between;
+        align-items: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
 }
 
 .login-right-part {
@@ -1518,6 +1538,7 @@ p {
 .profile-setup textarea.form-control {
     height: 100px;
     margin-bottom: 20px;
+    padding: 10px;
 }
 
 .nice-select.open .list {
@@ -1573,6 +1594,7 @@ p {
     border: 1px solid #8AC43F;
     position: relative;
     height: 200px;
+    width: 200px;
 }
 
 .file-upload-input {
@@ -1625,10 +1647,13 @@ p {
 }
 
 .file-upload-image {
-    max-height: 200px;
-    max-width: 200px;
     margin: auto;
-    padding: 20px;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .remove-image {
@@ -1894,17 +1919,26 @@ p {
     cursor: pointer;
 }
 
-.editable-section form {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+@media (min-width: 768px) {
+    .editable-section form {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .editable-section .form-group {
+        margin: 0;
+        flex: 0 0 70%;
+        max-width: 70%;
+    }
+
 }
 
-.editable-section .form-group {
-    margin: 0;
-    flex: 0 0 70%;
-    max-width: 70%;
-}
+
 
 .editable-section .form-group .form-control,
 .editable-section .button-groups .btn {
@@ -2033,10 +2067,17 @@ p {
     padding: 80px 0;
 }
 
-.forum-title-bar,
-.forum-search-bar {
-    display: flex;
-    align-items: center;
+@media (min-width: 768px) {
+
+    .forum-title-bar,
+    .forum-search-bar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        align-items: center;
+    }
 }
 
 .forum-title-bar ul,
@@ -2587,6 +2628,7 @@ p {
         margin: 0 auto;
 
     }
+
     .profile-left {
         max-width: 450px;
         margin: -33% auto 0;
@@ -4085,7 +4127,7 @@ span.required {
 .popular-blogs.page-section {
     background: rgba(247, 253, 255, 0.61);
     border-top: 1px solid rgba(229, 229, 229, 0.48);
-    border-bottom: 1px solid rgba(229, 229, 229, 0.48);
+    /*border-bottom: 1px solid rgba(229, 229, 229, 0.48);*/
 }
 
 .the-media .section-title h2,
@@ -4495,6 +4537,7 @@ span.required {
 .reply-subinner-image {
     margin-right: 10px;
 }
+
 ._no_comment_posted_yet {
     padding-left: 25px;
 }

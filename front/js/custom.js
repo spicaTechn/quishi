@@ -60,6 +60,13 @@ jQuery(document).ready(function($) {
         //$(this).hide();
     });
 
+    //fixed footer
+    if ($(window).height() >= $(document).height())
+        $(".footer").addClass("fixed-footer");
+    else $(".footer").removeClass("fixed-footer");
+
+
+
 
     $('.view-all-profile-comment span').click(function() {
         $(this).parent().closest('div.profile-question-answer-section').find('.profile-comment-wrapper').slideDown();
@@ -87,11 +94,18 @@ jQuery(document).ready(function($) {
 
     //$('.profile-coment-comment .form-group').hide();
     //show on click its div only
-    $('body').on('click','.write-comment', function(e) {
+    $('body').on('click', '.write-comment', function(e) {
         e.preventDefault();
         //$(this).find('.form-group').slideToggle("fast");
         $(this).parent().closest('div.profile-coment-comment').find('.form-group').slideToggle();
         //$('.profile-comment-section .form-group').slideToggle();
+    });
+
+
+    //navbar-toggler
+    $(document).on('click', '.navbar-toggler', function(event) {
+        $('.navbar-collapse').toggleClass('show');
+        //$('.navbar-collapse').slideToggle(500);
     });
 
 
@@ -102,6 +116,11 @@ jQuery(document).ready(function($) {
     $(document).on('click', '.total_likes', function(event) {
         $(this).parent().closest('div.view-section').addClass('liked');
     });
+
+    $(document).on('click', '.blog-page-like i', function(event) {
+        $('.blog-page-like').addClass('liked_2');
+    });
+
 
 
     $(document).on('click', '.dashboard-toggle', function(event) {
