@@ -171,6 +171,7 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/front/js/isotope.min.js') }}"></script>
+<script src="{{ asset('/front/js/jquery-scrolltofixed-min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <!-- Formvalidation -->
@@ -183,21 +184,21 @@
 @yield('page_specific_js')
 <script>
     $(document).ready(function(){
-        //blog masonary
-          var blogMasonary = window.blogMasonary || {},
-              $win = $(window);
-          blogMasonary.Isotope = function() {
-              // 3 column layout
-              var isotopeContainer2 = $('.isotopeContainer2');
-              if (!isotopeContainer2.length || !jQuery().isotope) return;
-              $win.load(function() {
-                  isotopeContainer2.isotope({
-                      itemSelector: '.isotopeSelector'
-                  });
+        // //blog masonary
+        //   var blogMasonary = window.blogMasonary || {},
+        //       $win = $(window);
+        //   blogMasonary.Isotope = function() {
+        //       // 3 column layout
+        //       var isotopeContainer2 = $('.isotopeContainer2');
+        //       if (!isotopeContainer2.length || !jQuery().isotope) return;
+        //       $win.load(function() {
+        //           isotopeContainer2.isotope({
+        //               itemSelector: '.isotopeSelector'
+        //           });
 
-              });
-          };
-          blogMasonary.Isotope();
+        //       });
+        //   };
+        //   blogMasonary.Isotope();
         
         $(".notification-box").click(function() {
             $(this).find(".notification-list").slideToggle();

@@ -5,29 +5,40 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="blog-single-det">
-                    <div class="blog-single-top">
-                        <h1>{{ $blog_details->title }}</h1>
+                    <div class="fixed-top-section" id="blogHeader">
+                        
+                        <div class="blog-single-post clearfix">
+                              @if($blog_details->user->user_profile()->select('image_path')->first())
+                                <div class="post-img">
+                                    <img src="{{ asset('/front/images/profile/'.$blog_details->user->user_profile->image_path)}}" alt="">
+                                </div>
+                              @else
+                                <div class="post-img">
+                                   <img src="{{ asset('/front/images/profile/users.png') }}" >
+                                </div>
+                              @endif
+                            <div class="post-date">
+                                <ul>
+                                    <li>Published on
+                                        <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
+                                    </li>
+                                    <li>By: <a href="{{URL::to('/career-advisior/'.$blog_details->user->id)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end blog-single-post -->
+
+                        <div class="blog-single-top">
+                            <h1>{{ $blog_details->title }}</h1>
+                            
+                        </div>
+                        <!-- end blog single title -->
+                    </div>
+
+                    <div class="blog-single-content">
                         <p>{{  $blog_details->abstract }}</p>
                     </div>
-                    <div class="blog-single-post clearfix">
-                          @if($blog_details->user->user_profile()->select('image_path')->first())
-                            <div class="post-img">
-                                <img src="{{ asset('/front/images/profile/'.$blog_details->user->user_profile->image_path)}}" alt="">
-                            </div>
-                          @else
-                            <div class="post-img">
-                               <img src="{{ asset('/front/images/profile/users.png') }}" >
-                            </div>
-                          @endif
-                        <div class="post-date">
-                            <ul>
-                                <li>Published on
-                                    <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
-                                </li>
-                                <li>By: <a href="{{URL::to('/career-advisior/'.$blog_details->user->id)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div class="blog-single-img">
                         @if($blog_details->image_path != "")
                             <img src="{{ asset('/front/images/blogs/'.$blog_details->image_path) }}" alt="" style="">

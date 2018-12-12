@@ -140,6 +140,37 @@ jQuery(document).ready(function($) {
 
     //$('.notification-box').prependTo('.navbar-brand');
 
+    // window.onscroll = function() {myFunction()};
+
+    // var header = document.getElementById("myHeader");
+    // var sticky = header.offsetTop;
+
+    // function myFunction() {
+    //   if (window.pageYOffset > sticky) {
+    //     header.classList.add("sticky");
+    //   } else {
+    //     header.classList.remove("sticky");
+    //   }
+    // }
+
+    //blog masonary
+    var blogMasonary = window.blogMasonary || {},
+        $win = $(window);
+    blogMasonary.Isotope = function() {
+        // 3 column layout
+        var isotopeContainer2 = $('.isotopeContainer2');
+        if (!isotopeContainer2.length || !jQuery().isotope) return;
+        $win.load(function() {
+            isotopeContainer2.isotope({
+                itemSelector: '.isotopeSelector'
+            });
+
+        });
+    };
+    blogMasonary.Isotope();
+
+    $('.fixed-top-section').scrollToFixed();
+
 
 
     $('.like-comment-view a.go-to-comment').click(function() {
@@ -253,11 +284,6 @@ jQuery(document).ready(function($) {
             $(".front-profile-menu").removeClass("darkHeader");
         }
     });
-
-
-
-
-
 
 });
 
