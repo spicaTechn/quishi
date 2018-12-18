@@ -4313,6 +4313,10 @@ span.required {
     /*min-height: 55px;*/
 }
 
+#blog_description_ifr {
+    height: 200px !important;
+}
+
 @media (min-width: 1200px) {
 
     .profile-blog-page.profile-main-section,
