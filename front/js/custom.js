@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
     // });
 
     // show profile inner comment
-    $(".profile-leave-comment .view-all-comment span").click(function() {
+    $('body').on('click',".profile-leave-comment .view-all-comment span", function() {
         $(this).parent().closest("div.reply-inner").find('.profile-comment-section').slideDown();
         $(this).hide();
         //$(this).hide();
