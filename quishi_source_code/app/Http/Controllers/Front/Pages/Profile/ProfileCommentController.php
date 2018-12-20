@@ -199,15 +199,17 @@ class ProfileCommentController extends Controller
     	//get other commentors who have posted comment already
     	$other_commentors    = UserProfileQueries::where('answer_id',$answer_id)
     											 ->where('user_id',$profile_id)
+                                                 ->where('parent',0)
     											 ->whereNotIn('posted_by',array($profile_id,$this->posted_comment_profile->posted_by))
     											 ->select('posted_by')
+                                                 ->distinct()
     											 ->get();
     	//send notification to the other commentors if any
 
     	foreach($other_commentors as $other_commentor):
     		$other_commentor_details       = User::findOrFail($other_commentor->posted_by);
     		//check for the profile question owner
-    		if($other_commentor_details->id != $profile_id):
+    		if(Auth::user()->id != $profile_id):
     			$notification_message          = Auth::user()->name .' also commented on ' .$profile_owner->name .' profile question ' . $this->posted_comment_profile->answer->question->title  . '" answer';
     		else:
     			$notification_message          = Auth::user()->name .' also commented on his profile question "' . $this->posted_comment_profile->answer->question->title  . '" answer';
