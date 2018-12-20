@@ -173,7 +173,7 @@
 <script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery-scrolltofixed-min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
-<script src="{{ asset('/front/js/app.js') }}"></script>
+<!-- <script src="{{ asset('/front/js/app.js') }}"></script> -->
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <!--form validation -->

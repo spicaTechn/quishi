@@ -124,6 +124,14 @@
 	]);
 
 
+	//single blog comment routes
+
+	Route::post('/blogs/postComment',[
+		'as'      => 'blogs.postComment',
+		'uses'    => 'Front\Pages\Blog\BlogCommentController@createComment'
+	]);
+
+
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){

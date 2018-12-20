@@ -67,42 +67,51 @@
                         </ul>
                     </div>
 
-                    <!-- share this post -->
-                    <div class="blog_comment_section">
-                        <div id="disqus_thread"></div>
-                    </div>
                     <!-- posts -->
                     <div class="profile-leave-comments blog-leave-comment">
                         <h4 class="small">Leave a Comment</h4>
-                        <form action="">
+                        <form action="javascript:void(0);" method="post" name="_quishi_new_blog_comment" id="_quishi_new_blog_comment">
+                            {{csrf_field()}}
+                            <input type="hidden" name="_parent_post_id" value="{{$blog_details->id}}"/>
+                            <input type="hidden" name="_parent_comment_id" value="0"/>
+                            <input type="hidden" name="_blog_career_advisor_id" value="{{$blog_details->user->id}}"/>
                             <div class="profile-reply-form" id="profile-reply-form">
                                 <div class="reply-user-image">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                     @if(Auth::check())
+                                      @if(Auth::user()->user_profile->image_path != "")
+                                        <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
+                                      @else
+                                        <img src="{{ asset('/front')}} /images/profile/1.jpg">
+                                      @endif
+                                    @endif
                                 </div>
                                 <div class="reply-coment-box">
                                     <div class="comment-method">
                                         <ul>
-                                            <li><a href="#">Login</a></li>
+                                            @if(! Auth::check())
+                                            <li>Please <a href="{{URL::to('/login')}}">Signin</a> or <a href="{{ URL::to('/register')}}">Create an account </a> to post a comment</li>
+                                            @else
                                             <li>
                                                 <a>
-                                                    <input type="checkbox" id="check-for-login">
+                                                    <input type="checkbox" id="check-for-login" name="_hide_name">
                                                     <label for="check-for-login">Post Anonymously</label>
                                                 </a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </div>
-                                    <div class="form-group anonymously-user">
-                                        <input type="email" name="" placeholder="Email" class="form-control">
-                                    </div>
+                                    @if(Auth::check())
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="1" placeholder="Your Message Here !"></textarea>
-                                        <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
+                                        <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                                        <button class="btn btn-default btn_comment"  data-blog-id="{{$blog_details->id}}"><i class="icon-cursor"></i></button>
                                     </div>
+                                    @endif
                                     
                                 </div>
                             </div>
                         </form>
-
+                        @if($blog_details->comments->count() > 0)
                         <div class="profile-comment-wrapper">
                             <div class="profile-comment-section">
                                 <div class="profile-coment-user">
@@ -204,214 +213,15 @@
                         </div>
                         <!-- end profile comment-wrapper 1-->
 
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
+                        @else
 
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-
-                            <div class="reply-inner">
-                                <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 1 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 2 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 3 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 4 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 5 -->
-                                <div class="view-all-comment">
-                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
-                                </div>
-                            </div>                                                                      
-                        </div>
-                        <!-- end profile comment-wrapper 2-->
-
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
-
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>                                                                       
-                        </div>
-                        <!-- end profile comment-wrapper 3-->
-
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
-
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>                                                                       
-                        </div>
-                        <!-- end profile comment-wrapper 4-->
-
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
-
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>                                                                       
-                        </div>
-                        <!-- end profile comment-wrapper 5-->
-
-                        <div class="profile-comment-wrapper">
-                            <div class="profile-comment-section">
-                                <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                </div>
-
-                                <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                    <div class="profile-author-comment">
-                                        <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
-                                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                        </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>                                                                       
-                        </div>
-                        <!-- end profile comment-wrapper 6-->
+                        @endif
                         <div class="view-all-blog-comments">
                             <span>View all comments</span>
                         </div>
                     </div>
+
+                    <!--blog comment section here -->
                 </div>
             </div>
         </div>
@@ -424,17 +234,59 @@
     $(document).ready(function(){
          autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
-        $('.blog-page-like').on('click', function(e){
-            //prevent the default action
-            e.preventDefault();
-            var current_click = $(this);
-            var current_like = $(this).find('span.current_like').html();
-            $.post("{{route('page_like')}}",{_token: "{{csrf_token()}}",blog_id: "{{$blog_details->id}}"},function(data){
-                if(data.status == "success"){
-                    $(current_click).find('span.current_like').html(data.result);
-                }
-            });
+    $('.blog-page-like').on('click', function(e){
+        //prevent the default action
+        e.preventDefault();
+        var current_click = $(this);
+        var current_like = $(this).find('span.current_like').html();
+        $.post("{{route('page_like')}}",{_token: "{{csrf_token()}}",blog_id: "{{$blog_details->id}}"},function(data){
+            if(data.status == "success"){
+                $(current_click).find('span.current_like').html(data.result);
+            }
         });
+    });
+
+        //add new comment on profile answer 
+    $('body').on('click','.btn_comment',function(e){
+        e.preventDefault();
+        var current_clicked_btn = $(this);
+        var _reply_message = $(this).parent().closest('div.form-group').find('textarea').val();
+        if(_reply_message.length > 10){
+           var comment_details           = $("#_quishi_new_blog_comment").serialize();
+            $.ajax({
+                url         : "{{URL::to('/blogs/postComment')}}",
+                type        : "POST",
+                dataType    : 'JSON',
+                data        : comment_details,
+                success     : function(data){
+                    //append new comment
+                   $(current_clicked_btn).parent().closest('div.profile-leave-comment').find('form#_answer_comment_' + _current_commented_id ).after(data.result).show('slow');
+                   $(current_clicked_btn).parent().closest('div.profile-question-answer-section').find('a.go-to-comment > span').html(data.total_comment);
+                   //reset the text area size
+                   //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
+                   //reset the form
+                   if(data.total_comment >= 4){
+                     $('.view-all-profile-comment span').html('View all ' + (data.total_comment - 3) + ' Comments <i class="fa fa-reply" aria-hidden="true"></i>');
+                     $('.view-all-profile-comment').show();
+                 }else{
+                    $('.view-all-profile-comment').hide();
+                 }
+
+                  //hide the no comment section
+                  $("._no_comment_posted").hide();
+                  $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
+                  //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
+                  $("#_answer_comment_" + _current_commented_id)[0].reset();
+
+                }
+
+           });
+        }else{
+            alert('Your comment should be minimum 10 characters long');
+        }
+        //alert('i need to post new comment on the answer');
+    });
+
     });
  </script>
 @endsection

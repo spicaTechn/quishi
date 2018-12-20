@@ -108,9 +108,10 @@ class ProfilePageController extends BaseCareerAdvisorController
         $questions   = $this->getCurrentUserCareer($user_single->id);
 
 
-        $total_views = $user_single->user_profile->profile_views;
-        $profile_view = $total_views+1;
-        $user_views = UserProfile::where('user_id',$user_single->id)->firstOrFail();
+        $total_views             = $user_single->user_profile->profile_views;
+        $profile_view            = $total_views+1;
+        $user_views              = UserProfile::where('user_id',$user_single->id)->firstOrFail();
+        $total_comment_published = UserProfileQueries::where('user_id',$id)->where('parent',0)->count();
         $user_views->profile_views = $profile_view;
         //echo "<pre>"; print_r($user_like); echo "</pre>";exit;
         $user_views->save();
@@ -147,7 +148,8 @@ class ProfilePageController extends BaseCareerAdvisorController
             'user'           => $user_single,
             'questions'      => $questions,
             'profile_view'   => $profile_view,
-            'blogs'          => $career_advisior_blogs
+            'blogs'          => $career_advisior_blogs,
+            'total_comments' => $total_comment_published
 
         ));
     }

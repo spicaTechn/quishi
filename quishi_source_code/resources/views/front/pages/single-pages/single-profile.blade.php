@@ -62,7 +62,7 @@
                                         </span>
                                     </li>
                                     <li><a href="javascript:void(0);"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
-                                    <li><a href="javascript:void(0);"><i class="icon-bubble"></i> Comments</a><span>1,060</span></li>
+                                    <li><a href="javascript:void(0);"><i class="icon-bubble"></i> Comments</a><span>{{quishi_convert_number_to_human_readable($total_comments) }}</span></li>
                                     <li><a href="#"><i class="icon-user"></i> Followers</a><span>{{quishi_convert_number_to_human_readable($user->followers()->count())}}</span></li>
                                     <li><a href="{{URL::to('/blog/careerAdvisor/'.$user->id)}}"><i class="icon-feed"></i> Blog</a><span>{{$user->posts()->count()}}</span></li>
 
@@ -293,11 +293,10 @@
                                 </div>
                                 @endforeach
                                 <!-- end inner profile-comment-section 1 -->
-                                @if($answer_comment->childern()->count() > 2)
-                                <div class="view-all-comment">
+                                
+                                <div class="view-all-comment"  style="{{ ($answer_comment->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
                                     <span>View all {{ ($answer_comment->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
-                                @endif
                             </div> 
                             @endif                                                                   
                         </div>
@@ -392,7 +391,7 @@ $(document).ready(function () {
                   //hide the no comment section
                   $("._no_comment_posted").hide();
                   $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
-                  $("#_answer_comment_" + _current_commented_id).slideToggle(500);
+                  //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
                   $("#_answer_comment_" + _current_commented_id)[0].reset();
 
                 }
@@ -484,7 +483,7 @@ $(document).ready(function () {
                   //hide the no comment section
                   //$("._no_comment_posted").hide();
                    $("#_comment_reply_form_" + _current_answer_id).find('textarea').css('height','37px');
-                   $("#_comment_reply_form_" + _current_answer_id).slideToggle(500);
+                   //$("#_comment_reply_form_" + _current_answer_id).slideToggle(500);
                    $("#_comment_reply_form_" + _current_answer_id)[0].reset();
 
                 }

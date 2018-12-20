@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use App\Notifications\ProfileLikeNotification;
 use App\Notifications\ProfileAnswerLikeNotification;
 use App\Notifications\NewCommentPostedNotification;
+use App\Notifications\CommentLikeNotification;
 
 class ProfileCommentController extends Controller
 {
@@ -84,6 +85,7 @@ class ProfileCommentController extends Controller
     	$comment_parent  = $request->input('_parent_comment_id');
     	$answer_id       = $request->input('answer_id');
     	$message         = $request->input('_comment_message');
+    	$question_id     = $request->input('question_id');
  
     	if($request->has('_hide_name'.$request->input('question_id'))):
     		$type   = '1';
@@ -107,11 +109,11 @@ class ProfileCommentController extends Controller
     	$this->posted_comment_profile = $recent_profile_comment;
 
     	//count total number of comments here
-    	$all_comments        = UserProfileQueries::where('answer_id',$answer_id)->count();
+    	$all_comments        = UserProfileQueries::where('answer_id',$answer_id)->where('parent',0)->count();
 
   
     	//send the notification 
-    	$this->sendNotificationAfterNewCommentPosted($request->input('_career_profile_id'),$answer_id);
+    	$this->sendNotificationAfterNewCommentPosted($request->input('_career_profile_id'),$answer_id,$question_id);
 
     	$return_html   = view('front.pages.profile.comment')->with([
     		'recent_comments'    => $recent_profile_comment
@@ -136,11 +138,29 @@ class ProfileCommentController extends Controller
     	$career_advisor_answer_comment->total_likes = $current_like_counter + 1;
     	$career_advisor_answer_comment->save();
 
-    	//need to send the notification to the profile career advisor
+    	//send the notification to the commentor
+    	$profile_owner_details                      = User::findOrFail($career_advisor_answer_comment->user_id);
+    	$comment_owner_details                      = User::findOrFail($career_advisor_answer_comment->posted_by);
+    	$question_id                                = Answer::findOrFail($career_advisor_answer_comment->answer_id)->question->id;
 
-    	//need to send the notification to the commentor career advisor
+    	//check the career advisor like his / her own comment or not
+    	if(Auth::check()):
+    		if($career_advisor_answer_comment->posted_by == Auth::user()->id):
+    			return response()->json(array('status'=>'success','total_likes' => ($current_like_counter + 1)),200);
+    		endif;
+    	endif;
+    	//check for the logged in user or not
+    	if(Auth::check()):
+    		$notification_message        = Auth::user()->name . ' like your comment posted on ' .$profile_owner_details->name .' profile question answer section';
+    	else:
+    		$notification_message        = 'Ananymous like your comment posted on ' .$profile_owner_details->name .' profile question answer section';
+    	endif;
 
-    	//return the response back 
+    	$notification_link              = URL::to('/career-advisor/'.$profile_owner_details->id .'#profile-answer'.$question_id);
+    	$career_advisor_image           = $notification_commentor_image   = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
+
+    	//send the notification 
+    	$comment_owner_details->notify(new CommentLikeNotification($notification_message,$notification_link,$career_advisor_image));
 
     	return response()->json(array('status'=>'success','total_likes' => ($current_like_counter + 1)),200);
 
@@ -158,16 +178,16 @@ class ProfileCommentController extends Controller
      *
      *
      */
-    protected function sendNotificationAfterNewCommentPosted($profile_id,$answer_id){
+    protected function sendNotificationAfterNewCommentPosted($profile_id,$answer_id,$question_id){
 
     	//get the question answered career advisor profile
     	$profile_owner         			= User::findOrFail($profile_id);
 
     	//no need to send the notification to the career advisor if he is commented on his profile
     	if(Auth::user()->id  != $profile_owner->id):
-	    	$notification_message  			= Auth::user()->name . ' has commented on your question "' . $this->posted_comment_profile->answer->question->title .'" answer'; 
+	    	$notification_message  			= Auth::user()->name . ' has commented on your profile question "' . $this->posted_comment_profile->answer->question->title .'" answer'; 
 	    	$notification_commentor_image   = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
-	    	$notification_link              = URL::to('/career-advisor/'.$profile_owner->id);  //need to add #id of the currently posted comment
+	    	$notification_link              = URL::to('/career-advisor/'.$profile_owner->id.'#profile-answer'.$question_id);  //need to add #id of the currently posted comment
 
 	    	$profile_owner->notify(new NewCommentPostedNotification($notification_message,$notification_commentor_image,$notification_link) );
 	    endif;
@@ -186,7 +206,12 @@ class ProfileCommentController extends Controller
 
     	foreach($other_commentors as $other_commentor):
     		$other_commentor_details       = User::findOrFail($other_commentor->posted_by);
-    		$notification_message          = Auth::user()->name .' also commented on "' .$profile_owner->name .' profile question "' . $this->posted_comment_profile->answer->question->title  . '" answer';
+    		//check for the profile question owner
+    		if($other_commentor_details->id != $profile_id):
+    			$notification_message          = Auth::user()->name .' also commented on ' .$profile_owner->name .' profile question ' . $this->posted_comment_profile->answer->question->title  . '" answer';
+    		else:
+    			$notification_message          = Auth::user()->name .' also commented on his profile question "' . $this->posted_comment_profile->answer->question->title  . '" answer';
+    		endif;
     		$notification_commentor_image  = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
     		$notification_link             = URL::to('/career-advisor/'.$profile_owner->id); //need to add the #id of the comment that has been posted
 
