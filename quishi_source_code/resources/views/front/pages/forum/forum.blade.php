@@ -13,10 +13,6 @@
             <div class="col-md-6">
                 <div class="forum-title-bar">
                     <h4>Questions</h4>
-                    <ul>
-                        <li class="active">Recent</li>
-                        <li>Popular</li>
-                    </ul>
                 </div>
             </div>
             <div class="col-md-6">
@@ -28,7 +24,7 @@
                     <div class="new-questions"><a href="javascript:void(0);" class="btn btn-default" id="show-qusetion-modal">new questions</a></div>
                     <div class="modal fade" id="add-new-question-modal">
                         <div class="modal-dialog" role="document">
-                            <form  name="save-question" id="save-question">
+                            <form  name="save-question" id="save-question" type="post">
                             	@csrf
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -37,43 +33,45 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
+                                    @if(Auth::check())
                                     <div class="modal-body">
-                                        @if(Auth::id())
                                         <div class="user-question-adds">
                                             <a href="#">
                                               <?php $image = Auth::user()->user_profile['image_path']; ?>
                                               @if($image)
                                               <img src="{{asset('/front/images/profile/'.$image)}}">
                                               @else
-                                              <img src="{{ asset('/front/images/profile/user.png') }}">
+                                              <img src="{{ asset('/front/images/blog1.jpg') }}"> 
                                               @endif
                                               {{ Auth::user()->name}}
                                             </a>
                                             added
                                         </div>
-                                        @else
-                                        <div class="user-question-adds">
-                                            <a href="{{asset('/login')}}">Login </a>
-                                        </div>
-                                        @endif
                                         <div class="user-Anonymous-question-adds">
-                                            <img src="{{ asset('/front/images/profile/user.png') }}">Anonymous asks
-                                        </div>
-                                        <div class="form-group" style="display: none;" id="anonymous_question">
-                                          <input type="email" name="ask-anonymous" placeholder="Email" class="form-control">
+                                            <img src="{{ asset('/front/images/blog1.jpg') }}">Anonymous asks
                                         </div>
                                         <div class="form-group">
                                             <textarea name="question" class="form-control" rows="1" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc."></textarea>
                                         </div>
                                     </div>
+
+                                    @else
+                                    <div class="modal-body">
+                                      <div class="user-question-adds">
+                                             Please <a href="{{asset('/login')}}">Login </a> to post a new forum question</p>
+                                       </div>
+                                   </div>
+                                    @endif
+                                    @if(Auth::check())
                                     <div class="modal-footer">
                                         <span class="btn" id="cancel" data-dismiss="modal">Cancel</span>
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" name="add-anomynouse-question" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1" id="anonymous-user">Add Anonymously</label>
+                                            <label class="custom-control-label" for="customCheck1" name="_quishi_hide_name" id="anonymous-user">Add Anonymously</label>
                                         </div>
                                         <button type="submit" class="btn btn-default">Add Question</button>
                                     </div>
+                                   @endif
                                 </div>
                             </form>
                         </div>
@@ -92,7 +90,7 @@
                   @if($question->user->user_profile['image_path'])
                     <img src="{{ asset('/front/images/profile/'.$question->user->user_profile['image_path'])}}">
                   @else
-                    <img src="{{ asset('/front/images/profile/user.png') }}">
+                    <img src="{{ asset('/front/images/blog1.jpg') }}">
                   @endif
                 </div>
                 <div class="forum-question-content">

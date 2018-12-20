@@ -129,6 +129,16 @@
 		'uses'    => 'Front\Pages\Blog\BlogCommentController@createComment'
 	]);
 
+	Route::post('/blogs/comments/postComment',[
+		'as'     => 'blogs.comments.postReply',
+		'uses'   =>'Front\Pages\Blog\BlogCommentController@createCommentReply'
+	]);
+
+	Route::post('/blogs/comments/plusLike',[
+		'as'     => 'answers.comments.increaseLikeCounter',
+		'uses'   =>'Front\Pages\Blog\BlogCommentController@increaseCommentLikeCounter'
+	]);
+
 
 // Route for profile
 

@@ -112,113 +112,115 @@
                             </div>
                         </form>
                         @if($blog_details->comments->count() > 0)
-                        <div class="profile-comment-wrapper">
+                        @foreach($blog_details->comments()->where('parent',0)->orderBy('created_at','desc')->get() as $blog_comment)
+                        <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$blog_comment->id}}">
                             <div class="profile-comment-section">
                                 <div class="profile-coment-user">
-                                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                   @if($blog_comment->comment_poster->user_profile->image_path != "" && $blog_comment->type != '1')
+                                        <img src="{{ asset('/front/images/profile/'.$blog_comment->comment_poster->user_profile->image_path)}}">
+                                    @else
+                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                    @endif
                                 </div>
 
                                 <div class="profile-coment-comment">
-                                    <h5>Sarah Conner</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                    nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                    <h5>{{ ($blog_comment->type == '0') ? $blog_comment->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
+                                    <p>{{ ucfirst($blog_comment->comment) }}</p>
                                     <div class="profile-author-comment">
                                         <ul>
-                                            <li><a href="#"><i class="icon-like"></i> Likes</a></li>
+                                            <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $blog_comment->id}}"><i class="icon-like"></i>{{ ' '. $blog_comment->total_like_counts }} {{ ($blog_comment->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
+                                            @if(Auth::check())
                                             <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                            @endif
                                         </ul>
-                                        <div class="form-group" id="comment-1" style="display: none;">
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" style="overflow: hidden; overflow-wrap: break-word; border-color: rgb(138, 196, 63);"></textarea>
-                                            <button class="btn btn-default"><i class="icon-cursor"></i></button>
+                                        @if(Auth::check())
+                                        <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $blog_comment->id }}">
+                                             <input type="hidden" name="_parent_comment_id"  value="{{$blog_comment->id}}"/>
+                                             <input type="hidden" name="_quishi_comment_posted_by" value="{{$blog_comment->posted_by}}"/>
+                                            {{csrf_field()}}
+                                        <div class="form-group">
+                                            <div class="reply-user-image reply-subinner-image">
+                                                @if(Auth::check())
+                                                  @if(Auth::user()->user_profile->image_path != "")
+                                                    <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
+                                                  @else
+                                                    <img src="{{ asset('/front')}} /images/profile/1.jpg">
+                                                  @endif
+                                                @endif
+                                            </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="comment-method">
+                                            <ul>
+                                                <li>
+                                                    <a>
+                                                        <input type="checkbox" id="check-for-login" name="_hide_name_{{$blog_comment->id}}">
+                                                        <label for="check-for-login">Post Anonymously</label>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                        <div class="form-group" id="comment-1">
+                                                <input type="hidden" name="_career_advisor_id" value="{{$blog_comment->user_id}}"/>
+                                                <input type="hidden" name="answer_id" value="{{$blog_comment->post_id}}"/>
+                                                <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
+                                                <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$blog_comment->id}}"><i class="icon-cursor"></i></button>
+                                            
+                                        </div>
+                                    </form>
+                                    @endif
+                                    </div>
+  
+
                                     </div>
                                     
                                 </div>
-                            </div>
-
+                            @if($blog_comment->childern()->count()>0)
                             <div class="reply-inner">
-                                <div class="profile-comment-section">
+                                @foreach($blog_comment->childern()->orderBy('created_at','desc')->get() as $comment_reply)
+                                <div class="profile-comment-section" id="blog-comment-reply{{$comment_reply->id}}">
                                     <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                        @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
+                                        <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
+                                        @else
+                                            <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                                        @endif
                                     </div>
                                     
                                     <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
+                                        <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
+                                        <p>{{ $comment_reply->comment }}</p>
                                         
                                     </div>
                                 </div>
-                                <!-- end inner profile-comment-section 1 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
+                                @endforeach
+                                <!-- end inner profile-comment-section -->
+                                 <div class="view-all-blog-comments"  style="{{ ($blog_comment->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
+                                    <span>View all {{ ($blog_comment->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
-                                <!-- end inner profile-comment-section 2 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 3 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 4 -->
-
-                                 <div class="profile-comment-section">
-                                    <div class="profile-coment-user">
-                                        <img src="http://localhost/quishi/front /images/profile/1.jpg">
-                                    </div>
-                                    
-                                    <div class="profile-coment-comment">
-                                        <h5>Sarah Conner</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut augue vel risusfringilla varius. Cras
-                                        nec dui gravida, ullamcorper velit eget, auctor metus.</p>
-                                        
-                                    </div>
-                                </div>
-                                <!-- end inner profile-comment-section 5 -->
-                                <div class="view-all-comment">
-                                    <span>View all 4 Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
-                                </div>
-                            </div>                                                                        
+                            </div> 
+                            @else
+                            @endif                                                                       
                         </div>
                         <!-- end profile comment-wrapper 1-->
 
+                        @endforeach
+                         <div class="view-all-blog-comments" style=" {{ (($blog_details->comments()->where('parent',0)->count()) < 4) ? 'display: none;'  : 'display:block;' }} ">
+                            <span>View all {{ (($blog_details->comments()->where('parent',0)->count()) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
+                        </div>  
                         @else
-
-                        @endif
-                        <div class="view-all-blog-comments">
-                            <span>View all comments</span>
+                        <div class="view-all-blog-comments" style=" {{ (($blog_details->comments()->where('parent',0)->count()) < 4) ? 'display: none;'  : 'display:block;' }} " >
+                            <span>View all {{ (($blog_details->comments()->where('parent',0)->count()) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
                         </div>
+                         <div class="_no_comment_posted" id="_no_comment_posted">
+                            <div class="profile-comment-section">
+                                <div class="_no_comment_posted_yet">
+                                    <p>There are no comment posted yet</p>
+                                </div>
+                            </div>
+                        </div>
+                      @endif
                     </div>
 
                     <!--blog comment section here -->
@@ -260,23 +262,23 @@
                 data        : comment_details,
                 success     : function(data){
                     //append new comment
-                   $(current_clicked_btn).parent().closest('div.profile-leave-comment').find('form#_answer_comment_' + _current_commented_id ).after(data.result).show('slow');
-                   $(current_clicked_btn).parent().closest('div.profile-question-answer-section').find('a.go-to-comment > span').html(data.total_comment);
+                   $(current_clicked_btn).parent().closest('div.profile-leave-comments').find('form#_quishi_new_blog_comment').after(data.result).show('slow');
+                   //$(current_clicked_btn).parent().closest('div.profile-question-answer-section').find('a.go-to-comment > span').html(data.total_comment);
                    //reset the text area size
                    //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
                    //reset the form
                    if(data.total_comment >= 4){
-                     $('.view-all-profile-comment span').html('View all ' + (data.total_comment - 3) + ' Comments <i class="fa fa-reply" aria-hidden="true"></i>');
-                     $('.view-all-profile-comment').show();
+                     $('.view-all-blog-comments span').html('View all ' + (data.total_comment - 3) + ' Comments <i class="fa fa-reply" aria-hidden="true"></i>');
+                     $('.view-all-blog-comments').show();
                  }else{
-                    $('.view-all-profile-comment').hide();
+                    $('.view-all-blog-comments').hide();
                  }
 
                   //hide the no comment section
                   $("._no_comment_posted").hide();
-                  $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
+                  $("#_quishi_new_blog_comment").find('textarea').css('height','37px');
                   //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
-                  $("#_answer_comment_" + _current_commented_id)[0].reset();
+                  $("#_quishi_new_blog_comment")[0].reset();
 
                 }
 
@@ -286,6 +288,71 @@
         }
         //alert('i need to post new comment on the answer');
     });
+
+    //like comment
+    $('body').on('click','._comment_like',function(e){
+        e.preventDefault();
+        var current_click = $(this);
+        var _token      = "{{csrf_token()}}";
+        var _comment_id = $(this).data('comment-id');
+        $.post("{{url::to('/blogs/comments/plusLike')}}",{ _token : _token , _comment_id : _comment_id }, function(response){
+            if(response.status == "success"){
+                if(response.total_likes == 1){
+                    $(current_click).html(' <i class="icon-like"></i> ' + response.total_likes + ' Like');
+                }else{
+                    $(current_click).html('<i class="icon-like"></i> ' + response.total_likes + ' Likes');
+                }
+            }
+        });
+    });
+
+
+    //comment new reply
+
+    $('body').on('click','._comment_reply_btn',function(e){
+        e.preventDefault();
+        var  current_clicked_btn    = $(this);
+        var _comment_reply_message = $(this).parent().closest('div.form-group').find('textarea').val();
+        if(_comment_reply_message.length > 10){
+               var _current_answer_id  = $(this).data('answer-id');
+               var comment_details        = $("#_comment_reply_form_" + _current_answer_id).serialize();
+               $.ajax({
+                url         : "{{URL::to('/blogs/comments/postComment')}}",
+                type        : "POST",
+                dataType    : 'JSON',
+                data        : comment_details,
+                success     : function(data){
+                    //append new comment
+                   $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.reply-inner').prepend(data.result).show('slow');
+                   //reset the text area size
+                   //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
+                   //reset the form
+                   if(data.total_reply >= 3){
+                     $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments span').html('View all ' + (data.total_reply - 2) + ' Replies <i class="fa fa-reply" aria-hidden="true"></i>');
+                     $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').show();
+                 }else if(data.total_reply == 1){
+                    //add new reply box
+                    $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.profile-comment-section').after(data.result);
+                    $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                 }else{
+                      $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                 }
+
+                  //hide the no comment section
+                  //$("._no_comment_posted").hide();
+                   $("#_comment_reply_form_" + _current_answer_id).find('textarea').css('height','37px');
+                   //$("#_comment_reply_form_" + _current_answer_id).slideToggle(500);
+                   $("#_comment_reply_form_" + _current_answer_id)[0].reset();
+
+                }
+
+           });
+
+        }else{
+            alert('Your reply should be minimum 10 characters long'); 
+        }
+    });
+
 
     });
  </script>
