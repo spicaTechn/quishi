@@ -16,6 +16,8 @@
 	Route::get('/', 'Front\MainPageController@index');
 
 	Route::get('/about', 'Front\Pages\About\AboutPageController@index');
+	Route::get('/privacy-policy', 'Front\MainPageController@privacy');
+	Route::get('/terms-and-condition', 'Front\MainPageController@terms');
 	Route::get('/contact',[
 		'as'	=>	'contact',
 		'uses'	=>	'Front\Pages\Contact\ContactPageController@index'

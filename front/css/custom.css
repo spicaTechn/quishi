@@ -826,6 +826,7 @@ p {
     color: #6d6d6d;
     line-height: 22px;
     font-size: 16px;
+    word-wrap: break-word;
 }
 
 .home-blog-section .blog-conten a,
@@ -2420,7 +2421,9 @@ p {
 1.new profile page css
 ======================*/
 
-
+.front-profile {
+    position: relative;
+}
 .inner-header.front-profile-menu {
     background: transparent;
     position: fixed;
@@ -2452,6 +2455,7 @@ p {
     height: 100%;
     width: 100%;
     opacity: 0.2;
+    left: 0;
 }
 
 .fixed-top-section.scroll-to-fixed-fixed {
@@ -2486,16 +2490,16 @@ p {
 
     .blog-single-post {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 27%;
+        flex: 0 0 27%;
+        max-width: 27%;
     }
 
     .blog-single-top {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 73%;
+        flex: 0 0 73%;
+        max-width: 73%;
     }
 }
 
@@ -3367,7 +3371,7 @@ button#comment-toogle {
 }
 
 .blog-single-top h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-top: 20px;
 }
 
@@ -4715,4 +4719,8 @@ span.required {
     .navbar-collapse span.close {
         display: none;
     }
+}
+
+.single-bl-info p {
+    background: none !important;
 }
