@@ -96,10 +96,10 @@
                 <div class="forum-question-content">
                     <div class="forum-question-content-title">
                         <a href="{{ URL::to('/forums').'/'. $question->id  }}"><h4>{{ $question->title }}</h4></a>
-                          @if(($question->user->logged_in_type == '0') || ($question->user->logged_in_type == '1'))
-                           <h6>By {{ $question->user->name }}   about 1 hour ago</h6>
+                          @if(($question->type == '0'))
+                           <h6>By {{ $question->user->name }}</h6>
                           @else
-                           <h6>By {{ $question->user->name }}  about 1 hour ago</h6>
+                           <h6>By {{ 'Ananymous' }}</h6>
                           @endif
                     </div>
                     @foreach($question->forum_question_answers()->where('parent','0')->orderBy('created_at','desc')->take(1)->get() as $answer)
@@ -184,6 +184,7 @@ $(document).ready(function () {
       .on('success.form.fv', function(e) {
           // Prevent form submission
           e.preventDefault();
+          e.stopPropagation();
           //alert("success");
           var URI = "{{route('forum.store')}}";
 

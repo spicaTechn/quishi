@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\Pages\Forum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use Input,Validator,Auth;
+use Input,Validator,Auth,Carbon\Carbon;
 use App\Model\ForumQuestion;
 use App\Model\ForumQuestionAnswer;
 use App\Model\UserProfile;
@@ -54,45 +54,16 @@ class ForumPageController extends Controller
     {
         //
         $checked_value= $request->input('add-anomynouse-question');
-        $email        = $request->input('ask-anonymous');
         $question     = $request->input('question');
         $user_id      = Auth::id();
-        $forum        = new ForumQuestion();
-        //echo "<pre>"; print_r($user_id); echo "</pre>"; exit;
-        if($checked_value=='on'){
-            $user_email = User::where('email', '=', $email)->first();
-            //echo "<pre>"; print_r($user); echo "</pre>"; exit;
-            if($user_email){
-                //echo $user;exit;
-                $forum->user_id              = $user_email->id;
-                $forum->title                = $question;
-                $forum->total_publish_answer = '2';
-                $forum->save();
-            }
-            else
-            {
-              $anonymous_user       = new User();
-              $anonymous_user->name = 'Anonymous User';
-              $anonymous_user->email= $email;
-              $anonymous_user->logged_in_type = '2';
-              $anonymous_user->password  = Hash::make('12345');
-              $anonymous_user->save();
 
-
-              $forum->user_id              = $anonymous_user->id;
-              $forum->title                = $question;
-              $forum->total_publish_answer = '2';
-              $forum->save();
-            }
-        }
-        else
-        {
-            $forum->user_id              = $user_id;
-            $forum->title                = $question;
-            $forum->total_publish_answer = '2';
-            $forum->save();
-        }
-
+        //save the data into db
+        $forum            = new ForumQuestion();
+        $forum->user_id   = Auth::user()->id;
+        $forum->posted_on = Carbon::now();
+        $forum->type      = ($request->has('add-anomynouse-question')) ? '1' : '0';
+        $forum->title     = $question;
+        $forum->save();
 
         return response()->json(array('status'=>'success','result'=>'successfully added question to  the quishi system'),200);
         //echo "<pre>"; print_r($question); echo "</pre>"; exit;
