@@ -325,7 +325,8 @@ class ProfileController extends BaseCareerAdvisorController
         $user = User::find(Auth::user()->id);
         $user->user_profile()->update([
                         'profile_setup_steps'    => '3',
-                        'profile_setup_status'  => '1'
+                        'profile_setup_status'   => '1',
+                        'status'                 => (Auth::user()->sign_in_type == '1') ? '1' : '0'
                     ]);
        }
 
