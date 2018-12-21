@@ -233,6 +233,8 @@ jQuery(document).ready(function($) {
         $("#donation-Modal").modal('hide');
     });
 
+
+
     /*// notification
     $(".navbar-light .navbar-nav li.notification-box a ").click(function() {
         //alert("closed");
@@ -354,11 +356,13 @@ $('.image-upload-wrap').bind('dragleave', function() {
 
 $(window).load(function() {
     equalheight('.same-height');
+    equalheight('.blog-conten h4');
 });
 
 
 $(window).resize(function() {
     equalheight('.same-height');
+    equalheight('.blog-conten h4');
     if ($(window).width() <= 991) {
 
         $('.notification-box').prependTo('.navbar .container-fluid');

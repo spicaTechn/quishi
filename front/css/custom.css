@@ -771,7 +771,7 @@ p {
     display: block;
     font-weight: 600;
     text-transform: capitalize;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.2;
 }
 
@@ -831,18 +831,38 @@ p {
     color: #6d6d6d;
     line-height: 22px;
     font-size: 14px;
-    height: 0;
-    overflow: hidden;
-    margin-bottom: 0;
-    -webkit-transition: height 2s, margin 1s;
-    transition: height 2s, margin 1s;
+    -webkit-transition: max-height 1s; 
+  -moz-transition: max-height 1s; 
+  -ms-transition: max-height 1s; 
+  -o-transition: max-height 1s; 
+  transition: max-height 1s;  
+  overflow: hidden;
+  max-height: 0;
+}
+.blog-image img {
+    transition: all 1s;
+
+}
+.news-blog-section:hover .blog-image img {
+    height: 150px;
+}
+.news-blog-section:hover .blog-conten p {
+    max-height: 50px;
 }
 
-.news-blog-section:hover .blog-conten p {
-    height: auto;
-    overflow: hidden;
-    margin-bottom: 1rem;
+.news-blog-section .blog-conten {
+   -webkit-transition: transform 1s;
+   transition: transform 1s;
+   background: #fff; 
 }
+
+.news-blog-section:hover .blog-conten {
+   transform: translateY(-30px);
+}
+
+
+
+
 
 .home-blog-section .blog-conten a,
 .about-content-section a {
@@ -2055,7 +2075,9 @@ p {
     cursor: pointer;
 
 }
-
+.question-editable-icon a i {
+    position: relative;
+}
 .profile-details {
     position: relative;
     padding: 0 30px;
@@ -2356,6 +2378,7 @@ p {
     height: 70px;
     width: 70px;
     object-fit: cover;
+    background: #8ac43f;
 }
 
 .forum-comment-section .btn-outline-secondary {
@@ -2364,15 +2387,17 @@ p {
 }
 
 .media img {
-
     width: 50px;
     height: 50px;
     object-fit: cover;
-
+    border-radius: 50%;
+    background: #8ac43f;
+    border: none;
 }
 
 .forum-comment-description .media-block {
     margin-top: 40px;
+    margin-top: 20px;
 }
 
 .reply-form .form-control {
@@ -2579,9 +2604,7 @@ p {
     }
 
     .about-my-profile {
-
-        margin-top: 80px;
-
+        margin-top: 30px;
     }
 }
 
@@ -2885,6 +2908,7 @@ p {
     /*max-width: 500px;*/
     border-radius: 30px;
     height: auto;
+    padding-right: 30px;
 
 }
 
@@ -4742,6 +4766,29 @@ span.required {
     background: none !important;
 }
 
+.profile-follow-following {
+    margin-top: 50px;
+}
+
+.profile-follow-following .btn-default {
+    min-width: 80px;
+    padding: .175rem .65rem;
+    font-size: 13px;
+}
+
+.forum-comment-description .media-block,
+.forum-comment-description .clearfix {
+    background: rgba(255, 251, 251, 0.32);
+    padding: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.forum-comment-description .media-block .media-block  {
+    background: rgba(255, 251, 251, 0);
+    padding: 0;
+    box-shadow: none;
+}
 
 /*.blog-leave-comment i.icon-like{
     padding-right:5px;

@@ -81,8 +81,16 @@
                                  <span class="small">{{ ucwords($career->title) }}</span>
                                 @endforeach
                                 <span class="small">{{ $user->email }}</span>
+                                
                             </div>
                             <!-- end profile-name-detail -->
+                            <div class="profile-follow-following">
+                                <a href="#" class="btn btn-default"><i class="icon-like"></i> Like</a>
+                                <!-- <a href="#" class="btn btn-default"><i class="icon-like"></i> Liked</a> -->
+                                <a href="#" class="btn btn-default"><i class="icon-feed"></i> Follow</a>
+                                <!-- <a href="#" class="btn btn-default"><i class="icon-check"></i> Following</a> -->
+                            </div>
+                                <!-- end profile-follow-following -->
                             <div class="about-my-profile">
                                 <h3>About Me</h3>
                                 <p>{{ $user->user_profile->description }}</p>
