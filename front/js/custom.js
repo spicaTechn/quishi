@@ -202,9 +202,22 @@ jQuery(document).ready(function($) {
         event.preventDefault();
         //alert('clicked');
         $('html, body').animate({
-            scrollTop: $($.attr(this, 'href')).offset().top
+            scrollTop: $($.attr(this, 'href')).offset().top - 100
         }, 500);
     });
+
+    //     $('.notification-list-item a').on('click', function(event) {
+    //     var target = $(this.getAttribute('href'));
+    //     if( target.length ) {
+    //         event.preventDefault();
+    //         $('html, body').stop().animate({
+    //             scrollTop: target.offset().top
+    //         }, 1000);
+    //     }
+    // });
+
+
+    
 
 
 

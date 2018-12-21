@@ -766,7 +766,13 @@ p {
 .blog-conten h4 {
     color: #3f3f3f;
     font-size: 18px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    color: #383838;
+    display: block;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 18px;
+    line-height: 1.2;
 }
 
 .home-blog-section::after {
@@ -822,10 +828,20 @@ p {
 }
 
 .blog-conten p {
-
     color: #6d6d6d;
     line-height: 22px;
-    font-size: 16px;
+    font-size: 14px;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    -webkit-transition: height 2s, margin 1s;
+    transition: height 2s, margin 1s;
+}
+
+.news-blog-section:hover .blog-conten p {
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 .home-blog-section .blog-conten a,
@@ -2420,7 +2436,9 @@ p {
 1.new profile page css
 ======================*/
 
-
+.front-profile {
+    position: relative;
+}
 .inner-header.front-profile-menu {
     background: transparent;
     position: fixed;
@@ -2452,6 +2470,7 @@ p {
     height: 100%;
     width: 100%;
     opacity: 0.2;
+    left: 0;
 }
 
 .fixed-top-section.scroll-to-fixed-fixed {
@@ -2486,16 +2505,16 @@ p {
 
     .blog-single-post {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 27%;
+        flex: 0 0 27%;
+        max-width: 27%;
     }
 
     .blog-single-top {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 73%;
+        flex: 0 0 73%;
+        max-width: 73%;
     }
 }
 
@@ -3187,6 +3206,7 @@ p {
     color: #666;
     font-size: 14px;
     line-height: 1.5;
+    word-wrap: break-word;
 }
 
 a.blog-read-more {
@@ -3367,7 +3387,7 @@ button#comment-toogle {
 }
 
 .blog-single-top h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-top: 20px;
 }
 
@@ -4718,6 +4738,12 @@ span.required {
 }
 
 
+.single-bl-info p {
+    background: none !important;
+}
+
+
 /*.blog-leave-comment i.icon-like{
     padding-right:5px;
 }*/
+

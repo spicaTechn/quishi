@@ -258,4 +258,43 @@ class MainPageController extends Controller
         endif;
     }
 
+
+    /**
+     * function to show the search option by the user job title search
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     *
+     */
+
+
+    public function privacy(Request $request){
+            return view('front.pages.privacy-policy.index')
+            ->with(array(
+                    'site_title'          => 'Quishi',
+                    'page_title'          => 'privacy policy',
+                   
+                )
+            );
+        
+    }
+
+    /**
+     * function to show the search option by the user job title search
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     *
+     */
+
+
+    public function terms(Request $request){
+    return view('front.pages.terms-condition.index')
+        ->with(array(
+                'site_title'          => 'Quishi',
+                'page_title'          => 'terms and conditions',
+                
+            )
+        );
+        
+    }
+
 }
