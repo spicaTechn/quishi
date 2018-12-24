@@ -206,20 +206,25 @@ jQuery(document).ready(function($) {
         }, 500);
     });
 
-    //     $('.notification-list-item a').on('click', function(event) {
-    //     var target = $(this.getAttribute('href'));
-    //     if( target.length ) {
-    //         event.preventDefault();
-    //         $('html, body').stop().animate({
-    //             scrollTop: target.offset().top
-    //         }, 1000);
-    //     }
-    // });
+    // forum-leave-comment
 
+    $('.forum-like-comment-view  a.go-to-comment').click(function() {
 
-    
+        setTimeout(function() {
+            $('div.forum-question-answer-section').find('div.forum-leave-comment textarea').focus();
+            $('div.forum-question-answer-section').find('div.forum-leave-comment textarea').css("border-color", "#8ac43f");
+        }, 0);
 
+        $(this).parent().closest('div.forum-question-answer-section').find('div.forum-leave-comment').slideToggle(500);
+    });
 
+    $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {
+        event.preventDefault();
+        //alert('clicked');
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - 100
+        }, 500);
+    });
 
 
     // donation-modal
@@ -263,7 +268,7 @@ jQuery(document).ready(function($) {
     //         }
     //     });
 
-    //      //autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+    autosize(document.querySelectorAll('.forum-leave-comment textarea.form-control'));
 
 
     // // read notification
