@@ -36,14 +36,14 @@ return [
     ],
 
     'facebook'=>[
-        'client_id'     => '478470682649354',
-        'client_secret' => '9815701ad10e7c05e26f2ca3578541fa',
-        'redirect'      =>'http://localhost:8000/auth/facebook/callback' 
+        'client_id'     => '329306574325808',
+        'client_secret' => 'a5f990aaaf80ab9134b40f01a968553d',
+        'redirect'      =>'https://beta.quishi.com/auth/facebook/callback' 
     ],
     'google'  => [
-        'client_id'     =>'' ,
-        'client_secret' =>'' ,
-        'redirect'      =>'http://localhost:8000/auth/google/callback' 
+        'client_id'     =>'449673564716-vg56ts63lu999do665e9skb1die7hehl.apps.googleusercontent.com' ,
+        'client_secret' =>'WNE5IJcBWltrVbfdFHWNpx6T' ,
+        'redirect'      =>'https://beta.quishi.com/auth/google/callback'
     ]
 
 ];
