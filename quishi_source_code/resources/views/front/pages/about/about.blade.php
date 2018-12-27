@@ -48,12 +48,8 @@
 
 <!--Team decription -->
 <div class="modal fade" id="teamDescription" role="dialog" aria-labelledby="teamDescriptionLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header d-flex flex-column">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title text-center" id="myModalLabel">More About Samip Subedi</h4>
-            </div>
             <div class="modal-body">
                 <center>
                     <img src="" name="aboutme" width="140" height="140" border="0" class="img-circle teamImageHolder"></a>
@@ -65,7 +61,7 @@
                 </center>
             </div>
             <div class="modal-footer text-center d-flex flex-column">
-                <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough about Samip</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough about <span class="close-btn"></span></button>
             </div>
         </div>
     </div>
@@ -86,7 +82,7 @@
         $('#teamDescription .teamImageHolder').attr("src",teamimg);
         $('#teamDescription .media-heading').text(teamname);
         $('#teamDescription .team-bio').html('<strong>Bio: </strong><br>' +teamdesc);
-
+        $('#teamDescription span.close-btn').text(teamname);
         // Open modal with related information
         $('#teamDescription').modal('show');
     });

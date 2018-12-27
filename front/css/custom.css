@@ -768,7 +768,7 @@ p {
     margin-bottom: 20px;
     color: #383838;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     font-size: 16px;
     line-height: 1.2;
@@ -914,7 +914,28 @@ p {
 .about-content-section a {
     margin-top: 10px;
 }
+/*Team modal description*/
+.img-circle.teamImageHolder {
+    width: 180px;
+    max-width: 100%;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -webkit-transition: -webkit-box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
+    box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
+    margin-bottom: 20px;
+}
 
+.img-circle.teamImageHolder:hover {
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.8);
+    box-shadow: 0px 0px 0px 15px rgba(138,196,63, 0.8);
+}
+
+p.text-left.team-bio {
+    font-size: 16px;
+    line-height: 28px;
+}
 
 /*footer section*/
 
@@ -1287,6 +1308,11 @@ p {
 
 .about-content-top p {
     font-size: 24px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 24px;
 }
 
 .about-slogan {
@@ -2246,6 +2272,8 @@ p {
 
 .forum-question-content-title h4 {
     margin: 0;
+    font-weight: 200;
+    font-size: 18px;
 
 }
 
@@ -3236,7 +3264,7 @@ p {
 .blog-content h3 a {
     color: #383838;
     display: block;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: capitalize;
     font-size: 18px;
     line-height: 1.2;
@@ -3961,7 +3989,7 @@ span.icon.ion-ios-play:before {
     width: 30px;
     border-radius: 50px;
     top: 17px;
-    left: 17px;
+    right: 17px;
 }
 
 #feature-video button.close:hover {
