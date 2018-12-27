@@ -32,10 +32,8 @@ class AboutPageController extends Controller
                         'page_title'          =>    'About',
                         'about'               =>    $abouts,
                         'about_image'         =>    $about_image,
-                        'our_teams'           =>    $our_team_unserialize,
-
+                        'our_teams'           =>    $our_team_unserialize
                         )
-
                     );
     }
 

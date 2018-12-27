@@ -25035,3 +25035,7 @@ table {
 .show_country_search ul li:hover, .show_country_search ul li:focus, .show_state_search ul li:hover , .show_state_search ul li:focus, .show_city_search ul li:hover, .show_city_search ul li:focus{
   background: #f1f1f1;
 }
+
+#our_team_table td {
+    white-space: pre-line;
+}

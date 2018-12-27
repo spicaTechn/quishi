@@ -112,6 +112,7 @@
 </div>
 <!-- trending-profiles -->
 <!-- video section -->
+@if(isset($home_video->content)  && !empty($home_video->content))
 <div class="video-section">
     <div class="container">
         <div class="section-title">
@@ -126,18 +127,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
+                        
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
-                        @if($home_video)
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="{{ $home_video->content }}" allowfullscreen></iframe>
+                          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?php echo $home_video->content; ?>?rel=0&controls=0&modestbranding=1&ytp-pause-overlay=0"></iframe>
                         </div>
-                        @else
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/1jhkEtvH6s8" allowfullscreen></iframe>
-                        </div>
-                        @endif
 
                     </div>
                 </div>
@@ -145,30 +141,33 @@
         </div>
     </div>
 </div>
-        <!-- end video section -->
-        <div class="page-section quishi-works">
-            <div class="container">
-                <div class="section-title">
-                    <h2>{{ __('How Quishi works for you') }}</h2>
-                </div>
-
-                <div class="row">
-
-                    @foreach($services as $service)
-                         @foreach($service->page_detail as $service_icon)
-                            <div class="col-md-4 how-col">
-                                <div class="how-col-image">
-                                        <img src="{{asset('/front')}}/images/career-review2.png">
-                                </div>
-                                    <h4>{{ $service->title }}</h4>
-                                    <p>{{ $service->content }}</p>
-                            </div>
-                         @endforeach
-                    @endforeach
-                    
-                </div>
-            </div>
+@endif
+<!-- end video section -->
+<div class="page-section quishi-works">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ __('How Quishi works for you') }}</h2>
         </div>
+
+        <div class="row">
+            @foreach($services as $service)
+                 @foreach($service->page_detail as $serviceDetail)
+                   
+                    @if($serviceDetail->meta_key == "home-icon")
+                       <?php $icon_image = $serviceDetail->meta_value;?>
+                    @endif
+                    <div class="col-md-3 how-col">
+                        <div class="how-col-image">
+                                <img src="{{asset('/front/images/pages/'.$icon_image)}}">
+                        </div>
+                            <h4>{{ $service->title }}</h4>
+                            <p>{{ $service->content }}</p>
+                    </div>
+                 @endforeach
+            @endforeach
+        </div>
+    </div>
+</div>
 <div class="page-section the-media">
     <div class="container">
         @if($blogs->count() > 0) 
@@ -242,15 +241,16 @@
 
 <script type="text/javascript">
 //feature video modal
-    $("#play-video").click(function() {
-        //alert("closed");
-        $("#feature-video").fadeIn();
-    });
+$("#play-video").click(function() {
+    $("#feature-video").fadeIn();
+});
 
-    $("#feature-video .close").click(function() {
-        $("#feature-video").fadeOut();
-    });
-
+$("#feature-video .close").click(function() {
+    var src = $('#feature-video').find('iframe').attr('src');
+    $('#feature-video').find('iframe').attr('src', '');
+    $('#feature-video').find('iframe').attr('src', src);
+    $("#feature-video").fadeOut();
+});
 
 $.ajaxSetup({
     headers:{
