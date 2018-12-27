@@ -3181,6 +3181,39 @@ p {
     margin-top: 3px;
 }
 
+.chip{
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #8ac43f;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    position: absolute;
+    top: 180px;
+    left: 18px;
+}
+
+.chip a {
+    color: #fff;
+}
+
+.chip > img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.cyan {
+    background-color: #00bcd4 !important;
+}
+
 .blog-content {
     background-color: #fff;
     border: 1px solid #ddd;
