@@ -26,6 +26,15 @@
 	                            </div>
 	                        </div>
 	                        <div class="blog-content">
+                                <div class="chip right">
+                                    
+                                @if($blog->user->user_profile->image_path != null)
+                                  <img src="{{ asset('/front')}}/images/profile/{{$blog->user->user_profile->image_path}}" alt="{{$blog->user->name}}" class="cyan"> 
+                                @else
+                                   <img src="https://pixinvent.com/materialize-material-design-admin-template/images/avatar/avatar-7.png" alt="{{$blog->user->name}}" class="cyan"> 
+                                @endif
+                                <a href="#!">{{$blog->user->name}}</a>
+                                </div>
 	                            <h3><a href="{{ url('/blog').'/'.$blog->id }}">{{ $blog->title }}</a></h3>
 	                             <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
 	                            <a href="{{ url('/blog').'/'.$blog->id }}" class="blog-read-more">read more</a>
