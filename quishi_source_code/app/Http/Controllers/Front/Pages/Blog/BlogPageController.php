@@ -10,6 +10,7 @@ use App\User;
 use App\Model\UserProfile;
 use Auth;
 use App\Model\Post;
+use Illuminate\Support\Facades\URL;
 
 //notifications
 use App\Notifications\BlogLikeNotification;
@@ -38,7 +39,8 @@ class BlogPageController extends Controller
         return view('front.pages.blog.blog')->with(array(
              'site_title'    =>    'Quishi',
              'page_title'    =>    'Blog',
-             'blogs'         =>    $blog
+             'blogs'         =>    $blog,
+             'url'           =>    url('/blog')
         ));
     }
 
@@ -166,12 +168,24 @@ class BlogPageController extends Controller
      * @return \Illuminate\Http\Response
      */ 
 
-    public function showCareerAdvisiorBlog($id){
-       $career_advisor_blogs = Post::where('user_id',$id)->orderBy('published_date','desc')->paginate(4);
+    public function showCareerAdvisiorBlog(Request $request,$id){
+
+        //need to check for the blog search as well
+
+        if($request->has('blog_title')):
+             $career_advisor_blogs = Post::where('user_id',$id)
+                                         ->orderBy('published_date','desc')
+                                         ->where('title','like','%'.$request->input('blog_title') .'%')
+                                         ->paginate(2);
+        else:
+             $career_advisor_blogs = Post::where('user_id',$id)->orderBy('published_date','desc')->paginate(2);
+        endif;
+
        return view('front.pages.blog.blog')->with([
                                                     'site_title'   => 'Quishi',
                                                     'page_title'   => 'Career Advisior Blogs',
-                                                    'blogs'        => $career_advisor_blogs
+                                                    'blogs'        => $career_advisor_blogs,
+                                                    'url'          => url('/blog/careerAdvisor/'.$id)
                                                 ]);
     }
 

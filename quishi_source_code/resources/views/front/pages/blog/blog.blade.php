@@ -65,7 +65,10 @@
               </div>
               <div class="_no_result_found">
                  <p>No blog results were found</p>
-                 <button 
+                 @if(Auth::check())
+                  <a href="{{URL::to('/profile/blogs/create')}}"><button class="btn btn-sm btn-success">Create New</button></a>
+                 @endif
+                 
               </div>
             </div>
            @endif
@@ -105,21 +108,24 @@ blogMasonary.Isotope();
 $("#_quishi_blog_search").on('keyup',function(e){
   //prevent default action
   var _search_input  = $(this);
-  $(_search_input).parent('div.search-form').find('span').remove();
+  //$(_search_input).parent('div.search-form').find('span').remove();
   var _search_value  = $(this).val();
   if(e.keyCode == 13){
-    if(_search_value.length < 2){
+    if(_search_value.length == 0){
       //add invalid class to the current input field
-      $(_search_input).addClass('invalid');
-      $(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+      //$(_search_input).addClass('invalid');
+      //$(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+       var redirect_uri = "{{$url}}"; 
+
     }else{
       
       var url_parameters = "?blog_title=" + _search_value;
-      var redirect_uri = "{{URL::to('/blog')}}" + url_parameters;
+      var redirect_uri = "{{$url}}" + url_parameters;
 
       //now redirect to the page
-      return window.open(redirect_uri, "_self");
+      
     }
+    return window.open(redirect_uri, "_self");
   }
 });
 

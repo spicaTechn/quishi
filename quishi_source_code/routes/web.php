@@ -326,6 +326,19 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	  'uses'  => 'Front\CareerAdvisor\Notification\NotificationController@markAllAsRead'
 	]);
 
+	//show the followers and following the logged in career adviser
+
+	Route::get('/following',[
+		'as'      => 'careerAdviser.following',
+		'uses'    => 'Front\CareerAdvisor\Following\FollowingController@index'
+	]);
+
+
+	Route::get('/followers',[
+		'as'     => 'careerAdviser.followers',
+		'uses'   => 'Front\CareerAdvisor\Follower\FollowerController@index'
+	]);
+
 
 
 });
