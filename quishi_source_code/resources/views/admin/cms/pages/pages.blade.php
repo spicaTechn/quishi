@@ -119,7 +119,6 @@
                                                     >
                                                  <i class="icofont icofont-ui-edit" ></i>
                                                  </a>
-
                                             </td>
                                         </tr>
                                         <?php $i++; ?>
@@ -363,14 +362,14 @@
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Position *</h4>
+                               <h4 class="sub-title">Position </h4>
                                <input type="text" class="form-control team_position" name="team_position" placeholder="Position">
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <input type="text" class="form-control team_description" name="team_description" placeholder="Description">
+                               <textarea class="form-control team_description" name="team_description" rows="7"></textarea>
                            </div>
                         </div>
                      </div>
@@ -436,14 +435,14 @@
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
-                               <h4 class="sub-title">Position *</h4>
+                               <h4 class="sub-title">Position </h4>
                                <input type="text" class="form-control team_position" name="team_position" placeholder="Position" value="" />
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <input type="text" class="form-control team_description" name="team_description" placeholder="Description" value="" />
+                               <textarea class="form-control team_description" name="team_description" rows="7"></textarea>
                            </div>
                         </div>
                      </div>
@@ -927,13 +926,6 @@
                            }
                        }
                    },
-                   'team_position': {
-                       validators: {
-                           notEmpty: {
-                               message: 'The position is required'
-                           }
-                       }
-                   },
                    'team_image': {
                        validators: {
                            notEmpty: {
@@ -948,9 +940,9 @@
                                   message: 'The description is required'
                               },
                            stringLength: {
-                               message: 'Type description must be less than 200 characters',
+                               message: 'Type description must be less than 2000 characters',
                                max: function (value, validator, $field) {
-                                   return 200 - (value.match(/\r/g) || []).length;
+                                   return 2000 - (value.match(/\r/g) || []).length;
                                }
                            }
                        }
@@ -1086,22 +1078,15 @@
                            }
                        }
                    },
-                   'team_position': {
-                       validators: {
-                           notEmpty: {
-                               message: 'The position is required'
-                           }
-                       }
-                   },
                    'team_description': {
                        validators: {
                            notEmpty: {
                                   message: 'The description is required'
                               },
                            stringLength: {
-                               message: 'Type description must be less than 200 characters',
+                               message: 'Type description must be less than 2000 characters',
                                max: function (value, validator, $field) {
-                                   return 200 - (value.match(/\r/g) || []).length;
+                                   return 2000 - (value.match(/\r/g) || []).length;
                                }
                            }
                        }

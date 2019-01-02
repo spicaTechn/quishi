@@ -25,8 +25,6 @@ class BlogPageController extends Controller
     {
         //
         $blog         = Post::where('type','1')->orderBy('published_date','desc')->paginate(6);
-        //echo "<pre>"; print_r($blog); echo "</pre>";exit;
-
         return view('front.pages.blog.blog')->with(array(
              'site_title'    =>    'Quishi',
              'page_title'    =>    'Blog',

@@ -332,8 +332,7 @@ p {
 /*end main nav*/
 
 .banner-bg {
-    min-height: 350px;
-    min-height: 450px;
+    min-height: 550px;
     position: relative;
     /*overflow: hidden;*/
 }
@@ -769,7 +768,7 @@ p {
     margin-bottom: 20px;
     color: #383838;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     font-size: 16px;
     line-height: 1.2;
@@ -915,7 +914,28 @@ p {
 .about-content-section a {
     margin-top: 10px;
 }
+/*Team modal description*/
+.img-circle.teamImageHolder {
+    width: 180px;
+    max-width: 100%;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -webkit-transition: -webkit-box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
+    box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
+    margin-bottom: 20px;
+}
 
+.img-circle.teamImageHolder:hover {
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.8);
+    box-shadow: 0px 0px 0px 15px rgba(138,196,63, 0.8);
+}
+
+p.text-left.team-bio {
+    font-size: 16px;
+    line-height: 28px;
+}
 
 /*footer section*/
 
@@ -1290,6 +1310,11 @@ p {
     font-size: 24px;
 }
 
+.about-content p {
+    font-size: 16px;
+    line-height: 24px;
+}
+
 .about-slogan {
     font-family: 'Great Vibes', cursive;
     font-size: 40px;
@@ -1492,6 +1517,10 @@ p {
 
 .customer-login .btn-default {
     min-width: 100px;
+}
+
+.customer-login .btn-default:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .login-with-social-media {
@@ -2243,6 +2272,8 @@ p {
 
 .forum-question-content-title h4 {
     margin: 0;
+    font-weight: 200;
+    font-size: 18px;
 
 }
 
@@ -3150,17 +3181,19 @@ p {
 }
 
 .blog-date {
-    position: absolute;
-    top: 10px;
-    left: 10px;
     background-color: #fff;
-    padding: 8px;
-    border-radius: 2px;
-    border: 1px solid #e0e0e0;
-    color: #999;
-    font-size: 20px;
-    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+    font-weight: 800;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 4px 0;
+    position: absolute;
+    right: 10px;
     text-align: center;
+    text-transform: uppercase;
+    opacity: 0.;
+    top: 0;
 }
 
 .blog-image img {
@@ -3176,6 +3209,39 @@ p {
     margin-top: 3px;
 }
 
+.chip{
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #8ac43f;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    position: absolute;
+    top: 180px;
+    left: 18px;
+}
+
+.chip a {
+    color: #fff;
+}
+
+.chip > img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.cyan {
+    background-color: #00bcd4 !important;
+}
+
 .blog-content {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -3186,6 +3252,11 @@ p {
     margin: 15px 0;
 }
 
+.blog-category-section:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    transition: all 0.5s linear;
+}
+
 .blog-content h3 {
     margin-top: 0;
 }
@@ -3193,7 +3264,7 @@ p {
 .blog-content h3 a {
     color: #383838;
     display: block;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: capitalize;
     font-size: 18px;
     line-height: 1.2;
@@ -3908,16 +3979,21 @@ span.icon.ion-ios-play:before {
 }
 
 #feature-video button.close {
-    background: #fff;
-    color: #000;
+    background: #6a9b15;
+    box-shadow: 0 0 0 3px #e78267;
+    color: #fff;
     opacity: 1;
     position: absolute;
-    z-index: 100;
-    right: 0;
-    top: 0;
+    z-index: 99999;
     height: 30px;
     width: 30px;
-    border-radius: 4px;
+    border-radius: 50px;
+    top: 17px;
+    right: 17px;
+}
+
+#feature-video button.close:hover {
+    background: #e78267;
 }
 
 #feature-video .modal-dialog {
@@ -4264,6 +4340,15 @@ span.required {
 
 .how-col h4 {
     margin-bottom: 20px;
+}
+
+.how-col-image {
+    padding-bottom: 25px;
+}
+
+.how-col-image img {
+    height: 60px;
+    width: 60px;
 }
 
 .profile-author-comment .form-group {
