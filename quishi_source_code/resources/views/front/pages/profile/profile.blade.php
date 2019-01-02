@@ -98,7 +98,7 @@
                             <div class="full-list-view">
                                 <div class="profile-image">
                                     @if(empty($user_list['user_image']))
-                                        <img src="{{asset('/front')}}/images/blog1.jpg">
+                                        <img src="{{asset('/front')}}/images/default-profile.jpg">
                                     @else
                                         <img src="{{asset('/front')}}/images/profile/{{ $user_list['user_image'] }}">
                                     @endif

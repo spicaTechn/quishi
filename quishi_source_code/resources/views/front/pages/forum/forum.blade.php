@@ -36,12 +36,12 @@
                                     @if(Auth::check())
                                     <div class="modal-body">
                                         <div class="user-question-adds">
-                                            <a href="#">
+                                            <a href="javascript:void(0);">
                                               <?php $image = Auth::user()->user_profile['image_path']; ?>
-                                              @if($image)
+                                              @if($image == "")
                                               <img src="{{asset('/front/images/profile/'.$image)}}">
                                               @else
-                                              <img src="{{ asset('/front/images/blog1.jpg') }}"> 
+                                              <img src="{{asset('/front')}}/images/default-profile.jpg"> 
                                               @endif
                                               {{ Auth::user()->name}}
                                             </a>
@@ -90,7 +90,7 @@
                   @if($question->user->user_profile['image_path'])
                     <img src="{{ asset('/front/images/profile/'.$question->user->user_profile['image_path'])}}">
                   @else
-                    <img src="{{ asset('/front/images/blog1.jpg') }}">
+                    <img src="{{asset('/front')}}/images/default-profile.jpg">
                   @endif
                 </div>
                 <div class="forum-question-content">
