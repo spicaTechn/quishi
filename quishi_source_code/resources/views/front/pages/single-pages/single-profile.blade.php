@@ -9,8 +9,7 @@
                     <div class="col-lg-4 col-md-5">
                         <div class="profile-left">
                             <div class="front-profile">
-                                <?php //$filename = asset('/front/images/profile/').'/'.$user->user_profile->image_path; ?>
-                                @if(file_exists(public_path('front/images/profile/'.$user->user_profile->image_path)))
+                                @if(isset($user->user_profile->image_path) && !empty($user->user_profile->image_path))
                                     <img src="{{asset('/front')}}/images/profile/{{ $user->user_profile->image_path }}" alt="{{$user->user_profile->first_name}}">
                                 @else
                                     <img src="{{asset('/front')}}/images/default-avatar.png" alt="{{$user->user_profile->first_name}}">
