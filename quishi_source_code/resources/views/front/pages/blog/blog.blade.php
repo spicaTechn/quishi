@@ -3,11 +3,12 @@
 <div class="blog-page">
     <div class="container">
         <div class="blog-main-body">
+          @if($blogs->count() > 0)
         	<div class="blog-search">
         		<div class="top-filter-section">
                   <div class="search-form form-group">
                       <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
-                      <input type="text" class="form-control" placeholder="search by name">
+                      <input type="text" class="form-control" placeholder="search by blog title" name="_quishi_blog_search" value="{{\Request::get('blog_title')}}" id="_quishi_blog_search">
                   </div>
                 </div>
         	</div>
@@ -45,8 +46,28 @@
             </div>
 
             <div class="blog_pagination">
-            	{{ $blogs->links() }}
+              @if(\Request::has('blog_title'))
+                {{ $blogs->appends(array('blog_title'=>\Request::get('blog_title')))->links() }}
+              @else
+                   {{ $blogs->links() }}
+
+              @endif
             </div>
+           @else
+            <div class="_no_blog_results">
+              <div class="blog-search">
+                <div class="top-filter-section">
+                      <div class="search-form form-group">
+                          <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
+                          <input type="text" class="form-control" placeholder="search by blog title" name="_quishi_blog_search" value="{{\Request::get('blog_title')}}" id="_quishi_blog_search">
+                      </div>
+                    </div>
+              </div>
+              <div class="_no_result_found">
+                 <p>No blog results were found</p>
+              </div>
+            </div>
+           @endif
             <!-- blog pagination -->
            <!--  <nav class="navigation blog-pagination">
                 <ul class="pagination">
@@ -79,5 +100,27 @@
 	    });
 	};
 blogMasonary.Isotope();
+
+$("#_quishi_blog_search").on('keyup',function(e){
+  //prevent default action
+  var _search_input  = $(this);
+  $(_search_input).parent('div.search-form').find('span').remove();
+  var _search_value  = $(this).val();
+  if(e.keyCode == 13){
+    if(_search_value.length < 2){
+      //add invalid class to the current input field
+      $(_search_input).addClass('invalid');
+      $(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+    }else{
+      
+      var url_parameters = "?blog_title=" + _search_value;
+      var redirect_uri = "{{URL::to('/blog')}}" + url_parameters;
+
+      //now redirect to the page
+      return window.open(redirect_uri, "_self");
+    }
+  }
+});
+
 </script>
 @endsection

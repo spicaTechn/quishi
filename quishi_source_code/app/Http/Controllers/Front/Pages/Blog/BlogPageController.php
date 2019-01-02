@@ -21,10 +21,20 @@ class BlogPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $blog         = Post::where('type','1')->orderBy('published_date','desc')->paginate(6);
+
+        if($request->has('blog_title')):
+            $blog = Post::where('type','1')
+                        ->orderBy('published_date','desc')
+                        ->where('title','like','%'.$request->input('blog_title') .'%')
+                        ->paginate(2);
+        else:
+            $blog         = Post::where('type','1')
+                                ->orderBy('published_date','desc')
+                                ->paginate(2);
+        endif;
         return view('front.pages.blog.blog')->with(array(
              'site_title'    =>    'Quishi',
              'page_title'    =>    'Blog',

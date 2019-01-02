@@ -425,6 +425,7 @@ class ProfileController extends BaseCareerAdvisorController
         $user_external_link->label      = $new_external_label;
         $user_external_link->link       = $request->input('new_link_data');
         $user_external_link->type       = "1";
+        $user_external_link->status     = '1';
         $user_external_link->user_id    = Auth::user()->id;
         $user_external_link->save();
 
@@ -490,7 +491,9 @@ class ProfileController extends BaseCareerAdvisorController
     **/
 
     public function udpate_advisior_links(Request $request){
-        $career_link = UserLink::where('label',$request->input('link_type'))->first();
+        $career_link = UserLink::where('label',$request->input('link_type'))
+                                ->where('user_id',Auth::user()->id)
+                                ->first();
         if($career_link){
             //need to update the link
            //
