@@ -153,6 +153,7 @@
 
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('/front/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery-scrolltofixed-min.js') }}"></script>
