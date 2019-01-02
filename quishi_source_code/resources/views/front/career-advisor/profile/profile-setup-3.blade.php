@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Profile setup')
 @section('content')
 <div class="profile-setup">
     <div class="container">

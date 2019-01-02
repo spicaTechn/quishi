@@ -1,4 +1,5 @@
 @extends('front.career-advisor.layout.master')
+@section('title','Admin reviews')
 @section('content')
                 <div class="profile-main-section">
                     @foreach($reviews as $review)

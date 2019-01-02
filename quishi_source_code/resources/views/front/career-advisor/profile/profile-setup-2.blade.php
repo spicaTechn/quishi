@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Profile setup')
 @section('page_specific_css')
     <!-- Load the formvalidation css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">

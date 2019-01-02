@@ -1,5 +1,5 @@
 @extends('front.career-advisor.layout.master')
-
+@section('title','Add New Blog')
 @section('content')
 <div class="profile-blog-edit-page profile-main-section">
 	<form action="{{route('profile.blog.store')}}" method="POST" id="add-new-blog" class="add-new-blog" name="add-new-blog" enctype="multipart/form-data">

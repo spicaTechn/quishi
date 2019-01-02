@@ -1,4 +1,5 @@
 @extends('front.career-advisor.layout.master')
+@section('title','Career Advisor Dashboard')
 @section('content')
         <div class="profile-main-section">
             @if(Auth::user()->user_profile->status != 1)

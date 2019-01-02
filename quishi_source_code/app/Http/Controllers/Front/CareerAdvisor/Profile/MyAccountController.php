@@ -112,7 +112,7 @@ class MyAccountController extends BaseCareerAdvisorController
     		//user image was set then need to upload the image 
     		$user_profile_pic    		= $request->file('user_image');
     		$name                		= time() . '.'.$user_profile_pic->getClientOriginalExtension();
-    		//$user_profile_pic->move($this->user_profile_image_path,$name);
+    		$user_profile_pic->move($this->user_profile_image_path,$name);
     		$this->user_profile_image   = $name;
     		//delete the old image if any
     	
@@ -147,8 +147,16 @@ class MyAccountController extends BaseCareerAdvisorController
     		$tag        = Tag::where('slug',str_slug($user_skill))->first();
     		if($tag):
     			$tag_ids[]   = $tag->id;
-    		endif;
+    		else:
+                //need to insert the tags and return the tag id
+                $new_tag    = new Tag();
+                $new_tag->title = $user_skill;
+                $new_tag->slug  = str_slug($user_skill);
+                $new_tag->save();
+                $tag_ids[]  = $new_tag->id;
+            endif;
     	}
+
 
     	//udate the data in the user tags pivot table
     	$user->tags()->sync($tag_ids);

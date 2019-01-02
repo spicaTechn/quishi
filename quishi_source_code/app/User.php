@@ -44,7 +44,7 @@ class User extends Authenticatable
     }
 
     public function tags(){
-        return $this->belongsToMany('App\Model\Tag','user_tag');
+        return $this->belongsToMany('App\Model\Tag','user_tag')->withTimestamps();
     }
 
 

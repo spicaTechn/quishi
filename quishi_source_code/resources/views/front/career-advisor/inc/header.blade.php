@@ -4,6 +4,8 @@
         <ul>
             <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
             <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+
+            <!--need to show the logged in user icon and image on the mobile version as well-->
         </ul>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">

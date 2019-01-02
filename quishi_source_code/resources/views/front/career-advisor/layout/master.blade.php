@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Quishi | Contact</title>
+	<title>{{config('app.name')}} | @yield('title')</title>
     <!-- Required meta tags -->
     @include('front.career-advisor.inc.head')
     @yield('page_specific_css')

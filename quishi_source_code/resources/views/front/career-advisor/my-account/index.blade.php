@@ -1,4 +1,5 @@
 @extends('front.career-advisor.layout.master')
+@section('title','Career Advisor Update Profile')
 @section('page_specific_css')
 <!-- Load the formvalidation css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">

@@ -1,4 +1,5 @@
 @extends('front.career-advisor.layout.master')
+@section('title','Public profile question answers')
 @section('content')
 
                 <div class="profile-main-section">

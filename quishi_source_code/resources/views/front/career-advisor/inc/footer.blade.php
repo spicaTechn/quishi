@@ -3,27 +3,29 @@
             <div class="main-footer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
+                        @if($contact_social)
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Address</h4>
-                                <p>47  Hardesty Street,<br>
-                                    North Greenbush<br>
-                                    New York<br>
-                                USA</p>
+
+                                <p>{{ $contact_social['address'] }}</p>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Contact</h4>
-                                <p>Phone: <a href="callto:5184617960">518-461-7960</a><br>Email: <a href="mailto:quishi@quishi.com">quishi@quishi.com</a> <br>
-                                <a href="mailto:quishi@outlook.com">quishi@outlook.com</a></p>
+                                <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
+                                <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        @endif
+                        <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Donate</h4>
                                 <div class="donate-image">
-                                    <a class="donation-modal-btn"><img src="{{ asset('front/images/paypal.png')}}" alt="paypals"></a>
+                                    <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
+                                        Donate Now
+                                    </a>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal modal-quishi" id="donation-Modal">
@@ -40,7 +42,7 @@
                                                         <img src="{{ asset('front/images/master-card.png')}}" alt="paypal">
                                                     </div>
                                                     <div class="card-image">
-                                                        <img src="{{ asset('front/images/paypals.png')}}" alt="paypal">
+                                                        <img src="{{asset('front/images/paypals.png')}}" alt="paypal">
                                                     </div>
                                                     <div class="card-image">
                                                         <img src="{{ asset('front/images/visa.png')}}" alt="paypal">
@@ -70,7 +72,7 @@
                                                         <!-- end col -->
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
-                                                                
+                                                                <!-- <label class="col-form-label">Expiration</label> -->
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
                                                                         <label class="col-form-label">Expiration</label>
@@ -87,21 +89,21 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
                                                                 <label class="col-form-label">CVC Number</label>
-                                                                <input type="text"  class="form-control" name="card_code" placeholder="Name on Card">
+                                                                <input type="text"  class="form-control" placeholder="cvv" name="card_code">
                                                             </div>
                                                         </div>
                                                         <!-- end column -->
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
                                                                 <label class="col-form-label">Amount</label>
-                                                                <input type="number"  class="form-control" name="amount" placeholder="Amount" step="0.2" required="required">
+                                                                <input type="number"  class="form-control" placeholder="Amount" name="amount" step="0.2" required="required">
                                                             </div>
                                                         </div>
                                                         <!-- end column -->
                                                         <div class="col-sm-6">
                                                             <div class="form-group ">
                                                                 <label class="col-form-label">Currency</label>
-                                                                <select class="form-control" name="currency" required="required">
+                                                                <select class="form-control" name="currency">
                                                                     <option>USD</option>
                                                                 </select>
                                                             </div>
@@ -125,38 +127,53 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="footer-section">
+                                <h4>Quick links</h4>
+                                <div class="footer-nav">
+                                    <ul>
+                                        <li><a href="{{URL::to('/about')}}">About</a></li>
+                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
+                                        <li><a href="#">Privacy policy</a></li>
+                                        <li><a href="#">Terms of use</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    @if($contact_social)
                     <div class="footer-social-media">
                         <ul>
-                             <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
+                            <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
                             <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
                         </ul>
                     </div>
+                     @endif
                 </div>
             </div>
+             
             <div class="footer-copyright">
                 <div class="container">
                     <div class="copyright text-center">
-                        &copy; {{date('Y')}} Quishi. All rights reserved.
+                        &copy; <?php echo date('Y');?> Quishi. All rights reserved.
                     </div>
                 </div>
             </div>
+           
         </footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-<script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script>
 <script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
-
-
+<!-- <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script> -->
+<!-- <script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script> -->
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
-<script src="{{ asset('/front/js/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ asset('/front/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery-scrolltofixed-min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
+<!-- <script src="{{ asset('/front/js/app.js') }}"></script> -->
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <!--form validation -->
@@ -167,33 +184,49 @@
 @yield('page_specific_js')
 <script>
     $(document).ready(function(){
-        $(".notification-inner-list").niceScroll({cursorborder:"",cursorcolor:"#999"});
+        // //blog masonary
+        //   var blogMasonary = window.blogMasonary || {},
+        //       $win = $(window);
+        //   blogMasonary.Isotope = function() {
+        //       // 3 column layout
+        //       var isotopeContainer2 = $('.isotopeContainer2');
+        //       if (!isotopeContainer2.length || !jQuery().isotope) return;
+        //       $win.load(function() {
+        //           isotopeContainer2.isotope({
+        //               itemSelector: '.isotopeSelector'
+        //           });
 
-        //remove notification list
-        jQuery(document).keyup(function (e) {
-            if (e.key === "Escape") { // escape key maps to keycode `27`
-                jQuery(".notification-list").hide();
-            }
-        });
-
+        //       });
+        //   };
+        //   blogMasonary.Isotope();
+        
         $(".notification-box").click(function() {
             $(this).find(".notification-list").slideToggle();
             $(".navbar-light .navbar-nav li.notification-box .badge").hide();
             //now make the ajax request
             if("{{Auth::user()}}"){
                 //check for the class name
-                if("{{ Auth::user()->notifications()->where('seen_flag','0')->count() > 0 }}"){
+                if($(this).hasClass('_all_not_seen')){
                     var _token    = "{{csrf_token()}}";
                     $.post("{{URL::to('/profile/notifications/markAsSeen')}}",{ _token : _token }, function(data){
                         if(data.status == "success"){
                             console.log('Notifications has been updated!!');
+
+                            $(".notification-box").removeClass('_all_not_seen');
                         }
                     });
+                 
                 }
+
+
+                //add class
+                   
                   
             }
            
         });
+
+
 
         $(document).on("click", function(event) {
             var $trigger = $(".notification-box");
@@ -251,22 +284,10 @@
             
         });
 
-       
-        //form validation here for the forntend form validaton
-        $('#donate_now').on('init.field.fv', function(e, data) {
-            e.preventDefault();
-            var $parent = data.element.parents('.form-group'),
-                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
-            $icon.on('click.clearing', function() {
-                // Check if the field is valid or not via the icon class
-                if ($icon.hasClass('fa fa-remove')) {
-                    // Clear the field
-                    data.fv.resetField(data.element);
-                }
-            });
-        })
-        .formValidation({
+
+
+        $("#donate_now").formValidation({
             framework: 'bootstrap',
             icon: {
                 valid: 'fa fa-check',
@@ -536,13 +557,13 @@
                          //$('#donation-Modal').modal('hide');
                     }
                 },
-                error       : function(jqXHR, status,error){
+                error       : function(e){
+
                 }
 
 
             });
 
 
-           
     });
 </script>
