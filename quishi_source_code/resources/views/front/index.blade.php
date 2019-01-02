@@ -48,7 +48,7 @@
                         @if($user_profile->image_path)
                             <img src="{{asset('/front')}}/images/profile/{{ $user_profile->image_path }}">
                         @else
-                           <img src="{{asset('/front')}}/images/profile/1.jpg">
+                           <img src="{{asset('/front')}}/images/default-profile.jpg">
                         @endif
                     </div>
                     <div class="profile-desination">
@@ -182,7 +182,7 @@
                         @if($blog->image_path != "")
                             <img src="{{asset('/front')}}/images/blogs/{{ $blog->image_path }}" alt="#">
                         @else
-                            <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
+                            <img src="{{ asset('/front/images/default-home-blog.jpg') }}" alt="" style="">
                         @endif
                     </div>
                     <div class="blog-conten">
@@ -213,7 +213,7 @@
                         @if($popular_blog->image_path != "")
                             <img src="{{asset('/front')}}/images/blogs/{{ $popular_blog->image_path }}" alt="#">
                         @else
-                            <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
+                            <img src="{{ asset('/front/images/default-home-blog.jpg') }}" alt="" style="">
                         @endif
                     </div>
                     <div class="blog-conten">
