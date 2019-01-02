@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 
     $('.remove-image').hide();
 
-    //$('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
 
 
 
@@ -215,7 +215,7 @@ jQuery(document).ready(function($) {
             $('div.forum-question-answer-section').find('div.forum-leave-comment textarea').css("border-color", "#8ac43f");
         }, 0);
 
-        $(this).parent().closest('div.forum-question-answer-section').find('div.forum-leave-comment').slideToggle(500);
+        $(this).parent().closest('div.forum-question-answer-section').find('div.forum-leave-comment').slideToggle('slow');
     });
 
     $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {
@@ -224,6 +224,11 @@ jQuery(document).ready(function($) {
         $('html, body').animate({
             scrollTop: $($.attr(this, 'href')).offset().top - 100
         }, 500);
+    });
+
+       $(document).on('click', '.view-all-forum-comment span', function(event) {
+        event.preventDefault();
+        $(this).parent().closest('div.forum-question-answer-section').find('div.forum-comment-wrapper').slideToggle('slow');
     });
 
 
@@ -278,36 +283,36 @@ jQuery(document).ready(function($) {
 
 
     //equal height
-    // equalheight = function(container) {
+    equalheight = function(container) {
 
-    //     var currentTallest = 0,
-    //         currentRowStart = 0,
-    //         rowDivs = new Array(),
-    //         $el,
-    //         topPosition = 0;
-    //     $(container).each(function() {
+        var currentTallest = 0,
+            currentRowStart = 0,
+            rowDivs = new Array(),
+            $el,
+            topPosition = 0;
+        $(container).each(function() {
 
-    //         $el = $(this);
-    //         $($el).height('auto')
-    //         topPostion = $el.position().top;
+            $el = $(this);
+            $($el).height('auto')
+            topPostion = $el.position().top;
 
-    //         if (currentRowStart != topPostion) {
-    //             for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
-    //                 rowDivs[currentDiv].height(currentTallest);
-    //             }
-    //             rowDivs.length = 0; // empty the array
-    //             currentRowStart = topPostion;
-    //             currentTallest = $el.height();
-    //             rowDivs.push($el);
-    //         } else {
-    //             rowDivs.push($el);
-    //             currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-    //         }
-    //         for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
-    //             rowDivs[currentDiv].height(currentTallest);
-    //         }
-    //     });
-    // }
+            if (currentRowStart != topPostion) {
+                for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+                    rowDivs[currentDiv].height(currentTallest);
+                }
+                rowDivs.length = 0; // empty the array
+                currentRowStart = topPostion;
+                currentTallest = $el.height();
+                rowDivs.push($el);
+            } else {
+                rowDivs.push($el);
+                currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+            }
+            for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+                rowDivs[currentDiv].height(currentTallest);
+            }
+        });
+    }
 
     //on scroll add  and remove class
     $(window).scroll(function() {

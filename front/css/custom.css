@@ -914,6 +914,7 @@ p {
 .about-content-section a {
     margin-top: 10px;
 }
+
 /*Team modal description*/
 .img-circle.teamImageHolder {
     width: 180px;
@@ -922,14 +923,14 @@ p {
     -webkit-border-radius: 2px;
     -webkit-transition: -webkit-box-shadow 0.3s ease;
     transition: box-shadow 0.3s ease;
-    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
-    box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.6);
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.6);
+    box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.6);
     margin-bottom: 20px;
 }
 
 .img-circle.teamImageHolder:hover {
-    -webkit-box-shadow: 0px 0px 0px 12px rgba(138,196,63, 0.8);
-    box-shadow: 0px 0px 0px 15px rgba(138,196,63, 0.8);
+    -webkit-box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.8);
+    box-shadow: 0px 0px 0px 15px rgba(138, 196, 63, 0.8);
 }
 
 p.text-left.team-bio {
@@ -1520,7 +1521,7 @@ p.text-left.team-bio {
 }
 
 .customer-login .btn-default:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .login-with-social-media {
@@ -2328,39 +2329,41 @@ p.text-left.team-bio {
 
 
 
-.show-on-share {
-    position: absolute;
-    left: -6px;
-    top: 0;
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="0 ")";
-    filter: alpha(opacity=0);
-    zoom: 1;
-    -webkit-transform: translateX(20px);
-    -khtml-transform: translateX(20px);
-    transform: translateX(20px);
-    -webkit-transition: all .3s cubic-bezier(.215, .61, .355, 1);
-    transition: all .3s cubic-bezier(.215, .61, .355, 1);
-}
+@media (min-width: 1025px) {
+    .show-on-share {
+        position: absolute;
+        left: -6px;
+        top: 0;
+        opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="0 ")";
+        filter: alpha(opacity=0);
+        zoom: 1;
+        -webkit-transform: translateX(20px);
+        -khtml-transform: translateX(20px);
+        transform: translateX(20px);
+        -webkit-transition: all .3s cubic-bezier(.215, .61, .355, 1);
+        transition: all .3s cubic-bezier(.215, .61, .355, 1);
+    }
 
-.product-share:hover .show-on-share {
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="100 ")";
-    filter: alpha(opacity=100);
-    zoom: 1;
-    -webkit-transform: translateX(0);
-    -khtml-transform: translateX(0);
-    transform: translateX(0);
-}
+    .product-share:hover .show-on-share {
+        opacity: 1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="100 ")";
+        filter: alpha(opacity=100);
+        zoom: 1;
+        -webkit-transform: translateX(0);
+        -khtml-transform: translateX(0);
+        transform: translateX(0);
+    }
 
-.product-share:hover .sh-title {
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="0 ")";
-    filter: alpha(opacity=0);
-    zoom: 1;
-    -webkit-transform: translateX(-20px);
-    -khtml-transform: translateX(-20px);
-    transform: translateX(-20px);
+    .product-share:hover .sh-title {
+        opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="0 ")";
+        filter: alpha(opacity=0);
+        zoom: 1;
+        -webkit-transform: translateX(-20px);
+        -khtml-transform: translateX(-20px);
+        transform: translateX(-20px);
+    }
 }
 
 .sh-title {
@@ -3209,7 +3212,7 @@ p.text-left.team-bio {
     margin-top: 3px;
 }
 
-.chip{
+.chip {
     display: inline-block;
     height: 32px;
     font-size: 13px;
@@ -3230,7 +3233,7 @@ p.text-left.team-bio {
     color: #fff;
 }
 
-.chip > img {
+.chip>img {
     float: left;
     margin: 0 8px 0 -12px;
     height: 32px;
@@ -3253,7 +3256,7 @@ p.text-left.team-bio {
 }
 
 .blog-category-section:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     transition: all 0.5s linear;
 }
 
@@ -4465,7 +4468,7 @@ span.required {
     }
 }
 
-.pagination a {
+.pagination .page-link {
     padding: 0;
     height: 35px;
     width: 35px;
@@ -4477,11 +4480,15 @@ span.required {
     transition: all 0.3s;
 }
 
-.pagination a:hover,
-.pagination li.current-item a {
+.pagination .page-link:hover {
     background: #f59b43;
     color: #fff;
     border-color: #f59b43;
+}
+
+.pagination li.active .page-link {
+    background: #8ac43f;
+    border-color: #8ac43f;
 }
 
 
@@ -5052,11 +5059,87 @@ span.required {
 }
 
 .forum-comment-wrapper {
-    /*display: none;*/
+    display: none;
 }
 
-/*.forum-comment-wrapper:nth-of-type(1),
-.forum-comment-wrapper:nth-of-type(2),
-.forum-comment-wrapper:nth-of-type(3) {
+.view-all-forum-comment span {
+    cursor: pointer;
+}
+
+.forum-comment-wrapper:nth-of-type(1),
+.forum-comment-wrapper:nth-of-type(2)
+
+/*.forum-comment-wrapper:nth-of-type(3)*/
+    {
     display: block !important;
-}*/
+}
+
+.forum-main-like-view .forum-like-comment-view ul li {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.post-user-detail span {
+    display: block;
+    font-size: 16px;
+}
+
+.post-user img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.post-user-detail {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.post-user {
+    margin-right: 20px;
+    position: relative;
+}
+
+.post-user span.icon-check {
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid #e0e0e0;
+    right: 0;
+    color: #8ac43f;
+}
+
+.forum-reply-coment-box>.comment-method {
+    float: none;
+}
+
+.user-detail span {
+    color: #a9aba7;
+    font-size: 12px;
+    /*border: 1px solid #8ac43f;*/
+    /*padding: 3px 6px;*/
+    margin-left: 5px;
+    border-radius: 2px;
+}
+
+.no_result_found {
+    /*text-align: center;*/
+}
+
+.no_result_found img {
+    margin-bottom: 20px;
+}
+
+.no_result_found p {
+    font-weight: 500;
+    color: #666;
+    font-size: 16px;
+}
+
+.follows-section h4 {
+    color: #424242;
+    font-size: 28px;
+}

@@ -63,10 +63,11 @@
                       </div>
                     </div>
               </div>
-              <div class="_no_result_found">
+              <div class="no_result_found">
+                <img src="{{ asset('/images/no-resultfound.jpg') }}">
                  <p>No blog results were found</p>
                  @if(Auth::check())
-                  <a href="{{URL::to('/profile/blogs/create')}}"><button class="btn btn-sm btn-success">Create New</button></a>
+                  <a href="{{URL::to('/profile/blogs/create')}}"><button class="btn btn-sm btn-default">Create New</button></a>
                  @endif
                  
               </div>

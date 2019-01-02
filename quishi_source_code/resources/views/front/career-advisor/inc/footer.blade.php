@@ -164,9 +164,9 @@
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
-<!-- <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script> -->
-<!-- <script src="{{ asset('/front/js/jquery.nice-select.min.js') }}"></script> -->
+
 <!-- Sweetalert -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('/front/js/autosize.min.js') }}"></script>
@@ -174,8 +174,6 @@
 <script src="{{ asset('/front/js/isotope.min.js') }}"></script>
 <script src="{{ asset('/front/js/jquery-scrolltofixed-min.js') }}"></script>
 <script src="{{ asset('/front/js/custom.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<!-- <script src="{{ asset('/front/js/app.js') }}"></script> -->
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <!--form validation -->
