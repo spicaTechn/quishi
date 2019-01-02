@@ -79,9 +79,9 @@
                                 <div class="reply-user-image">
                                      @if(Auth::check())
                                       @if(Auth::user()->user_profile->image_path != "")
-                                        <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
+                                        <img src="{{ asset('/front')}}/images/profile/{{Auth::user()->user_profile->image_path}}">
                                       @else
-                                        <img src="{{ asset('/front')}} /images/profile/1.jpg">
+                                        <img src="{{ asset('/front')}}/images/profile/1.jpg">
                                       @endif
                                     @endif
                                 </div>

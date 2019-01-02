@@ -57,8 +57,8 @@
                             <div class="login-with-social-media">
                                 <div class="or"><span>{{ __('or')}}</span></div>
                                 <ul>
-                                    <li><a href="{{URL::to('/login/facebook')}}" class="facebook"><i class="icon-social-facebook"></i> {{ __('Login using Facebook')}}</a></li>
-                                    <li><a href="{{URL::to('/login/google')}}" class="google"><i class="icon-social-google"></i> {{ __('Login using Google')}}</a></li>
+                                    <li><a href="{{URL::to('/auth/facebook')}}" class="facebook"><i class="icon-social-facebook"></i> {{ __('Login using Facebook')}}</a></li>
+                                    <li><a href="{{URL::to('/auth/google')}}" class="google"><i class="icon-social-google"></i> {{ __('Login using Google')}}</a></li>
                                 </ul>
                             </div>
                         </div>
