@@ -136,7 +136,9 @@ class PagesController extends Controller
             //echo "<pre>"; print_r($home_save); echo "</pre>"; exit;
             $video_id->save();
         }
-
+        
+        //new terms and conditions
+        $terms_and_conditions = Page::where('slug','terms-conditions')->first();
 
         return view('admin.cms.pages.pages')
                 ->with(array(
@@ -150,9 +152,10 @@ class PagesController extends Controller
                     'contact_page_detail_id'      => $contact_social_id,
                     'contact_social_unserialize'  => $contact_social_unserialize,
 
-                    'contact'             => $contact_data,
-                    'home'                => $home,
-                    'home_video'            => $video_id
+                    'contact'                     => $contact_data,
+                    'home'                        => $home,
+                    'home_video'                  => $video_id,
+                    'terms_and_conditions'        => $terms_and_conditions
                     )
                 );
     }
@@ -710,6 +713,119 @@ class PagesController extends Controller
         $home_video_id->save();
         return response()->json(array('status'=>'success','result'=>'successfully updated home video id in the quishi system'),200);
 
+    }
+    
+    public function storeTerms(Request $request){
+        //$hidden_id     = $request->about_page_id;
+        $title         = $request->input('term_title');
+        $slug          = str_slug($request->input('term_title')); 
+        $description   = $request->input('term_description');
+        
+        
+        //check page exists or not
+        
+        $new_terms = Page::where('slug','terms-conditions')->first();
+        
+        //if exists
+        $i = 1;
+        if($new_terms){
+            $page_id = $new_terms->id;
+        }else{
+            //create new page
+            $page        = new Page();
+            $page->title = 'Terms & Conditions';
+            $page->slug = 'terms-conditions';
+            $page->content = "";
+            $page->user_id = Auth::user()->id;
+            $page->save();
+            $page_id = $page->id;
+            
+            //store into page details
+        }
+        $stored_terms_details = array();
+        //store into page details
+        $terms = PageDetail::where('meta_key','terms')->first();
+        if($terms){
+            //unserialize the value meta value
+            $existing_terms = unserialize($terms->meta_value);
+            $j=1;
+            //first stored the user entered value
+            $stored_terms_details[$j]['id']          = $j;
+            $stored_terms_details[$j]['title']       = $title;
+            $stored_terms_details[$j]['slug']        = $slug;
+            $stored_terms_details[$j]['description'] = $description;
+            $j = 2;
+            
+            foreach($existing_terms as $existing_term){
+                $stored_terms_details[$j]['id']          = $j;
+                $stored_terms_details[$j]['title']       = $existing_term['title'];
+                $stored_terms_details[$j]['slug']        = $existing_term['slug'];
+                $stored_terms_details[$j]['description'] = $existing_term['description'];
+                $j++;
+            }
+            
+            
+            //udate the exisitng one
+            $new_terms_and_conditions = serialize($stored_terms_details);
+            $terms_conditions_details = PageDetail::findOrFail($terms->id);
+            $terms_conditions_details->meta_value = $new_terms_and_conditions;
+            $terms_conditions_details->save();
+            
+
+        }else{
+            
+            $stored_terms_details[$i]['id']          = $i;
+            $stored_terms_details[$i]['title']       = $title;
+            $stored_terms_details[$i]['slug']        = $slug;
+            $stored_terms_details[$i]['description'] = $description;
+            
+            //serilaize the value and stored in the db
+            $new_terms_and_conditions = serialize($stored_terms_details);
+            $terms_conditions_details = new PageDetail();
+            $terms_conditions_details->page_id = $page_id;
+            $terms_conditions_details->meta_key = "terms";
+            $terms_conditions_details->meta_value = $new_terms_and_conditions;
+            $terms_conditions_details->save();
+            
+            
+        }
+        
+        
+        
+        //return response back to the client
+        return response()->json(array('status'=>'success','message'=>''),200);
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    public function editTerm(Request $request,$term_id,$page_id){
+        //get the page details by the page id
+        $page_details = Page::findOrFail($page_id);
+        //get the page details by the page_id
+        $terms_details = $page_details->page_detail()->first()->meta_value;
+        
+        $edit_id       = $term_id;
+        
+        //unserialize the value
+        $return_value = array();
+        $terms_unserialize = unserialize($terms_details);
+        foreach($terms_unserialize as $term_unserialize){
+            if($term_unserialize['id']       == $term_id){
+                $return_value['id']          = $term_id;
+                $return_value['title']       = $term_unserialize['title'];
+                $return_value['slug']        = $term_unserialize['slug'];
+                $return_value['description'] = $term_unserialize['description'];
+            }
+        }
+        
+        //return back 
+        return response()->json(array('status'=>'success','result'=>$return_value),200);
     }
 
 
