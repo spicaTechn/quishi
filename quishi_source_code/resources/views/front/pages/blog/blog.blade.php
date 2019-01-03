@@ -64,8 +64,8 @@
                     </div>
               </div>
               <div class="no_result_found">
-                <img src="{{ asset('/images/no-resultfound.jpg') }}">
-                 <p>No blog results were found</p>
+                <img src="{{ asset('/front/images/blog-not-found.png') }}">
+                 <p>Sorry ! No blog results were found. Please try again with different keyword.</p>
                  @if(Auth::check())
                   <a href="{{URL::to('/profile/blogs/create')}}"><button class="btn btn-sm btn-default">Create New</button></a>
                  @endif

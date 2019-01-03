@@ -144,10 +144,13 @@
                         	<div class="footer-section">
                         		@if($contact_social)
                         		<div class="footer-social-media">
-                        		    <ul>
-                        		        <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
-                        		        <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
-                        		    </ul>
+                                    <ul class="social-links">
+                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    </ul>
                         		</div>
                         		 @endif
                         	</div>
@@ -160,7 +163,7 @@
             <div class="footer-copyright">
                 <div class="container">
                     <div class="copyright text-center">
-                        &copy; 2018 Quishi. All rights reserved.
+                        &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
                     </div>
                 </div>
             </div>
