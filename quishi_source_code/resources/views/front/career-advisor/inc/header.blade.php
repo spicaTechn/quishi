@@ -6,6 +6,18 @@
             <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
 
             <!--need to show the logged in user icon and image on the mobile version as well-->
+                <!-- if user is logdin -->
+
+                <li class="nav-item dropdown logdin">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi User Name
+                    </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Change Password</a></li>
+                    <li><a href="#"> Logout</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">

@@ -7,7 +7,7 @@
     <div class="container">
         <div class="forum-title-section forum-comment-title-section">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="top-forum-user">
                         <div class="forum-user">
                             <img src="{{ asset('/front/images/profile/1.jpg') }}">
@@ -16,13 +16,14 @@
                         <div class="forum-title-bar">
                             
                              <div class="user-detail">
-                                <h6>Ram<span> Web Developer</span></h6>
+                                <h5>Ram<span> Web Developer</span></h5>
                             </div>
-                            <h4>New year new begenning...</h4>
+                            
                         </div>
                     </div>
+                    <h4>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you </h4>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="forum-share-bar">
                         <div class="product-share">
                             <div class="sh-title"> <i class="icon-share"></i> Share</div>

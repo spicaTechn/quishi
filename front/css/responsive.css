@@ -124,8 +124,48 @@
         text-align: center;
     }
 
+    .nav-item.dropdown.logdin .dropdown-toggle {
+        /*padding: 10px 0;*/
+        padding: 0 !important;
+        display: block;
+    }
+    .nav-item.dropdown.logdin {
+        max-width: 100%;
+        flex: 0 0 100%;
+        text-align: right;
+    }
+
     .login-menu li:not(:last-child) {
         margin-right: 0;
+    }
+
+    .nav-item.dropdown.logdin .dropdown-menu li {
+
+        max-width: 100%;
+        flex: 0 0 100%;
+        text-align: left;
+
+    }
+    .login-menu ul.dropdown-menu {
+        display: none;
+        right: 0;
+        left: auto !important;
+    }
+
+
+
+    .nav-item.dropdown.logdin .dropdown-menu li a {
+        border: none;
+        padding: 10px;
+    }
+     .login-menu li.nav-item.logdin .dropdown-menu {
+        padding: 10px 0;
+    }
+
+    .login-menu ul.dropdown-menu.show {
+        display: block;
+        width: 200px;
+        transform: translate3d(10px, 30px, 0px) !important;
     }
 
     .login-menu ul {

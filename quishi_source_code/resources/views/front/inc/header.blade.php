@@ -4,6 +4,20 @@
         <ul>
             <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
             <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+
+            <!-- if user is logdin -->
+
+            <li class="nav-item dropdown logdin">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi User Name
+                </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                <li><a href="#"> Logout</a></li>
+            </ul>
+        </li>
+
         </ul>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">
