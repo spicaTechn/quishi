@@ -1009,7 +1009,7 @@ p.text-left.team-bio {
 }
 
 .footer-social-media {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 /*.footer-social-media ul {
@@ -1049,12 +1049,12 @@ p.text-left.team-bio {
 }*/
 
 ul.social-links {
-    position: absolute;
+    /*position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-    padding: 0;
+    padding: 0;*/
     display: flex;
 }
 
@@ -2623,7 +2623,7 @@ ul.social-links li {
 
 .cover-photo img {
     width: 100%;
-    opacity: 0.2;
+    opacity: 0;
     height: 350px;
     object-fit: cover;
 }
@@ -2863,8 +2863,12 @@ ul.social-links li {
 
     .profile-left {
         max-width: 450px;
-        margin: -33% auto 0;
+        margin: 0 auto;
     }
+}
+
+.row.show_more_career_advisior {
+    margin: 0;
 }
 
 .like-viewers li {
@@ -5282,7 +5286,7 @@ span.required {
     font-size: 18px;
 }
 
-h6 span{
+h6 span {
     font-size: 9px;
     font-style: italic;
 
