@@ -511,6 +511,18 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'as'		=>	'admin.cms.pages.ourTeam',
 		'uses'		=>	'Admin\Cms\Pages\PagesController@store'
 	]);
+    
+    // Route to store terms and condition
+	Route::post('/cms/pages/termsConditions', [
+		'as'		=>	'admin.cms.pages.termsConditions',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@storeTerms'
+	]);
+    
+    Route::get('/cms/pages/editTerm/{term_id}/{page_id}', [
+		'as'		=>	'admin.cms.pages.editTerm',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@editTerm'
+	]);
+
 
 
 
