@@ -10,6 +10,7 @@ use App\Model\Answer;
 use App\Model\Career;
 use App\User;
 use App\Model\Education;
+use App\Model\UserProfileQueries;
 use App\Model\UserLink;
 use App\Model\Address;
 
@@ -33,11 +34,15 @@ class ProfileController extends BaseCareerAdvisorController
     {
 
         //get the user links
-        $this->user_link    = UserLink::where('user_id',Auth::user()->id)->get();
+        $this->user_link         = UserLink::where('user_id',Auth::user()->id)->get();
+        $total_published_comment = UserProfileQueries::where('user_id',Auth::user()->id)
+                                                    ->where('parent',0)
+                                                    ->count();
         return view('front.career-advisor.profile.profile')->with(array(
             'site_title'        => 'Quishi',
             'page_title'        => 'Profile',
             'user_links'        => $this->user_link,
+            'total_comments'    => $total_published_comment
         ));
     }
 

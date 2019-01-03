@@ -18,9 +18,9 @@
 	                    <div class="blog-category-section">
 	                        <div class="blog-image">
 	                        	@if($blog->image_path != null)
-	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#"></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#"></a>
 	                            @else
-	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style=""></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style=""></a>
 	                            @endif
 	                            <div class="blog-date">
 	                                {{ Carbon\Carbon::parse($blog->published_date)->format('d') }}<span>{{ Carbon\Carbon::parse($blog->published_date)->format('M') }}</span>
@@ -36,9 +36,9 @@
                                 @endif
                                 <a href="#!">{{$blog->user->name}}</a>
                                 </div>
-	                            <h3><a href="{{ url('/blog').'/'.$blog->id }}">{{ $blog->title }}</a></h3>
+	                            <h3><a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}">{{ $blog->title }}</a></h3>
 	                             <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
-	                            <a href="{{ url('/blog').'/'.$blog->id }}" class="blog-read-more">read more</a>
+	                            <a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}" class="blog-read-more">read more</a>
 	                        </div>
 	                    </div>
 	                </div>

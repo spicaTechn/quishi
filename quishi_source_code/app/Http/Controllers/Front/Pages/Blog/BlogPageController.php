@@ -30,11 +30,11 @@ class BlogPageController extends Controller
             $blog = Post::where('type','1')
                         ->orderBy('published_date','desc')
                         ->where('title','like','%'.$request->input('blog_title') .'%')
-                        ->paginate(2);
+                        ->paginate(9);
         else:
             $blog         = Post::where('type','1')
                                 ->orderBy('published_date','desc')
-                                ->paginate(2);
+                                ->paginate(9);
         endif;
         return view('front.pages.blog.blog')->with(array(
              'site_title'    =>    'Quishi',
@@ -176,16 +176,16 @@ class BlogPageController extends Controller
              $career_advisor_blogs = Post::where('user_id',$id)
                                          ->orderBy('published_date','desc')
                                          ->where('title','like','%'.$request->input('blog_title') .'%')
-                                         ->paginate(2);
+                                         ->paginate(9);
         else:
-             $career_advisor_blogs = Post::where('user_id',$id)->orderBy('published_date','desc')->paginate(2);
+             $career_advisor_blogs = Post::where('user_id',$id)->orderBy('published_date','desc')->paginate(9);
         endif;
 
        return view('front.pages.blog.blog')->with([
                                                     'site_title'   => 'Quishi',
                                                     'page_title'   => 'Career Advisior Blogs',
                                                     'blogs'        => $career_advisor_blogs,
-                                                    'url'          => url('/blog/careerAdvisor/'.$id)
+                                                    'url'          => url('/blog/careerAdvisor/'.$id.'/'.str_slug(User::find($id)->user_profile->first_name))
                                                 ]);
     }
 

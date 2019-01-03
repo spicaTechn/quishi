@@ -110,7 +110,7 @@
                                                 <i class="icon-bubble"></i>
                                             </div>
                                             <div class="profile-view-detai">
-                                                <span>200k</span> Comments
+                                                <span>{{quishi_convert_number_to_human_readable( $total_comments) }}</span> @if($total_comments > 1)  {{ 'Comments' }} @else {{ 'Comment' }} @endif
                                             </div>
                                         </div>
                                     </div>
