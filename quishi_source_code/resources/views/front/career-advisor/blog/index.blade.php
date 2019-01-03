@@ -7,7 +7,7 @@
         <div class="col-md-4 isotopeSelector">
             <div class="blog-category-section">
                 <div class="blog-image">
-                    <a href="{{URL::to('/blog/'.$blog->id)}}">
+                    <a href="{{URL::to('/blog/'.$blog->id .'/'.$blog->slug)}}">
                             @if($blog->image_path != "")
                                  <img src="{{asset('/front/images/blogs/'.$blog->image_path)}}" alt="#">
                             @else
@@ -20,11 +20,11 @@
                     </div>
                 </div>
                 <div class="blog-content">
-                    <h3><a href="{{URL::to('blog/'.$blog->id)}}">{{$blog->title}}</a></h3>
+                    <h3><a href="{{URL::to('blog/'.$blog->id.'/'.$blog->slug)}}">{{$blog->title}}</a></h3>
 
                     <p>{{$blog->abstract}}</p>
                     <div class="blog-footer">
-                    	<a href="{{URL::to('/blog/'.$blog->id)}}" class="blog-read-more">{{ __('Read more') }}</a>
+                    	<a href="{{URL::to('/blog/'.$blog->id .'/'.$blog->slug)}}" class="blog-read-more">{{ __('Read more') }}</a>
                     	<div class="edit-blog">
                     		<a href="javascript:void(0);" class="btn-edit-blog" data-blog-id="{{$blog->id}}">Edit</a>
                     		<a href="javascript:void(0);" data-blog-id="{{$blog->id}}" class="btn-delete-blog">Delete</a>

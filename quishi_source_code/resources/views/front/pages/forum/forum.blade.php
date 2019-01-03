@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="forum-title-bar">
-                    <h4>Questions</h4>
+                    <h4> {{ _('Questions') }}</h4>
                 </div>
             </div>
             <div class="col-md-6">
@@ -21,7 +21,7 @@
                         <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
                         <input name="search-form" class="form-control" type="text" placeholder="Type and enter">
                     </div>
-                    <div class="new-questions"><a href="javascript:void(0);" class="btn btn-default" id="show-qusetion-modal">new questions</a></div>
+                    <div class="new-questions"><a href="javascript:void(0);" class="btn btn-default" id="show-qusetion-modal">{{ _('New question') }}</a></div>
                     <div class="modal fade" id="add-new-question-modal">
                         <div class="modal-dialog" role="document">
                             <form  name="save-question" id="save-question" type="post">
@@ -37,8 +37,8 @@
                                     <div class="modal-body">
                                         <div class="user-question-adds">
                                             <a href="javascript:void(0);">
-                                              <?php $image = Auth::user()->user_profile['image_path']; ?>
-                                              @if($image == "")
+                                              <?php $image = Auth::user()->user_profile->image_path; ?>
+                                              @if($image != "")
                                               <img src="{{asset('/front/images/profile/'.$image)}}">
                                               @else
                                               <img src="{{asset('/front')}}/images/default-profile.jpg"> 
@@ -48,7 +48,7 @@
                                             added
                                         </div>
                                         <div class="user-Anonymous-question-adds">
-                                            <img src="{{ asset('/front/images/blog1.jpg') }}">Anonymous asks
+                                            <img src="{{ asset('/front/images/default-profile.jpg') }}">Anonymous asks
                                         </div>
                                         <div class="form-group">
                                             <textarea name="question" class="form-control" rows="1" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc."></textarea>
@@ -87,7 +87,7 @@
 
               <li>
                 <div class="forum-question-image">
-                  @if($question->user->user_profile['image_path'])
+                  @if($question->user->user_profile['image_path'] && $question->type == 0)
                     <img src="{{ asset('/front/images/profile/'.$question->user->user_profile['image_path'])}}">
                   @else
                     <img src="{{asset('/front')}}/images/default-profile.jpg">
@@ -95,9 +95,9 @@
                 </div>
                 <div class="forum-question-content forum-main-like-view">
                     <div class="forum-question-content-title">
-                        <a href="{{ URL::to('/forums').'/'. $question->id  }}"><h4>{{ $question->title }}</h4></a>
+                        <a href="{{ URL::to('/forums').'/'. $question->id .'/'. $question->slug  }}"><h4>{{ $question->title }}</h4></a>
                           @if(($question->type == '0'))
-                           <h6>By {{ $question->user->name }}</h6>
+                           <h6>By {{ $question->user->name }} <span> {{ ucwords($question->user->careers()->first()->title) .' - '.$question->user->user_profile->location }}</span> </h6>
                           @else
                            <h6>By {{ 'Ananymous' }}</h6>
                           @endif
@@ -108,13 +108,13 @@
                     <div class="forum-like-comment-view ">
                         <ul>
                             <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
-                            <li><a href="#" class="go-to-comment"><span class="like-numbers">0</span> <i class="icon-bubble"></i> Comments</a></li>
+                            <li><a href="#" class="go-to-comment"><span class="like-numbers">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->count() > 1) {{ 'Comments' }} @else {{ 'Comment' }}@endif</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="forum-question-replies">
 
-                    <a href="{{ URL::to('/forums').'/'. $question->id  }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>Replies</span></a>
+                    <a href="{{ URL::to('/forums').'/'. $question->id  }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>@if($question->forum_question_answers()->count() > 1) {{ 'Replies' }} @else {{ 'Reply' }} @endif</span></a>
 
                 </div>
             </li>

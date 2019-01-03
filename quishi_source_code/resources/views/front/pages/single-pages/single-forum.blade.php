@@ -10,18 +10,28 @@
                 <div class="col-md-12">
                     <div class="top-forum-user">
                         <div class="forum-user">
-                            <img src="{{ asset('/front/images/profile/1.jpg') }}">
+                            @if(($question->type == 1) || ($question->user->user_profile->image_path == ""))
+                                <img src="{{asset('/front')}}/images/default-profile.jpg"> 
+                            @else
+                                 <img src="{{asset('/front/images/profile/'.$question->user->user_profile->image_path)}}">
+                            @endif
                         </div>
 
                         <div class="forum-title-bar">
                             
                              <div class="user-detail">
-                                <h5>Ram<span> Web Developer</span></h5>
+
+                                <!-- <h5>Ram<span> Web Developer</span></h5> -->
+                            
+                            
+
+                                <h5>@if($question->type == 1) {{ 'Ananymous' }} @else  <?php echo $question->user->user_profile->first_name .'<span>'.ucwords($question->user->careers()->first()->title).' - '.$question->user->user_profile->location .'</span>';?> @endif </h5>
                             </div>
                             
+
                         </div>
                     </div>
-                    <h4>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you </h4>
+                    <h4>{{ $question->title }}</h4>
                 </div>
                 <div class="col-md-12">
                     <div class="forum-share-bar">
@@ -57,1018 +67,159 @@
                 </div>
             </div>
         </div>
-        <!-- end forume title section -->
-        <div class="all-forum-comments">
-            <div class="forum-question-answer-section veirfied">
-                <div class="post-user-detail">
-                    <div class="post-user">
-                        <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                        <span class="icon-check"></span>
+         <div class="profile-leave-comments blog-leave-comment">
+            <h4 class="small">Leave a Answer</h4>
+            <form action="javascript:void(0);" method="post" name="_quishi_new_blog_comment" id="_quishi_new_blog_comment">
+                {{csrf_field()}}
+                <input type="hidden" name="_parent_post_id" value="{{$question->id}}"/>
+                <input type="hidden" name="_parent_comment_id" value="0"/>
+                <input type="hidden" name="_blog_career_advisor_id" value="{{$question->user->id}}"/>
+                <div class="profile-reply-form" id="profile-reply-form">
+                    <div class="reply-user-image">
+                         @if(Auth::check())
+                          @if(Auth::user()->user_profile->image_path != "")
+                            <img src="{{ asset('/front')}}/images/profile/{{Auth::user()->user_profile->image_path}}">
+                          @else
+                             <img src="{{asset('/front')}}/images/default-profile.jpg"> 
+                          @endif
+                        @endif
                     </div>
-                    <div class="post-user-detail">
-                        <h4>Name<span>Profession</span></h4>
+                    <div class="reply-coment-box">
+                        <div class="comment-method">
+                            <ul>
+                                @if(! Auth::check())
+                                <li>Please <a href="{{URL::to('/login')}}">Signin</a> or <a href="{{ URL::to('/register')}}">Create an account </a> to post a answer</li>
+                                @else
+                                <li>
+                                    <a>
+                                        <input type="checkbox" id="check-for-login" name="_hide_name">
+                                        <label for="check-for-login">Post Anonymously</label>
+                                    </a>
+                                </li>
+                                @endif
+                            </ul>
+                        </div>
+                        @if(Auth::check())
+                        <div class="form-group">
+                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
+                            <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                            <button class="btn btn-default btn_comment"  data-blog-id="{{$question->id}}"><i class="icon-cursor"></i></button>
+                        </div>
+                        @endif
+                        
                     </div>
                 </div>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+            </form>
+            @if($question->forum_question_answers->count() > 0)
+            @foreach($question->forum_question_answers()->where('parent',0)->orderBy('created_at','desc')->get() as $forum_answer)
+            <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$forum_answer->id}}">
+                <div class="profile-comment-section">
+                    <div class="profile-coment-user">
+                       @if($forum_answer->user->user_profile->image_path != "" && $forum_answer->type != '1')
+                            <img src="{{ asset('/front/images/profile/'.$forum_answer->user->user_profile->image_path)}}">
+                        @else
+                            <img src="{{asset('/front')}}/images/default-profile.jpg"> 
+                        @endif
+                    </div>
 
-                <div class="forum-like-comment-view ">
-                    <ul>
-                        <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
-                        <li><a href="#" class="go-to-comment"><span class="like-numbers">0</span> <i class="icon-bubble"></i> Comments</a></li>
-                    </ul>
-                </div>
-
-                <div class="forum-leave-comment">
-                    <h4 class="small">Leave a Comment</h4>
-                    <form>
-                        <div class="forum-reply-form">
-                            <div class="reply-user-image">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
+                    <div class="profile-coment-comment">
+                        <h5>{{ ($forum_answer->type == '0') ? $forum_answer->user->user_profile->first_name : 'Ananymous' }}</h5>
+                        <p>{{ ucfirst($forum_answer->content) }}</p>
+                        <div class="profile-author-comment">
+                            <ul>
+                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $forum_answer->id}}"><i class="icon-like"></i>{{ ' '. $forum_answer->total_like_counts }} {{ ($blog_comment->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
+                                @if(Auth::check())
+                                <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                @endif
+                            </ul>
+                            @if(Auth::check())
+                            <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $forum_answer->id }}">
+                                 <input type="hidden" name="_parent_comment_id"  value="{{$forum_answer->id}}"/>
+                                 <input type="hidden" name="_quishi_comment_posted_by" value="{{$forum_answer->posted_by}}"/>
+                                {{csrf_field()}}
+                            <div class="form-group">
+                                <div class="reply-user-image reply-subinner-image">
+                                    @if(Auth::check())
+                                      @if(Auth::user()->user_profile->image_path != "")
+                                        <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
+                                      @else
+                                        <img src="{{ asset('/front')}} /images/profile/default-profile.jpg">
+                                      @endif
+                                    @endif
+                                </div>
                             </div>
-                            <div class="forum-reply-coment-box">
+                            <div class="form-group">
                                 <div class="comment-method">
-                                    <ul>
-                                        <li>
-                                            <a>
-                                                <input type="checkbox" id="check-for-login17" name="_hide_name17">
-                                                <label for="check-for-login">Post Anonymously</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="1" placeholder="Your Message Here !" required=""></textarea>
-                                    <button class="btn btn-default btn_comment" data-question-id="17"><i class="icon-cursor"></i></button>
-                                </div>
+                                <ul>
+                                    <li>
+                                        <a>
+                                            <input type="checkbox" id="check-for-login" name="_hide_name_{{$forum_answer->id}}">
+                                            <label for="check-for-login">Post Anonymously</label>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </form>
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
                             </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
+                            <div class="form-group" id="comment-1">
+                                    <input type="hidden" name="_career_advisor_id" value="{{$forum_answer->user_id}}"/>
+                                    <input type="hidden" name="answer_id" value="{{$forum_answer->forum_question_id}}"/>
+                                    <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
+                                    <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$forum_answer->id}}"><i class="icon-cursor"></i></button>
+                                
                             </div>
+                        </form>
+                        @endif
                         </div>
 
+
+                        </div>
+                        
                     </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
+                @if($forum_answer->childern()->count() > 0)
+                <div class="reply-inner">
+                    @foreach($forum_answer->childern()->orderBy('created_at','desc')->get() as $comment_reply)
+                    <div class="profile-comment-section" id="blog-comment-reply{{$comment_reply->id}}">
+                        <div class="profile-coment-user">
+                            @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
+                            <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
+                            @else
+                                <img src="http://localhost/quishi/front /images/profile/default-profile.jpg">
+                            @endif
                         </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
+                        
+                        <div class="profile-coment-comment">
+                            <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
+                            <p>{{ $comment_reply->content }}</p>
+                            
                         </div>
-
                     </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
+                    @endforeach
+                    <!-- end inner profile-comment-section -->
+                     <div class="view-all-blog-comments"  style="{{ ($forum_answer->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
+                        <span>View all {{ ($forum_answer->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                     </div>
-                    <!-- end forum-comment-wrapper -->
+                </div> 
+                @else
+                @endif                                                                       
+            </div>
+            <!-- end profile comment-wrapper 1-->
 
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="view-all-forum-comment">
-                        <span>View more <i class="fa fa-reply" aria-hidden="true"></i> </span>
+            @endforeach
+             <div class="view-all-blog-comments" style=" {{ (($question->forum_question_answers()->where('parent',0)->count()) < 4) ? 'display: none;'  : 'display:block;' }} ">
+                <span>View all {{ (($question->forum_question_answers()->where('parent',0)->count()) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
+            </div>  
+            @else
+            <div class="view-all-blog-comments" style=" {{ (($question->forum_question_answers()->where('parent',0)->count()) < 4) ? 'display: none;'  : 'display:block;' }} " >
+                <span>View all {{ (($question->forum_question_answers()->where('parent',0)->count()) - 3)}} Comments <i class="fa fa-reply" aria-hidden="true"></i> </span>
+            </div>
+             <div class="_no_comment_posted" id="_no_comment_posted">
+                <div class="profile-comment-section">
+                    <div class="_no_comment_posted_yet">
+                        <p>There are no answer posted yet</p>
                     </div>
                 </div>
             </div>
-            <!-- end forum-question-answer-section 1-->
-            <div class="forum-question-answer-section veirfied">
-                <div class="post-user-detail">
-                    <div class="post-user">
-                        <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                        <span class="icon-check"></span>
-                    </div>
-                    <div class="post-user-detail">
-                        <h4>Name<span>Profession</span></h4>
-                    </div>
-                </div>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-
-                <div class="forum-like-comment-view ">
-                    <ul>
-                        <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
-                        <li><a href="#" class="go-to-comment"><span class="like-numbers">0</span> <i class="icon-bubble"></i> Comments</a></li>
-                    </ul>
-                </div>
-
-                <div class="forum-leave-comment">
-                    <h4 class="small">Leave a Comment</h4>
-                    <form>
-                        <div class="forum-reply-form">
-                            <div class="reply-user-image">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-                            <div class="forum-reply-coment-box">
-                                <div class="comment-method">
-                                    <ul>
-                                        <li>
-                                            <a>
-                                                <input type="checkbox" id="check-for-login17" name="_hide_name17">
-                                                <label for="check-for-login">Post Anonymously</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="1" placeholder="Your Message Here !" required=""></textarea>
-                                    <button class="btn btn-default btn_comment" data-question-id="17"><i class="icon-cursor"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="view-all-forum-comment">
-                        <span>View more <i class="fa fa-reply" aria-hidden="true"></i> </span>
-                    </div>
-                </div>
-            </div>
-            <!-- end forum-question-answer-section 2-->
-            <div class="forum-question-answer-section ">
-                <div class="post-user-detail">
-                    <div class="post-user">
-                        <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                    </div>
-                    <div class="post-user-detail">
-                        <h4>Name<span>Profession</span></h4>
-                    </div>
-                </div>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-
-                <div class="forum-like-comment-view ">
-                    <ul>
-                        <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
-                        <li><a href="#" class="go-to-comment"><span class="like-numbers">0</span> <i class="icon-bubble"></i> Comments</a></li>
-                    </ul>
-                </div>
-
-                <div class="forum-leave-comment">
-                    <h4 class="small">Leave a Comment</h4>
-                    <form>
-                        <div class="forum-reply-form">
-                            <div class="reply-user-image">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-                            <div class="forum-reply-coment-box">
-                                <div class="comment-method">
-                                    <ul>
-                                        <li>
-                                            <a>
-                                                <input type="checkbox" id="check-for-login17" name="_hide_name17">
-                                                <label for="check-for-login">Post Anonymously</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="1" placeholder="Your Message Here !" required=""></textarea>
-                                    <button class="btn btn-default btn_comment" data-question-id="17"><i class="icon-cursor"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-                    <div class="forum-comment-wrapper">
-                        <div class="forum-comment-section">
-                            <div class="profile-coment-user">
-                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                            </div>
-
-                            <div class="forum-coment-comment">
-                                <h5>Trishal Kandel</h5>
-                                <p>Hello ram i am posting the comment on your profile</p>
-                                <div class="forum-author-comment profile-author-comment">
-                                    <ul>
-                                        <li><a href="#" class="_comment_like"><i class="icon-like"></i> 0 Like</a></li>
-                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
-                                    </ul>
-                                    <form>
-
-                                        <div class="clearfix">
-                                            <div class="reply-user-image">
-                                                <img src="{{ asset('/front/images/profile/1.jpg') }}">
-                                            </div>
-
-                                            <div class="comment-method">
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <input type="checkbox" id="check-for-login">
-                                                            <label for="check-for-login">Post Anonymously</label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                            <button class="btn btn-default _comment_reply_btn"><i class="icon-cursor"></i></button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end forum-comment-wrapper -->
-
-                    <div class="view-all-forum-comment">
-                        <span>View more <i class="fa fa-reply" aria-hidden="true"></i> </span>
-                    </div>
-                </div>
-            </div>
-            <!-- end forum-question-answer-section 3-->
-            <div class="show-more-cmts">
-                <a href="#" class="btn btn-default">show more comments</a>
-            </div>
+          @endif
         </div>
     </div>
 </div>
@@ -1080,138 +231,114 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        // show answer field when click reply button
-        $(".btn-outline-secondary").click(function() {
-            $('#reply-form')[0].reset();
-            $('#reply-form').data('formValidation').resetForm(true);
-            $(".profile-leave-comment").toggle('slow');
-        });
 
-        $(".reply-to-answer").click(function(e) {
-            // var answer_id = $('.reply-to-answer').attr('data-answer-id');
-            //   alert(answer_id);
-            var parent_div = $(this).parent('div.reply-to').find('.reply-answer-form');
-
-            parent_div.toggle('slow');
-        });
-
-        // from validation for reply answer logged in user
-        $('#reply-form').on('init.field.fv', function(e, data) {
-                var $parent = data.element.parents('.form-group'),
-                    $icon = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
-
-                $icon.on('click.clearing', function() {
-                    // Check if the field is valid or not via the icon class
-                    if ($icon.hasClass('fa fa-remove')) {
-                        // Clear the field
-                        data.fv.resetField(data.element);
-                    }
-                });
-            })
-            .formValidation({
-                framework: 'bootstrap',
-                icon: {
-                    valid: 'fa fa-check',
-                    invalid: 'fa fa-times',
-                    validating: 'fa fa-refresh'
-                },
-                fields: {
-                    'answer': {
-                        validators: {
-                            notEmpty: {
-                                message: 'The answer  is required'
-                            }
-                        }
-                    }
-                }
-            })
-            .on('success.form.fv', function(e) {
-                // Prevent form submission
-                e.preventDefault();
-                //alert("success");
-                // get the form input value
-                var result = new FormData($("#reply-form")[0]);
-
-                $.ajax({
-                    //make the ajax request to either add or update the
-                    url: "{{url('')}}" + "/forums/answer",
-                    data: result,
-                    dataType: "Json",
-                    contentType: false,
-                    processData: false,
-                    type: "POST",
-                    success: function(data) {
-                        if (data.status == "success") {
-                            //hide the modal
-                            //$('#add-new-question-modal').modal('hide');
-                            setTimeout(function() {
-                                swal({
-                                    title: "Answer has been added to Question!",
-                                    text: "A  answer  has been added to Question",
-                                    type: "success",
-                                    closeOnConfirm: true,
-                                }, function() {
-                                    window.location.reload();
-                                });
-                            }, 1000);
-                            $('#reply-form')[0].reset();
-                            $('#reply-form').data('formValidation').resetForm(true);
-
-                        }
-                    },
-                    error: function(event) {
-                        console.log('Cannot reply answer  to the question . Please try again later on..');
-                    }
-
-                });
-            });
-
-        // saving reply to answer reply-anonymously
-        $(".saveAnswerReply").click(function(e) {
-            //alert("click");
-            //Prevent form submission
+        autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+             //add new comment on profile answer 
+        $('body').on('click','.btn_comment',function(e){
             e.preventDefault();
+            var current_clicked_btn = $(this);
+            var _reply_message = $(this).parent().closest('div.form-group').find('textarea').val();
+            if(_reply_message.length > 10){
+               var comment_details           = $("#_quishi_new_blog_comment").serialize();
+                $.ajax({
+                    url         : "{{URL::to('/blogs/postComment')}}",
+                    type        : "POST",
+                    dataType    : 'JSON',
+                    data        : comment_details,
+                    success     : function(data){
+                        //append new comment
+                       $(current_clicked_btn).parent().closest('div.profile-leave-comments').find('form#_quishi_new_blog_comment').after(data.result).show('slow');
+                       //$(current_clicked_btn).parent().closest('div.profile-question-answer-section').find('a.go-to-comment > span').html(data.total_comment);
+                       //reset the text area size
+                       //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
+                       //reset the form
+                       if(data.total_comment >= 4){
+                         $('.view-all-blog-comments span').html('View all ' + (data.total_comment - 3) + ' Comments <i class="fa fa-reply" aria-hidden="true"></i>');
+                         $('.view-all-blog-comments').show();
+                     }else{
+                        $('.view-all-blog-comments').hide();
+                     }
 
-            //var id =$(this).parent('div.reply-to').find('.reply-to-answer');
-
-            //var answer_id = $('.reply-to-answer').attr('data-answer-id');
-            //alert(answer_id);\
-            var form = $(this).parents('form.reply-answer-form');
-            var data = new FormData($(form)[0]);
-            //alert(data);
-            $.ajax({
-                //make the ajax request to either add or update the
-                url: "{{url('')}}" + "/forums/answer/reply",
-                data: data,
-                dataType: "Json",
-                contentType: false,
-                processData: false,
-                type: "POST",
-                success: function(data) {
-                    if (data.status == "success") {
-                        //hide the modal
-                        //$('#add-new-question-modal').modal('hide');
-                        setTimeout(function() {
-                            swal({
-                                title: "Reply has been added to Answer!",
-                                text: "A  reply  has been added to Answer",
-                                type: "success",
-                                closeOnConfirm: true,
-                            }, function() {
-                                window.location.reload();
-                            });
-                        }, 1000);
-                        $('.reply-answer-form')[0].reset();
-                        $('.reply-answer-form').data('formValidation').resetForm(true);
+                      //hide the no comment section
+                      $("._no_comment_posted").hide();
+                      $("#_quishi_new_blog_comment").find('textarea').css('height','37px');
+                      //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
+                      $("#_quishi_new_blog_comment")[0].reset();
 
                     }
-                },
-                error: function(event) {
-                    console.log('Cannot reply answer to the quesiton . Please try again later on..');
-                }
 
+               });
+            }else{
+                alert('Your comment should be minimum 10 characters long');
+            }
+            //alert('i need to post new comment on the answer');
+        });
+
+        //like comment
+        $('body').on('click','._comment_like',function(e){
+            e.preventDefault();
+            var current_click = $(this);
+            var _token      = "{{csrf_token()}}";
+            var _comment_id = $(this).data('comment-id');
+            $.post("{{url::to('/blogs/comments/plusLike')}}",{ _token : _token , _comment_id : _comment_id }, function(response){
+                if(response.status == "success"){
+                    if(response.total_likes == 1){
+                        $(current_click).html(' <i class="icon-like"></i> ' + response.total_likes + ' Like');
+                    }else{
+                        $(current_click).html('<i class="icon-like"></i> ' + response.total_likes + ' Likes');
+                    }
+                }
             });
         });
+
+
+        //comment new reply
+
+        $('body').on('click','._comment_reply_btn',function(e){
+            e.preventDefault();
+            var  current_clicked_btn    = $(this);
+            var _comment_reply_message = $(this).parent().closest('div.form-group').find('textarea').val();
+            if(_comment_reply_message.length > 10){
+                   var _current_answer_id  = $(this).data('answer-id');
+                   var comment_details        = $("#_comment_reply_form_" + _current_answer_id).serialize();
+                   $.ajax({
+                    url         : "{{URL::to('/blogs/comments/postComment')}}",
+                    type        : "POST",
+                    dataType    : 'JSON',
+                    data        : comment_details,
+                    success     : function(data){
+                        //append new comment
+                       $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.reply-inner').prepend(data.result).show('slow');
+                       //reset the text area size
+                       //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
+                       //reset the form
+                       if(data.total_reply >= 3){
+                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments span').html('View all ' + (data.total_reply - 2) + ' Replies <i class="fa fa-reply" aria-hidden="true"></i>');
+                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').show();
+                     }else if(data.total_reply == 1){
+                        //add new reply box
+                        $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.profile-comment-section').after(data.result);
+                        $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                     }else{
+                          $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                     }
+
+                      //hide the no comment section
+                      //$("._no_comment_posted").hide();
+                       $("#_comment_reply_form_" + _current_answer_id).find('textarea').css('height','37px');
+                       //$("#_comment_reply_form_" + _current_answer_id).slideToggle(500);
+                       $("#_comment_reply_form_" + _current_answer_id)[0].reset();
+
+                    }
+
+               });
+
+            }else{
+                alert('Your reply should be minimum 10 characters long'); 
+            }
+        });
+
+
 
     });
 </script>

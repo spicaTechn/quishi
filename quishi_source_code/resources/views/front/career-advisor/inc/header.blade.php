@@ -127,8 +127,8 @@
                 <li class="{{Request::is('profile/my-account*') ? 'active' : ''}}"><a  href="{{route('careerAdvisior.my-account.index')}}"><i class="ti-user"></i> My account</a></li>
                 <li class="blog-dropdown {{ Request::is('profile/blogs*') ? 'active' : '' }}" ><a href="#"><i class="ti-pencil-alt"></i>Blogs<i class="ti-angle-right"></i></a>
                     <ul class="blog-dropdown-menu">
-                        <li class="{{ Request::is('profile/blogs') ? 'active' : '' }}"><a href="{{route('profile.blog.index')}}"><i class="ti-angle-right"></i> All Blogs</a></li>
-                        <li class="{{ Request::is('profile/blogs/create') ? 'active' : '' }}"><a href="{{route('profile.blog.create')}}"><i class="ti-angle-right"></i> Add Blog</a></li>
+                        <li class="{{ Request::is('profile/blogs/') ? 'active' : '' }}"><a href="{{route('profile.blog.index')}}"><i class="ti-angle-right"></i> All Blogs</a></li>
+                        <li class="{{ Request::is('profile/blogs/create/') ? 'active' : '' }}"><a href="{{route('profile.blog.create')}}"><i class="ti-angle-right"></i> Add Blog</a></li>
                     </ul>
                 </li>
                 

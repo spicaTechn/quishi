@@ -63,9 +63,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="view-profile">
-                                
-                                <a href="{{URL::to('/career-advisor').'/'.$follower->id}}">view profile</a>
+                            <div class="view-profile row">
+                                @if(Auth::user()->following()->where('leader_id',$follower->id)->count() > 0)
+                                     <a href="javascript:void(0);" class="unfollow_career_advisor" data-following-id="{{$follower->id}}"> {{ __('Unfollow')}}</a>
+                                @else
+                                     <a href="javascript:void(0);" class="follow_career_advisor" data-following-id="{{$follower->id}}"> {{ __('Follow')}}</a>
+                                @endif
+                                <a href="{{URL::to('/career-advisor').'/'.$follower->id .'/' .str_slug($follower->user_profile->first_name)}}">view profile</a>
                             </div>
                         </div>
                     </div>
@@ -94,4 +98,117 @@
 <!-- end follows-section -->
 @endsection
 @section('page_specific_js')
+
+ <script>
+    $(document).ready(function(){
+         //follow career advisor
+    $('body').on('click','.follow_career_advisor', function(e){
+        //prevent the default action
+        var current_link = $(this);
+        e.preventDefault();
+        if("{{Auth::check()}}"){
+            var following_id = $(this).attr('data-following-id');
+            var _token       = "{{csrf_token()}}";
+            //make the post request
+            $.post("{{URL::to('/profile/followCareerAdvisor')}}" + "/" + following_id, {_token}, function(data){
+                //check the return data status
+                if(data.status == "success"){
+                    setTimeout(function()
+                    {
+                            swal({
+                              title : "You are now followers of " + " " + data.name,
+                              text  : data.message,
+                              type  : 'success',
+                             closeOnConfirm: true,
+                            }, function() {
+                                window.open("{{route('careerAdviser.followers')}}","_self");
+                            });
+                  }, 1000);
+
+                }else if(data.status == "failed"){
+                    //show the error swal message to career advisor
+                    //console.log(data.message);
+                    swal({
+                        title : "Following Career Advisor Failed!",
+                        text  : data.message,
+                        type  : 'error'
+                    });
+                }
+                
+            });
+        }else{
+             window.open("{{URL::to('/login')}}","_self");
+        }
+
+    });
+
+    //unfollow career advisor
+    $('body').on('click','.unfollow_career_advisor',function(e){
+        //prevent the default action
+        e.preventDefault();
+        var current_link   = $(this);
+        if("{{Auth::check()}}"){
+            var unfollowing_id  = $(this).attr('data-following-id');
+            var _token          = "{{csrf_token()}}";
+            $.post("{{URL::to('/profile/unfollowCareerAdvisor')}}" + "/" + unfollowing_id , {_token},function(data){
+
+                if(data.status == "success"){
+                    setTimeout(function()
+                    {
+                            swal({
+                             title: "You unfollow " + " " + data.name,
+                             text : data.message,
+                             type : 'success',
+                             closeOnConfirm: true,
+                            }, function() {
+                                window.open("{{route('careerAdviser.followers')}}","_self");
+                            });
+                  }, 1000);
+                }else if(data.status == "failed"){
+                    //handle the failed response
+                    //show the swal error message to the career advisor
+                    swal({
+                        title : 'Unfollowing failed!!',
+                        text  : data.message,
+                        type  : error
+                    })
+                }   
+            });
+        }else{
+            window.open("{{URL::to('/login')}}","_self");
+        }
+        
+    });
+
+    //increase the like counter
+    $( ".total_likes" ).on( "click", function() {
+      var user_profile_id = $(this).attr('data-profile-id');
+      var _token          = $("input[name='_token']").val();
+      var total_likes     = (parseInt($(".like"+user_profile_id).html())+1);
+      //alert(total_likes);
+      $.ajax({
+              url:"{{url('')}}" + "/career-advisior/" + user_profile_id,
+              type:"POST",
+              dataType:"json",
+              data: {_token:_token,user_profile_id:user_profile_id,total_likes:total_likes},
+              success:function(data){
+                  //check for the success status only
+                  if(data.status == "success"){
+                      //insert the data in the modal
+                      // alert('success');
+                      //$(this).closest('.total_likes').find('.like'+user_profile_id).html(total_likes + " " + "Likes");
+                      $('.like'+user_profile_id).html(total_likes+" "+"Likes");
+
+                  }
+
+              },
+              error:function(event){
+                      console.log('Cannot get the particular team');
+              }
+          });
+    });
+
+
+    });
+</script>
 @endsection

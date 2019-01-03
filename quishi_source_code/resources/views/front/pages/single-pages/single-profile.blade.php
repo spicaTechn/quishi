@@ -151,14 +151,14 @@
                                         <h4>{{ $blog->title }}</h4>
                                         <span class="time">Published on {{ Carbon\Carbon::parse($blog->published_date)->format('M-Y')}}</span>
                                         <p>{!! ($blog->abstract != "" ) ? $blog->abstract : substr($blog->content,0,50) . '..' !!}</p>
-                                        <a href="{{URL::to('/blog/'.$blog->id) }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                                        <a href="{{URL::to('/blog/'.$blog->id .'/'.$blog->slug) }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
 
                             @endforeach
                         </div>
-                        <div class="view-more"><a href="{{URL::to('/blog/careerAdvisor/'.$user->id)}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
+                        <div class="view-more"><a href="{{URL::to('/blog/careerAdvisor/'.$user->id .'/'.str_slug(Auth::user()->user_profile->first_name))}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
 
                 </div>
                 @endif
