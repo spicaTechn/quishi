@@ -5233,3 +5233,8 @@ span.required {
     color: #424242;
     font-size: 28px;
 }
+
+h6 span{
+    font-size: 9px;
+    font-style: italic;
+}

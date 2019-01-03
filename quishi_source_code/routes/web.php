@@ -36,11 +36,11 @@
 	]);
 
 
-	Route::get('/blog/careerAdvisor/{id}',[
+	Route::get('/blog/careerAdvisor/{id}/{name}',[
 		'as'		=> 'careerAdvisior.blog.index',
 		'uses'      => 'Front\Pages\Blog\BlogPageController@showCareerAdvisiorBlog'
 	]);
-	Route::get('/blog/{id}', [
+	Route::get('/blog/{id}/{slug}', [
 		'as'		=>	'blog',
 		'uses'		=>	'Front\Pages\Blog\BlogPageController@show'
 	]);
@@ -50,7 +50,7 @@
 	// Route for profile front
 	Route::get('/career-advisor','Front\Pages\Profile\ProfilePageController@index');
 	// route for showing single profile
-	Route::get('/career-advisor/{id}', [
+	Route::get('/career-advisor/{id}/{name}', [
 		'as'		=>	'career-advisior',
 		'uses'		=>	'Front\Pages\Profile\ProfilePageController@show'
 	]);
@@ -74,7 +74,7 @@
 		'as' 		=> 'forum.store',
 		'uses'      => 'Front\Pages\Forum\ForumPageController@store'
 	]);
-	Route::get('/forums/{id}', [
+	Route::get('/forums/{id}/{slug}', [
 		'as'		=>	'forum.show',
 		'uses'		=>	'Front\Pages\Forum\ForumPageController@show'
 	]);

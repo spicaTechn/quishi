@@ -20,6 +20,10 @@ class ForumQuestionAnswer extends Model
     	return $this->belongsTo('App\User');
     }
 
+    public function posted_by(){
+        return $this->belongsTo('App\User','posted_by','id');
+    }
+
     public function children(){
     	return $this->hasMany('App\Model\ForumQuestionAnswer','parent','id');
 

@@ -55,8 +55,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="view-profile">
-                                <a href="{{URL::to('/career-advisor').'/'.$following_adviser->id}}">view profile</a>
+                            <div class="view-profile row">
+                                <a href="javascript:void(0);" class="unfollow_career_advisor" data-following-id="{{$following_adviser->id}}"> {{ __('Unfollow')}}</a>
+                                <a href="{{URL::to('/career-advisor').'/'.$following_adviser->id .'/'.str_slug($following_adviser->user_profile->first_name)}}">view profile</a>
                             </div>
                         </div>
                     </div>
@@ -110,6 +111,45 @@
                       console.log('Cannot get the particular team');
               }
           });
+    });
+
+    //unfollow career advisor
+    $('body').on('click','.unfollow_career_advisor',function(e){
+        //prevent the default action
+        e.preventDefault();
+        var current_link   = $(this);
+        if("{{Auth::check()}}"){
+            var unfollowing_id  = $(this).attr('data-following-id');
+            var _token          = "{{csrf_token()}}";
+            $.post("{{URL::to('/profile/unfollowCareerAdvisor')}}" + "/" + unfollowing_id , {_token},function(data){
+
+                if(data.status == "success"){
+                     setTimeout(function()
+                    {
+                            swal({
+                             title: "You unfollow " + " " + data.name,
+                             text : data.message,
+                             type : 'success',
+                             closeOnConfirm: true,
+                            }, function() {
+                                window.open("{{route('careerAdviser.following')}}","_self");
+                            });
+                  }, 1000);
+
+                }else if(data.status == "failed"){
+                    //handle the failed response
+                    //show the swal error message to the career advisor
+                    swal({
+                        title : 'Unfollowing failed!!',
+                        text  : data.message,
+                        type  : error
+                    })
+                }   
+            });
+        }else{
+            window.open("{{URL::to('/login')}}","_self");
+        }
+        
     });
  });
 </script>

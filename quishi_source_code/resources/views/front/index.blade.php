@@ -100,7 +100,7 @@
                         @else
                             <a href="javascript:void(0);" class="unfollow_career_advisor" data-following-id="{{$user_profile->user_id}}"> {{ __('Follow')}}</a>
                         @endif
-                        <a href="{{URL::to('/career-advisor').'/'.$user_profile->user->id}}">{{ __('view profile') }}</a>
+                        <a href="{{URL::to('/career-advisor').'/'.$user_profile->user->id .'/' .str_slug($user_profile->first_name)}}">{{ __('view profile') }}</a>
                     </div>
                 </div>
             </div>
