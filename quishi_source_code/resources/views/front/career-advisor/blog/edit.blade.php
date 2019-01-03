@@ -46,7 +46,7 @@
 			        		 <div id="imagePreview" style="background-image: url({{asset('/front/images/blogs') .'/' .$blog_detail->image_path}});">
 			            	 </div>
 			        	@else
-			        		 <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+			        		 <div id="imagePreview" style="background-image: url({{asset('/front')}}/images/default-home-blog.jpg);">
 			            	</div>
 			            @endif
 			        </div>

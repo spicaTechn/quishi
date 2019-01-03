@@ -143,7 +143,7 @@
                                         @if($blog->image_path != "")
                                              <img src="{{asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#">
                                         @else
-                                            <img src="{{asset('/front')}}/images/blogs/1537937998.jpg" alt="#">
+                                            <img src="{{asset('/front')}}/images/default-blog.jpg" alt="#">
                                         @endif
                                        
                                     </div>

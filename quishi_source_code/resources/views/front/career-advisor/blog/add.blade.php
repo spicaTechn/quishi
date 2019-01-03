@@ -41,7 +41,7 @@
 			            <label for="imageUpload"></label>
 			        </div>
 			        <div class="avatar-preview">
-			            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+			            <div id="imagePreview" style="background-image: url({{asset('/front')}}/images/default-home-blog.jpg);">
 			            </div>
 			        </div>
 			    </div>
