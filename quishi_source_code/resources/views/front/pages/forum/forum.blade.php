@@ -93,7 +93,7 @@
                     <img src="{{asset('/front')}}/images/default-profile.jpg">
                   @endif
                 </div>
-                <div class="forum-question-content">
+                <div class="forum-question-content forum-main-like-view">
                     <div class="forum-question-content-title">
                         <a href="{{ URL::to('/forums').'/'. $question->id  }}"><h4>{{ $question->title }}</h4></a>
                           @if(($question->type == '0'))
@@ -105,6 +105,12 @@
                     @foreach($question->forum_question_answers()->where('parent','0')->orderBy('created_at','desc')->take(1)->get() as $answer)
                     <p>{{ $answer->content }}</p>
                     @endforeach
+                    <div class="forum-like-comment-view ">
+                        <ul>
+                            <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
+                            <li><a href="#" class="go-to-comment"><span class="like-numbers">0</span> <i class="icon-bubble"></i> Comments</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="forum-question-replies">
 

@@ -18,9 +18,9 @@
 	                    <div class="blog-category-section">
 	                        <div class="blog-image">
 	                        	@if($blog->image_path != null)
-	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="{{ $blog->title }}"></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#"></a>
 	                            @else
-	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front/images/default-blog.jpg') }}" alt="{{ $blog->title }}" style=""></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id }}"><img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style=""></a>
 	                            @endif
 	                            <div class="blog-date">
 	                                {{ Carbon\Carbon::parse($blog->published_date)->format('d') }}<span>{{ Carbon\Carbon::parse($blog->published_date)->format('M') }}</span>
@@ -63,8 +63,13 @@
                       </div>
                     </div>
               </div>
-              <div class="_no_result_found">
+              <div class="no_result_found">
+                <img src="{{ asset('/images/no-resultfound.jpg') }}">
                  <p>No blog results were found</p>
+                 @if(Auth::check())
+                  <a href="{{URL::to('/profile/blogs/create')}}"><button class="btn btn-sm btn-default">Create New</button></a>
+                 @endif
+                 
               </div>
             </div>
            @endif
@@ -104,21 +109,24 @@ blogMasonary.Isotope();
 $("#_quishi_blog_search").on('keyup',function(e){
   //prevent default action
   var _search_input  = $(this);
-  $(_search_input).parent('div.search-form').find('span').remove();
+  //$(_search_input).parent('div.search-form').find('span').remove();
   var _search_value  = $(this).val();
   if(e.keyCode == 13){
-    if(_search_value.length < 2){
+    if(_search_value.length == 0){
       //add invalid class to the current input field
-      $(_search_input).addClass('invalid');
-      $(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+      //$(_search_input).addClass('invalid');
+      //$(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+       var redirect_uri = "{{$url}}"; 
+
     }else{
       
       var url_parameters = "?blog_title=" + _search_value;
-      var redirect_uri = "{{URL::to('/blog')}}" + url_parameters;
+      var redirect_uri = "{{$url}}" + url_parameters;
 
       //now redirect to the page
-      return window.open(redirect_uri, "_self");
+      
     }
+    return window.open(redirect_uri, "_self");
   }
 });
 

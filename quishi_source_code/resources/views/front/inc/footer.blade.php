@@ -4,24 +4,24 @@
                 <div class="container">
                     <div class="row">
                         @if($contact_social)
-                        <div class="col-lg-3 col-sm-6">
+                        <!-- <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Address</h4>
 
                                 <p>{{ $contact_social['address'] }}</p>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
+                        </div> -->
+                        <!-- <div class="col-lg-3 col-sm-6">
                             <div class="footer-section">
                                 <h4>Contact</h4>
                                 <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
                                 <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
                             </div>
-                        </div>
+                        </div> -->
                         @endif
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-4 col-md-4">
                             <div class="footer-section">
-                                <h4>Donate</h4>
+                                <!-- <h4>Donate</h4> -->
                                 <div class="donate-image">
                                     <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
                                         Donate Now
@@ -127,9 +127,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-5 col-md-4">
                             <div class="footer-section">
-                                <h4>Quick links</h4>
+                                <!-- <h4>Quick links</h4> -->
                                 <div class="footer-nav">
                                     <ul>
                                         <li><a href="{{URL::to('/about')}}">About</a></li>
@@ -140,15 +140,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 col-lg-3">
+                        	<div class="footer-section">
+                        		@if($contact_social)
+                        		<div class="footer-social-media">
+                        		    <ul>
+                        		        <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
+                        		        <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
+                        		    </ul>
+                        		</div>
+                        		 @endif
+                        	</div>
+                        </div>
                     </div>
-                    @if($contact_social)
-                    <div class="footer-social-media">
-                        <ul>
-                            <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
-                            <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
-                        </ul>
-                    </div>
-                     @endif
+                    
                 </div>
             </div>
              

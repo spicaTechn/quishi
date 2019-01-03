@@ -162,7 +162,8 @@
         flex: 0 0 50%;
     }
 
-    .profileq-profilea .profile-question-answer-section {
+    .profileq-profilea .profile-question-answer-section,
+    .forum-question-answer-section {
         padding: 15px;
     }
 
@@ -170,6 +171,9 @@
         padding: 20px 15px;
     }
 
+    .forum-like-comment-view ul li {
+        flex: 0 0 40%;
+    }
     .profile-question-answer-section h4 i {
         display: none;
     }
