@@ -22,7 +22,7 @@ class FollowerController extends Controller
 
         //get the follower of the currently logged in user along with the pagination
         $logged_in_career_advisor    = User::findOrFail(Auth::user()->id);
-        $_career_advisor_followers   = $logged_in_career_advisor->followers()->paginate(4);
+        $_career_advisor_followers   = $logged_in_career_advisor->followers()->paginate(2);
         return view('front.career-advisor.followers.index')->with([
             'followers'    => $_career_advisor_followers
         ]);
