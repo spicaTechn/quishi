@@ -19,7 +19,7 @@
                 <div class="forum-search-bar">
                     <div class="search-form">
                         <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
-                        <input name="search-form" class="form-control" type="text" placeholder="Type and enter">
+                        <input name="search-form" class="form-control"  id="_quishi_forum_search" type="text" placeholder="Type and enter" value="{{\Request::get('forum_question_title')}}">
                     </div>
                     <div class="new-questions"><a href="javascript:void(0);" class="btn btn-default" id="show-qusetion-modal">{{ _('New question') }}</a></div>
                     <div class="modal fade" id="add-new-question-modal">
@@ -81,6 +81,7 @@
         </div>
     </div>
     <!-- forum-title-section" -->
+    @if($questions->count() > 0)
     <div class="forum-question-list">
         <ul>
           @foreach($questions as $question)
@@ -114,7 +115,7 @@
                 </div>
                 <div class="forum-question-replies">
 
-                    <a href="{{ URL::to('/forums').'/'. $question->id  }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>@if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }} @endif</span></a>
+                    <a href="{{ URL::to('/forums').'/'. $question->id .'/'.$question->slug }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>@if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }} @endif</span></a>
 
                 </div>
             </li>
@@ -124,9 +125,20 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        {{ $questions->links() }}
+        @if(\Request::has('forum_question_title'))
+            {{ $questions->appends(array('forum_question_title'=>\Request::get('forum_question_title')))->links() }}
+        @else
+            {{ $questions->links() }}
+        @endif
+
       </div>
     </div>
+
+    @else
+      <div class="_no_result_found">
+        <p>No question were found please try again with other search parameters</p>
+      </div>
+    @endif
  </div>
 </div>
 @endsection
@@ -253,6 +265,33 @@ $(document).ready(function () {
           }
         });
       });
+
+
+      //search on the forum page
+
+    $("#_quishi_forum_search").on('keyup',function(e){
+      //prevent default action
+      var _search_input  = $(this);
+      //$(_search_input).parent('div.search-form').find('span').remove();
+      var _search_value  = $(this).val();
+      if(e.keyCode == 13){
+        if(_search_value.length == 0){
+          //add invalid class to the current input field
+          //$(_search_input).addClass('invalid');
+          //$(_search_input).after('<span class="invalid-feedback">Search key should be 2 characters long</span>');
+           var redirect_uri = "{{URL::to('/forums')}}"; 
+
+        }else{
+          
+          var url_parameters = "?forum_question_title=" + _search_value;
+          var redirect_uri = "{{URL::to('/forums')}}" + url_parameters;
+
+          //now redirect to the page
+          
+        }
+        return window.open(redirect_uri, "_self");
+      }
+    });
 });
 </script>
 @endsection

@@ -809,6 +809,7 @@ class PagesController extends Controller
         $page_details = Page::findOrFail($page_id);
         //get the page details by the page_id
         $terms_details = $page_details->page_detail()->first()->meta_value;
+        $page_detail_id = $page_details->page_detail()->first()->id;
         
         $edit_id       = $term_id;
         
@@ -817,15 +818,105 @@ class PagesController extends Controller
         $terms_unserialize = unserialize($terms_details);
         foreach($terms_unserialize as $term_unserialize){
             if($term_unserialize['id']       == $term_id){
-                $return_value['id']          = $term_id;
-                $return_value['title']       = $term_unserialize['title'];
-                $return_value['slug']        = $term_unserialize['slug'];
-                $return_value['description'] = $term_unserialize['description'];
+                $return_value['id']               = $term_id;
+                $return_value['title']            = $term_unserialize['title'];
+                $return_value['slug']             = $term_unserialize['slug'];
+                $return_value['description']      = $term_unserialize['description'];
+                $return_value['page_detail_id']   = $page_detail_id;
             }
         }
         
         //return back 
         return response()->json(array('status'=>'success','result'=>$return_value),200);
+    }
+
+
+    /**
+     * update terms and conditions
+     *
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     *
+     */
+
+
+    public function updateTerm(Request $request){
+        //update terms and conditions
+
+        $term_id           = $request->input('term_id');
+        $term_page_id      = $request->input('term_page_id');
+        $term_page_details = Page::findOrFail($term_page_id);
+        $term_details      = $term_page_details->page_detail()->first()->meta_value;
+        $terms_unserialize = unserialize($term_details);
+
+        //unset the term by term_id
+
+        unset($terms_unserialize[$term_id]);
+        $update_term           = array();
+        $array_key           = 0;
+        foreach($terms_unserialize as $term){
+            if($term['id']){
+                $array_key  = $term['id'];
+            }
+            $update_term[$array_key]['id']             = $term['id'];
+            $update_term[$array_key]['title']          = $term['title'];
+            $update_term[$array_key]['slug']           = $term['slug'];
+            $update_term[$array_key]['description']    = $term['description'];
+ 
+        }
+
+
+        //add the new updated details 
+        $update_term[$term_id]['id']                = $term_id;
+        $update_term[$term_id]['title']             = $request->input('term_title');
+        $update_term[$term_id]['slug']              = str_slug($request->input('term_title'));
+        $update_term[$term_id]['description']       = $request->input('term_description');
+
+
+        //now serialize it 
+        $updated_serialize_term = serialize($update_term);
+
+        $page_details             = PageDetail::findOrFail($request->input('page_detail_id'));
+        $page_details->meta_value = $updated_serialize_term;
+        $page_details->save();
+
+        return response()->json(array('status'=>'success'),200);
+
+
+
+
+    }
+
+
+    /**
+     * delete a term and condition
+     *
+     * @param Illuminate\Http\Request
+     * @return Illumiante\Http\Response
+     *
+     */
+
+
+    public function deleteTerm(Request $request){
+        //delete terms and conditions
+
+        $term_id           = $request->input('term_id');
+        $term_page_id      = $request->input('term_page_id');
+        $term_page_details = Page::findOrFail($term_page_id);
+        $term_details      = $term_page_details->page_detail()->first()->meta_value;
+        $terms_unserialize = unserialize($term_details);
+
+        //unset the term by term_id
+
+        unset($terms_unserialize[$term_id]);
+
+        $updated_serialize_term = serialize($terms_unserialize);
+
+        $page_details             = PageDetail::findOrFail($term_page_details->page_detail()->first()->id);
+        $page_details->meta_value = $updated_serialize_term;
+        $page_details->save();
+
+        return response()->json(array('status'=>'success'),200);
     }
 
 

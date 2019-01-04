@@ -28,7 +28,7 @@
                             </div>
                             <div class="profile-pic-detail">
                                 <p><a href="mailto:john@gmail.com">{{ Auth::user()->email }}</a></p>
-                                <a class="btn btn-default" href="{{URL::to('/career-advisor/'.Auth::user()->id)}}" target="_blank">View Public Profile</a>
+                                <a class="btn btn-default" href="{{URL::to('/career-advisor/'.Auth::user()->id.'/'. str_slug(Auth::user()->user_profile->first_name))}}" target="_blank">View Public Profile</a>
                             </div>
                         </div>
                     </div>
