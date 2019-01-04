@@ -548,6 +548,17 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	]);
 
 
+	Route::post('/cms/pages/updateTerm',[
+		'as'        => 'admin.cms.pages.udpateTerm',
+		'uses'      => 'Admin\Cms\Pages\PagesController@updateTerm'
+	]);
+
+	Route::post('/cms/pages/deleteTerm',[
+		'as'       => 'admin.cms.pages.deleteTerm',
+		'uses'     => 'Admin\Cms\Pages\PagesController@deleteTerm'
+	]);
+
+
 
 
 

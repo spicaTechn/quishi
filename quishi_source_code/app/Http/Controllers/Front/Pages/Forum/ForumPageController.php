@@ -20,10 +20,17 @@ class ForumPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //get all question form databasee
-        $questions = ForumQuestion::orderBy('created_at','desc')->paginate(10);
+        if($request->has('forum_question_title')):
+             $questions = ForumQuestion::orderBy('created_at','desc')
+                                        ->where('title','like','%'.$request->input('forum_question_title') .'%')
+                                        ->paginate(10);
+        else:
+             $questions = ForumQuestion::orderBy('created_at','desc')->paginate(10);
+        endif;
+       
 
         //echo "<pre>"; print_r($questions); echo "</pre>"; exit;
         return view('front.pages.forum.forum')->with(array(

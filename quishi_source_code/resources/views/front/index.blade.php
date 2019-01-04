@@ -189,7 +189,7 @@
                         <h4>{{ $blog->title}}</h4>
                         <span class="time">Published on {{ Carbon\Carbon::parse($blog->published_date)->format('d M Y')}}</span>
                         <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
-                        <a href="{{ url('/blog').'/'.$blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                        <a href="{{ url('/blog').'/'.$blog->id .'/' . $blog->slug }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -220,7 +220,7 @@
                         <h4>{{ $popular_blog->title }}</h4>
                         <span class="time">Published on {{ Carbon\Carbon::parse($popular_blog->published_date)->format('d M Y')}}</span>
                         <p>{{ ($popular_blog->abstract != "") ? substr($popular_blog->abstract,0,150) .'..' : substr($popular_blog->content,0,150) . '...' }}</p>
-                        <a href="{{ url('/blog').'/'.$popular_blog->id }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
+                        <a href="{{ url('/blog').'/'.$popular_blog->id.'/'.$popular_blog->slug }}">{{ __('Full Story') }} <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

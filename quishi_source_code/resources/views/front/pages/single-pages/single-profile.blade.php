@@ -59,7 +59,7 @@
 
                                     @csrf
                                     <li>
-                                        <a href="javascript:void(0);" data-profile-id="{{$user->id}}" id="total_likes">
+                                        <a href="javascript:void(0);" data-profile-id="{{$user->id}}" id="total_likes1">
                                             <i class="icon-like"></i>Likes
                                         </a>
                                         <span class="like" id="like" value="{{ $user->user_profile->total_likes }}">{{ $user->user_profile->total_likes }}
@@ -89,10 +89,15 @@
                             </div>
                             <!-- end profile-name-detail -->
                             <div class="profile-follow-following">
-                                <a href="#" class="btn btn-default"><i class="icon-like"></i> Like</a>
+                                <a href="javascript:void(0);" class="btn btn-default" id="total_likes" data-profile-id="{{$user->id}}"><i class="icon-like"></i> {{ quishi_convert_number_to_human_readable($user->user_profile->total_likes) }} Like</a>
                                 <!-- <a href="#" class="btn btn-default"><i class="icon-like"></i> Liked</a> -->
-                                <a href="#" class="btn btn-default"><i class="icon-feed"></i> Follow</a>
-                                <!-- <a href="#" class="btn btn-default"><i class="icon-check"></i> Following</a> -->
+                                @if(Auth::check())
+                                    @if(Auth::user()->following()->where('leader_id',$user->id)->count() <= 0)
+                                        <a href="javascript:void(0);" class="btn btn-default follow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-feed"></i> <span>Follow</span></a>
+                                    @else
+                                    <a href="javascript:void(0);" class="btn btn-default unfollow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-check"></i> <span>Following</span></a>
+                                    @endif
+                                @endif
                             </div>
                                 <!-- end profile-follow-following -->
                             <div class="about-my-profile">
@@ -351,6 +356,7 @@ $(document).ready(function () {
       var user_profile_id = $(this).attr('data-profile-id');
       var _token          = $("input[name='_token']").val();
       var total_likes     = (parseInt($("#like").html(),10)+1);
+      var current_link    = $(this);
       //alert(total_likes);
       $.ajax({
               url:"{{url('')}}" + "/career-advisior/" + user_profile_id,
@@ -362,7 +368,13 @@ $(document).ready(function () {
                   if(data.status == "success"){
                       //insert the data in the modal
                       // alert('success');
-                      $(".like").html(total_likes);
+                      if(total_likes <= 1){
+                        $(current_link).html('<i class="icon-like"></i> ' + total_likes + ' Like');
+                      }else{
+                         $(current_link).html('<i class="icon-like"></i> ' + total_likes + ' Likes');
+                    }
+
+                    $("#like").html(total_likes);
 
                   }
               },
@@ -373,6 +385,7 @@ $(document).ready(function () {
     });
 
 
+    //comment management section
     //add new comment on profile answer 
     $('body').on('click','.btn_comment',function(e){
         e.preventDefault();
@@ -458,9 +471,6 @@ $(document).ready(function () {
         });
     });
 
-
-    
-
     //comment new reply
 
     $('body').on('click','._comment_reply_btn',function(e){
@@ -507,6 +517,90 @@ $(document).ready(function () {
         }
     });
 
+
+    //follow or unfollow career advisor
+
+     //follow career advisor
+    $('body').on('click','.follow_career_advisor', function(e){
+        //prevent the default action
+        var current_link = $(this);
+        e.preventDefault();
+        if("{{Auth::check()}}"){
+            var following_id = $(this).attr('data-following-id');
+            var _token       = "{{csrf_token()}}";
+            //make the post request
+            $.post("{{URL::to('/profile/followCareerAdvisor')}}" + "/" + following_id, {_token}, function(data){
+                //check the return data status
+                if(data.status == "success"){
+                    $(current_link).find('span').html('Following');
+                    //change the class name 
+                    $(current_link).removeClass('follow_career_advisor');
+                    $(current_link).find('i').addClass('icon-check');
+                    $(current_link).find('i').removeClass('icon-feed');
+                    $(current_link).addClass('unfollow_career_advisor');
+                    //show the swal success message to the career advisor
+                    swal({
+                        title : "You are now followers of " + " " + data.name,
+                        text  : data.message,
+                        type  : 'success'
+                    })
+
+                }else if(data.status == "failed"){
+                    //show the error swal message to career advisor
+                    //console.log(data.message);
+                    swal({
+                        title : "Following Career Advisor Failed!",
+                        text  : data.message,
+                        type  : 'error'
+                    });
+                }
+                
+            });
+        }else{
+             window.open("{{URL::to('/login')}}","_self");
+        }
+
+    });
+
+    //unfollow career advisor
+    $('body').on('click','.unfollow_career_advisor',function(e){
+        //prevent the default action
+        e.preventDefault();
+        var current_link   = $(this);
+        if("{{Auth::check()}}"){
+            var unfollowing_id  = $(this).attr('data-following-id');
+            var _token          = "{{csrf_token()}}";
+            $.post("{{URL::to('/profile/unfollowCareerAdvisor')}}" + "/" + unfollowing_id , {_token},function(data){
+
+                if(data.status == "success"){
+                    //success response
+                    $(current_link).find('span').html('Follow');
+                    $(current_link).find('i').addClass('icon-feed');
+                    $(current_link).find('i').removeClass('icon-check');
+                    //change the class name 
+                    $(current_link).removeClass('unfollow_career_advisor');
+                    $(current_link).addClass('follow_career_advisor');
+                    //show the swal message to the career advisor
+                    swal({
+                        title: "You unfollow " + " " + data.name,
+                        text : data.message,
+                        type : 'success'
+                    });
+                }else if(data.status == "failed"){
+                    //handle the failed response
+                    //show the swal error message to the career advisor
+                    swal({
+                        title : 'Unfollowing failed!!',
+                        text  : data.message,
+                        type  : error
+                    })
+                }   
+            });
+        }else{
+            window.open("{{URL::to('/login')}}","_self");
+        }
+        
+    });
 
 
 

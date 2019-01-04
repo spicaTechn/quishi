@@ -654,6 +654,7 @@
         	<form role="form" name="termsandcondition" id="termsandcondition">
             <input type="hidden" name="term_page_id" class="term_page_id" value=""/>
             <input type="hidden" name="term_id" class="term_id" value=""/>
+            <input type="hidden" name="page_detail_id" class="page_detail_id" value="">
             @csrf
 	            <div class="modal-header">
 	                <h4 class="modal-title"><span>Add new Terms and Condition</span></h4>
@@ -1620,6 +1621,8 @@
             if(save_method == 'add')
             {
                 URI = "{{route('admin.cms.pages.termsConditions')}}";
+            }else{
+              URI   = "{{URL::to('/admin/cms/pages/updateTerm')}}";
             }
             // get the input values
             result = new FormData($("#termsandcondition")[0]);
@@ -1653,6 +1656,23 @@
                       $('#termsandcondition')[0].reset();
                       $('#termsandcondition').data('formValidation').resetForm(true);
                      }
+                     else{
+
+                          setTimeout(function()
+                          {
+                                  swal({
+                                    title: "terms and condition has been updated to Quishi!",
+                                    text: "A  new terms and condition has been updated to Quishi",
+                                    type: "success",
+                                    closeOnConfirm: true,
+                                  }, function() {
+                                      window.location = "{{route('admin.cms.pages')}}";
+                                  });
+                        }, 1000);
+                        $('#termsandcondition')[0].reset();
+                        $('#termsandcondition').data('formValidation').resetForm(true);
+                       }
+                     
 
                 }
             },
@@ -1685,6 +1705,7 @@
                         $(".term_title").val(data.result.title);
                         $(".term_page_id").val(term_page_id);
                         $(".term_description").val(data.result.description);
+                        $(".page_detail_id").val(data.result.page_detail_id);
                         $(".term_id").val(data.result.id);
                         $("#add-terms .modal-title").text('Edit terms and conditions');
                         
@@ -1699,6 +1720,74 @@
 
         });
        
+
+         // our team delete button click
+        $( ".delete-term" ).on( "click", function(e) {
+
+          //alert(id);
+            e.preventDefault();
+            var delete_id = $(this).attr('data-term-id');
+            var hidden_id = $(this).attr('data-page-id');
+            var _token="{{csrf_token()}}";
+            //show the alert notification
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to your team!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },function(isConfirm){
+                if(isConfirm){
+                    //make ajax request
+                    $.ajax({
+                        url:"{{url('/admin/cms/pages/deleteTerm')}}",
+                        type:"POST",
+                        dataType:"Json",
+                        data:{_token:_token,term_id:delete_id,term_page_id:hidden_id},
+                        success:function(data){
+                            if(data.status == "success")
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Terms and conditions   has been deleted from Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                            else
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Terms and conditions  has not been updated to Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    swal("Cancelled", "Your team is safe :)", "error");
+                }
+            });
+        });
+
+
+
        
        
        
