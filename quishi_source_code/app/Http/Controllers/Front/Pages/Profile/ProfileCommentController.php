@@ -156,7 +156,7 @@ class ProfileCommentController extends Controller
     		$notification_message        = 'Ananymous like your comment posted on ' .$profile_owner_details->name .' profile question answer section';
     	endif;
 
-    	$notification_link              = URL::to('/career-advisor/'.$profile_owner_details->id .'#profile-answer'.$question_id);
+    	$notification_link              = URL::to('/career-advisor/'.$profile_owner_details->id .'/'.str_slug($profile_owner_details->user_profile->first_name).'#profile-answer'.$question_id);
     	$career_advisor_image           = $notification_commentor_image   = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
 
     	//send the notification 
@@ -187,7 +187,7 @@ class ProfileCommentController extends Controller
     	if(Auth::user()->id  != $profile_owner->id):
 	    	$notification_message  			= Auth::user()->name . ' has commented on your profile question "' . $this->posted_comment_profile->answer->question->title .'" answer'; 
 	    	$notification_commentor_image   = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
-	    	$notification_link              = URL::to('/career-advisor/'.$profile_owner->id.'#profile-answer'.$question_id);  //need to add #id of the currently posted comment
+	    	$notification_link              = URL::to('/career-advisor/'.$profile_owner->id.'/'.str_slug($profile_owner->user_profile->first_name).'#profile-answer'.$question_id);  //need to add #id of the currently posted comment
 
 	    	$profile_owner->notify(new NewCommentPostedNotification($notification_message,$notification_commentor_image,$notification_link) );
 	    endif;
@@ -215,7 +215,7 @@ class ProfileCommentController extends Controller
     			$notification_message          = Auth::user()->name .' also commented on his profile question "' . $this->posted_comment_profile->answer->question->title  . '" answer';
     		endif;
     		$notification_commentor_image  = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
-    		$notification_link             = URL::to('/career-advisor/'.$profile_owner->id); //need to add the #id of the comment that has been posted
+    		$notification_link             = URL::to('/career-advisor/'.$profile_owner->id.'/'.str_slug($profile_owner->user_profile->first_name)); //need to add the #id of the comment that has been posted
 
     		$other_commentor_details->notify(new NewCommentPostedNotification($notification_message,$notification_commentor_image,$notification_link));
     	endforeach;
@@ -254,14 +254,14 @@ class ProfileCommentController extends Controller
     	}elseif($parent_comment_details->user_id   == $parent_comment_details->posted_by){
     		//comment parent is the career advisor comment
     		$message                     = Auth::user()->name .' replied to your  comment published on your profile question "' .$parent_comment_details->answer->question->title .'" answer';
-    		$notification_link           = URL::to('/career-advisor/'.$parent_comment_details->user_id);
+    		$notification_link           = URL::to('/career-advisor/'.$parent_comment_details->user_id.'/'.str_slug($parent_comment_details->user->user_profile->first_name));
     		$user_image                  =  (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
 
     		$parent_comment_details->user->notify(new NewCommentPostedNotification($message,$user_image,$notification_link));
     	}else{
     		//comment has been posted by the other commentors on other comment 
     		$message                     = Auth::user()->name .' replied to your comment posted on "' . $parent_comment_details->user->name .'" profile question "' .$parent_comment_details->answer->question->title .'" answer';
-    		$notification_link           = URL::to('/career-advisor/'.$parent_comment_details->user_id);
+    		$notification_link           = URL::to('/career-advisor/'.$parent_comment_details->user_id.'/'.str_slug($parent_comment_details->user->user_profile->first_name));
     		$user_image                  =  (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
     		$parent_comment_details->comment_poster->notify(new NewCommentPostedNotification($message,$user_image,$notification_link));
     	}

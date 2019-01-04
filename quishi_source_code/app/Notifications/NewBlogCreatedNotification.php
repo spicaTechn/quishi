@@ -48,7 +48,7 @@ class NewBlogCreatedNotification extends Notification
         return [
             //
             'message'       => Auth::user()->name .' added a new blog "'.$this->blog->title .'"',
-            'url'           => URL::to('/blog/'.$this->blog->id),
+            'url'           => URL::to('/blog/'.$this->blog->id.'/'.$this->blog->slug),
             'user_image'    => (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg')
         ];
     }

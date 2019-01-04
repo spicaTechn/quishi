@@ -107,14 +107,14 @@
                     @endforeach
                     <div class="forum-like-comment-view ">
                         <ul>
-                            <li><a href="#" class="_total_answer_likes"><span class="like-numbers">0</span> <i class="icon-like"></i> Like</a></li>
-                            <li><a href="#" class="go-to-comment"><span class="like-numbers">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->count() > 1) {{ 'Comments' }} @else {{ 'Comment' }}@endif</a></li>
+                            <li><a href="javascript:void(0);" class="_total_answer_likes" data-forum-question-id="{{$question->id}}"><span class="like-numbers">{{quishi_convert_number_to_human_readable($question->like) }}</span> <i class="icon-like"></i> @if($question->like <= 1) {{ 'Like' }} @else {{ 'Likes'}} @endif</a></li>
+                            <li><a href="javascript:void(0);" class="go-to-comment"><span class="like_forum_question">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->where('parent',0)->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }}@endif</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="forum-question-replies">
 
-                    <a href="{{ URL::to('/forums').'/'. $question->id  }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>@if($question->forum_question_answers()->count() > 1) {{ 'Replies' }} @else {{ 'Reply' }} @endif</span></a>
+                    <a href="{{ URL::to('/forums').'/'. $question->id  }}">{{$question->forum_question_answers()->where('parent','0')->count()}} <span>@if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }} @endif</span></a>
 
                 </div>
             </li>
@@ -232,6 +232,25 @@ $(document).ready(function () {
               console.log('Cannot add new blog into the quishi system. Please try again later on..');
           }
 
+        });
+      });
+
+
+      //like the question when user click on the like icon
+      $('body').on('click','._total_answer_likes',function(e){
+        //prevent default action
+        var current_click   = $(this);
+        var forum_question_id = $(this).data('forum-question-id');
+        var _token            = "{{csrf_token()}}";
+        //make the post request
+        $.post("{{route('forums.questions.like')}}",{forum_question_id : forum_question_id , _token : _token},function(data){
+          if(data.status == "success"){
+            if(data.total_like <= 1){
+              $(current_click).html('<span class="like-numbers">' + data.total_like + '</span> <i class="icon-like"></i> Like');
+            }else{
+                $(current_click).html('<span class="like-numbers">' + data.total_like + '</span> <i class="icon-like"></i> Likes');
+            }
+          }
         });
       });
 });

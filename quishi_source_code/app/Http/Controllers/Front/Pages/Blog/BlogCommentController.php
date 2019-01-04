@@ -164,7 +164,7 @@ class BlogCommentController extends Controller
         if(Auth::user()->id  != $profile_owner->id):
             $notification_message           = Auth::user()->name . ' has commented on your blog "' . $this->recent_blog_comment->post->title .'"'; 
             $notification_commentor_image   = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
-            $notification_link              = URL::to('/blog/'.$blog_id.'#profile-comment-wrapper-'.$this->recent_blog_comment->id);  //need to add #id of the currently posted comment
+            $notification_link              = URL::to('/blog/'.$blog_id.'/'.$this->recent_blog_comment->post->slug.'#profile-comment-wrapper-'.$this->recent_blog_comment->id);  //need to add #id of the currently posted comment
 
             $profile_owner->notify(new NewCommentPostedNotification($notification_message,$notification_commentor_image,$notification_link) );
         endif;
@@ -192,7 +192,7 @@ class BlogCommentController extends Controller
                 $notification_message          = Auth::user()->name .' also commented on his blog "' . $this->recent_blog_comment->post->title  . '"';
             endif;
             $notification_commentor_image  = (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
-            $notification_link             = URL::to('/blog/'.$blog_id.'#profile-comment-wrapper-'.$this->recent_blog_comment->id); //need to add the #id of the comment that has been posted
+            $notification_link             = URL::to('/blog/'.$blog_id.'/'.$this->recent_blog_comment->post->slug.'#profile-comment-wrapper-'.$this->recent_blog_comment->id); //need to add the #id of the comment that has been posted
 
             $other_commentor_details->notify(new NewCommentPostedNotification($notification_message,$notification_commentor_image,$notification_link));
         endforeach;
@@ -230,7 +230,7 @@ class BlogCommentController extends Controller
             $notification_message        = 'Ananymous like your comment posted on ' .$profile_owner_details->name .' blog';
         endif;
 
-        $notification_link              = URL::to('/blog/'.$career_advisor_answer_comment->post_id .'#profile-comment-wrapper-'.$career_advisor_answer_comment->id);
+        $notification_link              = URL::to('/blog/'.$career_advisor_answer_comment->post_id .'/'.$career_advisor_answer_comment->post->slug.'#profile-comment-wrapper-'.$career_advisor_answer_comment->id);
         $career_advisor_image           = (Auth::check()) ?  (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg') : asset('/front/images/blog1.jpg') ;
 
         //send the notification 
@@ -278,7 +278,7 @@ class BlogCommentController extends Controller
         }elseif($parent_comment_details->user_id   == $parent_comment_details->posted_by){
             //comment parent is the career advisor comment
             $message                     = Auth::user()->name .' replied to your  comment published on your blog "' .$parent_comment_details->post->title .'"';
-            $notification_link           = URL::to('/blog/'.$parent_comment_details->post_id."#blog-comment-reply".$this->profile_comment->id);
+            $notification_link           = URL::to('/blog/'.$parent_comment_details->post_id.'/'.$parent_comment_details->post->slug."#blog-comment-reply".$this->profile_comment->id);
             $user_image                  =  (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
 
             $parent_comment_details->user->notify(new NewCommentPostedNotification($message,$user_image,$notification_link));
@@ -287,9 +287,9 @@ class BlogCommentController extends Controller
             if(Auth::user()->id != $parent_comment_details->user_id):
             $message                     = Auth::user()->name .' replied to your comment posted on "' . $parent_comment_details->user->name .'" blog "' .$parent_comment_details->post->title .'" ';
             else:
-                $message                     = Auth::user()->name .' replied to your comment posted on own blog "' .$parent_comment_details->post->title .'" ';
+                $message                     = Auth::user()->name .' replied to your comment posted on his / her blog "' .$parent_comment_details->post->title .'" ';
             endif;
-            $notification_link           = URL::to('/blog/'.$parent_comment_details->post_id."#blog-comment-reply".$this->profile_comment->id);
+            $notification_link           = URL::to('/blog/'.$parent_comment_details->post_id.'/'.$parent_comment_details->post->slug."#blog-comment-reply".$this->profile_comment->id);
             $user_image                  =  (Auth::user()->user_profile->image_path != "") ?  asset('/front/images/profile') .'/'. Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg');
             $parent_comment_details->comment_poster->notify(new NewCommentPostedNotification($message,$user_image,$notification_link));
         }

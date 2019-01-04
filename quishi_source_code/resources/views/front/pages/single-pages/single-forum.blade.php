@@ -115,19 +115,19 @@
             <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$forum_answer->id}}">
                 <div class="profile-comment-section">
                     <div class="profile-coment-user">
-                       @if($forum_answer->user->user_profile->image_path != "" && $forum_answer->type != '1')
-                            <img src="{{ asset('/front/images/profile/'.$forum_answer->user->user_profile->image_path)}}">
+                       @if($forum_answer->answer_poster->user_profile->image_path != "" && $forum_answer->type != '1')
+                            <img src="{{ asset('/front/images/profile/'.$forum_answer->answer_poster->user_profile->image_path)}}">
                         @else
                             <img src="{{asset('/front')}}/images/default-profile.jpg"> 
                         @endif
                     </div>
 
                     <div class="profile-coment-comment">
-                        <h5>{{ ($forum_answer->type == '0') ? $forum_answer->user->user_profile->first_name : 'Ananymous' }}</h5>
+                        <h5>{{ ($forum_answer->type == '0') ? $forum_answer->answer_poster->user_profile->first_name : 'Ananymous' }}</h5>
                         <p>{{ ucfirst($forum_answer->content) }}</p>
                         <div class="profile-author-comment">
                             <ul>
-                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $forum_answer->id}}"><i class="icon-like"></i>{{ ' '. $forum_answer->total_like_counts }} {{ ($blog_comment->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
+                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $forum_answer->id}}"><i class="icon-like"></i>{{ ' '. $forum_answer->total_like_counts }} {{ ($forum_answer->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
                                 @if(Auth::check())
                                 <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
                                 @endif
@@ -180,22 +180,22 @@
                     @foreach($forum_answer->childern()->orderBy('created_at','desc')->get() as $comment_reply)
                     <div class="profile-comment-section" id="blog-comment-reply{{$comment_reply->id}}">
                         <div class="profile-coment-user">
-                            @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
-                            <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
+                            @if($comment_reply->answer_poster->user_profile->image_path != "" && $comment_reply->type != '1')
+                            <img src="{{ asset('/front/images/profile/'.$comment_reply->answer_poster->user_profile->image_path)}}">
                             @else
-                                <img src="http://localhost/quishi/front /images/profile/default-profile.jpg">
+                                <img src="http://localhost/quishi/front/images/default-profile.jpg">
                             @endif
                         </div>
                         
                         <div class="profile-coment-comment">
-                            <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
+                            <h5>{{ ($comment_reply->type == '0') ? $comment_reply->answer_poster->user_profile->first_name : 'Ananymous' }}</h5>
                             <p>{{ $comment_reply->content }}</p>
                             
                         </div>
                     </div>
                     @endforeach
                     <!-- end inner profile-comment-section -->
-                     <div class="view-all-blog-comments"  style="{{ ($forum_answer->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
+                     <div class="view-all-comment"  style="{{ ($forum_answer->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
                         <span>View all {{ ($forum_answer->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                     </div>
                 </div> 
@@ -241,7 +241,7 @@
             if(_reply_message.length > 10){
                var comment_details           = $("#_quishi_new_blog_comment").serialize();
                 $.ajax({
-                    url         : "{{URL::to('/blogs/postComment')}}",
+                    url         : "{{URL::to('/forums/postAnswer')}}",
                     type        : "POST",
                     dataType    : 'JSON',
                     data        : comment_details,
@@ -280,7 +280,7 @@
             var current_click = $(this);
             var _token      = "{{csrf_token()}}";
             var _comment_id = $(this).data('comment-id');
-            $.post("{{url::to('/blogs/comments/plusLike')}}",{ _token : _token , _comment_id : _comment_id }, function(response){
+            $.post("{{url::to('/forums/answers/plusLike')}}",{ _token : _token , _comment_id : _comment_id }, function(response){
                 if(response.status == "success"){
                     if(response.total_likes == 1){
                         $(current_click).html(' <i class="icon-like"></i> ' + response.total_likes + ' Like');
@@ -302,7 +302,7 @@
                    var _current_answer_id  = $(this).data('answer-id');
                    var comment_details        = $("#_comment_reply_form_" + _current_answer_id).serialize();
                    $.ajax({
-                    url         : "{{URL::to('/blogs/comments/postComment')}}",
+                    url         : "{{URL::to('/forums/answers/postReply')}}",
                     type        : "POST",
                     dataType    : 'JSON',
                     data        : comment_details,

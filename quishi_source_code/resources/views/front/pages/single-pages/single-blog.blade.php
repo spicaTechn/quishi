@@ -196,7 +196,7 @@
                                 </div>
                                 @endforeach
                                 <!-- end inner profile-comment-section -->
-                                 <div class="view-all-blog-comments"  style="{{ ($blog_comment->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
+                                 <div class="view-all-comment"  style="{{ ($blog_comment->childern()->count() > 2) ? 'display:block;' : 'display:none;' }} " >
                                     <span>View all {{ ($blog_comment->childern()->count() - 2)}} Replies <i class="fa fa-reply" aria-hidden="true"></i> </span>
                                 </div>
                             </div> 

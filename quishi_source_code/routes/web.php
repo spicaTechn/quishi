@@ -142,6 +142,30 @@
 	]);
 
 
+	//single forum answer routes
+
+	Route::post('/forums/postAnswer',[
+		'as'    => 'forums.postAnswer',
+		'uses'  => 'Front\Pages\Forum\ForumAnswerController@createAnswer'
+	]);
+
+	Route::post('/forums/answers/plusLike',[
+		'as'     => 'fourms.answers.increaseLikeCounter',
+		'uses'   =>'Front\Pages\Forum\ForumAnswerController@increaseAnswerLikeCounter'
+	]);
+
+	Route::post('/forums/answers/postReply',[
+		'as'     => 'forums.answers.postReply',
+		'uses'   =>'Front\Pages\Forum\ForumAnswerController@createAnswerReply'
+	]);
+
+	Route::post('/forums/questions/like',[
+		'as'    => 'forums.questions.like',
+		'uses'  => 'Front\Pages\Forum\ForumAnswerController@increaseForumQuestionLike'
+	]);
+
+
+
 // Route for profile
 
 Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],function(){

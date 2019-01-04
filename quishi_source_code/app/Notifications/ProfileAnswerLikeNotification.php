@@ -51,7 +51,7 @@ class ProfileAnswerLikeNotification extends Notification
             //
             'message'       => (Auth::check()) ? Auth::user()->name . ' likes your question "' . $this->liked_question->title .'" answer' : 'Anonymous likes your question "' . $this->liked_question->title . '" answer',
             'user_image'    => (Auth::check()) ? (Auth::user()->user_profile->image_path != "") ? asset('/front/images/profile/') .'/' . Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg') : asset('/front/images/blog1.jpg'),
-            'url'           => asset('/career-advisor/'.$this->liked_answer->user_id .'#profile-answer'.$this->liked_question->id)
+            'url'           => asset('/career-advisor/'.$this->liked_answer->user_id .'/'.str_slug($this->liked_answer->user->user_profile->first_name).'#profile-answer'.$this->liked_question->id)
         ];
     }
 }

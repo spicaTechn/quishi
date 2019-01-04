@@ -48,7 +48,7 @@ class BlogLikeNotification extends Notification
 
             'message'  => (Auth::check())  ? Auth::user()->name .' likes your blog "' . $this->blog->title .'"'  : 'anonymous likes your blog "'.$this->blog->title .'"',
             'user_image' => (Auth::check()) ? (Auth::user()->user_profile->image_path != "") ? asset('/front/images/profile/') .'/' . Auth::user()->user_profile->image_path : asset('/front/images/blog1.jpg') : asset('/front/images/blog1.jpg'),
-            'url'       => URL::to('/blog/'.$this->blog->id)
+            'url'       => URL::to('/blog/'.$this->blog->id.'/'.$this->blog->slug)
         ];
     }
 }

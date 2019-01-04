@@ -1,16 +1,16 @@
   <div class="profile-comment-wrapper" id="profile-comment-wrapper-{{$recent_comments->id}}">
     <div class="profile-comment-section">
         <div class="profile-coment-user">
-            @if($recent_comments->comment_poster->user_profile->image_path != "" && $recent_comments->type != '1')
-                <img src="{{ asset('/front/images/profile/'.$recent_comments->comment_poster->user_profile->image_path)}}">
+            @if($recent_comments->answer_poster->user_profile->image_path != "" && $recent_comments->type != '1')
+                <img src="{{ asset('/front/images/profile/'.$recent_comments->answer_poster->user_profile->image_path)}}">
             @else
-                <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                <img src="{{asset('/front')}}/images/default-profile.jpg"> 
             @endif
         </div>
 
         <div class="profile-coment-comment">
-            <h5>{{ ($recent_comments->type == '0') ? $recent_comments->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
-            <p>{{ ucfirst($recent_comments->comment) }}</p>
+            <h5>{{ ($recent_comments->type == '0') ? $recent_comments->answer_poster->user_profile->first_name : 'Ananymous' }}</h5>
+            <p>{{ ucfirst($recent_comments->content) }}</p>
             <div class="profile-author-comment">
                 <ul>
                     <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $recent_comments->id}}"><i class="icon-like"></i> {{ $recent_comments->total_like_counts }} {{ ($recent_comments->total_like_counts > 1) ? 'Likes' : 'Like' }}</a></li>
@@ -28,7 +28,7 @@
                           @if(Auth::user()->user_profile->image_path != "")
                             <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
                           @else
-                            <img src="{{ asset('/front')}} /images/profile/1.jpg">
+                            <img src="{{asset('/front')}}/images/default-profile.jpg"> 
                           @endif
                         @endif
                     </div>
@@ -62,16 +62,16 @@
         @foreach($recent_comments->childern as $comment_reply)
         <div class="profile-comment-section">
             <div class="profile-coment-user">
-                @if($recent_comments->answer->user->user_profile->image_path != "")
-                <img src="{{ asset('/front/images/profile/'.$recent_comments->answer->user->user_profile->image_path)}}">
+                @if($recent_comments->answer_poster->user_profile->image_path != "")
+                <img src="{{ asset('/front/images/profile/'.$recent_comments->answer_poster->user_profile->image_path)}}">
                 @else
-                    <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                    <img src="{{asset('/front')}}/images/default-profile.jpg"> 
                 @endif
             </div>
             
             <div class="profile-coment-comment">
-                <h5>{{$comment_reply->answer->user->user_profile->first_name}}</h5>
-                <p>{{ $comment_reply->comment }}</p>
+                <h5>{{$comment_reply->answer_poster->user_profile->first_name}}</h5>
+                <p>{{ $comment_reply->content }}</p>
                 
             </div>
         </div>

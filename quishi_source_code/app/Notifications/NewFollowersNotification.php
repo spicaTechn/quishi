@@ -53,7 +53,7 @@ class NewFollowersNotification extends Notification
         $user_profile_image = User::findOrFail($this->follower->id)->user_profile->image_path;
         return [
             'message'       => $this->follower->name .' has started to following you',
-            'url'           => URL::to('/career-advisor/'.$this->follower->id),
+            'url'           => URL::to('/career-advisor/'.$this->follower->id.'/'.str_slug($this->follower->user_profile->first_name)),
             'user_image'    => ($user_profile_image != "") ? asset('/front/images/profile/') .'/' . $user_profile_image : asset('/front/images/blog1.jpg'),
         ];
 

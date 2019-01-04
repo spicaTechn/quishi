@@ -3,16 +3,16 @@
 @endif
 <div class="profile-comment-section" id="blog-comment-reply{{$comment_reply->id}}">
     <div class="profile-coment-user">
-        @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
-        <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
+        @if($comment_reply->answer_poster->user_profile->image_path != "" && $comment_reply->type != '1')
+        <img src="{{ asset('/front/images/profile/'.$comment_reply->answer_poster->user_profile->image_path)}}">
         @else
-            <img src="http://localhost/quishi/front /images/profile/1.jpg">
+            <img src="http://localhost/quishi/front/images/default-profile.jpg">
         @endif
     </div>
     
     <div class="profile-coment-comment">
-        <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
-        <p>{{ $comment_reply->comment }}</p>
+        <h5>{{ ($comment_reply->type == '0') ? $comment_reply->answer_poster->user_profile->first_name : 'Ananymous' }}</h5>
+        <p>{{ $comment_reply->content }}</p>
         
     </div>
 </div>
