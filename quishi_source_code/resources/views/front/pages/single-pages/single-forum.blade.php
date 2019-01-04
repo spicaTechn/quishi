@@ -7,7 +7,7 @@
     <div class="container">
         <div class="forum-title-section forum-comment-title-section">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="top-forum-user">
                         <div class="forum-user">
                             @if(($question->type == 1) || ($question->user->user_profile->image_path == ""))
@@ -20,13 +20,20 @@
                         <div class="forum-title-bar">
                             
                              <div class="user-detail">
-                                <h6>@if($question->type == 1) {{ 'Ananymous' }} @else  <?php echo $question->user->user_profile->first_name .'<span>'.ucwords($question->user->careers()->first()->title).' - '.$question->user->user_profile->location .'</span>';?> @endif </h6>
+
+                                <!-- <h5>Ram<span> Web Developer</span></h5> -->
+                            
+                            
+
+                                <h5>@if($question->type == 1) {{ 'Ananymous' }} @else  <?php echo $question->user->user_profile->first_name .'<span>'.ucwords($question->user->careers()->first()->title).' - '.$question->user->user_profile->location .'</span>';?> @endif </h5>
                             </div>
-                            <h4>{{ $question->title }}</h4>
+                            
+
                         </div>
                     </div>
+                    <h4>{{ $question->title }}</h4>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="forum-share-bar">
                         <div class="product-share">
                             <div class="sh-title"> <i class="icon-share"></i> Share</div>

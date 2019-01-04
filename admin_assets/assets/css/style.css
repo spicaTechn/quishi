@@ -25039,3 +25039,11 @@ table {
 #our_team_table td {
     white-space: pre-line;
 }
+
+.nav-tabs .slide {
+    width: calc(100% / 5);
+}
+
+.md-tabs .nav-item {
+    width: calc(100% / 5);
+}
