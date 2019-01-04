@@ -134,8 +134,8 @@
                                     <ul>
                                         <li><a href="{{URL::to('/about')}}">About</a></li>
                                         <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
-                                        <li><a href="#">Privacy policy</a></li>
-                                        <li><a href="#">Terms of use</a></li>
+                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
+                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
                                     </ul>
                                 </div>
                             </div>

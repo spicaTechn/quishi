@@ -134,23 +134,26 @@
                                     <ul>
                                         <li><a href="{{URL::to('/about')}}">About</a></li>
                                         <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
-                                        <li><a href="#">Privacy policy</a></li>
-                                        <li><a href="#">Terms of use</a></li>
+                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
+                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 col-lg-3">
-                            <div class="footer-section">
-                                @if($contact_social)
-                                <div class="footer-social-media">
-                                    <ul>
-                                        <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
-                                        <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
+                        	<div class="footer-section">
+                        		@if($contact_social)
+                        		<div class="footer-social-media">
+                                    <ul class="social-links">
+                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                     </ul>
-                                </div>
-                                 @endif
-                            </div>
+                        		</div>
+                        		 @endif
+                        	</div>
                         </div>
                     </div>
                     
@@ -160,7 +163,7 @@
             <div class="footer-copyright">
                 <div class="container">
                     <div class="copyright text-center">
-                        &copy; 2018 Quishi. All rights reserved.
+                        &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
                     </div>
                 </div>
             </div>

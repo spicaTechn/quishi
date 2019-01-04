@@ -34,6 +34,7 @@ class MainPageController extends Controller
         $user_profiles = UserProfile::where('status','1')->where('profile_setup_status','1')->orderBy('profile_views','desc')->take(3)->get();
         $service      = Page::where('slug','home')->get();
         $home_video = Page::where('slug','home-video')->first();
+        
 
         return view('front.index')
                     ->with(array(
@@ -287,11 +288,13 @@ class MainPageController extends Controller
 
 
     public function terms(Request $request){
+    //new terms and conditions
+    $terms_and_conditions = Page::where('slug','terms-conditions')->first();
     return view('front.pages.terms-condition.index')
         ->with(array(
                 'site_title'          => 'Quishi',
                 'page_title'          => 'terms and conditions',
-                
+                'terms_and_conditions' => $terms_and_conditions
             )
         );
         

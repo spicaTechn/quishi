@@ -33,6 +33,7 @@
                     </div>
                     <h4>{{ $question->title }}</h4>
                 </div>
+                
                 <div class="col-md-12">
                     <div class="forum-share-bar">
                         <div class="product-share">
@@ -40,22 +41,22 @@
                             <div class="show-on-share social-share">
                                 <ul>
                                     <li>
-                                        <a href="#" target="_blank">
+                                        <a href="http://www.facebook.com/share.php?u={{ url()->current() }}" target="_blank">
                                             <i class="icon-social-facebook" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank">
+                                        <a href="http://twitter.com/home?status={{ url()->current() }}" target="_blank">
                                             <i class="icon-social-twitter" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank">
+                                        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}&title={{ $question->title }}&source={{ url()->current() }}" target="_blank">
                                             <i class="icon-social-linkedin" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank">
+                                        <a href="https://plus.google.com/share?url={{ url()->current() }}" onclick="javascript:window.open(this.href, '_blank','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" target="_blank">
                                             <i class="icon-social-google" aria-hidden="true"></i>
                                         </a>
                                     </li>
@@ -65,6 +66,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
          <div class="profile-leave-comments blog-leave-comment">
