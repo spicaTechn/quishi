@@ -269,10 +269,12 @@ class MainPageController extends Controller
 
 
     public function privacy(Request $request){
+        $privacy_policy = Page::where('slug','privacy-policy')->first();
             return view('front.pages.privacy-policy.index')
             ->with(array(
                     'site_title'          => 'Quishi',
                     'page_title'          => 'privacy policy',
+                    'privacy_policy'      => $privacy_policy
                    
                 )
             );

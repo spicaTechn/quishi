@@ -3,14 +3,18 @@
 
 <div class="frequently-question">
            <div class="container">
-               <h2>Privacy Policy</h2>
+               <h2>Terms and Conditions</h2>
                <div id="accordion">
                    @if($terms_and_conditions)
+                    <p class="updated_date">
+                        Last updated at: <?php echo $terms_and_conditions->updated_at->toFormattedDateString(); ?>
+                    </p>
                     @if($terms_and_conditions->page_detail()->count() > 0)
                         <?php 
                             //unserialize the meta value
                             $unserialize_term_lists = $terms_and_conditions->page_detail->first()->meta_value;
                             $serialize_term_lsit    = unserialize($unserialize_term_lists);
+                            rsort($serialize_term_lsit);
                             $i = 1;
                         ?>
                         @foreach($serialize_term_lsit as $term_list)
@@ -22,7 +26,7 @@
                                </button>
                                </h5>
                            </div>
-                           <div id="{{$i}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                           <div id="{{$i}}" class="collapse <?php if($i == 1) echo 'show'; ?>" aria-labelledby="headingOne" data-parent="#accordion">
                                <div class="card-body">
                                    {{ $term_list['description'] }}
                                </div>

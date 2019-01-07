@@ -536,7 +536,9 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'uses'		=>	'Admin\Cms\Pages\PagesController@store'
 	]);
     
+    // **********************************
     // Route to store terms and condition
+    
 	Route::post('/cms/pages/termsConditions', [
 		'as'		=>	'admin.cms.pages.termsConditions',
 		'uses'		=>	'Admin\Cms\Pages\PagesController@storeTerms'
@@ -556,6 +558,29 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	Route::post('/cms/pages/deleteTerm',[
 		'as'       => 'admin.cms.pages.deleteTerm',
 		'uses'     => 'Admin\Cms\Pages\PagesController@deleteTerm'
+	]);
+    
+    // *****************************
+    // Route to store Privacy Policy
+	Route::post('/cms/pages/privacyPolicy', [
+		'as'		=>	'admin.cms.pages.PrivacyPolicy',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@storePrivacyPolicy'
+	]);
+    
+    Route::get('/cms/pages/editPrivacyPolicy/{privacy_policy_id}/{page_id}', [
+		'as'		=>	'admin.cms.pages.editPrivacyPolicy',
+		'uses'		=>	'Admin\Cms\Pages\PagesController@editPrivacyPolicy'
+	]);
+
+
+	Route::post('/cms/pages/updatePrivacyPolicy',[
+		'as'        => 'admin.cms.pages.udpatePrivacyPolicy',
+		'uses'      => 'Admin\Cms\Pages\PagesController@updatePrivacyPolicy'
+	]);
+
+	Route::post('/cms/pages/deletePrivacyPolicy',[
+		'as'       => 'admin.cms.pages.deletePrivacyPolicy',
+		'uses'     => 'Admin\Cms\Pages\PagesController@deletePrivacyPolicy'
 	]);
 
 

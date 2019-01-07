@@ -412,9 +412,77 @@
                          
                          <!-- Privacy Policy tab-->
                          <div class="tab-pane fade show" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
-                         <div class="card-block">
-                              <h4>Privacy Policies</h4>
-                             </div>
+                            <div class="card-block">
+                                <div class="row">
+                                   <div class="col-md-6">
+                                      <h4>Privacy Policies</h4>
+                                   </div>
+                                   <div class="col-md-6">
+                                      <h4 style="float: right;">
+                                         <button class="btn btn-grd-primary policy-add-btn">Add Policy</button>
+                                      </h4>
+                                   </div>
+                                </div>
+                                <div class="dt-responsive table-responsive">
+                                    <table id="our_team_table" class="table table-striped table-bordered our_team_table">
+                                        <thead>
+                                        <tr>
+                                            <th>S.N.</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                          @if($privacy_policy)
+                                            @if($privacy_policy->page_detail()->count() > 0)
+                                              <?php 
+                                                //unserialize the meta value
+                                                $unserialize_policy_lists = $privacy_policy->page_detail->first()->meta_value;
+                                                $serialize_policy_lsit    = unserialize($unserialize_policy_lists);
+                                                $i = 1;
+
+                                            ?>
+                                                @foreach($serialize_policy_lsit as $policy_list)
+                                                   <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ $policy_list['title'] }}</td>
+                                                    <td>{{ $policy_list['description'] }}</td>
+                                                    <td>
+
+                                                        <a href="#" class="m-r-15 text-muted edit-policy"
+                                                              data-toggle="tooltip"
+                                                              data-placement="top"
+                                                              title=""
+                                                              data-original-title="Edit"
+                                                              data-policy-id="{{ $policy_list['id'] }}"
+                                                              data-page-id="{{ $privacy_policy->id }}"
+                                                              >
+                                                           <i class="icofont icofont-ui-edit" ></i>
+                                                           </a>
+                                                           <a href="#" class="text-muted delete-policy"
+                                                              data-toggle="tooltip"
+                                                              data-placement="top" title=""
+                                                              data-original-title="Delete"
+                                                              data-policy-id="{{ $policy_list['id'] }}"
+                                                              data-page-id="{{ $privacy_policy->id }}"
+                                                              >
+                                                           <i class="icofont icofont-delete-alt"></i>
+                                                           </a>
+                                                    </td>
+                                                </tr>
+                                                 <?php $i++;?>
+                                            @endforeach
+                                            @else
+                                             <tr><td>No privacy policy added yet</td></tr>
+                                            @endif
+                                          @else
+                                            <tr><td>No privacy policy added yet</td></tr>
+                                          @endif
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
                          </div>
                          <!-- end Privacy Policy tab-->
                          
@@ -690,6 +758,50 @@
     </div>
 </div>
 <!-- End terms and condition add modal-->
+
+<!--add privacy policy modal-->
+<div class="modal fade" id="add-privacy" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        	<form role="form" name="privacypolicy" id="privacypolicy">
+            <input type="hidden" name="privacypolicy_page_id" class="privacypolicy_page_id" value=""/>
+            <input type="hidden" name="privacypolicy_id" class="privacypolicy_id" value=""/>
+            <input type="hidden" name="page_detail_id" class="page_detail_id" value="">
+            @csrf
+	            <div class="modal-header">
+	                <h4 class="modal-title"><span>Add new Privacy Policy</span></h4>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+	            </div>
+	            <div class="modal-body" name="our-team-add-field" id="our-team-add-field">
+                  <div class="row">
+                     <div class="col-sm-12 col-xl-12 m-b-30">
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Title</h4>
+                               <input type="text" class="form-control privacy_policy_title" name="privacy_policy_title" placeholder="Title">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-12 col-xl-12 m-b-30">
+                               <h4 class="sub-title">Description *</h4>
+                               <textarea class="form-control privacy_policy_description" name="privacy_policy_description" rows="7"></textarea>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+	            </div>
+
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                   <button type="submit"  class="btn btn-primary waves-effect waves-light termSave">Save changes</button>
+               </div>
+         </form>
+        </div>
+    </div>
+</div>
+<!--end add privacy policy modal-->
 
 <!-- end add modal -->
 @endsection
@@ -1787,7 +1899,221 @@
         });
 
 
+       // Privacy policy add modal
+       $('.policy-add-btn'). on('click', function(e) {
+            e.preventDefault();
+            save_method = 'add';
+            $('#add-privacy').modal('show');
+       });
+       
+       // privacy policy add form
+       // terms and conditions add form validation
+       $('#privacypolicy').on('init.field.fv', function(e, data) {
+            var $parent = data.element.parents('.form-group'),
+                $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
+            $icon.on('click.clearing', function() {
+                // Check if the field is valid or not via the icon class
+                if ($icon.hasClass('fa fa-remove')) {
+                    // Clear the field
+                    data.fv.resetField(data.element);
+                }
+            });
+           })
+           .formValidation({
+               framework: 'bootstrap',
+               icon: {
+                   valid: 'fa fa-check',
+                   invalid: 'fa fa-times',
+                   validating: 'fa fa-refresh'
+               },
+               fields: {
+                   'privacy_policy_description': {
+                       validators: {
+                           notEmpty: {
+                                  message: 'The privacy policy description is required'
+                              },
+                           stringLength: {
+                               message: 'The privacy policy description must be less than 2000 characters',
+                               max: function (value, validator, $field) {
+                                   return 2000 - (value.match(/\r/g) || []).length;
+                               }
+                           }
+                       }
+                   }
+               }
+           })
+           .on('success.form.fv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // find if the action is save or update
+            if(save_method == 'add')
+            {
+                URI = "{{route('admin.cms.pages.PrivacyPolicy')}}";
+            }else{
+              URI   = "{{URL::to('/admin/cms/pages/updatePrivacyPolicy')}}";
+            }
+            // get the input values
+            result = new FormData($("#privacypolicy")[0]);
+
+            $.ajax({
+            //make the ajax request to either add or update the
+            url:URI,
+            data:result,
+            dataType:"Json",
+            contentType: false,
+            processData: false,
+            type:"POST",
+            success:function(data)
+            {
+                if(data.status == "success"){
+                    //hide the modal
+                     $('#add-privacy').modal('hide');
+                     if(save_method == "add")
+                     {
+                      setTimeout(function()
+                        {
+                                swal({
+                                  title: "Privacy Policy has been added to Quishi!",
+                                  text: "A  new privacy policy has been added to Quishi",
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+                      $('#termsandcondition')[0].reset();
+                      $('#termsandcondition').data('formValidation').resetForm(true);
+                     }
+                     else{
+
+                          setTimeout(function()
+                          {
+                                  swal({
+                                    title: "terms and condition has been updated to Quishi!",
+                                    text: "A  new terms and condition has been updated to Quishi",
+                                    type: "success",
+                                    closeOnConfirm: true,
+                                  }, function() {
+                                      window.location = "{{route('admin.cms.pages')}}";
+                                  });
+                        }, 1000);
+                        $('#privacypolicy')[0].reset();
+                        $('#privacypolicy').data('formValidation').resetForm(true);
+                       }
+                     
+
+                }
+            },
+            error:function(event)
+            {
+                console.log('Cannot add privacy policy into the quishi system. Please try again later on..');
+            }
+
+          });
+        });
+       
+       // edit privacy policy
+        $( ".edit-policy" ).on( "click", function(e) {
+            e.preventDefault();
+            save_method = "edit";
+            var hidden_id = $(this).attr('data-policy-id');
+            //console.log(hidden_id);
+            var policy_page_id = $(this).attr('data-page-id');
+            //console.log(team_edit_id);
+            //$('#edit-our-team').modal('show');
+
+            $.ajax({
+                url:"{{url('')}}" + "/admin/cms/pages/editPrivacyPolicy/" + hidden_id + '/' + policy_page_id,
+                type:"GET",
+                dataType:"json",
+                data: {'edit_id':policy_page_id,'hidden_id':hidden_id},
+                success:function(data){
+                    //check for the success status only
+                    if(data.status == "success"){
+                        $(".privacy_policy_title").val(data.result.title);
+                        $(".privacypolicy_page_id").val(policy_page_id);
+                        $(".privacy_policy_description").val(data.result.description);
+                        $(".page_detail_id").val(data.result.page_detail_id);
+                        $(".privacypolicy_id").val(data.result.id);
+                        $("#add-privacy .modal-title").text('Edit Privacy Policy');
+                        
+                        $("#add-privacy").modal('show');
+                    }
+
+                },
+                error:function(event){
+                        console.log('Cannot get the particular privacy policy');
+                }
+            });
+
+        });
+       
+       // Delete privacy policy
+        $( ".delete-policy" ).on( "click", function(e) {
+
+          //alert(id);
+            e.preventDefault();
+            var delete_id = $(this).attr('data-policy-id');
+            var hidden_id = $(this).attr('data-page-id');
+            var _token="{{csrf_token()}}";
+            //show the alert notification
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this privacy policy!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },function(isConfirm){
+                if(isConfirm){
+                    //make ajax request
+                    $.ajax({
+                        url:"{{url('/admin/cms/pages/deletePrivacyPolicy')}}",
+                        type:"POST",
+                        dataType:"Json",
+                        data:{_token:_token,privacy_policy_id:delete_id,privacy_policy_page_id:hidden_id},
+                        success:function(data){
+                            if(data.status == "success")
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Privacy policy  has been deleted from Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                            else
+                            {
+                              setTimeout(function() {
+                                swal({
+                                  title: "Privacy policy  has not been updated to Quishi!",
+
+                                  type: "success",
+                                  closeOnConfirm: true,
+                                }, function() {
+                                    window.location = "{{route('admin.cms.pages')}}";
+                                });
+                      }, 1000);
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    swal("Cancelled", "Your privacy policy is safe :)", "error");
+                }
+            });
+        });
        
        
        

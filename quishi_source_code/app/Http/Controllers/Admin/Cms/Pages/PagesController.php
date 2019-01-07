@@ -139,6 +139,9 @@ class PagesController extends Controller
         
         //new terms and conditions
         $terms_and_conditions = Page::where('slug','terms-conditions')->first();
+        
+        // new privacy policy
+        $privacy_policy = Page::where('slug', 'privacy-policy')->first();
 
         return view('admin.cms.pages.pages')
                 ->with(array(
@@ -155,7 +158,8 @@ class PagesController extends Controller
                     'contact'                     => $contact_data,
                     'home'                        => $home,
                     'home_video'                  => $video_id,
-                    'terms_and_conditions'        => $terms_and_conditions
+                    'terms_and_conditions'        => $terms_and_conditions,
+                    'privacy_policy'              => $privacy_policy
                     )
                 );
     }
@@ -851,26 +855,34 @@ class PagesController extends Controller
 
         //unset the term by term_id
 
-        unset($terms_unserialize[$term_id]);
+        //unset($terms_unserialize[$term_id]);
         $update_term           = array();
         $array_key           = 0;
         foreach($terms_unserialize as $term){
-            if($term['id']){
-                $array_key  = $term['id'];
+            
+            
+            if($term['id'] == $term_id){
+                 if($term['id']){
+                    $array_key  = $term['id'];
+                }
+                $update_term[$term_id]['id']                = $term_id;
+                $update_term[$term_id]['title']             = $request->input('term_title');
+                $update_term[$term_id]['slug']              = str_slug($request->input('term_title'));
+                $update_term[$term_id]['description']       = $request->input('term_description');
+            }else{
+                if($term['id']){
+                    $array_key  = $term['id'];
+                }
+                $update_term[$array_key]['id']             = $term['id'];
+                $update_term[$array_key]['title']          = $term['title'];
+                $update_term[$array_key]['slug']           = $term['slug'];
+                $update_term[$array_key]['description']    = $term['description'];
             }
-            $update_term[$array_key]['id']             = $term['id'];
-            $update_term[$array_key]['title']          = $term['title'];
-            $update_term[$array_key]['slug']           = $term['slug'];
-            $update_term[$array_key]['description']    = $term['description'];
- 
         }
 
 
         //add the new updated details 
-        $update_term[$term_id]['id']                = $term_id;
-        $update_term[$term_id]['title']             = $request->input('term_title');
-        $update_term[$term_id]['slug']              = str_slug($request->input('term_title'));
-        $update_term[$term_id]['description']       = $request->input('term_description');
+        
 
 
         //now serialize it 
@@ -914,6 +926,212 @@ class PagesController extends Controller
 
         $page_details             = PageDetail::findOrFail($term_page_details->page_detail()->first()->id);
         $page_details->meta_value = $updated_serialize_term;
+        $page_details->save();
+
+        return response()->json(array('status'=>'success'),200);
+    }
+    
+    
+    /*
+        functions to CRUD privacy policy
+    */
+    public function storePrivacyPolicy(Request $request){
+        //$hidden_id     = $request->about_page_id;
+        $title         = $request->input('privacy_policy_title');
+        $slug          = str_slug($request->input('privacy_policy_title')); 
+        $description   = $request->input('privacy_policy_description');
+        
+        
+        //check page exists or not
+        
+        $new_privacy_policy = Page::where('slug','privacy_policy')->first();
+        
+        //if exists
+        $i = 1;
+        if($new_privacy_policy){
+            $page_id = $new_privacy_policy->id;
+        }else{
+            //create new page
+            $page        = new Page();
+            $page->title = 'Privacy Policy';
+            $page->slug = 'privacy-policy';
+            $page->content = "";
+            $page->user_id = Auth::user()->id;
+            $page->save();
+            $page_id = $page->id;
+            
+            //store into page details
+        }
+        $stored_privacy_policy_details = array();
+        //store into page details
+        $privacy_policy = PageDetail::where('meta_key','privacy_policy')->first();
+        if($privacy_policy){
+            //unserialize the value meta value
+            $existing_privacy_policy = unserialize($privacy_policy->meta_value);
+            $j=1;
+            //first stored the user entered value
+            $stored_privacy_policy_details[$j]['id']          = $j;
+            $stored_privacy_policy_details[$j]['title']       = $title;
+            $stored_privacy_policy_details[$j]['slug']        = $slug;
+            $stored_privacy_policy_details[$j]['description'] = $description;
+            $j = 2;
+            
+            foreach($existing_privacy_policy as $existing_privacy){
+                $stored_privacy_policy_details[$j]['id']          = $j;
+                $stored_privacy_policy_details[$j]['title']       = $existing_privacy['title'];
+                $stored_privacy_policy_details[$j]['slug']        = $existing_privacy['slug'];
+                $stored_privacy_policy_details[$j]['description'] = $existing_privacy['description'];
+                $j++;
+            }
+            
+            
+            //udate the exisitng one
+            $new_privacy_policy = serialize($stored_privacy_policy_details);
+            $privacy_policy_details = PageDetail::findOrFail($privacy_policy->id);
+            $privacy_policy_details->meta_value = $new_privacy_policy;
+            $privacy_policy_details->save();
+            
+
+        }else{
+            
+            $stored_privacy_policy_details[$i]['id']          = $i;
+            $stored_privacy_policy_details[$i]['title']       = $title;
+            $stored_privacy_policy_details[$i]['slug']        = $slug;
+            $stored_privacy_policy_details[$i]['description'] = $description;
+            
+            //serilaize the value and stored in the db
+            $new_privacy_policy = serialize($stored_privacy_policy_details);
+            $privacy_policy_details = new PageDetail();
+            $privacy_policy_details->page_id = $page_id;
+            $privacy_policy_details->meta_key = "privacy_policy";
+            $privacy_policy_details->meta_value = $new_privacy_policy;
+            $privacy_policy_details->save();
+            
+            
+        }
+        
+        //return response back to the client
+        return response()->json(array('status'=>'success','message'=>''),200);
+        
+    }
+    
+    
+    public function editPrivacyPolicy(Request $request,$privacy_policy_id,$page_id){
+        //get the page details by the page id
+        $page_details = Page::findOrFail($page_id);
+        //get the page details by the page_id
+        $privacy_policy_details = $page_details->page_detail()->first()->meta_value;
+        $page_detail_id = $page_details->page_detail()->first()->id;
+        
+        $edit_id       = $privacy_policy_id;
+        
+        //unserialize the value
+        $return_value = array();
+        $privacy_policies_unserialize = unserialize($privacy_policy_details);
+        foreach($privacy_policies_unserialize as $privacy_policy_unserialize){
+            if($privacy_policy_unserialize['id']       == $privacy_policy_id){
+                $return_value['id']               = $privacy_policy_id;
+                $return_value['title']            = $privacy_policy_unserialize['title'];
+                $return_value['slug']             = $privacy_policy_unserialize['slug'];
+                $return_value['description']      = $privacy_policy_unserialize['description'];
+                $return_value['page_detail_id']   = $page_detail_id;
+            }
+        }
+        
+        //return back 
+        return response()->json(array('status'=>'success','result'=>$return_value),200);
+    }
+
+
+    /**
+     * update Privacy Policy
+     *
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     *
+     */
+
+
+    public function updatePrivacyPolicy(Request $request){
+        //update terms and conditions
+
+        $privacy_policy_id = $request->input('privacypolicy_id');
+        $privacy_policy_page_id      = $request->input('privacypolicy_page_id');
+        $privacy_policy_page_details = Page::findOrFail($privacy_policy_page_id);
+        $privacy_policy_details      = $privacy_policy_page_details->page_detail()->first()->meta_value;
+        $privacy_policy_unserialize = unserialize($privacy_policy_details);
+
+        //unset the term by term_id
+
+        //unset($privacy_policy_unserialize[$privacy_policy_id]);
+        $update_privacy_policy = array();
+        $array_key           = 0;
+        foreach($privacy_policy_unserialize as $privacy_policy){
+            
+            //check for the update key
+            
+            if($privacy_policy['id'] == $privacy_policy_id){
+                 $array_key  = $privacy_policy['id'];
+                 $update_privacy_policy[$array_key]['id']                = $privacy_policy_id;
+                 $update_privacy_policy[$array_key]['title']             = $request->input('privacy_policy_title');
+                 $update_privacy_policy[$array_key]['slug']              = str_slug($request->input('privacy_policy_title'));
+                 $update_privacy_policy[$array_key]['description']       = $request->input('privacy_policy_description');
+                
+            }else{
+                if($privacy_policy['id']){
+                $array_key  = $privacy_policy['id'];
+                }
+                $update_privacy_policy[$array_key]['id']             = $privacy_policy['id'];
+                $update_privacy_policy[$array_key]['title']          = $privacy_policy['title'];
+                $update_privacy_policy[$array_key]['slug']           = $privacy_policy['slug'];
+                $update_privacy_policy[$array_key]['description']    = $privacy_policy['description'];
+            }
+            
+ 
+        }
+
+        //add the new updated details 
+       
+
+
+        //now serialize it 
+        $updated_serialize_privacy_policy = serialize($update_privacy_policy);
+
+        $page_details             = PageDetail::findOrFail($request->input('page_detail_id'));
+        $page_details->meta_value = $updated_serialize_privacy_policy;
+        $page_details->save();
+
+        return response()->json(array('status'=>'success'),200);
+
+    }
+
+
+    /**
+     * delete a term and condition
+     *
+     * @param Illuminate\Http\Request
+     * @return Illumiante\Http\Response
+     *
+     */
+
+
+    public function deletePrivacyPolicy(Request $request){
+        //delete terms and conditions
+
+        $privacy_policy_id = $request->input('privacy_policy_id');
+        $privacy_policy_page_id      = $request->input('privacy_policy_page_id');
+        $privacy_policy_page_details = Page::findOrFail($privacy_policy_page_id);
+        $privacy_policy_details      = $privacy_policy_page_details->page_detail()->first()->meta_value;
+        $privacy_policies_unserialize = unserialize($privacy_policy_details);
+
+        //unset the term by term_id
+
+        unset($privacy_policies_unserialize[$privacy_policy_id]);
+
+        $updated_serialize_privacy_policy = serialize($privacy_policies_unserialize);
+
+        $page_details             = PageDetail::findOrFail($privacy_policy_details->page_detail()->first()->id);
+        $page_details->meta_value = $updated_serialize_privacy_policy;
         $page_details->save();
 
         return response()->json(array('status'=>'success'),200);
