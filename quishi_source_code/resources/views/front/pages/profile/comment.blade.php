@@ -14,8 +14,10 @@
             <div class="profile-author-comment">
                 <ul>
                     <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $recent_comments->id}}"><i class="icon-like"></i> {{ $recent_comments->total_likes }} {{ ($recent_comments->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
-                    @if(Auth::check())
-                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                    @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                        @if(Auth::user()->user_profile->status == 1)
+                            <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                        @endif
                     @endif
                 </ul>
                 <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $recent_comments->id }}">
@@ -23,7 +25,7 @@
                     {{csrf_field()}}
                 <div class="form-group">
                     <div class="reply-user-image reply-subinner-image">
-                        @if(Auth::check())
+                        @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
                           @if(Auth::user()->user_profile->image_path != "")
                             <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
                           @else
@@ -47,7 +49,7 @@
                 <div class="form-group" id="comment-1">
                         <input type="hidden" name="_comment_parent_id" value=""/>
                         <input type="hidden" name="answer_id" value="{{$recent_comments->answer_id}}"/>
-                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required"></textarea>
+                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
                         <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$recent_comments->id}}" ><i class="icon-cursor"></i></button>
                     
                 </div>

@@ -48,7 +48,7 @@
                 <div class="form-group" id="comment-1">
                         <input type="hidden" name="_comment_parent_id" value="{{$recent_comments->id}}"/>
                         <input type="hidden" name="post_id" value="{{$recent_comments->post_id}}"/>
-                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required"></textarea>
+                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea >
                         <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$recent_comments->id}}" ><i class="icon-cursor"></i></button>
                     
                 </div>

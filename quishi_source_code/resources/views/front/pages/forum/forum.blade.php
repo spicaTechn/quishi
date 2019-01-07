@@ -33,44 +33,54 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    @if(Auth::check())
-                                    <div class="modal-body">
-                                        <div class="user-question-adds">
-                                            <a href="javascript:void(0);">
-                                              <?php $image = Auth::user()->user_profile->image_path; ?>
-                                              @if($image != "")
-                                              <img src="{{asset('/front/images/profile/'.$image)}}">
-                                              @else
-                                              <img src="{{asset('/front')}}/images/default-profile.jpg"> 
-                                              @endif
-                                              {{ Auth::user()->name}}
-                                            </a>
-                                            added
-                                        </div>
-                                        <div class="user-Anonymous-question-adds">
-                                            <img src="{{ asset('/front/images/default-profile.jpg') }}">Anonymous asks
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea name="question" class="form-control" rows="1" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc."></textarea>
-                                        </div>
-                                    </div>
+                                    @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                                     @if(Auth::user()->user_profile->status == 1)
+                                      <div class="modal-body">
+                                          <div class="user-question-adds">
+                                              <a href="javascript:void(0);">
+                                                <?php $image = Auth::user()->user_profile->image_path; ?>
+                                                @if($image != "")
+                                                <img src="{{asset('/front/images/profile/'.$image)}}">
+                                                @else
+                                                <img src="{{asset('/front')}}/images/default-profile.jpg"> 
+                                                @endif
+                                                {{ Auth::user()->name}}
+                                              </a>
+                                              added
+                                          </div>
+                                          <div class="user-Anonymous-question-adds">
+                                              <img src="{{ asset('/front/images/default-profile.jpg') }}">Anonymous asks
+                                          </div>
+                                          <div class="form-group">
+                                              <textarea name="question" class="form-control" rows="1" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc."></textarea>
+                                          </div>
+                                      </div>
+                                      @else
+                                        <div class="modal-body">
+                                          <div class="user-question-adds">
+                                                 Please <a href="{{asset('/login')}}">Login </a> or verify your account to post a new forum question</p>
+                                           </div>
+                                       </div>
+                                      @endif
 
                                     @else
                                     <div class="modal-body">
                                       <div class="user-question-adds">
-                                             Please <a href="{{asset('/login')}}">Login </a> to post a new forum question</p>
+                                             Please <a href="{{asset('/login')}}">Login </a> or verify your account to post a new forum question</p>
                                        </div>
                                    </div>
                                     @endif
-                                    @if(Auth::check())
-                                    <div class="modal-footer">
-                                        <span class="btn" id="cancel" data-dismiss="modal">Cancel</span>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="add-anomynouse-question" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1" name="_quishi_hide_name" id="anonymous-user">Add Anonymously</label>
+                                    @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                                     @if(Auth::user()->user_profile->status == 1)
+                                        <div class="modal-footer">
+                                            <span class="btn" id="cancel" data-dismiss="modal">Cancel</span>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="add-anomynouse-question" class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1" name="_quishi_hide_name" id="anonymous-user">Add Anonymously</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-default">Add Question</button>
                                         </div>
-                                        <button type="submit" class="btn btn-default">Add Question</button>
-                                    </div>
+                                      @endif
                                    @endif
                                 </div>
                             </form>

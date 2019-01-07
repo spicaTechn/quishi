@@ -78,7 +78,7 @@
                 <input type="hidden" name="_blog_career_advisor_id" value="{{$question->user->id}}"/>
                 <div class="profile-reply-form" id="profile-reply-form">
                     <div class="reply-user-image">
-                         @if(Auth::check())
+                         @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
                           @if(Auth::user()->user_profile->image_path != "")
                             <img src="{{ asset('/front')}}/images/profile/{{Auth::user()->user_profile->image_path}}">
                           @else
@@ -91,22 +91,31 @@
                             <ul>
                                 @if(! Auth::check())
                                 <li>Please <a href="{{URL::to('/login')}}">Signin</a> or <a href="{{ URL::to('/register')}}">Create an account </a> to post a answer</li>
+                               @elseif(Auth::user()->user_profile()->count() <= 0)
+                                        <li>Please <a href="{{URL::to('/profile')}}">Verify your account </a> to post a comment</li>
+                                    
                                 @else
-                                <li>
-                                    <a>
-                                        <input type="checkbox" id="check-for-login" name="_hide_name">
-                                        <label for="check-for-login">Post Anonymously</label>
-                                    </a>
-                                </li>
+                                 @if(Auth::user()->user_profile->status == 1)
+                                    <li>
+                                        <a>
+                                            <input type="checkbox" id="check-for-login" name="_hide_name">
+                                            <label for="check-for-login">Post Anonymously</label>
+                                        </a>
+                                    </li>
+                                 @else
+                                     <li>Please <a href="{{URL::to('/profile')}}">Verify your account </a> to post a comment</li>
+                                 @endif
                                 @endif
                             </ul>
                         </div>
-                        @if(Auth::check())
-                        <div class="form-group">
-                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
-                            <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
-                            <button class="btn btn-default btn_comment"  data-blog-id="{{$question->id}}"><i class="icon-cursor"></i></button>
-                        </div>
+                        @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                         @if(Auth::user()->user_profile->status == 1)
+                            <div class="form-group">
+                                <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
+                                <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                                <button class="btn btn-default btn_comment"  data-blog-id="{{$question->id}}"><i class="icon-cursor"></i></button>
+                            </div>
+                         @endif
                         @endif
                         
                     </div>
@@ -130,46 +139,50 @@
                         <div class="profile-author-comment">
                             <ul>
                                 <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $forum_answer->id}}"><i class="icon-like"></i>{{ ' '. $forum_answer->total_like_counts }} {{ ($forum_answer->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
-                                @if(Auth::check())
-                                <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                @if(Auth::check() && Auth::user()->user_profile()->count() > 0 )
+                                    @if(Auth::user()->user_profile->status == 1)
+                                        <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                    @endif
                                 @endif
                             </ul>
-                            @if(Auth::check())
-                            <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $forum_answer->id }}">
-                                 <input type="hidden" name="_parent_comment_id"  value="{{$forum_answer->id}}"/>
-                                 <input type="hidden" name="_quishi_comment_posted_by" value="{{$forum_answer->posted_by}}"/>
-                                {{csrf_field()}}
-                            <div class="form-group">
-                                <div class="reply-user-image reply-subinner-image">
-                                    @if(Auth::check())
-                                      @if(Auth::user()->user_profile->image_path != "")
-                                        <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
-                                      @else
-                                        <img src="{{ asset('/front')}} /images/profile/default-profile.jpg">
-                                      @endif
-                                    @endif
+                            @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                                @if(Auth::user()->user_profile->status == 1)
+                                <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $forum_answer->id }}">
+                                     <input type="hidden" name="_parent_comment_id"  value="{{$forum_answer->id}}"/>
+                                     <input type="hidden" name="_quishi_comment_posted_by" value="{{$forum_answer->posted_by}}"/>
+                                    {{csrf_field()}}
+                                <div class="form-group">
+                                    <div class="reply-user-image reply-subinner-image">
+                                        @if(Auth::check())
+                                          @if(Auth::user()->user_profile->image_path != "")
+                                            <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
+                                          @else
+                                            <img src="{{ asset('/front')}} /images/profile/default-profile.jpg">
+                                          @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="comment-method">
-                                <ul>
-                                    <li>
-                                        <a>
-                                            <input type="checkbox" id="check-for-login" name="_hide_name_{{$forum_answer->id}}">
-                                            <label for="check-for-login">Post Anonymously</label>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            </div>
-                            <div class="form-group" id="comment-1">
-                                    <input type="hidden" name="_career_advisor_id" value="{{$forum_answer->user_id}}"/>
-                                    <input type="hidden" name="answer_id" value="{{$forum_answer->forum_question_id}}"/>
-                                    <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
-                                    <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$forum_answer->id}}"><i class="icon-cursor"></i></button>
-                                
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <div class="comment-method">
+                                    <ul>
+                                        <li>
+                                            <a>
+                                                <input type="checkbox" id="check-for-login" name="_hide_name_{{$forum_answer->id}}">
+                                                <label for="check-for-login">Post Anonymously</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                                <div class="form-group" id="comment-1">
+                                        <input type="hidden" name="_career_advisor_id" value="{{$forum_answer->user_id}}"/>
+                                        <input type="hidden" name="answer_id" value="{{$forum_answer->forum_question_id}}"/>
+                                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" required="required" name="_quishi_comment_reply"></textarea>
+                                        <button class="btn btn-default _comment_reply_btn" data-answer-id="{{$forum_answer->id}}"><i class="icon-cursor"></i></button>
+                                    
+                                </div>
+                            </form>
+                            @endif
                         @endif
                         </div>
 
@@ -192,6 +205,12 @@
                         <div class="profile-coment-comment">
                             <h5>{{ ($comment_reply->type == '0') ? $comment_reply->answer_poster->user_profile->first_name : 'Ananymous' }}</h5>
                             <p>{{ $comment_reply->content }}</p>
+
+                            <div class="profile-author-comment">
+                            <ul>
+                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $comment_reply->id}}"><i class="icon-like"></i>{{ ' '. $comment_reply->total_like_counts }} {{ ($comment_reply->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
+                            </ul>
+                          </div>
                             
                         </div>
                     </div>
@@ -315,14 +334,14 @@
                        //$(this).parent().closest('div.form-group').find('textarea').css('height','37px');
                        //reset the form
                        if(data.total_reply >= 3){
-                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments span').html('View all ' + (data.total_reply - 2) + ' Replies <i class="fa fa-reply" aria-hidden="true"></i>');
-                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').show();
+                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment span').html('View all ' + (data.total_reply - 2) + ' Replies <i class="fa fa-reply" aria-hidden="true"></i>');
+                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').show();
                      }else if(data.total_reply == 1){
                         //add new reply box
                         $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('div.profile-comment-section').after(data.result);
-                        $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                        $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').hide();
                      }else{
-                          $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-blog-comments').hide();
+                          $(current_clicked_btn).parent().closest('div.profile-comment-wrapper').find('.view-all-comment').hide();
                      }
 
                       //hide the no comment section
