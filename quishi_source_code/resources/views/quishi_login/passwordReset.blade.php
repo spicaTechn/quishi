@@ -214,20 +214,14 @@ a img {
                     <h1 class="welcome">
                       Hi Kevin,
                     </h1>
-                    <p>Warm welcome from Quishi</p>
-                    <p>You're almost ready to using our platform - but first we need to verify your email address in order to publish your content to our platform. Click the button below to verify your email address.</p>
+                    <p style="font-size:20px;">Reset your password</p>
+                    <p>You're receiving this email because we received a password reset request for your account.</p>
                     <p style="padding-top:16px">
-                      <a target="_blank" class="button" href="#">Verify your email</a>
-                    </p>
-                    <p>Or paste below URL to your browser</p>
-                    <p>
-                      <a href="https://quishi.com/verifyUser/12567889">
-                      https://quishi.com/verifyUser/12567889
-                      </a>
+                      <a target="_blank" class="button" href="#">Reset Password</a>
                     </p>
                     <hr>
                     <p style="margin:0;font-size:14px;line-height:24px;margin-top:16px;text-align:center;color:#AAAAAA">
-                      If you did not sign up to Quishi, Please ignore this email or Contact Us at 
+                      If you did not request a password reset, Please ignore this email or Contact Us at 
                       <a href="mailto:support@quishi.com">support@quishi.com</a>
                     </p>
                   </div>

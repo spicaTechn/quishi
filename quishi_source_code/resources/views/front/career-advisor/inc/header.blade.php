@@ -1,25 +1,5 @@
 
 <header class="inner-header">
-    <div class="login-menu login-menu-xs">
-        <ul>
-            <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
-            <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
-
-            <!--need to show the logged in user icon and image on the mobile version as well-->
-                <!-- if user is logdin -->
-
-                <li class="nav-item dropdown logdin">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi User Name
-                    </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Change Password</a></li>
-                    <li><a href="#"> Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{URL::to('/')}}"><img src="{{asset('/front/images/logo.png')}}" class="img-fluid"></a>
@@ -86,8 +66,6 @@
                                 </ul>
                             </li>
                         @else
-                            <li class="nav-item logdin"><a href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}" class="nav-link"><img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ ucwords(auth()->user()->name) }} </a></li>
-
                             <li class="dropdown nav-item logdin">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="{{ asset('/front//images/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}</a>

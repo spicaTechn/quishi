@@ -66,7 +66,7 @@
                 @endforeach
                 <!-- end col -->
             </div>
-            <div class="row follower_following_pagination">
+            <div class="follower_following_pagination">
                 <div class="pagination">
                     {{ $_following_advisers->links() }}
                 </div>

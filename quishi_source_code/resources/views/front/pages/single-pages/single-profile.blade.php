@@ -89,13 +89,15 @@
                             </div>
                             <!-- end profile-name-detail -->
                             <div class="profile-follow-following">
-                                <a href="javascript:void(0);" class="btn btn-default" id="total_likes" data-profile-id="{{$user->id}}"><i class="icon-like"></i> {{ quishi_convert_number_to_human_readable($user->user_profile->total_likes) }} Like</a>
+                                <a href="javascript:void(0);" class="btn btn-default" id="total_likes" data-profile-id="{{$user->id}}"><i class="icon-like"></i> {{ quishi_convert_number_to_human_readable($user->user_profile->total_likes) }} @if($user->user_profile->total_likes > 1 ) {{ 'Likes' }} @else {{ 'Like' }} @endif</a>
                                 <!-- <a href="#" class="btn btn-default"><i class="icon-like"></i> Liked</a> -->
-                                @if(Auth::check())
-                                    @if(Auth::user()->following()->where('leader_id',$user->id)->count() <= 0)
-                                        <a href="javascript:void(0);" class="btn btn-default follow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-feed"></i> <span>Follow</span></a>
-                                    @else
-                                    <a href="javascript:void(0);" class="btn btn-default unfollow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-check"></i> <span>Following</span></a>
+                                @if(Auth::check() && Auth::user()->user_profile()->count() > 0)
+                                   @if(Auth::user()->user_profile->status == 1)
+                                        @if(Auth::user()->following()->where('leader_id',$user->id)->count() <= 0)
+                                            <a href="javascript:void(0);" class="btn btn-default follow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-feed"></i> <span>Follow</span></a>
+                                        @else
+                                        <a href="javascript:void(0);" class="btn btn-default unfollow_career_advisor" data-following-id="{{$user->id}}"><i class="icon-check"></i> <span>Following</span></a>
+                                        @endif
                                     @endif
                                 @endif
                             </div>
@@ -163,7 +165,7 @@
 
                             @endforeach
                         </div>
-                        <div class="view-more"><a href="{{URL::to('/blog/careerAdvisor/'.$user->id .'/'.str_slug(Auth::user()->user_profile->first_name))}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
+                        <div class="view-more"><a href="{{URL::to('/blog/careerAdvisor/'.$user->id .'/'.str_slug($user->user_profile->first_name))}}" class="btn btn-default">{{ __('view blogs') }}</a></div>
 
                 </div>
                 @endif
@@ -196,7 +198,7 @@
                             {{csrf_field()}}
                             <div class="profile-reply-form" id="profile-reply-form{{$question['question_id']}}">
                                 <div class="reply-user-image">
-                                    @if(Auth::check())
+                                    @if(Auth::check() && Auth::user()->user_profile()->count() > 0 )
                                       @if(Auth::user()->user_profile->image_path != "")
                                         <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
                                       @else
@@ -209,22 +211,30 @@
                                         <ul>
                                             @if(! Auth::check())
                                             <li>Please <a href="{{URL::to('/login')}}">Signin</a> or <a href="{{ URL::to('/register')}}">Create an account </a> to post a comment</li>
+                                            @elseif(Auth::user()->user_profile()->count() <= 0 )
+                                                <li>Please <a href="{{URL::to('/profile')}}">Verify your account</a> to post a comment</li>
                                             @else
-                                            <li>
-                                                <a>
-                                                    <input type="checkbox" id="check-for-login{{$question['question_id']}}" name="_hide_name{{$question['question_id']}}">
-                                                    <label for="check-for-login">Post Anonymously</label>
-                                                </a>
-                                            </li>
+                                                @if(Auth::user()->user_profile->status == 1)
+                                                <li>
+                                                    <a>
+                                                        <input type="checkbox" id="check-for-login{{$question['question_id']}}" name="_hide_name{{$question['question_id']}}">
+                                                        <label for="check-for-login">Post Anonymously</label>
+                                                    </a>
+                                                </li>
+                                                @else
+                                                     <li>Please <a href="{{URL::to('/profile')}}">Verify your account</a> or <a href="{{ URL::to('/register')}}">Create an account </a> to post a comment</li>
+                                                @endif
                                             @endif
                                         </ul>
                                     </div>
-                                    @if(Auth::check())
-                                    <div class="form-group">
-                                        <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
-                                        <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
-                                        <button class="btn btn-default btn_comment"  data-question-id="{{$question['question_id']}}"><i class="icon-cursor"></i></button>
-                                    </div>
+                                    @if(Auth::check() && Auth::user()->user_profile()->count() > 0) 
+                                      @if(Auth::user()->user_profile->status == 1)
+                                        <div class="form-group">
+                                            <textarea class="form-control" rows="1" placeholder="Your Message Here !" name="_comment_message" required></textarea>
+                                            <!-- <input type="text " name="" class="form-control message-box" placeholder="Your Message Here !"> -->
+                                            <button class="btn btn-default btn_comment"  data-question-id="{{$question['question_id']}}"><i class="icon-cursor"></i></button>
+                                        </div>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -248,8 +258,10 @@
                                     <div class="profile-author-comment">
                                         <ul>
                                             <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $answer_comment->id}}"><i class="icon-like"></i> {{ $answer_comment->total_likes }} {{ ($answer_comment->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
-                                            @if(Auth::check())
-                                                <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                            @if(Auth::check() && Auth::user()->user_profile()->count() > 0 )
+                                                @if(Auth::user()->user_profile->status == 1)
+                                                    <li><a class="write-comment" id="write-comment-1"><i class="icon-bubble"></i> Reply</a></li>
+                                                @endif
                                             @endif
                                         </ul>
                                         <form action="javascript:void(0);" name="_comment_reply_form" id="_comment_reply_form_{{ $answer_comment->id }}">
@@ -258,7 +270,7 @@
                                             {{csrf_field()}}
                                         <div class="form-group">
                                             <div class="reply-user-image reply-subinner-image">
-                                                @if(Auth::check())
+                                                @if(Auth::check() && Auth::user()->user_profile()->count() > 0 )
                                                   @if(Auth::user()->user_profile->image_path != "")
                                                     <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
                                                   @else
@@ -305,6 +317,11 @@
                                     <div class="profile-coment-comment">
                                         <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
                                         <p>{{ $comment_reply->content }}</p>
+                                        <div class="profile-author-comment">
+                                             <ul>
+                                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $comment_reply->id}}"><i class="icon-like"></i> {{ $comment_reply->total_likes }} {{ ($comment_reply->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
+                                            </ul>
+                                        </div>
                                         
                                     </div>
                                 </div>
@@ -525,7 +542,7 @@ $(document).ready(function () {
         //prevent the default action
         var current_link = $(this);
         e.preventDefault();
-        if("{{Auth::check()}}"){
+        if("{{Auth::check() && (Auth::user()->user_profile()->count() > 0) }}"){
             var following_id = $(this).attr('data-following-id');
             var _token       = "{{csrf_token()}}";
             //make the post request
@@ -567,7 +584,7 @@ $(document).ready(function () {
         //prevent the default action
         e.preventDefault();
         var current_link   = $(this);
-        if("{{Auth::check()}}"){
+        if("{{Auth::check() && (Auth::user()->user_profile()->count() > 0) }}"){
             var unfollowing_id  = $(this).attr('data-following-id');
             var _token          = "{{csrf_token()}}";
             $.post("{{URL::to('/profile/unfollowCareerAdvisor')}}" + "/" + unfollowing_id , {_token},function(data){

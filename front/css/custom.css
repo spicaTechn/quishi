@@ -668,7 +668,7 @@ p {
 
 .profile-info p {
     color: #5f6d4d;
-    font-family: Avenir LT Std;
+    /*font-family: Avenir LT Std;*/
     font-size: 16px;
 }
 
@@ -5290,4 +5290,22 @@ h6 span {
     font-size: 9px;
     font-style: italic;
 
+}
+
+.have-account p {
+    margin-bottom: 0;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #8ac43f;
+}
+
+
+.custom-control-label::before {
+
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+}
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0;
 }
