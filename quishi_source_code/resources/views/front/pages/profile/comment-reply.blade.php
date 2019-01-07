@@ -13,6 +13,12 @@
     <div class="profile-coment-comment">
         <h5>{{ ($comment_reply->type == '0') ? $comment_reply->comment_poster->user_profile->first_name : 'Ananymous' }}</h5>
         <p>{{ $comment_reply->content }}</p>
+        <div class="profile-author-comment">
+            <ul>
+                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $comment_reply->id}}"><i class="icon-like"></i>{{ ' '. $comment_reply->total_like_counts }} {{ ($comment_reply->total_like_counts > 1) ? ' Likes' : ' Like' }}</a></li>
+            </ul>
+        
+        </div>
         
     </div>
 </div>

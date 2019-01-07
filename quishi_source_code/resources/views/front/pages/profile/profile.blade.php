@@ -325,7 +325,7 @@ $(document).ready(function () {
         //prevent the default action
         var current_link = $(this);
         e.preventDefault();
-        if("{{Auth::check()}}"){
+        if("{{Auth::check() && Auth::user()->user_profile()->count() > 0 }}"){
             var following_id = $(this).attr('data-following-id');
             var _token       = "{{csrf_token()}}";
             //make the post request
@@ -365,7 +365,7 @@ $(document).ready(function () {
         //prevent the default action
         e.preventDefault();
         var current_link   = $(this);
-        if("{{Auth::check()}}"){
+        if("{{Auth::check() && Auth::user()->user_profile()->count() > 0 }}"){
             var unfollowing_id  = $(this).attr('data-following-id');
             var _token          = "{{csrf_token()}}";
             $.post("{{URL::to('/profile/unfollowCareerAdvisor')}}" + "/" + unfollowing_id , {_token},function(data){

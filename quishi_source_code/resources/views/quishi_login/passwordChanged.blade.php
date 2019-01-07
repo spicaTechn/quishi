@@ -214,20 +214,11 @@ a img {
                     <h1 class="welcome">
                       Hi Kevin,
                     </h1>
-                    <p>Warm welcome from Quishi</p>
-                    <p>You're almost ready to using our platform - but first we need to verify your email address in order to publish your content to our platform. Click the button below to verify your email address.</p>
-                    <p style="padding-top:16px">
-                      <a target="_blank" class="button" href="#">Verify your email</a>
-                    </p>
-                    <p>Or paste below URL to your browser</p>
-                    <p>
-                      <a href="https://quishi.com/verifyUser/12567889">
-                      https://quishi.com/verifyUser/12567889
-                      </a>
-                    </p>
+                    <p style="font-size:20px;">Your password has been changed</p>
+                    <p>This is the confirmation that your password was successfully changed</p>
                     <hr>
                     <p style="margin:0;font-size:14px;line-height:24px;margin-top:16px;text-align:center;color:#AAAAAA">
-                      If you did not sign up to Quishi, Please ignore this email or Contact Us at 
+                      If you did not change your password, Please Contact Us at 
                       <a href="mailto:support@quishi.com">support@quishi.com</a>
                     </p>
                   </div>
@@ -245,7 +236,7 @@ a img {
                 <a href="https://quishi.com" target="_blank">
                 <img src="https://beta.quishi.com/front/images/logo.png"/>
                 </a>
-                <br><i class="far fa-copyright"></i> Quishi 2019</div>
+                <br><i class="fa fa-copyright"></i> Quishi 2019</div>
             </td>
           </tr>
         </table>
