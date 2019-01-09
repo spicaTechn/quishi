@@ -1704,6 +1704,20 @@ ul.social-links li {
     background: #fff;
 }
 
+a.user-add-btn {
+    font-size: 16px;
+    border: 1px solid #6a9b15;
+    padding: 2px;
+    background: #8ac43f;
+    border-radius: 2px;
+    color: #fff;
+}
+
+.form-group i.ti-info-alt {
+    font-size: 17px;
+    margin-left: 7px;
+    padding: 2px;
+}
 
 /*upload image*/
 

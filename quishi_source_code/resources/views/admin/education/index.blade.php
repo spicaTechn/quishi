@@ -38,6 +38,10 @@
                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#major" role="tab" aria-controls="major" aria-selected="true">{{ __('Major')}}</a>
                                  <div class="slide"></div>
                               </li>
+                               <li class="nav-item">
+                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#submitMajor" role="tab" aria-controls="submitMajor" aria-selected="true">{{ __('User Submitted Major')}}</a>
+                                 <div class="slide"></div>
+                              </li>
                            </ul>
                            <div class="tab-content" >
                               <div class="tab-pane fade show active" id="major-category" role="tabpanel" aria-labelledby="home-tab">
@@ -78,6 +82,39 @@
                                     </div>
                                  </div>
                               </div>
+                               
+                               <!--User submitted majors-->
+                               <div class="tab-pane fade pt-4" id="submitMajor" role="tabpanel" aria-labelledby="submitMajor">
+                                 <div class="card-block">
+                                    <div class="dt-responsive table-responsive">
+                                       <table class="table table-striped table-bordered nowrap hover tbl-user-submitted-major">
+                                          <thead>
+                                             <tr>
+                                                <th>{{ __('S.N')}}</th>
+                                                <th>{{ __('Title')}}</th>
+                                                <th>{{ __('Major Category')}}</th>
+                                                <th>{{ __('No of users')}}</th>
+                                                <th>{{ __('Submit Date')}}</th>
+                                                <th>{{ __('Submitted by')}}</th>
+                                                <th>{{ __('Action')}}</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>1</td>    
+                                                <td>Sanskrit</td>    
+                                                <td>Others</td>    
+                                                <td>1</td>    
+                                                <td>10 Jan 2019</td>    
+                                                <td><a href="#">Ram Thapa</a></td>  
+                                                <td>Edit Delete Approve</td>    
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                               <!--End of user submitted majors-->
                            </div>
                            <!-- tab-content -->
                         </div>
