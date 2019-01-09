@@ -369,6 +369,21 @@ $(window).load(function() {
     //equalheight('.blog-conten h4');
 });
 
+/*function mobileTopHeader() {
+       var mobproifle = document.getElementsByClassName("profile-sidemenu");
+            let htmlContent = mobproifle.innerHTML;
+            $(".navbar-nav").append(
+                "<li class='mobile-profile-sidemenu'>" + htmlContent + "</li>"
+            );
+    }
+
+//  function mobileTopHeader() {
+//   var x = document.getElementsByClassName("example");
+//   x[0].innerHTML = "Hello World!";
+// }
+
+mobileTopHeader();*/
+
 
 $(window).resize(function() {
     //equalheight('.same-height');
