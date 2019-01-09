@@ -5309,3 +5309,7 @@ h6 span {
 .custom-checkbox .custom-control-label::before {
     border-radius: 0;
 }
+
+.select2-container {
+    width: 100% !important;
+}
