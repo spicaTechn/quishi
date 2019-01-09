@@ -369,20 +369,15 @@ $(window).load(function() {
     //equalheight('.blog-conten h4');
 });
 
-/*function mobileTopHeader() {
-       var mobproifle = document.getElementsByClassName("profile-sidemenu");
-            let htmlContent = mobproifle.innerHTML;
-            $(".navbar-nav").append(
-                "<li class='mobile-profile-sidemenu'>" + htmlContent + "</li>"
-            );
-    }
+function mobileTopHeader() {
+    let node = document.getElementsByClassName("profile-sidemenu");
+    let htmlContent = node.innerHTML;
+    $(".navbar-nav").append(
+        "<li class='has-child mobile-profile-sidemenu'>" + htmlContent + "</li>"
+    );
+}
 
-//  function mobileTopHeader() {
-//   var x = document.getElementsByClassName("example");
-//   x[0].innerHTML = "Hello World!";
-// }
-
-mobileTopHeader();*/
+mobileTopHeader();
 
 
 $(window).resize(function() {
