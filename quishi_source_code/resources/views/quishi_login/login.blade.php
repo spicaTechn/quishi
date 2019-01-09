@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="forget-row new-user">
                                     <div class="form-group">
-                                        <p>{{ __('New user?')}}' <a href="{{URL::to('register')}}"> {{ __('register now')}}</a></p>
+                                        <p>{{ __('New user?')}} <a href="{{URL::to('register')}}"> {{ __('Register now')}}</a></p>
                                     </div>
                                     <div class="form-group">
                                         <p><a href="{{ route('password.request') }}">{{ _('Forget Password?')}}</a></p>

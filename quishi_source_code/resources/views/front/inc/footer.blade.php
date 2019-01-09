@@ -19,6 +19,21 @@
                             </div>
                         </div> -->
                         @endif
+                        
+                        <div class="col-lg-5 col-md-4">
+                            <div class="footer-section">
+                                <!-- <h4>Quick links</h4> -->
+                                <div class="footer-nav">
+                                    <ul>
+                                        <li><a href="{{URL::to('/about')}}">About</a></li>
+                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
+                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
+                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="footer-section">
                                 <!-- <h4>Donate</h4> -->
@@ -127,19 +142,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-md-4">
-                            <div class="footer-section">
-                                <!-- <h4>Quick links</h4> -->
-                                <div class="footer-nav">
-                                    <ul>
-                                        <li><a href="{{URL::to('/about')}}">About</a></li>
-                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
-                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
-                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-4 col-lg-3">
                         	<div class="footer-section">
                         		@if($contact_social)
@@ -155,6 +157,8 @@
                         		 @endif
                         	</div>
                         </div>
+
+
                     </div>
                     
                 </div>

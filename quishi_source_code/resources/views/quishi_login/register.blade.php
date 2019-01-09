@@ -51,9 +51,7 @@
                                 </div>
 
                                 <div class="forget-row">
-                                    <div class="form-group have-account">
-                                        <p>{{ __('Have an account?')}}' <a href="{{route('login')}}">{{ __('Login now')}}</a></p>
-                                    </div>
+                                    
 
                                     <div class="form-group accept-terms-conditions">
                                         <!-- <div class="custom-control custom-checkbox">
@@ -66,13 +64,28 @@
                                           <label class="custom-control-label" for="terms_conditions">I accept <a href="#">terms and conditions</a></label>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <p><button  type="submit" class="btn btn-default">{{ __('Register Now')}}</button></p>
+                                    
+
+
+
+                                </div>
+
+                                <div class="form-group">
+                                        <p><button  type="submit" class="btn btn-default btn-register">{{ __('Register Now')}}</button></p>
                                         
                                     </div>
-                                </div>
+                                <div class="form-group have-account">
+                                        <p>{{ __('Have an account?')}} <a href="{{route('login')}}">{{ __('Login now')}}</a></p>
+                                    </div>
                                 
                             </form>
+                            <div class="login-with-social-media">
+                                <div class="or"><span>{{ __('or')}}</span></div>
+                                <ul>
+                                    <li><a href="{{URL::to('/auth/facebook')}}" class="facebook"><i class="icon-social-facebook"></i> {{ __('Login using Facebook')}}</a></li>
+                                    <li><a href="{{URL::to('/auth/google')}}" class="google"><i class="icon-social-google"></i> {{ __('Login using Google')}}</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 " style="background: url({{asset('/front/images/career.jpg')}}) no-repeat;">
