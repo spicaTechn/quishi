@@ -28,7 +28,7 @@
                            </div>
                            <div id="{{$i}}" class="collapse <?php if($i == 1) echo 'show'; ?>" aria-labelledby="headingOne" data-parent="#accordion">
                                <div class="card-body">
-                                   {{ $term_list['description'] }}
+                                   {!! $term_list['description'] !!}
                                </div>
                            </div>
                        </div>

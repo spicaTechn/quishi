@@ -423,6 +423,7 @@ p {
     overflow: hidden;
     width: 100%;
     margin-top: 3px;
+    z-index: 10;
 }
 
 .search-list ul {
@@ -649,8 +650,12 @@ p {
 
 .profile-info {
     margin-bottom: 20px;
+    min-height: 64px;
 }
 
+.profile-slills {
+    min-height: 36px;
+}
 .profile-desination h3 {
     font-size: 20px;
     color: #3f3f3f;
@@ -660,6 +665,7 @@ p {
     color: #b5b5b5;
     font-size: 16px;
     display: block;
+    min-height: 48px;
 }
 
 .profile-desination {
@@ -958,12 +964,19 @@ p.text-left.team-bio {
 
     background: #f0f7f9;
     background: #fff;
-    /*background: rgba(218, 215, 215, 0.48);*/
+    background: #333;
     /*min-height: 200px;*/
     padding: 50px 0;
     border-top: 1px solid rgba(229, 229, 229, 0.48);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
+
+.btn-register {
+
+    width: 100%;
+
+}
 
 .fixed-footer {
     position: fixed;
@@ -1063,7 +1076,7 @@ ul.social-links li {
 }
 
 .social-links li a {
-    position: relative;
+  /*  position: relative;
     width: 40px;
     height: 40px;
     display: block;
@@ -1075,18 +1088,35 @@ ul.social-links li {
     text-decoration: none;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     background: linear-gradient(0deg, #ddd, #fff);
+    transition: .5s;*/
+}
+
+.footer-section .social-links li a {
+    background: #fff;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: block;
+    text-align: center;
+    margin: 0 10px;
+    border-radius: 4px;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    /*box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);*/
+    /*background: linear-gradient(0deg, #ddd, #fff);*/
     transition: .5s;
 }
 
 .social-links li a:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .social-links li a .fa {
     width: 100%;
     height: 100%;
     display: block;
-    background: linear-gradient(0deg, #fff, #ddd);
+    /*background: linear-gradient(0deg, #fff, #ddd);*/
     border-radius: 50%;
     line-height: calc(40px - 8px);
     font-size: 18px;
@@ -3870,6 +3900,7 @@ span.icon.ion-ios-play:before {
 
 .footer-section ul li a {
     color: #5f6d4d;
+    color: #fff;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-size: 18px;
@@ -4159,7 +4190,7 @@ span.icon.ion-ios-play:before {
 
 
 .footer-section ul li a {
-    color: #5f6d4d;
+    color: #fff;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-size: 15px;
@@ -4173,7 +4204,7 @@ span.icon.ion-ios-play:before {
 }
 
 .footer-section ul li a:hover {
-    color: #f59b43;
+    color: rgba(255,255,255,0.6);
 }
 
 .frequently-question {
