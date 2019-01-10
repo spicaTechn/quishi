@@ -36,7 +36,7 @@
                     <div class="col-md-9">
                         <div class="profile-detail-right">
                             <div class="profile-details-content">
-                                <h4>My Bio </h4>
+                                <h4>My Profile </h4>
                                 <p>{{ Auth::user()->user_profile->description }}</p>
                             </div>
                             <!-- profile-details -->

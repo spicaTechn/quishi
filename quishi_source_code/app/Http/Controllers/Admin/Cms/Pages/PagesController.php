@@ -1130,7 +1130,7 @@ class PagesController extends Controller
 
         $updated_serialize_privacy_policy = serialize($privacy_policies_unserialize);
 
-        $page_details             = PageDetail::findOrFail($privacy_policy_details->page_detail()->first()->id);
+        $page_details             = PageDetail::findOrFail($privacy_policy_page_details->page_detail()->first()->id);
         $page_details->meta_value = $updated_serialize_privacy_policy;
         $page_details->save();
 

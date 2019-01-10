@@ -38,6 +38,10 @@
                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="true">{{ __('Jobs')}}</a>
                                  <div class="slide"></div>
                               </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" id="user-job-tab" data-toggle="tab" href="#userJobs" role="tab" aria-controls="userJobs" aria-selected="true">{{ __('User Submitted Jobs')}}</a>
+                                 <div class="slide"></div>
+                              </li>
                            </ul>
                            <div class="tab-content" >
                               <div class="tab-pane fade show active" id="industry" role="tabpanel" aria-labelledby="home-tab">
@@ -80,6 +84,41 @@
                                     </div>
                                  </div>
                               </div>
+                               
+                               <!--user submitted jobs-->
+                               <div class="tab-pane fade pt-3" id="userJobs" role="tabpanel" aria-labelledby="userJobs">
+                                 <div class="card-block">
+                                    <div class="dt-responsive table-responsive">
+                                       <table class="table table-striped table-bordered nowrap hover tbl-userJobs">
+                                          <thead>
+                                             <tr>
+                                                <th>{{ __('S.N')}}</th>
+                                                <th>{{ __('Title')}}</th>
+                                                <th>{{__('Industry')}}</th>
+                                                <th>{{ __('Description')}}</th>
+                                                <th>{{ __('Submitted Date')}}</th>
+                                                <th>{{ __('Submitted by')}}</th>
+                                                <th>{{ __('Usage')}}</th>
+                                                <th>{{ __('Action')}}</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>1</td>    
+                                                <td>Geologiest</td>    
+                                                <td>Others</td>    
+                                                <td>No desc available</td>    
+                                                <td>10 Jan 2019</td>    
+                                                <td><a href="#">Ram Thapa</a></td>    
+                                                <td>1</td>    
+                                                <td>Edit Delete Approve</td>    
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                               <!--end of user submitted jobs-->
                            </div>
                            <!-- tab-content -->
                         </div>

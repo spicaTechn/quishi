@@ -371,7 +371,7 @@
                                                <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $term_list['title'] }}</td>
-                                                <td>{{ $term_list['description'] }}</td>
+                                                <td>{!! $term_list['description'] !!}</td>
                                                 <td>
 
                                                     <a href="#" class="m-r-15 text-muted edit-term"
@@ -447,7 +447,7 @@
                                                    <tr>
                                                     <td>{{ $i }}</td>
                                                     <td>{{ $policy_list['title'] }}</td>
-                                                    <td>{{ $policy_list['description'] }}</td>
+                                                    <td>{!! $policy_list['description'] !!}</td>
                                                     <td>
 
                                                         <a href="#" class="m-r-15 text-muted edit-policy"
@@ -534,7 +534,7 @@
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <textarea class="form-control team_description" name="team_description" rows="7"></textarea>
+                               <textarea  class="form-control team_description" name="team_description" rows="7"></textarea>
                            </div>
                         </div>
                      </div>
@@ -742,7 +742,7 @@
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <textarea class="form-control term_description" name="term_description" rows="7"></textarea>
+                               <textarea id="term_description" class="form-control term_description" name="term_description" rows="7"></textarea>
                            </div>
                         </div>
                      </div>
@@ -786,7 +786,7 @@
                         <div class="row">
                            <div class="col-sm-12 col-xl-12 m-b-30">
                                <h4 class="sub-title">Description *</h4>
-                               <textarea class="form-control privacy_policy_description" name="privacy_policy_description" rows="7"></textarea>
+                               <textarea id="privacy_policy_description" class="form-control privacy_policy_description" name="privacy_policy_description" rows="7"></textarea>
                            </div>
                         </div>
                      </div>
@@ -838,7 +838,7 @@
 
       // installing wysiwyg editor
       tinymce.init({
-        selector: '#contact_wysiwyg',
+        selector: '#contact_wysiwyg, #term_description, #privacy_policy_description',
         height: 300,
         menubar: false,
         plugins: [
@@ -1816,7 +1816,7 @@
                     if(data.status == "success"){
                         $(".term_title").val(data.result.title);
                         $(".term_page_id").val(term_page_id);
-                        $(".term_description").val(data.result.description);
+                        tinyMCE.get('term_description').setContent(data.result.description);
                         $(".page_detail_id").val(data.result.page_detail_id);
                         $(".term_id").val(data.result.id);
                         $("#add-terms .modal-title").text('Edit terms and conditions');
@@ -2034,7 +2034,8 @@
                     if(data.status == "success"){
                         $(".privacy_policy_title").val(data.result.title);
                         $(".privacypolicy_page_id").val(policy_page_id);
-                        $(".privacy_policy_description").val(data.result.description);
+                        tinyMCE.get('privacy_policy_description').setContent(data.result.description);
+                        //$(".privacy_policy_description").val(data.result.description);
                         $(".page_detail_id").val(data.result.page_detail_id);
                         $(".privacypolicy_id").val(data.result.id);
                         $("#add-privacy .modal-title").text('Edit Privacy Policy');

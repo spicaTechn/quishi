@@ -54,25 +54,16 @@
                                     
 
                                     <div class="form-group accept-terms-conditions">
-                                        <!-- <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="terms_conditions" class="custom-control-input" id="terms_conditions">
-                                            <label class="custom-control-label" for="terms_conditions">I accept <a href="#">terms and conditions</a></label>
-                                        </div> -->
-
                                         <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="terms_conditions" required="" oninvalid="this.setCustomValidity('Please accept terms and conditions before registration.')">
-                                          <label class="custom-control-label" for="terms_conditions">I accept <a href="#">terms and conditions</a></label>
+                                          <input type="checkbox" class="custom-control-input" id="terms_conditions" required="">
+                                          <label class="custom-control-label" for="terms_conditions">I accept <a href="{{ URL::to('/terms-and-condition') }}" target="_blank">terms and conditions</a></label>
                                         </div>
                                     </div>
-                                    
-
-
-
-                                </div>
 
                                 <div class="form-group">
                                         <p><button  type="submit" class="btn btn-default btn-register">{{ __('Register Now')}}</button></p>
                                         
+
                                     </div>
                                 <div class="form-group have-account">
                                         <p>{{ __('Have an account?')}} <a href="{{route('login')}}">{{ __('Login now')}}</a></p>

@@ -30,7 +30,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Choose your industry *</label>
+                        <label>Choose your industry * 
+                            <i class="ti-info-alt" 
+                               data-container="body" 
+                               data-trigger="hover"
+                               data-toggle="popover" 
+                               data-placement="top" 
+                               data-content="Choose others if you can't find any related industry.">
+                            </i>
+                        </label>
                         <select class="industry  form-control form-control-default open default" name="parent_industry">
                            <option value="0" selected="selected" disabled="disabled">Select Industry</option>
                                 @foreach($industries as $industry)
@@ -139,6 +147,84 @@
          
     </div>
 </div>
+
+<!-- Modal how to add new education -->
+<div class="modal fade" id="howtoAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">How to add new education</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>When you does not find education major, you can simply submit new education major clicking on the button 'add new major'. After you submitted new title to us, our team will review on what you have recently added and publish the education title if statisfied our verification process. <br/>Your recently added major will not visible publicly unless we revise and publish and no any action needed further.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal show add new education title -->
+<div class="modal fade" id="addNeweducationTitle" tabindex="-1" role="dialog" aria-labelledby="addNeweducationTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add new major</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="majorAddForm" name="majorAddForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Enter major title</label>
+                        <input type="text" name="majorTitle" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-default btn-sm" value="submit">
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal show add new job title -->
+<div class="modal fade" id="addNewJobTitleModal" tabindex="-1" role="dialog" aria-labelledby="addNewJobTitleModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add new job</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="jobAddForm" name="jobAddForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Enter job title</label>
+                        <input type="text" name="jobTitle" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-default btn-sm" value="submit">
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 @section('page_specific_js')
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
@@ -149,10 +235,25 @@
                 $('.industry').on('select2:select',function(e){
                     var selected_value = e.params.data;
                     var selected_industry_id = selected_value.id;
+                    var selected_industry_name = selected_value.text;
+                    console.log(selected_industry_name);
                     //make the get request to get the job of the parent category
                     $.get("{{route('jobTitleByParent')}}",{industry_id : selected_industry_id},function(data){
                        $("#job_title").html(data.result);
-                       $('#job_title').select2();
+                       $('#job_title').select2({
+                            allowClear: true,
+                            escapeMarkup: function (markup) { return markup; },
+                            placeholder: "Search select or add job title if not found",
+                            language: {
+                                noResults: function () {
+                                     if(selected_industry_name === " Others"){
+                                         return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
+                                     }else{
+                                         return "<p>Please select others if you want to add a new job title</p>";
+                                     } 
+                                }
+                            }
+                       });
                     });
                 });
 
@@ -214,7 +315,6 @@
 
                 //make the select field on faculty
                 $('.faculty').select2({
-                    placeholder   : 'Select major',
                     ajax          :{
                         url       : "{{URL::to('/profile/setup/getMajor')}}",
                         type      : 'GET',
@@ -239,9 +339,18 @@
                             };
                         },
                         cache : true, 
+                    },
+                    allowClear: true,
+                    escapeMarkup: function (markup) { return markup; },
+                    placeholder: "Search select or add major if not found",
+                    language: {
+                        noResults: function () {
+                             return "<p class='message-not-found'>Opps ! can't find your desired major, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noResultsButtonClicked()' class='user-add-btn'>Add new major</a><a href='javascript:void(0);' onclick='learnMoreClicked()'> Learn more</a>";
+                        }
                     }
                 });
-
+                
+                
 
                 $('#profile_setup_back_btn').on('click',function(e){
                     e.preventDefault();
@@ -249,14 +358,46 @@
                 });
 
 
-                   $('.selected_user_tag').each(function(){
-                        
-                        $('input.input-tags').tagsinput('add', $(this).val());
-                   });
+               $('.selected_user_tag').each(function(){
+                    $('input.input-tags').tagsinput('add', $(this).val());
+               });
                 
-
-
+               // add major using ajax and select it to select2
+               $('#majorAddForm').formValidation({
+                    framework: 'bootstrap',
+                    icon: {
+                        valid: 'fa fa-check',
+                        invalid: 'fa fa-times',
+                        validating: 'fa fa-refresh'
+                    },
+                    excluded: 'disabled',
+                    fields: {
+                        'majorTitle': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The major title is required'
+                                }
+                            }
+                        }
+                    }
+                }); // formvalidation end for modal major add
             });
+    // initialize popover
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    });
+        
+    function noResultsButtonClicked() {
+      $('#addNeweducationTitle').modal('show');
+    }
+        
+    function learnMoreClicked(){
+        $('#howtoAddModal').modal('show');
+    }
+        
+    function noJobResultsButtonClicked(){
+        $('#addNewJobTitleModal').modal('show');
+    }
     </script>
 
 @endsection

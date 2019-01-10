@@ -11,12 +11,12 @@
                         //unserialize the meta value
                         $unserialize_policy_lists = $privacy_policy->page_detail->first()->meta_value;
                         $serialize_policy_lsit    = unserialize($unserialize_policy_lists);
+                        rsort($serialize_policy_lsit);
                         $i = 1;
-
                     ?>
                    @foreach($serialize_policy_lsit as $policy_list)
                    @if($policy_list['title'] == '')
-                    <p>{{ $policy_list['description'] }}</p>
+                    <p>{!! $policy_list['description'] !!}</p>
                    @endif
                    @if($policy_list['title'] != '')
                    <div class="card">
@@ -27,9 +27,9 @@
                            </button>
                            </h5>
                        </div>
-                       <div id="{{$i}}" class="collapse <?php if($i == 1) echo 'show'; ?>" aria-labelledby="headingOne" data-parent="#accordion">
+                       <div id="{{$i}}" class="collapse <?php if($i == 2) echo 'show'; ?>" aria-labelledby="headingOne" data-parent="#accordion">
                            <div class="card-body">
-                               {{ $policy_list['description'] }}
+                               {!! $policy_list['description'] !!}
                            </div>
                        </div>
                    </div>
