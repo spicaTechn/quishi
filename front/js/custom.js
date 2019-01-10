@@ -1,10 +1,23 @@
 jQuery(document).ready(function($) {
     //$("select.form-control").niceSelect();
 
+    function mobileNav() {
+	    var node = $(".profile-sidemenu").clone();
+
+        $('.navbar-nav').after(node);
+	  
+	    // $(".navbar-nav").append(
+	    //     "<li class='has-child mobile-profile-sidemenu'>" + node + "</li>"
+	    // );
+	}
+
+	mobileNav();
 
 
-    $(".change-view").click(function() {
-        $(".row").toggleClass("change-list-view");
+
+    $('.change-view').click(function() {
+        $('.show_more_career_advisior').toggleClass('change-list-view');
+        $(this).toggleClass('change-list-view-icon');
     });
 
 
@@ -183,8 +196,9 @@ jQuery(document).ready(function($) {
         });
     };
     blogMasonary.Isotope();
-
+if ($(window).width() > 767) {
     $('.fixed-top-section').scrollToFixed();
+}
 
 
 
@@ -274,6 +288,7 @@ jQuery(document).ready(function($) {
     //     });
 
     autosize(document.querySelectorAll('.forum-leave-comment textarea.form-control'));
+    autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
 
     // // read notification
@@ -366,23 +381,15 @@ $('.image-upload-wrap').bind('dragleave', function() {
 
 $(window).load(function() {
     //equalheight('.same-height');
-    //equalheight('.blog-conten h4');
+    equalheight('.the-media .blog-conten h4');
 });
 
-function mobileTopHeader() {
-    let node = document.getElementsByClassName("profile-sidemenu");
-    let htmlContent = node.innerHTML;
-    $(".navbar-nav").append(
-        "<li class='has-child mobile-profile-sidemenu'>" + htmlContent + "</li>"
-    );
-}
 
-mobileTopHeader();
 
 
 $(window).resize(function() {
     //equalheight('.same-height');
-    //equalheight('.blog-conten h4');
+    equalheight('.the-media .blog-conten h4');
     if ($(window).width() <= 991) {
 
         $('.notification-box').prependTo('.navbar .container-fluid');
