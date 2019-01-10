@@ -369,6 +369,16 @@ $(window).load(function() {
     //equalheight('.blog-conten h4');
 });
 
+function mobileTopHeader() {
+    let node = document.getElementsByClassName("profile-sidemenu");
+    let htmlContent = node.innerHTML;
+    $(".navbar-nav").append(
+        "<li class='has-child mobile-profile-sidemenu'>" + htmlContent + "</li>"
+    );
+}
+
+mobileTopHeader();
+
 
 $(window).resize(function() {
     //equalheight('.same-height');

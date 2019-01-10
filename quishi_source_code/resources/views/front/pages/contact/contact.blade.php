@@ -24,7 +24,7 @@
                     </div>
                     <div class="contact-form">
                         <h2>Get in touch</h2>
-                        <p>Call or message regarding issue or problem</p>
+                        <p>Message us regarding issue or problem</p>
                         <form name="inquiry-form" id="inquiry-form">
                             <input type="hidden" name="contact_inquiry_id" class="contact_inquiry_id" value="{{$contact->id}}"/>
                             @csrf
@@ -174,14 +174,18 @@
                         notEmpty: {
                                message: 'The email is required'
                            },
+                        emailAddress: {
+                            message: 'The value is not a valid email address'
+                        }
 
                     }
                 },
                 'phone': {
                     validators: {
-                        notEmpty: {
-                               message: 'The phone is required'
-                           },
+                        
+                        phone: {
+                            message: 'The value is not a valid phone number'
+                        }
 
                     }
                 },
@@ -190,6 +194,11 @@
                         notEmpty: {
                                message: 'The message is required'
                            },
+                        stringLength: {
+                            max: 1000,
+                            min: 10,
+                            message: 'The message must be minimum of 10 and maximum 1000 characters'
+                        }
 
                     }
                 }
