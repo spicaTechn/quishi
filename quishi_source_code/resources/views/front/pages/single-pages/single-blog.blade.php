@@ -38,14 +38,12 @@
                     <div class="blog-single-content">
                         <p>{{  $blog_details->abstract }}</p>
                     </div>
-
-                    <div class="blog-single-img">
-                        @if($blog_details->image_path != "")
+                    @if($blog_details->image_path != "")
+                        <div class="blog-single-img">
                             <img src="{{ asset('/front/images/blogs/'.$blog_details->image_path) }}" alt="" style="">
-                        @else
-                            <img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style="">
-                        @endif
-                    </div>
+                        </div>
+                    @endif
+                    
                     <div class="single-bl-info">
                         <p>{!! $blog_details->content !!}</p>
 

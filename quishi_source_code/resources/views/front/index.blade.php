@@ -57,18 +57,23 @@
                             <span>{{ucwords($user_career->title)}}</span>
                         @endforeach
                     </div>
-
+                    
+                    @if($user_profile->user->tags !== "")
                     <div class="profile-slills">
                         <ul>
                             @foreach($user_profile->user->tags as $user_tag)
-                                <li><a href="#">{{ucwords($user_tag->title)}}</a></li>
+                                <li><a href="javascript:void(0);">{{ucwords($user_tag->title)}}</a></li>
                             @endforeach
 
                         </ul>
                     </div>
+                    @endif
+                    
+                    @if($user_profile->description !== "")
                     <div class="profile-info">
                         <p>{{ str_limit($user_profile->description,70) }}</p>
                     </div>
+                    @endif
                     <div class="like-view">
                         <div class="row">
                             <div class="col-sm-6">
@@ -83,7 +88,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="view-section">
-                                    <a href="#"><i class="icon-eye"></i></a>
+                                    <a href="javascript:void(0);"><i class="icon-eye"></i></a>
                                     <span>{{ $user_profile->profile_views }} Views</span>
                                 </div>
                             </div>
@@ -168,9 +173,11 @@
         </div>
     </div>
 </div>
+
+@if($blogs->count() > 0) 
 <div class="page-section the-media">
     <div class="container">
-        @if($blogs->count() > 0) 
+        
         <div class="section-title">
             <h2>{{ __('In the Media') }}</h2>
         </div>
@@ -196,12 +203,14 @@
             @endforeach
         </div>
         <div class="view-more"><a href="{{URL::to('/media')}}" class="btn btn-default">{{ __('All Media') }}</a></div>
-        @endif
+        
     </div>
 </div>
+@endif
+@if($popular_blogs->count() > 0) 
 <div class="popular-blogs page-section">
     <div class="container">
-        @if($popular_blogs->count() > 0) 
+        
         <div class="section-title">
             <h2>{{ __('Popular Blogs') }}</h2>
         </div>
@@ -229,10 +238,10 @@
 
          <div class="view-more"><a href="{{URL::to('/blog')}}" class="btn btn-default">{{ __('view Blogs') }}</a></div>
 
-        @endif
+        
     </div>
 </div>   
-
+@endif
 
 @endsection
 

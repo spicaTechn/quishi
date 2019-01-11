@@ -77,6 +77,7 @@
                      <div class="form-group">
                         <label>Choose your Major *</label>
                         <select class="form-control faculty" name="faculty">
+                            <option value="0" selected="selected" disabled="disabled">Select Major</option>
                             @foreach($majors as $major)
                               <option value="{{$major->id}}" {{(Auth::user()->user_profile->education_id == $major->id) ? 'selected': ''}}>{{$major->name . ' - '. $major->parent_education->name}}
                             @endforeach

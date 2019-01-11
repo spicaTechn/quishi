@@ -2928,16 +2928,16 @@ a.user-add-btn {
 
 .profileq-profilea .profile-question-answer-section {
     background: #f0f7f9;
-    padding: 30px;
+    padding: 10px;
     padding-left: 70px;
     border-radius: 4px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     box-shadow: 0 4px 9px rgba(211, 212, 209, 0.75);
 }
 
 .profile-question-answer-section h4 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 20px;
+    margin-bottom: 15px;
     position: relative;
 }
 
@@ -4444,7 +4444,7 @@ span.required {
 .like-comment-view {
     border-top: 1px dashed #999;
     /*border-bottom: 1px solid #ccc;*/
-    padding: 15px 0;
+    padding: 15px 0 0px;
     margin-top: 20px;
 }
 
@@ -5357,4 +5357,8 @@ h6 span {
 
 .select2-container {
     width: 100% !important;
+}
+
+.sweet-alert button {
+    background-color: #8ac43f !important;
 }

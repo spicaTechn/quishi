@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $career_advisior = User::where('logged_in_type',0)->get();
+        $career_advisior = User::where('logged_in_type',1)->get();
         return view('admin.user.index')
                 ->with([
                         'site_title'                =>'Quishi',
