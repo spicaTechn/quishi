@@ -1213,9 +1213,17 @@ ul.social-links li {
 .change-view {
     cursor: pointer;
     color: #8ac43f;
-    font-size: 30px;
+    font-size: 20px;
     margin-right: 40px;
 }
+.change-view .icon-list,
+.change-list-view-icon .icon-grid {
+    display: none;
+}
+.change-list-view-icon .icon-list {
+    display: block;
+}
+
 
 .change-view:hover {
     color: #f59b43;
@@ -4542,6 +4550,7 @@ span.required {
     resize: none;
     border-radius: 30px;
     height: auto;
+    padding-right: 40px;
 }
 
 .profile-author-comment .form-group .btn-default {
@@ -4971,6 +4980,8 @@ span.required {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
         transition: transform 0.5s;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        overflow-y: auto;
     }
 
     .navbar-collapse.slideIn {

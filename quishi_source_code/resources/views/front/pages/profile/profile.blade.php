@@ -51,7 +51,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="filter-right">
-                            <div class="change-view"><i class="icon-list"></i></div>
+                            <div class="change-view"><i class="icon-grid"></i>
+                            <i class="icon-list"></i></div>
                             
                         </div>
                     </div>
@@ -90,10 +91,10 @@
                       <input type="text" name="search_by_name" id="search_by_name" class="form-control" placeholder="search by name">
                   </div>
                 </div>        
-                <div class="row show_more_career_advisior">
+                <div class="row show_more_career_advisior isotopeContainer2">
                     @if(count($users_lists) > 0)
                     @foreach($users_lists as $user_list)
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 isotopeSelector">
                         <div class="trending-profiles-section">
                             <div class="full-list-view">
                                 <div class="profile-image">

@@ -6,6 +6,10 @@
     .profile-sidemenu--hiden {
         display: none;
     }
+
+    .navbar .profile-sidemenu {
+        display: none;
+    }
 }
 
 .team-section img {
@@ -23,10 +27,20 @@
 @media (max-width: 991px) {
     .navbar-light .navbar-nav .nav-link {
         padding: 0.5rem;
-        font-size: 16px;
+        padding: 8px 25px;
+        font-size: 14px;
+    }
+    .navbar-light .navbar-nav li a {
+         border-left: 3px solid transparent;
+         border-bottom: 1px solid rgba(138, 196, 63, 0.2);
+    }
+    .navbar-light .navbar-nav li a.active, 
+    .navbar-light .navbar-nav li a:hover {
+        border-left: 3px solid #5b980c;
+        color: #5b980c;
     }
 
-    .profile-sidemenu {
+    /*.profile-sidemenu {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
         position: fixed;
@@ -35,7 +49,7 @@
     .profile-sidemenu-show {
         -webkit-transform: translateX(0);
         transform: translateX(0);
-    }
+    }*/
 
     .dashboard-toggle {
         width: 35px;
@@ -44,6 +58,7 @@
         position: relative;
         z-index: 100;
         top: -40px;
+        display: none !important;
     }
 
     .dashboard-toggle.open {
@@ -69,6 +84,17 @@
         cursor: pointer;
         top: -20px;
         position: relative;
+        display: none;
+    }
+
+    .profile-sidemenu {
+        background: #fff;
+        width: 100%;
+        position: static;
+        padding-top: 0;
+    }
+    .my-profile .profile-sidemenu {
+        display: none;
     }
 }
 
@@ -262,6 +288,7 @@
     .share-blog li:first-child {
         display: block;
         margin-right: 0;
+        margin-bottom: 10px;
     }
 
     #blog_description_ifr {
@@ -326,5 +353,9 @@
 
     .editable-section a {
         font-size: 12px;
+    }
+
+    .editable-icon {
+        display: flex;
     }
 }
