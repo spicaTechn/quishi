@@ -18,9 +18,9 @@
 	                    <div class="blog-category-section">
 	                        <div class="blog-image">
 	                        	@if($blog->image_path != null)
-	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="#"></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front')}}/images/blogs/{{$blog->image_path}}" alt="{{ $blog->title }}"></a>
 	                            @else
-	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front/images/blogs/1539154047.jpg') }}" alt="" style=""></a>
+	                            	<a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}"><img src="{{ asset('/front/images/default-blog.jpg') }}" alt="{{ $blog->title }}"></a>
 	                            @endif
 	                            <div class="blog-date">
 	                                {{ Carbon\Carbon::parse($blog->published_date)->format('d') }}<span>{{ Carbon\Carbon::parse($blog->published_date)->format('M') }}</span>
