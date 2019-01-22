@@ -6,39 +6,59 @@
 <!-- Load the formvalidation css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}">
 
-
 @endsection
 @section('content')
 <div class="contact-page-form">
     <div class="container">
+      <div class="row success_message">
+        @if(Session::has('new_query_success'))
+        <h6>{{ Session::get('new_query_success') }} </h6>
+        @endif
+      </div>
         <div class="row">
             <div class="col-md-5">
                 <div class="contact-left">
+
                     <div class="social-medias">
                         <ul>
-                            <li class="facebook"><a href="{{ $contact_social['facebook'] }}"><i class="icon-social-facebook"></i></a></li>
-                            <li class="twitter"><a href="{{ $contact_social['twitter'] }}"><i class="icon-social-twitter"></i></a></li>
-                            <li class="google"><a href="{{ $contact_social['google_plus'] }}"><i class="icon-social-google"></i></a></li>
-                            <li class="instagram"><a href="{{ $contact_social['instragram'] }}"><i class="icon-social-instagram"></i></a></li>
+                            <li class="facebook"><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="icon-social-facebook"></i></a></li>
+                            <li class="twitter"><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="icon-social-twitter"></i></a></li>
+                            <li class="google"><a href="{{ $contact_social['google_plus'] }}" target="_blank"><i class="icon-social-google"></i></a></li>
+                            <li class="instagram"><a href="{{ $contact_social['instragram'] }}" target="_blank"><i class="icon-social-instagram"></i></a></li>
                         </ul>
                     </div>
                     <div class="contact-form">
                         <h2>Get in touch</h2>
                         <p>Message us regarding issue or problem</p>
-                        <form name="inquiry-form" id="inquiry-form">
+                        <form name="inquiry-form" id="inquiry-form" action="{{url('/contact/inquiry') }}" method="post">
                             <input type="hidden" name="contact_inquiry_id" class="contact_inquiry_id" value="{{$contact->id}}"/>
                             @csrf
                             <div class="form-group">
-                                <input type="text" name="full_name" class="form-control" placeholder="Full Name">
+                                <input type="text" name="full_name" class="form-control {{ $errors->has('full_name') ? ' is-invalid' : '' }}" placeholder="Full Name" value="{{ old('full_name') ? old('full_name') : '' }}">
+                                @if ($errors->has('full_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('full_name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Your Email">
+                                <input type="text" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Your Email" value="{{ old('email') ? old('email') : '' }}">
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <input type="number" name="phone" class="form-control" placeholder="Phone">
+                                <input type="number" name="phone" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="Phone" value="{{ old('phone') ? old('phone') : '' }}">
+                                 @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="message" placeholder="Your Message"></textarea>
+                                <textarea class="form-control" name="message" placeholder="Your Message">{{ old('message') }}</textarea>
                             </div>
                             <button type="submit"  class="btn btn-default sendMessage">Send message</button>
                         </form>
@@ -171,20 +191,27 @@
                 },
                 'email': {
                     validators: {
-                        notEmpty: {
-                               message: 'The email is required'
-                           },
-                        emailAddress: {
-                            message: 'The value is not a valid email address'
-                        }
+                      notEmpty: {
+                        message: "Email address is required"
+                      },
+                      emailAddress:{
+                        message: "Email address should be valid"
+                      }
+
 
                     }
                 },
                 'phone': {
                     validators: {
-                        
+                        notEmpty:{
+                          message: 'Phone number is required'
+                        },
                         phone: {
                             message: 'The value is not a valid phone number'
+                        },
+                        stringLength:{
+                          min:10,
+                          max:15,
                         }
 
                     }
@@ -208,49 +235,11 @@
             e.preventDefault();
             // find if the action is save or update
 
-            var URI = "{{url('/contact/inquiry')}}";
-
-            //var _token = $("input[name='_token']").val();
-            //alert(_token);
-            // get the input values
-            var result = new FormData($("#inquiry-form")[0]);
-
-            $.ajax({
-            //make the ajax request to either add or update the
-            url:URI,
-            data:result,
-            dataType:"Json",
-            contentType: false,
-            processData: false,
-            type:"POST",
-            success:function(data)
-            {
-                if(data.status == "success"){
-                    //hide the modal
-                  setTimeout(function()
-                    {
-                            swal({
-                              title: "Inquiry Message  has been send to Quishi!",
-                              text: "A  inquiry message has been send to Quishi",
-                              type: "success",
-                              closeOnConfirm: true,
-                            }, function() {
-                                window.location = "{{route('contact')}}";
-                            });
-                  }, 1000);
-                  $('#inquiry-form')[0].reset();
-                  $('#inquiry-form').data('formValidation').resetForm(true);
-
-
-                }
-            },
-            error:function(event)
-            {
-                console.log('Cannot send inquiry message into the quishi system. Please try again later on..');
-            }
+            $("#inquiry-form")[0].submit();
+             return false;
 
           });
-        });
+
 
 
 

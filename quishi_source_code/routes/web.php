@@ -791,7 +791,7 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 // Route for inquiry Message of contact page
 Route::post('/contact/inquiry', [
 	'as'	=>'contact.inquiry',
-	'uses'	=>'Front\ContactPageController@store'
+	'uses'	=>'Front\Pages\Contact\ContactPageController@store'
 ]);
 
 

@@ -189,12 +189,14 @@ class ProfilePageController extends BaseCareerAdvisorController
     {
         //
         $user_id     = $request->user_profile_id;
-        $total_likes = $request->input('total_likes');
+        //$total_likes = $request->input('total_likes');
 
         $user  = User::find($user_id);
 
         //$total_likes =
         $user_like = UserProfile::where('user_id',$user_id)->firstOrFail();
+        //get the total likes 
+        $total_likes = $user_like->total_likes + 1;
         $user_like->total_likes = $total_likes;
         //echo "<pre>"; print_r($user_like); echo "</pre>";exit;
         $user_like->save();
@@ -209,7 +211,7 @@ class ProfilePageController extends BaseCareerAdvisorController
            $user->notify(new ProfileLikeNotification());
         endif;
 
-        return response()->json(array('status'=>'success','result'=>'successfully liked user profile'),200);
+        return response()->json(array('status'=>'success','result'=>'successfully liked user profile','total_likes'=>quishi_convert_number_to_human_readable($total_likes)),200);
     }
 
     /**

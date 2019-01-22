@@ -89,20 +89,20 @@
     $( ".total_likes" ).on( "click", function() {
       var user_profile_id = $(this).attr('data-profile-id');
       var _token          = $("input[name='_token']").val();
-      var total_likes     = (parseInt($(".like"+user_profile_id).html())+1);
+      //var total_likes     = (parseInt($(".like"+user_profile_id).html())+1);
       //alert(total_likes);
       $.ajax({
               url:"{{url('')}}" + "/career-advisior/" + user_profile_id,
               type:"POST",
               dataType:"json",
-              data: {_token:_token,user_profile_id:user_profile_id,total_likes:total_likes},
+              data: {_token:_token,user_profile_id:user_profile_id},
               success:function(data){
                   //check for the success status only
                   if(data.status == "success"){
                       //insert the data in the modal
                       // alert('success');
                       //$(this).closest('.total_likes').find('.like'+user_profile_id).html(total_likes + " " + "Likes");
-                      $('.like'+user_profile_id).html(total_likes+" "+"Likes");
+                      $('.like'+user_profile_id).html(data.total_likes+" "+"Likes");
 
                   }
 

@@ -128,11 +128,12 @@ class DashboardController extends Controller
 
     protected function getTotalRegisteredUsers(){
 
-        $this->total_registered_users  = User::all()->count();
+        $this->total_registered_users  = User::all()->where('logged_in_type','0')->count();
 
         //get monthly registered users
         $this->current_month_registered_users = User::whereBetween('created_at',[$this->start_of_month,$this->end_of_month])
-                                                ->count();
+                                                   ->where('logged_in_type','0')
+                                                   ->count();
         
     }
 
