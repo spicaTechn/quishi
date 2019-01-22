@@ -923,25 +923,31 @@ p {
 
 /*Team modal description*/
 .img-circle.teamImageHolder {
-    width: 180px;
-    max-width: 100%;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -webkit-transition: -webkit-box-shadow 0.3s ease;
     transition: box-shadow 0.3s ease;
-    -webkit-box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.6);
-    box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.6);
     margin-bottom: 20px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 2px solid #f59b43;
 }
 
 .img-circle.teamImageHolder:hover {
-    -webkit-box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.8);
-    box-shadow: 0px 0px 0px 15px rgba(138, 196, 63, 0.8);
+   /* -webkit-box-shadow: 0px 0px 0px 12px rgba(138, 196, 63, 0.8);
+    box-shadow: 0px 0px 0px 15px rgba(138, 196, 63, 0.8);*/
 }
 
 p.text-left.team-bio {
-    font-size: 16px;
-    line-height: 28px;
+
+    font-size: 15px;
+    line-height: 2;
+    text-align: center !important;
+    padding: 0 20px;
+
+}
+#teamDescription {
+    padding-right: 0 !important;
 }
 
 /*footer section*/
@@ -1212,7 +1218,7 @@ ul.social-links li {
 
 .change-view {
     cursor: pointer;
-    color: #8ac43f;
+    color: #333;
     font-size: 20px;
     margin-right: 40px;
 }
@@ -3157,8 +3163,8 @@ a.user-add-btn {
 }
 
 .email-verification {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;
+    justify-content: space-between;*/
 }
 
 .email-verification a {
@@ -3378,6 +3384,7 @@ a.user-add-btn {
     padding: 0 12px;
     border-radius: 16px;
     background-color: #8ac43f;
+    background-color: #333;
     margin-bottom: 5px;
     margin-right: 5px;
     position: absolute;
@@ -3395,6 +3402,7 @@ a.user-add-btn {
     height: 32px;
     width: 32px;
     border-radius: 50%;
+    overflow-y: hidden;
 }
 
 .cyan {
@@ -4842,15 +4850,34 @@ span.required {
 
 
 .select2-container .select2-selection--single {
-    height: 37px !important;
+    height: 38px !important;
 }
 
 .select2-container--default .select2-selection--single {
-    border: 1px solid #dee2e6 !important;
+    border: 1px solid #ced4da !important;
+
+}
+
+.top-filter-dropdown .select2-container {
+    left: -1px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 35px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px !important;
+    }
+
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(../images/traingle.svg) no-repeat 95% center;
+    background-size: 8px 5px;
+}
+select::-ms-expand {    
+    display: none; 
 }
 
 .blog-search {

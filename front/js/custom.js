@@ -381,7 +381,7 @@ $('.image-upload-wrap').bind('dragleave', function() {
 
 $(window).load(function() {
     //equalheight('.same-height');
-    equalheight('.the-media .blog-conten h4');
+    //equalheight('.the-media .blog-conten h4');
 });
 
 
@@ -389,7 +389,7 @@ $(window).load(function() {
 
 $(window).resize(function() {
     //equalheight('.same-height');
-    equalheight('.the-media .blog-conten h4');
+    //equalheight('.the-media .blog-conten h4');
     if ($(window).width() <= 991) {
 
         $('.notification-box').prependTo('.navbar .container-fluid');
