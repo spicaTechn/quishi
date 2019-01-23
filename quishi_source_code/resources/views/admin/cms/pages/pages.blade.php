@@ -827,8 +827,8 @@
 <!-- Formvalidation -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
-<!-- wysiwyg editor -->
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ihfid13c6c1ygvc66guxqmkllfkfjbgtewnm9komiqvsm6to"></script>
 
 <!-- Page wise Javascript code -->
 <script type="text/javascript">
