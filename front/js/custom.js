@@ -257,7 +257,12 @@ if ($(window).width() > 767) {
         $("#donation-Modal").modal('hide');
     });
 
-
+    $(document).on("click", function(event){
+        var $menu = $(".mobile-login-btn ");
+        if($menu !== event.target && !$menu.has(event.target).length){
+            $(".login-menu-mobile").slideUp();
+        }            
+    });
 
     /*// notification
     $(".navbar-light .navbar-nav li.notification-box a ").click(function() {
@@ -289,12 +294,18 @@ if ($(window).width() > 767) {
 
     autosize(document.querySelectorAll('.forum-leave-comment textarea.form-control'));
     autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+    autosize(document.querySelectorAll('.profile-author-comment .form-group textarea.form-control'));
 
 
     // // read notification
     // $(".notification-list li a").click(function() {
     //     $(this).addClass("mark-as-read");
     // });
+
+     //mobile login menu
+    $(".mobile-login-btn").click(function() {
+        $(".login-menu-mobile").slideToggle(500);
+    });
 
 
     //equal height
