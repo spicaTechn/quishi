@@ -191,6 +191,7 @@ class BaseCareerAdvisorController extends Controller
                                     'updated_at'    => now()
                                 )
                             );
+
         //now insert the data into the table
         if(UserLink::insert($data) > 0)
         {

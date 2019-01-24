@@ -23,10 +23,16 @@ class ProfileController extends BaseCareerAdvisorController
 
     protected $locations = "";
     protected $user_link;
+    protected $user;
 
-    public function __construct(){
+    public function __construct(User $user){
 
-    	return $this->career = Career::where('parent',"=",'0')->where('status','1')->get();
+        $this->user          = $user;
+    	return $this->career = Career::where('parent',"=",'0')
+                                     ->where('status','1')
+                                     ->where('is_approved','1')
+                                     ->get();
+        
         
     }
 
@@ -197,7 +203,10 @@ class ProfileController extends BaseCareerAdvisorController
             else:
                 return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career,
-                    'majors'          => Education::where('parent','>',0)->get(),
+                    'majors'          => Education::where('parent','>',0)
+                                                  ->where('status',1)
+                                                  ->where('is_approved','1')
+                                                  ->get(),
                 ])->with(array(
                     'site_title' => 'Quishi',
                     'page_title' => 'Profile'
@@ -207,7 +216,10 @@ class ProfileController extends BaseCareerAdvisorController
         }else{
             return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career,
-                     'majors'          => Education::where('parent','>',0)->get(),
+                     'majors'          => Education::where('parent','>',0)
+                                                    ->where('status','1')
+                                                    ->where('is_approved','1')
+                                                    ->get(),
                 ])->with(array(
                     'site_title' => 'Quishi',
                     'page_title' => 'Profile'
@@ -361,6 +373,16 @@ class ProfileController extends BaseCareerAdvisorController
 
     public function getMajor(Request $request){
 
+        //get the user with the user type is equal to 1
+        $admin_users_list = $this->user->admin_users();
+        $admin_ids        = array();
+        if($admin_users_list->count() > 0){
+            foreach($admin_users_list as $admin_user){
+                array_push($admin_ids, $admin_user->id);
+            }
+        }
+        //if the user is logged in 
+        array_push($admin_ids,Auth::user()->id);
         $education_majors = Education::where('parent','>',0)
                                         ->where(function($query) use($request){
                                             if($request->has('q')){
@@ -368,9 +390,10 @@ class ProfileController extends BaseCareerAdvisorController
                                                 return $query->where('name','like',"%{$search}%");
                                             }
                                         })
+                                        ->whereIn('user_id',$admin_ids)
                                         ->select('id','name','parent')
                                         ->get();
-        $return_major     = array();
+        $return_major       = array();
         if($education_majors->count() > 0){
             $i =0;
             foreach($education_majors as $education_major){
@@ -382,11 +405,46 @@ class ProfileController extends BaseCareerAdvisorController
             }
         }
 
-
         //now return the response 
         return response()->json(array('status'=>'success','result'=>$return_major),200);
 
         
+
+    }
+
+
+
+    public function addMajor(Request $request){
+       //get the education having the others or other education category 
+        $parent_category_education          = Education::where('slug','like','%other%')
+                                              ->first();
+        // if found get the id
+        if($parent_category_education):
+            $parent_category_id             = $parent_category_education->id;
+            $parent_title                   = $parent_category_education->name;
+        // else add new education category others
+        else:
+            //need to inser the parent education category first
+            $parent_category_education       = new Education();
+            $parent_category_education->name = "Others";
+            $parent_category_education->slug = str_slug("Others");
+            $parent_category_education->save();
+
+            $parent_category_id              = $parent_category_education->id;
+            $parent_title                    = "Others";       
+        endif;
+
+       $quishi_education                     = new Education();
+       $quishi_education->name               = $request->input('majorTitle');
+       $quishi_education->slug               = str_slug($request->input('majorTitle'));
+       $quishi_education->parent             = $parent_category_id;
+       //to do add the user_id on the education table and add the category added by 
+       //$quishi_education->user_id            = Auth::user()->id;
+       $quishi_education->is_approved        = '0';
+       $quishi_education->status             = '0';
+       $quishi_education->save();
+       //return the response back to the requestor
+       return response()->json(array('status'=>'success','major_id'=>$quishi_education->id,'major_title' => $request->input('majorTitle') .' - ' .$parent_title),200);
 
     }
 

@@ -42,7 +42,6 @@
                         <select class="industry  form-control form-control-default open default" name="parent_industry">
                            <option value="0" selected="selected" disabled="disabled">Select Industry</option>
                                 @foreach($industries as $industry)
-                                    @if($industry->children()->count() > 0)
                                         <option value="{{$industry->id}}"
                                             @if(Auth::user()->careers()->count() > 0)
                                                 @foreach(Auth::user()->careers as $user_career)
@@ -52,7 +51,6 @@
                                                 @endforeach
                                             @endif
                                             > {{ucwords($industry->title)}}</option>
-                                    @endif
                                 @endforeach
                         </select>
                     </div>
@@ -179,6 +177,7 @@
       <div class="modal-body">
         <form id="majorAddForm" name="majorAddForm">
             <div class="row">
+                 {{ csrf_field() }}
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Enter major title</label>
@@ -208,6 +207,7 @@
       </div>
       <div class="modal-body">
         <form id="jobAddForm" name="jobAddForm">
+             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -237,14 +237,13 @@
                     var selected_value = e.params.data;
                     var selected_industry_id = selected_value.id;
                     var selected_industry_name = selected_value.text;
-                    console.log(selected_industry_name);
                     //make the get request to get the job of the parent category
                     $.get("{{route('jobTitleByParent')}}",{industry_id : selected_industry_id},function(data){
                        $("#job_title").html(data.result);
                        $('#job_title').select2({
                             allowClear: true,
                             escapeMarkup: function (markup) { return markup; },
-                            placeholder: "Search select or add job title if not found",
+                            placeholder: "Search or add job title if not found",
                             language: {
                                 noResults: function () {
                                      if(selected_industry_name === " Others"){
@@ -310,7 +309,7 @@
                 $(profile_setup).on('success.form.fv', function(e) {
                     e.preventDefault();
                     $("#step2")[0].submit();
-                    die();
+                    return false;
                 });
 
 
@@ -381,6 +380,35 @@
                             }
                         }
                     }
+                }).on('success.form.fv',function(){
+                    //$("#majorAddForm")[0].submit();
+                    var user_data   = new FormData($("#majorAddForm")[0]);
+                    //make ajax request to add new major
+                    $.ajax({
+                        url          : "{{ route('add.customer.major') }}",
+                        type         : 'POST',
+                        dataType     : 'JSON',
+                        data         : user_data,
+                        processData  : false,
+                        contentType  : false,
+                        cache        : false,
+                        success      : function(response){
+                            if(response.status == "success"){
+                                 $(".faculty").data('select2').trigger("select", { 
+                                    data: 
+                                        { 
+                                            id: response.id,
+                                            text: response.major_title
+                                        } 
+                                });
+                                $('#addNeweducationTitle').modal('hide');
+                            }
+                        },
+                        error        : function(error){
+                            console.log('cannot update record in the quishi system, Please try again');
+                        }
+                    });
+                    return false;
                 }); // formvalidation end for modal major add
             });
     // initialize popover

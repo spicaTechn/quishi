@@ -187,6 +187,11 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	Route::get('/setup/step2/back','Front\CareerAdvisor\Profile\ProfileController@backToStepTwo')->name('profile.setup.step2.back');
 
 
+	//allow the career advisior to add new education major
+
+	Route::post("/setup/AddMajor",'Front\CareerAdvisor\Profile\ProfileController@addMajor')->name('add.customer.major');
+
+
 	Route::get('/setup/getMajor','Front\CareerAdvisor\Profile\ProfileController@getMajor');
 	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');
 	Route::any('/setup/step3', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupThree')->name('profile.setup.step3');

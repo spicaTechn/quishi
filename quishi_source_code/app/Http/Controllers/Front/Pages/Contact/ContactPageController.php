@@ -92,9 +92,11 @@ class ContactPageController extends Controller
         $page_detail->page_id    = $hidden_id;
         $page_detail->meta_key   = 'contact-inquiry';
         $page_detail->meta_value = $new_value_serialize;
-        //$page_detail->save();
+        $page_detail->save();
 
         Session::flash('new_query_success','Thank you for your query we will contact as soon as possible');
+
+        //to do need to send email to the site admin about the new inquiry
 
         return redirect()->route('contact');
 

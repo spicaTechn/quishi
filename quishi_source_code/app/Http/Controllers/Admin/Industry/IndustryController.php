@@ -53,6 +53,7 @@ class IndustryController extends Controller
        $industryJobs->slug          = str_slug($request->input('title'));
        $industryJobs->description   = $request->input('description');
        $industryJobs->parent        = $request->input('parent_id');
+       $industryJobs->user_id       = Auth::user()->id;
        $industryJobs->save();
        return response()->json(array('status'=>'success','result'=>'successfully added the industry / job in the quishi system'),200);
     }
@@ -106,11 +107,12 @@ class IndustryController extends Controller
     public function update(Request $request, $id)
     {
         //
-       $career = Career::findOrFail($id);
+       $career                = Career::findOrFail($id);
        $career->title         = $request->input('title');
        $career->slug          = str_slug($request->input('title'));
        $career->description   = $request->input('description');
        $career->parent        = $request->input('parent_id');
+       $career->user_id       = Auth::user()->id;
        $career->save();
        return response()->json(array('status'=>'success','result'=>'successfully added udpadted industry / job in the quishi system'),200);
     }
