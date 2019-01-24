@@ -324,6 +324,23 @@
         margin: 10px 0;
     }
 
+    .footer-section .social-links li:first-child a {
+        margin-left: 0;
+    }
+
+    .about-content p {
+        font-size: 14px;
+    }
+    .reply-inner {
+
+        margin-left: 55px;
+
+    }
+    .blog-leave-comment.profile-leave-comments {
+    padding: 20px;
+
+}
+
 }
 
 

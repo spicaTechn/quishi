@@ -32,7 +32,7 @@
 
             <div class="mobile-login-btn ">
                 <i class="icon-user"></i>
-                <span>  Account </span>
+                <span></span>
             </div>
 
             <div class="login-menu login-menu-mobile">

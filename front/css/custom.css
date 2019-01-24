@@ -1221,6 +1221,11 @@ ul.social-links li {
     .navbar-for-lg {
         display: none;
     }
+    .login-menu ul.dropdown-menu {
+
+        top: 0;
+
+    }
 
     .mobile-login-btn {
     text-align: center;
@@ -1233,13 +1238,15 @@ ul.social-links li {
 }
 
 .mobile-login-btn i {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     display: inline-block;
     border: 1px solid #333;
     border-radius: 30px;
     line-height: 20px;
+    font-size: 18px;
 }
+
 .mobile-login-btn span {
     display: block;
 }
@@ -1255,6 +1262,17 @@ ul.social-links li {
     padding: 10px;
     display: none;
 }
+
+.profile-author-comment .form-group::after {
+
+    display: table;
+    clear: both;
+    content: "";
+
+}
+
+
+
 }
 
 @media (min-width: 768px) {
@@ -1479,6 +1497,10 @@ ul.social-links li {
     font-size: 13px;
     height: 45px;
     border-radius: 0;
+}
+
+.contact-form textarea.form-control {
+    height: 100px;
 }
 
 
@@ -2981,7 +3003,7 @@ a.user-add-btn {
 }
 
 .row.show_more_career_advisior {
-    margin: 0;
+    /*margin: 0;*/
 }
 
 .like-viewers li {
@@ -3981,10 +4003,7 @@ span.icon.ion-ios-play:before {
     color: #f59b43;
 }
 
-.frequently-question {
-    background: #fff;
-    padding: 50px;
-}
+
 
 .frequently-question h2 {
     margin-bottom: 30px;
@@ -4280,7 +4299,7 @@ span.icon.ion-ios-play:before {
 
 .frequently-question {
     background: #fff;
-    padding: 50px;
+    padding: 50px 0;
 }
 
 .frequently-question h2 {
@@ -4589,6 +4608,10 @@ span.required {
 
 .how-col h4 {
     margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+.how-col p {
+    font-size: 13px;
 }
 
 .how-col-image {
@@ -5451,8 +5474,23 @@ h6 span {
 
 .select2-container {
     width: 100% !important;
+    max-width: 600px;
 }
 
 .sweet-alert button {
     background-color: #8ac43f !important;
+}
+
+.contact-page-form .success_message {
+    color: green;
+    margin-bottom: 20px;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
