@@ -144,10 +144,12 @@
     }
 
     .login-menu li {
-        max-width: 50%;
+      /*  max-width: 50%;
         flex: 0 0 50%;
         padding: 0 10px;
-        text-align: center;
+        text-align: center;*/
+        display: block;
+        /*margin: 0;*/
     }
 
     .nav-item.dropdown.logdin .dropdown-toggle {
@@ -199,16 +201,17 @@
 
     .login-menu ul {
         padding-left: 0;
-        display: -webkit-box;
+        /*display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-        margin: 0 -10px;
+        margin: 0 -10px;*/
     }
 
     .login-menu.login-menu-xs {
         padding: 0 10px;
+        display: none;
     }
 
     .inner-header .login-menu li:first-child>a {
@@ -224,6 +227,7 @@
     .inner-header .login-menu li.dropdown>a,
     .inner-header .login-menu li>a {
         font-size: 13px;
+        margin: 5px 0;
     }
 
     .like-view .col-sm-6 {

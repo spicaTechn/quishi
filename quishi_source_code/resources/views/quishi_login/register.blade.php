@@ -59,7 +59,7 @@
                                           <label class="custom-control-label" for="terms_conditions">I accept <a href="{{ URL::to('/terms-and-condition') }}" target="_blank">terms and conditions</a></label>
                                         </div>
                                     </div>
-
+                                </div>
                                 <div class="form-group">
                                         <p><button  type="submit" class="btn btn-default btn-register">{{ __('Register Now')}}</button></p>
                                         
