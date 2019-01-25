@@ -58,10 +58,10 @@
                         @endforeach
                     </div>
                     
-                    @if($user_profile->user->tags !== "")
+                    @if($user_profile->user->tags()->count() > 1)
                     <div class="profile-slills">
                         <ul>
-                            @foreach($user_profile->user->tags as $user_tag)
+                            @foreach($user_profile->user->tags->take(3) as $user_tag)
                                 <li><a href="javascript:void(0);">{{ucwords($user_tag->title)}}</a></li>
                             @endforeach
 
