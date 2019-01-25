@@ -34,4 +34,9 @@ class Career extends Model
   public function users(){
     return $this->belongsToMany('App\User','user_career')->withTimeStamps();
   }
+
+
+  public function added_by(){
+    return $this->belongsTo('App\User','user_id','id');
+  }
 }

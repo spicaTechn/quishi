@@ -382,7 +382,9 @@ class ProfileController extends BaseCareerAdvisorController
             }
         }
         //if the user is logged in 
-        array_push($admin_ids,Auth::user()->id);
+        if(Auth::check()):
+            array_push($admin_ids,Auth::user()->id);
+        endif;
         $education_majors = Education::where('parent','>',0)
                                         ->where(function($query) use($request){
                                             if($request->has('q')){
@@ -416,35 +418,81 @@ class ProfileController extends BaseCareerAdvisorController
 
     public function addMajor(Request $request){
        //get the education having the others or other education category 
-        $parent_category_education          = Education::where('slug','like','%other%')
-                                              ->first();
+        $parent_category_education              = Education::where('slug','like','%other%')
+                                                            ->first();
         // if found get the id
         if($parent_category_education):
-            $parent_category_id             = $parent_category_education->id;
-            $parent_title                   = $parent_category_education->name;
+            $parent_category_id                 = $parent_category_education->id;
+            $parent_title                       = $parent_category_education->name;
         // else add new education category others
         else:
             //need to inser the parent education category first
-            $parent_category_education       = new Education();
-            $parent_category_education->name = "Others";
-            $parent_category_education->slug = str_slug("Others");
+            $parent_category_education          = new Education();
+            $parent_category_education->name    = "Others";
+            $parent_category_education->slug    = str_slug("Others");
+            $parent_category_education->user_id = Auth::user()->id;
             $parent_category_education->save();
 
-            $parent_category_id              = $parent_category_education->id;
-            $parent_title                    = "Others";       
+            $parent_category_id                 = $parent_category_education->id;
+            $parent_title                       = "Others";       
         endif;
 
-       $quishi_education                     = new Education();
-       $quishi_education->name               = $request->input('majorTitle');
-       $quishi_education->slug               = str_slug($request->input('majorTitle'));
-       $quishi_education->parent             = $parent_category_id;
+       $quishi_education                        = new Education();
+       $quishi_education->name                  = $request->input('majorTitle');
+       $quishi_education->slug                  = str_slug($request->input('majorTitle'));
+       $quishi_education->parent                = $parent_category_id;
        //to do add the user_id on the education table and add the category added by 
-       //$quishi_education->user_id            = Auth::user()->id;
-       $quishi_education->is_approved        = '0';
-       $quishi_education->status             = '0';
+       $quishi_education->user_id               = Auth::user()->id;
+       $quishi_education->is_approved           = '0';
+       $quishi_education->status                = '0';
        $quishi_education->save();
        //return the response back to the requestor
        return response()->json(array('status'=>'success','major_id'=>$quishi_education->id,'major_title' => $request->input('majorTitle') .' - ' .$parent_title),200);
+
+    }
+
+
+
+
+    public function addJob(Request $request){
+        
+        //get the parent industry
+        $parent_industry          = Career::where('slug','like','%other%')
+                                          ->first();
+
+        // if found get the id
+        if($parent_industry):
+            $parent_industry_id             = $parent_industry->id;
+            //$parent_title                   = $parent_industry->title;
+        // else add new education category others
+        else:
+            //need to inser the parent education category first
+            $parent_industry                 = new Career();
+            $parent_industry->title          = "Others";
+            $parent_industry->slug           = str_slug("Others");
+            $parent_industry->user_id        = Auth::user()->id;
+            $parent_industry->save();
+
+            $parent_industry_id              = $parent_category_education->id;
+            //$parent_title                    = "Others";       
+        endif;
+
+        //store in the storage 
+
+         $career                             = new Career();
+         $career->title                      = $request->input('jobTitle');
+         $career->slug                       = str_slug($request->input('jobTitle'));
+         $career->parent                     = $parent_industry_id;
+         //to do add the user_id on the education table and add the category added by 
+         $career->user_id                    = Auth::user()->id;
+         $career->is_approved                = '0';
+         $career->status                     = '0';
+         $career->save();
+
+
+         $return_html                       = "<option value='" . $career->id ."'>" . $request->input('jobTitle') ."</option>";
+         //return the response back to the requestor
+        return response()->json(array('status'=>'success','html'=>$return_html,'career_id'=>$career->id,'career_title'=>$request->input('jobTitle')),200);
 
     }
 

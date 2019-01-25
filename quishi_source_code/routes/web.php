@@ -191,7 +191,7 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 
 	Route::post("/setup/AddMajor",'Front\CareerAdvisor\Profile\ProfileController@addMajor')->name('add.customer.major');
 
-
+	Route::post('/setup/addJob','Front\CareerAdvisor\Profile\ProfileController@addJob')->name('add.customer.job');
 	Route::get('/setup/getMajor','Front\CareerAdvisor\Profile\ProfileController@getMajor');
 	Route::post('/setup/complete', 'Front\CareerAdvisor\Profile\ProfileController@completeSetup')->name('complete.profile');
 	Route::any('/setup/step3', 'Front\CareerAdvisor\Profile\ProfileController@profileSetupThree')->name('profile.setup.step3');
@@ -448,6 +448,22 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 		'as'		=> 'admin.jobs.getJobs',
 		'uses'      => 'Admin\Industry\IndustryController@getJobs'
 	]);
+
+
+	//get unapproved jobs
+
+	Route::get('/jobs/getunapprovedJobs',[
+		'as'		=> 'admin.unapproved.jobs',
+		'uses'      => 'Admin\Industry\IndustryController@getUnapprovedJobs'
+	]);
+
+	//approve jobs
+ 
+ 	Route::post('/jobs/approvJobs',[
+		'as'		=> 'admin.approve.jobs',
+		'uses'      => 'Admin\Industry\IndustryController@approvJob'
+	]);
+
 
 
 	// Route related to question
@@ -717,6 +733,19 @@ Route::group(['prefix'=>'/admin','middleware'=>array('auth','userRole')],functio
 	Route::get('/educations/getMajor',[
 		'as'	=> 'admin.educations.major',
 		'uses'	=> 'Admin\Education\EducationController@getEducationMajor'
+	]);
+
+
+	//get the unapproved education that has been submitted by the career advisor
+	Route::get('/educations/getUserMajor',[
+		'as'	=> 'admin.unapproved.major',
+		'uses'	=> 'Admin\Education\EducationController@getUserMajors'
+	]);
+
+	//approve the career advisor education
+	Route::post('/educations/userMajors',[
+		'as'	=> 'admin.approve.major',
+		'uses'	=> 'Admin\Education\EducationController@approveMajor'
 	]);
 
 	//show education major category and education major

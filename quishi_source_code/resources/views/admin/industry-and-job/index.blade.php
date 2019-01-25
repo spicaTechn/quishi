@@ -103,16 +103,6 @@
                                              </tr>
                                           </thead>
                                           <tbody>
-                                             <tr>
-                                                <td>1</td>    
-                                                <td>Geologiest</td>    
-                                                <td>Others</td>    
-                                                <td>No desc available</td>    
-                                                <td>10 Jan 2019</td>    
-                                                <td><a href="#">Ram Thapa</a></td>    
-                                                <td>1</td>    
-                                                <td>Edit Delete Approve</td>    
-                                             </tr>
                                           </tbody>
                                        </table>
                                     </div>
@@ -302,7 +292,46 @@ $(document).ready(function () {
         
     });
 
+
+    // datatable for active subscription
+    var user_job_table = $('.tbl-userJobs').DataTable({
+        dom                   : 'Bfrtip',
+        buttons               :[
+                                 'excel',
+                                 'print'
+                               ],
+        destroy               :true,
+        processing            :true,
+        serverSide            :true,
+        ajax                  : {
+                                 url :"{{route('admin.unapproved.jobs')}}",
+                                 type : "GET",
+
+                                },
+        columns:[
+        {
+            "data": "id",
+             render: function (data, type, row, meta) {
+                 return meta.row + meta.settings._iDisplayStart + 1;
+             }
+        },
+        {"data" :"title","name":"title"},
+        {"data": "parent_industry", "name": "parent_industry"},
+        {"data":'description', "name":"description"},
+        {"data":'created_at', "name":"created_at"},
+        {"data":'submitted_by', "name":"submitted_by",'searchable':false,'orderable':false},
+        {"data":"usage",'name':"usage"},
+        {"data":"action" , "name" :"action"},
+        
+        ],
+        "fnInitComplete": function(oSettings, json) {
+          tool_tip();
+        }
+        
+    });
+
     // Fomvalidation setup
+    var form = document.getElementById('industry-jobs-form');
     $('#industry-jobs-form').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
                 $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
@@ -332,6 +361,11 @@ $(document).ready(function () {
                         remote  : {
                           message : 'The title is already taken',
                           method  : 'GET',
+                          data    : function(){
+                            return{
+                                'id': form.querySelector('[name="industry_id"]').value
+                            };
+                          },
                           url     : "{{route('admin.industryJobs.checkIndustryTitle')}}"
                         }
                     }
@@ -433,6 +467,39 @@ $(document).ready(function () {
          });
 	     $('#add-edit-industry').modal('show');
 	}); // end add new button click
+
+
+
+    //approve jobs by the superadmin
+
+    //approve the career advisor submitted education
+    $('body').on('click','.approve-jobs',function(e){
+      e.preventDefault();
+      var career_id = $(this).attr('data-industry-id');
+      var status       = 'approved';
+      $.post("{{route('admin.approve.jobs')}}",{career_id : career_id , _token : "{{csrf_token() }}",status : status},function(response){
+        if(response.status == "success"){
+          swal({
+                title: "Career Advisor Job title approved!",
+                text: "Career added job title has been approved and updated successfully!",
+                type: "success",
+                closeOnConfirm: true,
+            });
+
+          //need to reload the table
+          user_job_table.ajax.reload();
+          job_table.ajax.reload();
+        }else if(reponse.status == "failed"){
+          swal({
+                title: "Job title cannot be approved!",
+                text: response.msg,
+                type: "error",
+                closeOnConfirm: true,
+            });
+        }
+
+      });
+    });
 
 
 

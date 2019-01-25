@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\Education;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Education;
+use App\Model\Education, Auth;
+use Carbon\Carbon;
 
 class EducationController extends Controller
 {
@@ -50,6 +51,7 @@ class EducationController extends Controller
         $education->parent      = $request->input('parent_id');
         $education->description = $request->input('description');
         $education->slug        = str_slug($request->input('title'));
+        $education->user_id     = Auth::user()->id;
         $education->save();
 
         return response()->json(array('status'=>'success','result'=>''),200);
@@ -104,7 +106,7 @@ class EducationController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $education = Education::findOrFail($id);
+        $education              = Education::findOrFail($id);
         $education->name        = $request->input('title');
         $education->parent      = $request->input('parent_id');
         $education->description = $request->input('description');
@@ -185,7 +187,8 @@ class EducationController extends Controller
     **/
 
     public function getEducationMajor(){
-        $education_majors = Education::where('parent','>',0);
+        $education_majors = Education::where('parent','>',0)
+                            ->where('is_approved','1');
         return Datatables($education_majors)
                ->addColumn('action',function($education_major){
                     $return_html = '<a href="#" class="m-r-15 text-muted edit-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" data-major-id="'.$education_major->id.'"><i class="icofont icofont-ui-edit" ></i></a><a href="#" class="text-muted delete-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" data-major-id="'.$education_major->id.'"><i class="icofont icofont-delete-alt"></i></a>';
@@ -231,12 +234,19 @@ class EducationController extends Controller
 
 
     public function checkEducationTitle(Request $request){
+
         $education_title = $request->input('title');
         //convert the education title into the slug
 
         $education_slug = str_slug($education_title);
 
-        $education_details = Education::where('slug',$education_slug)->first();
+        $education_details = Education::where('slug',$education_slug)
+                                      ->where(function($query) use($request){
+                                        if($request->has('id') && !empty($request->get('id'))){
+                                            $query->whereNotIn('id',[$request->input('id')]);
+                                        }
+                                      })
+                                      ->first();
 
         $isAvailable   = true;
         if($education_details){
@@ -250,5 +260,67 @@ class EducationController extends Controller
 
         //return response
         return response()->json(array('valid'=> $isAvailable));
+    }
+
+
+    /**
+     * function to get the user submitted education (major that has not been approved by the admin yet)
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     *
+     *
+     */
+
+    public function getUserMajors(){
+        //get the career advisor submitted education where the education has not been approved by the user
+        $unapproved_majors = Education::where('parent','>',0)
+                                      ->where('is_approved','0');
+        //return response back to the 
+         return Datatables($unapproved_majors)
+               ->addColumn('action',function($unapproved_major){
+                    $return_html = '<a href="#" class="m-r-15 text-muted edit-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" data-major-id="'.$unapproved_major->id.'"><i class="icofont icofont-ui-edit" ></i></a><a href="#" class="m-r-15 text-muted approve-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Approve" data-major-id="'.$unapproved_major->id.'"><i class="icofont icofont-verification-check"></i></a><a href="#" class="text-muted delete-major" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" data-major-id="'.$unapproved_major->id.'"><i class="icofont icofont-delete-alt"></i></a>';
+                    return $return_html;
+                })->addColumn('major_category',function($unapproved_major){
+                        return $unapproved_major->parent_education->name;
+                                    
+                })->filterColumn('created_at', function ($unapproved_major, $keyword) {
+                    $unapproved_major->whereRaw("DATE_FORMAT(created_at,'%Y/%m/%d') like ?", ["%$keyword%"]);
+                })->addColumn('created_at',function($user){
+                    return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
+                })
+                ->addColumn('usage',function($unapproved_major){
+                    //need to get the total usage by the users
+                    return $unapproved_major->user_profiles()->count();
+                })->addColumn('submittedBy',function($unapproved_major){
+                    return $unapproved_major->submittedBy->name;
+                })
+                ->make('true');
+
+    }
+
+
+    /**
+     * approve the career advisor submitted majors
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     *
+     */
+    public function approveMajor(Request $request){
+        //get the education by the education id
+        $education_details   = Education::findOrFail($request->input('education_id'));
+        if($request->has('status') && $request->input('status') == "approved"):
+            //udpate the record in the storage
+            $education_details->is_approved = "1";
+            if($education_details->save()):
+                //success message to the client
+                return response()->json(array('status'=>'success','msg'=>'Education has been approved!!'),200);
+            else:
+                return response()->json(array('status'=>'failed','msg'=>'Cannot update recored in the storage, please try again'),200);
+            endif;
+             
+        else:
+            //failed reponse back to the client
+            return response()->json(array('status'=>'failed','msg'=>'Status not defined'),200);
+        endif;
     }
 }
