@@ -249,7 +249,7 @@
                                      if(selected_industry_name === " Others"){
                                          return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
                                      }else{
-                                         return "<p>Please select others if you want to add a new job title</p>";
+                                         return "<p>Didn't find job title, please select others as industry and add new job title</p>";
                                      } 
                                 }
                             }
@@ -397,7 +397,7 @@
                                  $(".faculty").data('select2').trigger("select", { 
                                     data: 
                                         { 
-                                            id: response.id,
+                                            id: response.major_id,
                                             text: response.major_title
                                         } 
                                 });
@@ -410,7 +410,68 @@
                     });
                     return false;
                 }); // formvalidation end for modal major add
-            });
+
+                //add new jobs by the career advisor
+                $('#jobAddForm').formValidation({
+                    framework: 'bootstrap',
+                    icon: {
+                        valid: 'fa fa-check',
+                        invalid: 'fa fa-times',
+                        validating: 'fa fa-refresh'
+                    },
+                    excluded: 'disabled',
+                    fields: {
+                        'jobTitle': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The job title is required'
+                                }
+                            }
+                        }
+                    }
+                }).on('success.form.fv',function(){
+                    //$("#majorAddForm")[0].submit();
+                    var user_data   = new FormData($("#jobAddForm")[0]);
+                    //make ajax request to add new major
+                    $.ajax({
+                        url          : "{{ route('add.customer.job') }}",
+                        type         : 'POST',
+                        dataType     : 'JSON',
+                        data         : user_data,
+                        processData  : false,
+                        contentType  : false,
+                        cache        : false,
+                        success      : function(response){
+                            if(response.status == "success"){
+                                $("#job_title").append(response.html);
+                                $("#job_title").select2({
+                                    allowClear: true,
+                                    escapeMarkup: function (markup) { return markup; },
+                                    placeholder: "Search or add job title if not found",
+                                    language: {
+                                        noResults: function () {
+                                             return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
+                                        }
+                                    }
+                                });
+                                 $("#job_title").data('select2').trigger("select", { 
+                                    data: 
+                                        { 
+                                            id: response.career_id,
+                                            text: response.career_title
+                                        } 
+                                });
+                                $('#addNewJobTitleModal').modal('hide');
+                            }
+                        },
+                        error        : function(error){
+                            console.log('cannot update record in the quishi system, Please try again');
+                        }
+                    });
+                    return false;
+                }); // formvalidation end for modal major add
+        });
+
     // initialize popover
     $(function () {
       $('[data-toggle="popover"]').popover()
@@ -427,6 +488,6 @@
     function noJobResultsButtonClicked(){
         $('#addNewJobTitleModal').modal('show');
     }
-    </script>
+</script>
 
 @endsection

@@ -25,4 +25,9 @@ class Education extends Model
     public function user_profiles(){
     	return $this->hasMany('App\Model\UserProfile');
     }
+
+
+    public function submittedBy(){
+        return $this->belongsTo('App\User','user_id','id');
+    }
 }

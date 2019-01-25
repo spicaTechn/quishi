@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Career;
 use App\Model\Question;
-use App\Model\User;
+use App\User;
 use DB,Auth;
 use App\Model\Tag;
 use App\Model\UserLink;
@@ -114,8 +114,25 @@ class BaseCareerAdvisorController extends Controller
     */
 
     public function getJobByIndustryId(Request $request){
-        //
-        $job_by_industry_id = Career::where('parent',$request->input('industry_id'))->select('id','title')->get();
+        
+        //get the admin added job title by the industry id
+        $admin_users        = User::where('logged_in_type','1')->select('id')->get();
+        $admin_ids          = array();
+        //loop throgh each admin users
+        foreach($admin_users as $admin_user):
+            array_push($admin_ids, $admin_user->id);
+        endforeach;
+
+        //check the career advisor is logged in or not
+        if(Auth::check()):
+            //if logged in add user id in the admin id
+            array_push($admin_ids,Auth::user()->id);
+        endif;
+
+        //get the job title by the parent industry that were added by the admins
+        $job_by_industry_id = Career::where('parent',$request->input('industry_id'))
+                                    ->whereIn('user_id',$admin_ids)
+                                    ->select('id','title')->get();
         $return_html = "";
         if($job_by_industry_id->count() > 0){
             foreach($job_by_industry_id as $job_title){
