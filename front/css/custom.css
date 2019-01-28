@@ -5278,7 +5278,7 @@ h6 span {
 
 .select2-container {
     width: 100% !important;
-    max-width: 600px;
+    max-width: 1000px;
 }
 
 .sweet-alert button {
