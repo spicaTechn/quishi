@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Industry;
 use Illuminate\Http\Request;
 use App\Model\Career;
 use App\Http\Controllers\Controller;
+use Auth;
+use Carbon\Carbon;
 
 class IndustryController extends Controller
 {
@@ -53,6 +55,7 @@ class IndustryController extends Controller
        $industryJobs->slug          = str_slug($request->input('title'));
        $industryJobs->description   = $request->input('description');
        $industryJobs->parent        = $request->input('parent_id');
+       $industryJobs->user_id       = Auth::user()->id;
        $industryJobs->save();
        return response()->json(array('status'=>'success','result'=>'successfully added the industry / job in the quishi system'),200);
     }
@@ -106,11 +109,12 @@ class IndustryController extends Controller
     public function update(Request $request, $id)
     {
         //
-       $career = Career::findOrFail($id);
+       $career                = Career::findOrFail($id);
        $career->title         = $request->input('title');
        $career->slug          = str_slug($request->input('title'));
        $career->description   = $request->input('description');
        $career->parent        = $request->input('parent_id');
+       $career->user_id       = Auth::user()->id;
        $career->save();
        return response()->json(array('status'=>'success','result'=>'successfully added udpadted industry / job in the quishi system'),200);
     }
@@ -159,7 +163,10 @@ class IndustryController extends Controller
     public function getCareerIndustry(){
 
         //get the career having the parent 0
-        $parent_job_category = Career::where('parent','=','0')->get();
+        $parent_job_category = Career::where('parent','=','0')
+                                     ->where('status','1')
+                                     ->where('is_approved','1')
+                                     ->get();
         $return_html         = "<option value='0'>None</option>";
         if($parent_job_category->count() > 0){
             foreach($parent_job_category as $parent_job){
@@ -176,7 +183,7 @@ class IndustryController extends Controller
 
 
     public function getJobs(){
-        $jobs = Career::where('parent' ,'>',0);
+        $jobs = Career::where('parent' ,'>',0)->where('is_approved','1');
         return Datatables($jobs)
                                 ->addColumn('parent_industry',function($job){
                                     return ucwords($job->parent_career->title);
@@ -200,7 +207,7 @@ class IndustryController extends Controller
                                 return $return_html;
                                 })
                                 ->addColumn('usage',function($job){
-                                    return '5';
+                                    return $job->users()->count();
                                 })
                                 ->make(true);
 
@@ -281,6 +288,71 @@ class IndustryController extends Controller
     }
 
 
+    //function to get the unapproved jobs
+
+    public function getUnapprovedJobs(Request $requst){
+        $unapproved_jobs = Career::where('parent' ,'>',0)->where('is_approved','0')->with('users');
+        return Datatables($unapproved_jobs)
+                                ->addColumn('parent_industry',function($unapproved_jobs){
+                                    return ucwords($unapproved_jobs->parent_career->title);
+                                })
+                                ->addColumn('action',function($unapproved_jobs){
+                                    $return_html = '<a href="#" class="m-r-15 text-muted edit-job" 
+                                                      data-toggle="tooltip" 
+                                                      data-placement="top" 
+                                                      title="" 
+                                                      data-original-title="Edit"
+                                                      data-industry-id="'.$unapproved_jobs->id.'">
+                                                   <i class="icofont icofont-ui-edit" ></i>
+                                                   </a>
+                                                   <a href="#" class="m-r-15 text-muted approve-jobs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Approve" data-industry-id="'.$unapproved_jobs->id.'"><i class="icofont icofont-verification-check"></i>
+                                                   </a>
+                                                   <a href="#" class="text-muted delete-job" 
+                                                      data-toggle="tooltip" 
+                                                      data-placement="top" title="" 
+                                                      data-original-title="Delete" 
+                                                      data-industry-id="'.$unapproved_jobs->id.'">
+                                                   <i class="icofont icofont-delete-alt"></i>
+                                                   </a>';
+                                return $return_html;
+                                })
+                                ->addColumn('usage',function($unapproved_jobs){
+                                   return  $unapproved_jobs->users()->count();
+                                })->filterColumn('created_at', function ($unapproved_jobs, $keyword) {
+                                        $unapproved_jobs->whereRaw("DATE_FORMAT(created_at,'%Y/%m/%d') like ?", ["%$keyword%"]);
+                                })->addColumn('created_at',function($unapproved_jobs){
+                                    return $unapproved_jobs->created_at ? with(new Carbon($unapproved_jobs->created_at))->format('Y/m/d') : '';
+                                })
+                                ->addColumn('submitted_by',function($unapproved_jobs){
+                                    return $unapproved_jobs->added_by->name;
+                                })
+                                ->make(true);
+    }
+
+
+    //approv jobs
+
+    public function approvJob(Request $request){
+        //get the education by the education id
+        $career_details   = Career::findOrFail($request->input('career_id'));
+        if($request->has('status') && $request->input('status') == "approved"):
+            //udpate the record in the storage
+            $career_details->is_approved = "1";
+            $career_details->status      = "1";
+            if($career_details->save()):
+                //success message to the client
+                return response()->json(array('status'=>'success','msg'=>'Job title has been approved!!'),200);
+            else:
+                return response()->json(array('status'=>'failed','msg'=>'Cannot update recored in the storage, please try again'),200);
+            endif;
+             
+        else:
+            //failed reponse back to the client
+            return response()->json(array('status'=>'failed','msg'=>'Job title not defined'),200);
+        endif;
+    }
+
+
 
 
     //function to check the dublication title for the industry and job title
@@ -294,7 +366,13 @@ class IndustryController extends Controller
         $career_slug     = str_slug($career_title);
 
         //get the career details by the career slug
-        $career_details = Career::where('slug',$career_slug)->first();
+        $career_details = Career::where('slug',$career_slug)
+                                ->where(function($query) use($request){
+                                        if($request->has('id') && !empty($request->get('id'))){
+                                            $query->whereNotIn('id',[$request->input('id')]);
+                                        }
+                                      })
+                                ->first();
         //initialize the variable here with boolean true value
         $isAvailable    = true;
 

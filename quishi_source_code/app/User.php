@@ -98,4 +98,11 @@ class User extends Authenticatable
     }
 
 
+    //function to return the admin users
+
+    public function admin_users(){
+        return $this->select('id')->where('logged_in_type','1')->get();
+    }
+
+
 }

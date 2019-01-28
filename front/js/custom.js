@@ -104,6 +104,11 @@ jQuery(document).ready(function($) {
         $(".blog-leave-comment").find('.view-all-blog-comments').hide();
     });
 
+    //profile_accordion focus
+        // $('.profile_accordion .btn').click(function(){
+        //     $(this).parent('div.profile_accordion').find('textarea').focus();
+        // });
+
 
     //$('.profile-coment-comment .form-group').hide();
     //show on click its div only
@@ -128,6 +133,22 @@ jQuery(document).ready(function($) {
            $('.notification-box').prependTo('.navbar .container-fluid');
            $('.navbar-collapse').prepend('<span class="close">&times;</span>');
        }
+
+       if ($(window).width() <= 767) {
+            $('.login-menu-mobile').prependTo('#navbarSupportedContent');
+
+           // Add slideDown animation to Bootstrap dropdown when expanding.
+             $('.dropdown').on('show.bs.dropdown', function() {
+               $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+             });
+
+             // Add slideUp animation to Bootstrap dropdown when collapsing.
+             $('.dropdown').on('hide.bs.dropdown', function() {
+               $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+             });
+       }
+
+      
 
     $(document).on('click', '.navbar-collapse .close', function(event) {
         $('.navbar-collapse').toggleClass('slideIn');
@@ -257,12 +278,12 @@ if ($(window).width() > 767) {
         $("#donation-Modal").modal('hide');
     });
 
-    $(document).on("click", function(event){
+    /*$(document).on("click", function(event){
         var $menu = $(".mobile-login-btn ");
         if($menu !== event.target && !$menu.has(event.target).length){
             $(".login-menu-mobile").slideUp();
         }            
-    });
+    });*/
 
     /*// notification
     $(".navbar-light .navbar-nav li.notification-box a ").click(function() {
@@ -294,6 +315,7 @@ if ($(window).width() > 767) {
 
     autosize(document.querySelectorAll('.forum-leave-comment textarea.form-control'));
     autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
+    autosize(document.querySelectorAll('.profile-author-comment .form-group textarea.form-control'));
     autosize(document.querySelectorAll('.profile-author-comment .form-group textarea.form-control'));
 
 

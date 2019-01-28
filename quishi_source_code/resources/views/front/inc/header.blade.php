@@ -22,27 +22,25 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand navbar-for-lg" href="{{URL::to('/')}}"><img src="{{asset('/front/images/logo.png')}}" class="img-fluid"></a>
-            <a class="navbar-brand navbar-for-xs" href="{{URL::to('/')}}"><img src="{{asset('/front/images/mobile-logo.png')}}" class="img-fluid"></a>
+            <a class="navbar-brand" href="{{URL::to('/')}}"><img src="{{asset('/front/images/logo.png')}}" class="img-fluid"></a>
+            <!-- <a class="navbar-brand navbar-for-xs" href="{{URL::to('/')}}"><img src="{{asset('/front/images/mobile-logo.png')}}" class="img-fluid"></a> -->
             <button class="navbar-toggler">
                 <span class="navbar-icon"></span>
                 <span class="navbar-icon"></span>
                 <span class="navbar-icon"></span>
             </button>
 
-            <div class="mobile-login-btn ">
+            <!-- <div class="mobile-login-btn ">
                 <i class="icon-user"></i>
-                <span>  Account </span>
-            </div>
+                <span></span>
+            </div> -->
 
             <div class="login-menu login-menu-mobile">
                 <ul>
                     <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
                 <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
-                                  
-                </ul>
 
-                        <!-- if user is logdin -->
+                <!-- if user is logdin -->
 
                         <li class="nav-item dropdown logdin">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,9 +49,13 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Change Password</a></li>
-                            <li><a href="#"> Logout</a></li>
+                            <li><a class="dropdown-item"href="#"> Logout</a></li>
                         </ul>
                     </li>
+                                  
+                </ul>
+
+                  <h4>Main Menu</h4>      
 
 
             </div>

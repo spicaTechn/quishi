@@ -100,15 +100,7 @@
                                              </tr>
                                           </thead>
                                           <tbody>
-                                             <tr>
-                                                <td>1</td>    
-                                                <td>Sanskrit</td>    
-                                                <td>Others</td>    
-                                                <td>1</td>    
-                                                <td>10 Jan 2019</td>    
-                                                <td><a href="#">Ram Thapa</a></td>  
-                                                <td>Edit Delete Approve</td>    
-                                             </tr>
+                                             
                                           </tbody>
                                        </table>
                                     </div>
@@ -296,6 +288,47 @@ $(document).ready(function () {
         
     });
 
+    //career advisor submitted education that has not been approved yet
+
+    // datatable for active subscription
+    var unpproved_major_table = $('.tbl-user-submitted-major').DataTable({
+        dom                   : 'Bfrtip',
+        buttons               :[
+                                 'excel',
+                                 'print'
+                               ],
+        destroy               :true,
+        processing            :true,
+        serverSide            :true,
+        ajax                  : {
+                                 url :"{{route('admin.unapproved.major')}}",
+                                 type : "GET",
+
+                                },
+        columns:[
+        {
+            "data": "id",
+             render: function (data, type, row, meta) {
+                 return meta.row + meta.settings._iDisplayStart + 1;
+             }
+        },
+        {"data" :"name","name":"name"},
+        {"data":"major_category",'name':"major_category"},
+        {"data":"usage","name":"usage"},
+        {"data":"created_at","name":"created_at"},
+        {"data":"submittedBy" ,'name' : 'submittedBy'},
+        {"data":"action" , "name" :"action"},
+        
+        ],
+        "fnInitComplete": function(oSettings, json) {
+          tool_tip();
+        }
+        
+    });
+
+
+
+    var form = document.getElementById('major-category-major-form');
     // Fomvalidation setup
     $('#major-category-major-form').on('init.field.fv', function(e, data) {
             var $parent = data.element.parents('.form-group'),
@@ -326,6 +359,12 @@ $(document).ready(function () {
                         remote:{
                           message : 'The title is already taken',
                           method  : 'GET',
+                          data    : function(){
+                                return {
+                                  'id': form.querySelector('[name="major_category_id"]').value 
+
+                                };
+                            },
                           url     : "{{route('admin.education.checkEducationTitle')}}"
                         }
                     }
@@ -426,8 +465,40 @@ $(document).ready(function () {
             $('.parent-major-category').html(data.result);
             console.log(data.result);
          });
+
+       $(".major_category_id").val(" ");
 	     $('#add-edit-major-category').modal('show');
 	}); // end add new button click
+
+
+    //approve the career advisor submitted education
+    $('body').on('click','.approve-major',function(e){
+      e.preventDefault();
+      var education_id = $(this).attr('data-major-id');
+      var status       = 'approved';
+      $.post("{{route('admin.approve.major')}}",{education_id : education_id , _token : "{{csrf_token() }}",status : status},function(response){
+        if(response.status == "success"){
+          swal({
+                title: "Career Advisor Education approved!",
+                text: "Career added education has been approved and updated successfully!",
+                type: "success",
+                closeOnConfirm: true,
+            });
+
+          //need to reload the table
+          unpproved_major_table.ajax.reload();
+          major_table.ajax.reload();
+        }else if(reponse.status == "failed"){
+          swal({
+                title: "Education cannot be approved!",
+                text: response.msg,
+                type: "error",
+                closeOnConfirm: true,
+            });
+        }
+
+      });
+    });
 
 
 
