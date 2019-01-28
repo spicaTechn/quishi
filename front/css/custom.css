@@ -1733,7 +1733,7 @@ ul.social-links li {
 }
 
 .profile-setup textarea.form-control {
-    height: 100px;
+    height: 70px;
     margin-bottom: 20px;
     padding: 10px;
 }
@@ -5309,4 +5309,22 @@ input::-webkit-inner-spin-button {
 
 .view-more {
     text-align: center;
+}
+.profile_setup_back_btn {
+    background: none;
+    color: #000;
+    border: 1px solid currentColor;
+    min-width: 80px;
+}
+
+.profile_accordion {
+    margin-bottom: 40px;
+}
+
+.profile_accordion .card-body {
+    padding: 0;
+}
+
+.profile_accordion .card-body textarea {
+    margin: 0;
 }

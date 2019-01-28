@@ -131,13 +131,13 @@
 
             <div class="row">
                 
-                <div class="col-lg-6">
+                <div class="col-lg-1">
                         <div class="text-left">
-                            <button type="button" class="btn btn-default" id="profile_setup_back_btn">{{ __('Back') }}</button>
+                            <button type="button" class="btn btn-default profile_setup_back_btn" id="profile_setup_back_btn">{{ __('Back') }}</button>
                         </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="text-right">
+                <div class="col-lg-3">
+                    <div class="text-left">
                         <button type="submit" class="btn btn-default"> {{ __('Proceed and Continue') }} </button>
                     </div>
                 </div>

@@ -60,7 +60,7 @@
                                     </a>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal modal-quishi" id="donation-Modal">
+                                <div class="modal modal-quishi fade" id="donation-Modal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">

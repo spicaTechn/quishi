@@ -104,6 +104,11 @@ jQuery(document).ready(function($) {
         $(".blog-leave-comment").find('.view-all-blog-comments').hide();
     });
 
+    //profile_accordion focus
+        // $('.profile_accordion .btn').click(function(){
+        //     $(this).parent('div.profile_accordion').find('textarea').focus();
+        // });
+
 
     //$('.profile-coment-comment .form-group').hide();
     //show on click its div only
