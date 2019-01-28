@@ -675,7 +675,7 @@ p {
 .profile-info p {
     color: #5f6d4d;
     /*font-family: Avenir LT Std;*/
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .view-section a {
@@ -1787,7 +1787,7 @@ ul.social-links li {
 }
 
 .profile-setup textarea.form-control {
-    height: 100px;
+    height: 70px;
     margin-bottom: 20px;
     padding: 10px;
 }
