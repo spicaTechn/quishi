@@ -34,6 +34,22 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4 col-lg-3">
+                            <div class="footer-section">
+                                @if($contact_social)
+                                <div class="footer-social-media">
+                                    <ul class="social-links">
+                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                 @endif
+                            </div>
+                        </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="footer-section">
                                 <!-- <h4>Donate</h4> -->
@@ -43,7 +59,7 @@
                                     </a>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal modal-quishi" id="donation-Modal">
+                                <div class="modal modal-quishi fade" id="donation-Modal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -143,21 +159,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-4 col-lg-3">
-                        	<div class="footer-section">
-                        		@if($contact_social)
-                        		<div class="footer-social-media">
-                                    <ul class="social-links">
-                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    </ul>
-                        		</div>
-                        		 @endif
-                        	</div>
-                        </div>
+                        
                     </div>
                     
                 </div>
