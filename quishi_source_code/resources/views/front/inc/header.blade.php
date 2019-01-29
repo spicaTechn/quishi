@@ -59,11 +59,11 @@
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link {{Request::is('career-advisior*') ? 'active ' : '' }}">{{ __('Profiles')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link {{Request::is('blog*') ? 'active ' : '' }}">{{ __('Blog')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link {{Request::is('about*') ? 'active ' : '' }}">{{ __('About')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link {{Request::is('contact*') ? 'active ' : '' }}">{{ __('Contact')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link {{Request::is('career-advisior*') ? 'active ' : '' }}">{{ __('Profiles')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
                     @if(Auth::user())
                     @if(Auth::user()->notifications()->count() > 0)
                     <li class="nav-item notification-box  @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ '_all_not_seen'}} @endif"><a href="#" class="nav-link"><i class="fa fa-globe"></i> @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0)  <span class="badge">{{Auth::user()->notifications()->where('seen_flag','0')->count()}} @endif</span></a>
@@ -111,7 +111,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    @if(Auth::user()->sign_in_type == '0')
                                     <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
+                                    @endif
                                     <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
                                 </ul>
                             </li>
@@ -123,7 +125,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{(Auth::user()->logged_in_type == 1) ? route('admin.dashboard') : route('profile')}}">{{ __('Profile') }}</a></li>
+                                    @if(Auth::user()->sign_in_type == "0")
                                     <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
+                                    @endif
                                     <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
                                 </ul>
                             </li>

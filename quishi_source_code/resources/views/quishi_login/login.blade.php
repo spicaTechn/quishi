@@ -6,7 +6,11 @@
                     <div class="col-md-6">
                         <div class="login-left-part">
                             <h3>{{ __('Login')}}</h3>
-                            
+                            @if(Session::has('status'))
+                                <div class="activated_account_msg alert alert-success">
+                                    {{ Session::get('status') }}
+                                </div>
+                            @endif
                             <form method="post" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                             	@csrf
                                 <div class="form-group">

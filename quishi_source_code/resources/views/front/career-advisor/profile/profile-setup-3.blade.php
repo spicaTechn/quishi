@@ -16,12 +16,12 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="text-left">
-                        <button type="submit" class="btn btn-default">Setup my profile</button>
+                        <button type="button" class="btn btn-default" id="profile_setup_back">Back</button>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="text-left">
-                        <button type="button" class="btn btn-default" id="profile_setup_back">Back</button>
+                        <button type="submit" class="btn btn-default">Setup my profile</button>
                     </div>
                 </div>
             </div> 

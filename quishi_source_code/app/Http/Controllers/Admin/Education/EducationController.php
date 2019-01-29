@@ -311,11 +311,12 @@ class EducationController extends Controller
         if($request->has('status') && $request->input('status') == "approved"):
             //udpate the record in the storage
             $education_details->is_approved = "1";
+            $education_details->user_id     = Auth::user()->id; //to do if we need to list the career advisor added education details then we need to change the database structure thus we can alter those changes there
             if($education_details->save()):
                 //success message to the client
                 return response()->json(array('status'=>'success','msg'=>'Education has been approved!!'),200);
             else:
-                return response()->json(array('status'=>'failed','msg'=>'Cannot update recored in the storage, please try again'),200);
+                return response()->json(array('status'=>'failed','msg'=>'Cannot update record in the storage, please try again'),200);
             endif;
              
         else:

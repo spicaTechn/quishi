@@ -196,8 +196,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <h1 class="margsixt">
-                <a href="https://quishi.com">
-                  <img src="https://beta.quishi.com/front/images/logo.png"/>
+                 <a href="{{ url('/') }}" target="_blank">
+                  <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
               </h1>
             </td>
@@ -212,17 +212,17 @@ a img {
                 <td>
                   <div data-rc="mailers/user_mailer/signup_welcome">
                     <h1 class="welcome">
-                      Hi Kevin,
+                      Hi {{ $name }},
                     </h1>
                     <p>Warm welcome from Quishi</p>
                     <p>You're almost ready to using our platform - but first we need to verify your email address in order to publish your content to our platform. Click the button below to verify your email address.</p>
                     <p style="padding-top:16px">
-                      <a target="_blank" class="button" href="#">Verify your email</a>
+                      <a target="_blank" class="button" href="{{ $callback_url }}">Verify your email</a>
                     </p>
                     <p>Or paste below URL to your browser</p>
                     <p>
-                      <a href="https://quishi.com/verifyUser/12567889">
-                      https://quishi.com/verifyUser/12567889
+                      <a href="{{$callback_url}}">
+                      {{ $callback_url }}
                       </a>
                     </p>
                     <hr>
@@ -242,8 +242,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <div class="margsixt">
-                <a href="https://quishi.com" target="_blank">
-                <img src="https://beta.quishi.com/front/images/logo.png"/>
+                 <a href="{{ url('/') }}" target="_blank">
+                <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
                 <br><i class="far fa-copyright"></i> Quishi 2019</div>
             </td>

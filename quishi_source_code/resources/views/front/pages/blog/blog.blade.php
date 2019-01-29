@@ -34,7 +34,7 @@
                                 @else
                                    <img src="https://pixinvent.com/materialize-material-design-admin-template/images/avatar/avatar-7.png" alt="{{$blog->user->name}}" class="cyan"> 
                                 @endif
-                                <a href="#!">{{$blog->user->name}}</a>
+                                <a href="{{url('/career-advisor/'.$blog->user->id.'/'. $blog->user->user_profile->first_name)}}">{{$blog->user->name}}</a>
                                 </div>
 	                            <h3><a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}">{{ $blog->title }}</a></h3>
 	                             <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>
