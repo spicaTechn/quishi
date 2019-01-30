@@ -1,7 +1,7 @@
 
 @if(count($users_lists) > 0)
 @foreach($users_lists as $user_list)
-<div class="col-lg-4 isotopeSelector">
+<div class="col-lg-4">
     <div class="trending-profiles-section">
         <div class="full-list-view">
             <div class="profile-image">
@@ -22,11 +22,15 @@
         <div class="full-list-view">
             <div class="profile-slills">
                 <ul>
-                  @if(count($user_list['user_tag']) > 0)
-                    @foreach($user_list['user_tag'] as $key=>$tag)
-                    <li><a href="#">{{$tag['tag_title']}}</a></li>
-                    @endforeach
-                  @endif
+                    @if(count($user_list['user_tag']) > 0)
+                        <?php $i=0;?>
+                        @foreach($user_list['user_tag'] as $key=>$tag)
+                            <?php if($i <= 1):?>
+                              <li><a href="javascript:void(0);">{{ucwords($tag['tag_title'])}}</a></li>
+                            <?php endif;?>
+                        <?php $i++;?>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
             <div class="profile-info">

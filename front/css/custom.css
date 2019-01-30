@@ -2009,8 +2009,8 @@ a.user-add-btn {
     margin-left: 7px;
 }
 
-.profile-sidemenu ul li.active a,
-.profile-sidemenu ul li a:hover {
+.profile-sidemenu ul li.active > a,
+.profile-sidemenu ul li > a:hover {
     border-left: 3px solid #5b980c;
     color: #5b980c;
 }

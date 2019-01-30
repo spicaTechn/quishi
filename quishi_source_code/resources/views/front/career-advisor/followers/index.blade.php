@@ -34,8 +34,8 @@
                         <div class="full-list-view">
                             <div class="profile-slills">
                                 <ul>
-                                    @foreach($follower->tags as $tag)
-                                    <li><a href="#">{{ucwords($tag->title)}}</a></li>
+                                    @foreach($follower->tags->take(3) as $tag)
+                                    <li><a href="javascript:void(0);">{{ucwords($tag->title)}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

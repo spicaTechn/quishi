@@ -4,7 +4,7 @@
             @if($recent_comments->comment_poster->user_profile->image_path != "" && $recent_comments->type != '1')
                 <img src="{{ asset('/front/images/profile/'.$recent_comments->comment_poster->user_profile->image_path)}}">
             @else
-                <img src="http://localhost/quishi/front /images/profile/1.jpg">
+                <img src="http://localhost/quishi/front/images/profile/1.jpg">
             @endif
         </div>
 
