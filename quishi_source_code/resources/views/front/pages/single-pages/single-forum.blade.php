@@ -1,6 +1,6 @@
 @extends('front.layout.master') 
 @section('title')
- {{$question->slug . ' | Quishi'}}
+ {{$question->title . ' | Quishi'}}
 @endsection
 @section('page_specific_css')
 <!-- Load the sweetalert css -->
