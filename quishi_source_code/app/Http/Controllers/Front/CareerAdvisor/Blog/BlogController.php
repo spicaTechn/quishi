@@ -61,7 +61,7 @@ class BlogController extends Controller
         $this->post->user_id        = Auth::user()->id;
         $this->post->content        = $request->input('blog_description');
         $this->post->abstract       = $request->input('blog_abstract');
-        $this->post->published_date = Carbon::parse($request->input('_blog_published_date'))->format('Y-m-d');
+        $this->post->published_date = Carbon::now();
 
         //check for the images for not
         if($request->has('_featured_image')){
@@ -130,7 +130,7 @@ class BlogController extends Controller
         $this->post->user_id        = Auth::user()->id;
         $this->post->content        = $request->input('blog_description');
         $this->post->abstract       = $request->input('blog_abstract');
-        $this->post->published_date = Carbon::parse($request->input('_blog_published_date'))->format('Y-m-d');
+        //$this->post->published_date = Carbon::parse($request->input('_blog_published_date'))->format('Y-m-d');
 
         if($request->has('_featured_image')){
             //need to save the image first

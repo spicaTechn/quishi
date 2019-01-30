@@ -110,7 +110,7 @@
                     
                         <div class="form-group">
                             <label>Describe a little bit about you</label>
-                            <textarea class="form-control" name="description" id="description">{{old('description')}} @if(Auth::user()->user_profile()->count() > 0) {{ auth::user()->user_profile->description}} @endif</textarea>
+                            <textarea class="form-control" name="description" id="description" required="required">{{old('description')}} @if(Auth::user()->user_profile()->count() > 0) {{ auth::user()->user_profile->description}} @endif</textarea>
                         </div>
                         
                    

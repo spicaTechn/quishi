@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Quishi | Privacy Policies')
 @section('content')
 
 <div class="frequently-question">

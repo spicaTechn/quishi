@@ -72,11 +72,11 @@
     <script>
 
 		$(function () {
-			$("#datepicker").datepicker({ 
-				autoclose: true, 
-				format  : 'yyyy-mm-dd',
-				//endDate : new Date(),
-			});
+			// $("#datepicker").datepicker({ 
+			// 	autoclose: true, 
+			// 	format  : 'yyyy-mm-dd',
+			// 	//endDate : new Date(),
+			// });
 		});
 
 		function readURL(input) {

@@ -26,7 +26,7 @@
                         <div class="full-list-view">
                             <div class="profile-slills">
                                 <ul>
-                                    @foreach($following_adviser->tags as $tag)
+                                    @foreach($following_adviser->tags->take(3) as $tag)
                                     <li><a href="#">{{ucwords($tag->title)}}</a></li>
                                     @endforeach
                                 </ul>

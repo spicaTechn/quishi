@@ -114,7 +114,11 @@ class UserController extends Controller
 
 
     public function getCareerAdvisor(){
-        $career_advisiors   = User::with('user_profile','careers')->where('logged_in_type',1);
+        $career_advisiors   = User::with(['user_profile','careers'])
+                                  ->whereHas('user_profile',function($q){
+                                    $q->where('profile_setup_status','>=','1');
+                                  })
+                                  ->where('logged_in_type',1);
         return Datatables($career_advisiors)
                
                ->addColumn('job_title',function(User $user){

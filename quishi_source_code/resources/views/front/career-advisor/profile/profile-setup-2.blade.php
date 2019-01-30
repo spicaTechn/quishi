@@ -265,7 +265,7 @@
                             placeholder: "Search or add job title if not found",
                             language: {
                                 noResults: function () {
-                                    return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
+                                    return "<p class='message-not-found'>Oops! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
                                 }
                             }
                        });
@@ -360,7 +360,7 @@
                     placeholder: "Search select or add major if not found",
                     language: {
                         noResults: function () {
-                             return "<p class='message-not-found'>Opps ! can't find your desired major, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noResultsButtonClicked()' class='user-add-btn'>Add new major</a><a href='javascript:void(0);' onclick='learnMoreClicked()'> Learn more</a>";
+                             return "<p class='message-not-found'>Oops! we can't find your desired major, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noResultsButtonClicked()' class='user-add-btn'>Add new major</a><a href='javascript:void(0);' onclick='learnMoreClicked()'> Learn more</a>";
                         }
                     }
                 });
@@ -465,7 +465,7 @@
                                     placeholder: "Search or add job title if not found",
                                     language: {
                                         noResults: function () {
-                                             return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
+                                             return "<p class='message-not-found'>Opps! we can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
                                         }
                                     }
                                 });

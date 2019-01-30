@@ -1,4 +1,7 @@
 @extends('front.layout.master')
+@section('title')
+ {{$user->user_profile->first_name .' - Quishi'}}
+@endsection
 @section('content')
 <div class="cover-photo">
     <img src="{{ asset('/front') }}/images/profile/banner.jpg" alt="cover photo">
@@ -12,7 +15,7 @@
                                 @if(isset($user->user_profile->image_path) && !empty($user->user_profile->image_path))
                                     <img src="{{asset('/front')}}/images/profile/{{ $user->user_profile->image_path }}" alt="{{$user->user_profile->first_name}}">
                                 @else
-                                    <img src="{{asset('/front')}}/images/default-avatar.png" alt="{{$user->user_profile->first_name}}">
+                                    <img src="{{asset('/front')}}/images/blog1.jpg" alt="{{$user->user_profile->first_name}}">
                                 @endif
                             </div>
                             <!-- end front-profile -->
@@ -21,7 +24,7 @@
                                 @foreach($user->careers as $career)
                                  <span class="small">{{ ucwords($career->title) }}</span>
                                 @endforeach
-                                <span class="small">{{ $user->email }}</span>
+                                <!-- <span class="small">{{-- {{ $user->email }} --}}</span> -->
                             </div>
                             <!-- end profile-name-detail -->
                             <div class="about-profile-detail">
@@ -84,7 +87,7 @@
                                 @foreach($user->careers as $career)
                                  <span class="small">{{ ucwords($career->title) }}</span>
                                 @endforeach
-                                <span class="small">{{ $user->email }}</span>
+                               <!--  <span class="small">{{-- {{ $user->email }}--}}</span> -->
                                 
                             </div>
                             <!-- end profile-name-detail -->

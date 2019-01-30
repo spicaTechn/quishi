@@ -137,10 +137,10 @@
                 <li class="{{ Request::is('profile/answers*') ? 'active' : '' }}"><a href="{{url('/profile/answers')}}"><i class="ti-write"></i> My answers</a></li>
                 <li class="{{ Request::is('profile/reviews*') ? 'active' : '' }}"><a href=" {{url('/profile/reviews')}} "><i class="ti-comment-alt"></i> Admin reviews<span class="badge badge-pill badge-danger">{{ Auth::user()->reviews()->where('status','0')->count() }}</span></a></li>
                 <li class="{{Request::is('profile/my-account*') ? 'active' : ''}}"><a  href="{{route('careerAdvisior.my-account.index')}}"><i class="ti-user"></i> My account</a></li>
-                <li class="blog-dropdown {{ Request::is('profile/blogs*') ? 'active' : '' }}" ><a href="#"><i class="ti-pencil-alt"></i>Blogs<i class="ti-angle-right"></i></a>
-                    <ul class="blog-dropdown-menu">
-                        <li class="{{ Request::is('profile/blogs/') ? 'active' : '' }}"><a href="{{route('profile.blog.index')}}"><i class="ti-angle-right"></i> All Blogs</a></li>
-                        <li class="{{ Request::is('profile/blogs/create/') ? 'active' : '' }}"><a href="{{route('profile.blog.create')}}"><i class="ti-angle-right"></i> Add Blog</a></li>
+                <li class="blog-dropdown {{ Request::is('profile/blogs*') ? 'active open' : '' }}" ><a href="#"><i class="ti-pencil-alt"></i>Blogs<i class="ti-angle-right"></i></a>
+                    <ul class="blog-dropdown-menu" {{ Request::is('profile/blogs*') ? 'style=display:block;' : '' }} >
+                        <li class="{{ Request::is('profile/blogs/index') ? 'active' : '' }}"><a href="{{route('profile.blog.index')}}"><i class="ti-angle-right"></i> All Blogs</a></li>
+                        <li class="{{ Request::is('profile/blogs/create') ? 'active' : '' }}"><a href="{{route('profile.blog.create')}}"><i class="ti-angle-right"></i> Add Blog</a></li>
                     </ul>
                 </li>
                 

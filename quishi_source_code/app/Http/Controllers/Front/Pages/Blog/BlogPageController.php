@@ -198,12 +198,23 @@ class BlogPageController extends Controller
      *
      */
 
-    public function media(Request $requst){
-        $medias = Post::where('type','2')->orderBy('published_date','desc')->paginate(6);
+    public function media(Request $request){
+
+        if($request->has('blog_title')):
+            $medias = Post::where('type','2')
+                        ->orderBy('published_date','desc')
+                        ->where('title','like','%'.$request->input('blog_title') .'%')
+                        ->paginate(9);
+        else:
+        $medias = Post::where('type','2')
+                      ->orderBy('published_date','desc')
+                      ->paginate(6);
+        endif;
         return view('front.pages.blog.blog')->with(array(
              'site_title'    =>    'Quishi',
              'page_title'    =>    'Blog',
-             'blogs'         =>    $medias
+             'blogs'         =>    $medias,
+             'url'           =>    url('/media')
         ));
     }
 

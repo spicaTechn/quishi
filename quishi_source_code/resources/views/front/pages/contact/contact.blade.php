@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Quishi | Contact')
 @section('page_specific_css')
 
 <!-- Load the sweetalert css -->

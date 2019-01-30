@@ -1,4 +1,25 @@
 @extends('front.layout.master')
+@section('title')
+ {{ $blog_details->title . ' - Quishi'}}
+@endsection
+@section('meta_details')
+ @if($blog_details->image_path != "")
+<div class="blog-single-img">
+    <img src="{{ asset('/front/images/blogs/'.$blog_details->image_path) }}" alt="" style="">
+</div>
+@endif
+<?php $ogimage = asset('/front/images/blogs').'/'.$blog_details['image'];?>
+<!-- <meta property="fb:app_id" content="588023938211526" /> -->
+<meta property="og:title"        content="{{ $blog->title }}" />
+<meta property="og:abstract"     content="{{ $blog_details['abstract'] }}" />
+<meta property="og:date"         content="{{ $blog_details['date'] }}" />
+<meta property="og:type"         content="website" />
+<meta property="og:url"          content="{{ URL::to('/blog-share'.'/'.$blog->user_id.'/'.$blog->id) }}" />
+<meta property="og:image"        content="{{ $ogimage }}" />
+<meta property="og:image:width"  content="100%" />
+<!-- <meta property="og:image:height" content="315px" /> -->
+<meta property="og:description"  content="{{ $blog->content }}" />
+@endsection
 @section('content')
 <div class="blog-single-pg">
     <div class="container">
@@ -8,13 +29,15 @@
                     <div class="fixed-top-section" id="blogHeader">
                         
                         <div class="blog-single-post clearfix">
-                              @if($blog_details->user->user_profile()->select('image_path')->first())
+                              @if($blog_details->user->user_profile->image_path != "")
                                 <div class="post-img">
                                     <img src="{{ asset('/front/images/profile/'.$blog_details->user->user_profile->image_path)}}" alt="">
                                 </div>
                               @else
                                 <div class="post-img">
-                                   <img src="{{ asset('/front/images/profile/users.png') }}" >
+                                    @if($blog_details->type == '1')
+                                    <img src="{{ asset('/front/images/blog1.jpg') }}" >
+                                    @endif
                                 </div>
                               @endif
                             <div class="post-date">
@@ -22,8 +45,7 @@
                                     <li>Published on
                                         <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
                                     </li>
-                                    <li>By: <a href="{{URL::to('/career-advisor/'.$blog_details->user->id.'/'.$blog
-                                        _details->user->user_profile->first_name)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
+                                    <li>By:  @if($blog_details->type == '1')<a href="{{URL::to('/career-advisor/'.$blog_details->user->id.'/'.$blog_details->user->user_profile->first_name)}}" target="_blank">{{ucwords($blog_details->user->name)}}@else {{ 'Quishi' }} @endif</a></li>
                                 </ul>
                             </div>
                         </div>
