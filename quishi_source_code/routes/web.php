@@ -300,7 +300,7 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 
 	//blog section for the blog 
 
-	Route::get('/blogs',[
+	Route::get('/blogs/index',[
 		'as'	=> 'profile.blog.index',
 		'uses'	=> 'Front\CareerAdvisor\Blog\BlogController@index'
 	]);

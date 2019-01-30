@@ -6,7 +6,7 @@
         @if($comment_reply->comment_poster->user_profile->image_path != "" && $comment_reply->type != '1')
         <img src="{{ asset('/front/images/profile/'.$comment_reply->comment_poster->user_profile->image_path)}}">
         @else
-            <img src="http://localhost/quishi/front /images/profile/1.jpg">
+            <img src="http://localhost/quishi/front/images/profile/1.jpg">
         @endif
     </div>
     

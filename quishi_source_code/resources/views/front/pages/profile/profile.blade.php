@@ -90,10 +90,10 @@
                       <input type="text" name="search_by_name" id="search_by_name" class="form-control" placeholder="search by name">
                   </div>
                 </div>        
-                <div class="row show_more_career_advisior isotopeContainer2">
+                <div class="row show_more_career_advisior">
                     @if(count($users_lists) > 0)
                     @foreach($users_lists as $user_list)
-                    <div class="col-lg-4 isotopeSelector">
+                    <div class="col-lg-4">
                         <div class="trending-profiles-section">
                             <div class="full-list-view">
                                 <div class="profile-image">
@@ -105,7 +105,6 @@
                                 </div>
                                 <div class="profile-desination">
                                     <h3>{{ $user_list['first_name'] }}</h3>
-                                   
                                     <span>{{ ucwords($user_list['career'])  }}</span>
                                
                                 </div>
@@ -115,8 +114,12 @@
                                 <div class="profile-slills">
                                     <ul>
                                       @if(count($user_list['user_tag']) > 0)
+                                      <?php $i=0;?>
                                         @foreach($user_list['user_tag'] as $key=>$tag)
-                                        <li><a href="#">{{ucwords($tag['tag_title'])}}</a></li>
+                                        <?php if($i <= 1):?>
+                                          <li><a href="javascript:void(0);">{{ucwords($tag['tag_title'])}}</a></li>
+                                        <?php endif;?>
+                                        <?php $i++;?>
                                         @endforeach
                                       @endif
                                     </ul>
@@ -312,7 +315,9 @@ $(document).ready(function () {
               }else{
                 $("span.profile_text").html(' Profile');
               }
+
             }
+
           },
           complete:function(data){
              $("#load_more").html('Load More');
