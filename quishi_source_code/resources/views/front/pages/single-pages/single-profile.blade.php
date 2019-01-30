@@ -15,7 +15,7 @@
                                 @if(isset($user->user_profile->image_path) && !empty($user->user_profile->image_path))
                                     <img src="{{asset('/front')}}/images/profile/{{ $user->user_profile->image_path }}" alt="{{$user->user_profile->first_name}}">
                                 @else
-                                    <img src="{{asset('/front')}}/images/default-avatar.png" alt="{{$user->user_profile->first_name}}">
+                                    <img src="{{asset('/front')}}/images/blog1.jpg" alt="{{$user->user_profile->first_name}}">
                                 @endif
                             </div>
                             <!-- end front-profile -->

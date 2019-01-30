@@ -30,12 +30,18 @@
 	                        <div class="blog-content">
                                 <div class="chip right">
                                     
-                                @if($blog->user->user_profile->image_path != null)
-                                  <img src="{{ asset('/front')}}/images/profile/{{$blog->user->user_profile->image_path}}" alt="{{$blog->user->name}}" class="cyan"> 
+                                @if($blog->user->user_profile->image_path == "")
+                                  <img src="{{ asset('/front /images/blog1.jpg')}} " alt="{{$blog->user->name}}" class="cyan"> 
                                 @else
-                                   <img src="https://pixinvent.com/materialize-material-design-admin-template/images/avatar/avatar-7.png" alt="{{$blog->user->name}}" class="cyan"> 
+                                   <img src="{{ asset('/front/images/profile/'.$blog->user->user_profile->image_path)}}" alt="{{$blog->user->name}}" class="cyan"> 
                                 @endif
-                                <a href="{{url('/career-advisor/'.$blog->user->id.'/'. $blog->user->user_profile->first_name)}}">{{$blog->user->name}}</a>
+
+                                @if($blog->type == "1")
+                                  <a href="{{url('/career-advisor/'.$blog->user->id.'/'. $blog->user->user_profile->first_name)}}">{{ucwords($blog->user->name)}}</a>
+                                @else
+                                   <a href="#">{{ 'Quishi'}}</a>
+                                @endif
+
                                 </div>
 	                            <h3><a href="{{ url('/blog').'/'.$blog->id .'/'.$blog->slug }}">{{ $blog->title }}</a></h3>
 	                             <p>{{ ($blog->abstract != "") ? substr($blog->abstract,0,150) .'..' : substr($blog->content,0,150) . '...' }}</p>

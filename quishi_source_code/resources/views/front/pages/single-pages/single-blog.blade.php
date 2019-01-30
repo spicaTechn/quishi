@@ -18,9 +18,9 @@
                               @else
                                 <div class="post-img">
                                     @if($blog_details->type == '1')
-                                    <img src="{{ asset('/front/images/profile/users.png') }}" >
+                                    <img src="{{ asset('/front/images/blog1.jpg') }}" >
                                     @else
-                                         <img src="{{ asset('/front/images/logo.png') }}" >
+                                         <img src="{{ asset('/front/images/blog1.jpg') }}" >
                                     @endif
                                 </div>
                               @endif

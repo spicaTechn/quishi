@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-@section('title','Quishi | About Qusihi')
+@section('title','Quishi | About')
 @section('content')
 <div class="about-section">
     <div class="container">
