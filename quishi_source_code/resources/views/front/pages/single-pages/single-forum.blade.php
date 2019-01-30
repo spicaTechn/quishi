@@ -2,6 +2,33 @@
 @section('title')
  {{$question->title . ' | Quishi'}}
 @endsection
+
+@section('meta_details')
+
+ <?php $ogImage = asset('/front/images/default-blog-image-og.png'); ?>
+
+ @if($question->type == 1)
+    <?php $questionBy = 'Anonymous'; ?>
+ @else
+    <?php $questionBy = $question->user->user_profile->first_name; ?>
+ @endif
+
+ @if($question->forum_question_answers->count() > 0)
+    @foreach($question->forum_question_answers()->where('parent',0)->orderBy('created_at','desc')->take(1)->get() as $forum_answer)
+        <?php $ogDescription = ucfirst($forum_answer->content); ?>
+    @endforeach
+ @else
+    <?php $ogDescription = '1 person wants answer to this question. Be the first to answer.' ?>
+ @endif
+ 
+<meta property="og:url"                content="{{ url()->full() }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="{{ $question->title }} | By {{$questionBy}}" />
+<meta property="og:description"        content="{{ $ogDescription }}" />
+<meta property="og:image"              content="<?php echo $ogImage; ?>" />
+
+@endsection
+
 @section('page_specific_css')
 <!-- Load the sweetalert css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
@@ -26,11 +53,6 @@
                         <div class="forum-title-bar">
                             
                              <div class="user-detail">
-
-                                <!-- <h5>Ram<span> Web Developer</span></h5> -->
-                            
-                            
-
                                 <h5>@if($question->type == 1) {{ 'Ananymous' }} @else  <?php echo $question->user->user_profile->first_name .'<span>'.ucwords($question->user->careers()->first()->title).' - '.$question->user->user_profile->location .'</span>';?> @endif </h5>
                             </div>
                             

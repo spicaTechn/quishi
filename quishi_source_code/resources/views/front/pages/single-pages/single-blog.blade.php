@@ -3,22 +3,31 @@
  {{ $blog_details->title . ' - Quishi'}}
 @endsection
 @section('meta_details')
+
  @if($blog_details->image_path != "")
-<div class="blog-single-img">
-    <img src="{{ asset('/front/images/blogs/'.$blog_details->image_path) }}" alt="" style="">
-</div>
-@endif
-<?php $ogimage = asset('/front/images/blogs').'/'.$blog_details['image'];?>
-<!-- <meta property="fb:app_id" content="588023938211526" /> -->
-<meta property="og:title"        content="{{ $blog->title }}" />
-<meta property="og:abstract"     content="{{ $blog_details['abstract'] }}" />
-<meta property="og:date"         content="{{ $blog_details['date'] }}" />
-<meta property="og:type"         content="website" />
-<meta property="og:url"          content="{{ URL::to('/blog-share'.'/'.$blog->user_id.'/'.$blog->id) }}" />
-<meta property="og:image"        content="{{ $ogimage }}" />
-<meta property="og:image:width"  content="100%" />
-<!-- <meta property="og:image:height" content="315px" /> -->
-<meta property="og:description"  content="{{ $blog->content }}" />
+    <?php $ogImage = asset('/front/images/blogs/'.$blog_details->image_path); ?>
+ @else
+    <?php $ogImage = asset('/front/images/default-blog-image-og.png'); ?>
+ @endif
+
+ @if($blog_details->type == '1')
+    <?php $blogBy = ucwords($blog_details->user->name); ?>
+ @else
+    <?php $blogBy = 'Quishi'; ?>
+ @endif
+
+ @if($blog_details->abstract !== '')
+    <?php $ogDescription = $blog_details->abstract; ?>
+ @else
+    <?php $ogDescription = $blog_details->content; ?>
+ @endif
+ 
+<meta property="og:url"                content="{{ url()->full() }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="{{ $blog_details->title }} | By {{$blogBy}}" />
+<meta property="og:description"        content="{{ $ogDescription }}" />
+<meta property="og:image"              content="<?php echo $ogImage; ?>" />
+
 @endsection
 @section('content')
 <div class="blog-single-pg">
