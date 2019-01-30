@@ -148,24 +148,42 @@
 </div>
 
 <!-- Modal how to add new education -->
-<div class="modal fade" id="howtoAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="howtoAddModal"  role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">How to add new education</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">How to add new education?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>When you does not find education major, you can simply submit new education major clicking on the button 'add new major'. After you submitted new title to us, our team will review on what you have recently added and publish the education title if statisfied our verification process. <br/>Your recently added major will not visible publicly unless we revise and publish and no any action needed further.</p>
+        <p>If you can't find education major, you can simply submit new education major clicking on the button 'add new major'. After you submitted new title to us, our team will review on what you have recently added and publish the education title if statisfied our verification process. <br/>Your recently added major will not visible publicly unless we revise and publish and no any action needed further.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal how to add new education -->
+<div class="modal fade" id="howtoAddJobModal"  role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">How to add new Job?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>If you can't find your job, you can simply submit new job title clicking on the button 'add new job'. After you submitted new title to us, our team will review on what you have recently added and publish the education title if statisfied our verification process. <br/>Your recently added major will not visible publicly unless we revise and publish and no any action needed further.</p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal show add new education title -->
-<div class="modal fade" id="addNeweducationTitle" tabindex="-1" role="dialog" aria-labelledby="addNeweducationTitle" aria-hidden="true">
+<div class="modal fade" id="addNeweducationTitle" role="dialog" aria-labelledby="addNeweducationTitle" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -196,7 +214,7 @@
 </div>
 
 <!-- Modal show add new job title -->
-<div class="modal fade" id="addNewJobTitleModal" tabindex="-1" role="dialog" aria-labelledby="addNewJobTitleModal" aria-hidden="true">
+<div class="modal fade" id="addNewJobTitleModal"  role="dialog" aria-labelledby="addNewJobTitleModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -220,6 +238,7 @@
                     <input type="submit" class="btn btn-default btn-sm" value="submit">
                 </div>
             </div>
+            <input type="hidden" name="parent_industry" id="parent_industry" value=""/>
         </form>
       </div>
     </div>
@@ -246,11 +265,7 @@
                             placeholder: "Search or add job title if not found",
                             language: {
                                 noResults: function () {
-                                     if(selected_industry_name === " Others"){
-                                         return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
-                                     }else{
-                                         return "<p>Didn't find job title, please select others as industry and add new job title</p>";
-                                     } 
+                                    return "<p class='message-not-found'>Opps ! can't find your desired job, you can add and submit us for review</p> <a href='javascript:void(0);' onclick='noJobResultsButtonClicked()' class='user-add-btn'>Add new job</a><a href='javascript:void(0);' onclick='jobLearnMoreClicked()'> Learn more</a>";
                                 }
                             }
                        });
@@ -478,16 +493,38 @@
     });
         
     function noResultsButtonClicked() {
+      $('.faculty').select2("close");
       $('#addNeweducationTitle').modal('show');
+
     }
         
     function learnMoreClicked(){
+        $('.faculty').select2("close");
         $('#howtoAddModal').modal('show');
+    }
+
+
+    function jobLearnMoreClicked(){
+        $('#job_title').select2("close");
+        $("#howtoAddJobModal").modal('show');
     }
         
     function noJobResultsButtonClicked(){
-        $('#addNewJobTitleModal').modal('show');
+       $('#job_title').select2("close");
+       var parent_industry_id = $('.industry').val();
+       //again to the modal parent industry value
+       $("#parent_industry").val(parent_industry_id);
+       $('#addNewJobTitleModal').modal('show');
+
     }
+
+    //reset the modal when close button was pressed / or the modal close
+    $('.modal').on('hidden.bs.modal', function(){
+        $(this).find('form')[0].reset();
+        var reset_form = $(this).find('form');
+        $(reset_form).data('formValidation').resetForm(true);
+    });
+
 </script>
 
 @endsection

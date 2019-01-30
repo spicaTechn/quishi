@@ -113,7 +113,7 @@ class LocationController extends Controller
         $this->address->status        = $request->input('status');
 
         $full_address                = $request->input('city') .' '. $request->input('state') .' '. $request->input('country');
-        $check_for_address           = Address::where('full_address',$full_address)->firstOrFail();
+        $check_for_address           = Address::where('full_address',$full_address)->first();
 
         if($check_for_address && $check_for_address->id != $id):
              return response()->json(array('status'=>'dublicate','message'=>'Address Already exists in the Quishi system'),200);

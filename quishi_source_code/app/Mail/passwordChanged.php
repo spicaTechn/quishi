@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class sendPasswordChangeEmail extends Mailable
+class passwordChanged extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,12 @@ class sendPasswordChangeEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    protected $user;
+    public function __construct(User $user)
     {
         //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +31,8 @@ class sendPasswordChangeEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('quishi_login.passwordChange')->subject('Password Changed')->with([
+            'name'   => $user->name;
+        ]);
     }
 }

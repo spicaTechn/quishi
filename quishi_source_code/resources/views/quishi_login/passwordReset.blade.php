@@ -196,8 +196,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <h1 class="margsixt">
-                <a href="https://quishi.com">
-                  <img src="https://beta.quishi.com/front/images/logo.png"/>
+                <a href="{{ url('/') }}">
+                  <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
               </h1>
             </td>
@@ -217,7 +217,7 @@ a img {
                     <p style="font-size:20px;">Reset your password</p>
                     <p>You're receiving this email because we received a password reset request for your account.</p>
                     <p style="padding-top:16px">
-                      <a target="_blank" class="button" href="#">Reset Password</a>
+                      <a target="_blank" class="button" href=" {{ $link }} ">Reset Password</a>
                     </p>
                     <hr>
                     <p style="margin:0;font-size:14px;line-height:24px;margin-top:16px;text-align:center;color:#AAAAAA">
@@ -236,8 +236,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <div class="margsixt">
-                <a href="https://quishi.com" target="_blank">
-                <img src="https://beta.quishi.com/front/images/logo.png"/>
+                <a href="{{ url('/') }}" target="_blank">
+                <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
                 <br><i class="far fa-copyright"></i> Quishi 2019</div>
             </td>

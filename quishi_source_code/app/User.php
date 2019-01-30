@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Model\Career, App\Model\Review;
 use App\Model\Follower;
 
+use App\Notifications\CustomPasswordResetEmailNotification;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -102,6 +104,21 @@ class User extends Authenticatable
 
     public function admin_users(){
         return $this->select('id')->where('logged_in_type','1')->get();
+    }
+
+    public function user_activation(){
+        return $this->hasOne('App\Model\UserActivation');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomPasswordResetEmailNotification($token));
     }
 
 

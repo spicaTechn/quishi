@@ -196,8 +196,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <h1 class="margsixt">
-                <a href="https://quishi.com">
-                  <img src="https://beta.quishi.com/front/images/logo.png"/>
+                <a href="{{ url('/') }}">
+                  <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
               </h1>
             </td>
@@ -212,7 +212,7 @@ a img {
                 <td>
                   <div data-rc="mailers/user_mailer/signup_welcome">
                     <h1 class="welcome">
-                      Hi Kevin,
+                      Hi {{ $name }},
                     </h1>
                     <p style="font-size:20px;">Your password has been changed</p>
                     <p>This is the confirmation that your password was successfully changed</p>
@@ -233,8 +233,8 @@ a img {
           <tr>
             <td align="center" class="textcenter">
               <div class="margsixt">
-                <a href="https://quishi.com" target="_blank">
-                <img src="https://beta.quishi.com/front/images/logo.png"/>
+                <a href="{{ url('/') }}" target="_blank">
+                <img src="{{ asset('/front/images/logo.png') }}"/>
                 </a>
                 <br><i class="fa fa-copyright"></i> Quishi 2019</div>
             </td>

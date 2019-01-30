@@ -22,7 +22,8 @@
                                     <li>Published on
                                         <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
                                     </li>
-                                    <li>By: <a href="{{URL::to('/career-advisior/'.$blog_details->user->id)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
+                                    <li>By: <a href="{{URL::to('/career-advisor/'.$blog_details->user->id.'/'.$blog
+                                        _details->user->user_profile->first_name)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
                                 </ul>
                             </div>
                         </div>

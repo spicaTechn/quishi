@@ -135,7 +135,8 @@ class UserController extends Controller
                     //return '0';
                })->addColumn('action',function($career_advisior){
                     $return_html = " ";
-                    $return_html .= '<a href="'.URL::to("/career-advisior/$career_advisior->id").'" 
+                    $user_url    = URL::to('/career-advisor/'.$career_advisior->id .'/'. $career_advisior->user_profile->first_name);
+                    $return_html .= '<a href="'.$user_url.'" 
                                           class="m-r-15 text-muted view-user" 
                                           data-toggle="tooltip" 
                                           data-placement="top" 

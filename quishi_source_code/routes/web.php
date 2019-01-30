@@ -274,10 +274,10 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'		=> 'Front\CareerAdvisor\BaseCareerAdvisorController@getJobByIndustryId'
 	]);
 
-	Route::get('/tags',[
-		'as'	=> 'tags.all',
-		'uses'	=> 'Front\CareerAdvisor\TagController@index'
-	]);
+	// Route::get('/tags',[
+	// 	'as'	=> 'tags.all',
+	// 	'uses'	=> 'Front\CareerAdvisor\TagController@index'
+	// ]);
 
 
 	//save or update career advisior links
@@ -840,9 +840,10 @@ Route::get('/home', function(){
 
 Auth::routes();
 
-Route::get('/register/verify/{email}/{token}',function(){
-		return view('quishi_login.emailConfirmation')->with(['callback_url'=>'https://google.com/lamanoj11@gmail.com']);
-});
+Route::get('/verify/{email}/{token}',[
+	'as'   => 'approved.career-advisor',
+	'uses' => 'Front\Frontend\FrontendController@activateUser'
+]);
 
 
 

@@ -339,11 +339,12 @@ class IndustryController extends Controller
             //udpate the record in the storage
             $career_details->is_approved = "1";
             $career_details->status      = "1";
+            $career_details->user_id     = Auth::user()->id; // to do if we need to list the career advisor added jobs and industry then we need to change the database structure thus we can add the added by
             if($career_details->save()):
                 //success message to the client
                 return response()->json(array('status'=>'success','msg'=>'Job title has been approved!!'),200);
             else:
-                return response()->json(array('status'=>'failed','msg'=>'Cannot update recored in the storage, please try again'),200);
+                return response()->json(array('status'=>'failed','msg'=>'Cannot update record in the storage, please try again'),200);
             endif;
              
         else:

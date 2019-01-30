@@ -343,7 +343,7 @@ class ProfileController extends BaseCareerAdvisorController
         $user->user_profile()->update([
                         'profile_setup_steps'    => '3',
                         'profile_setup_status'   => '1',
-                        'status'                 => (Auth::user()->sign_in_type == '1') ? '1' : '0'
+                        'status'                 => (Auth::user()->sign_in_type == '1') ? '1' : ($user->user_activation->email_token == "") ? '1' : '0'
                     ]);
        }
 
@@ -417,8 +417,10 @@ class ProfileController extends BaseCareerAdvisorController
 
 
     public function addMajor(Request $request){
-       //get the education having the others or other education category 
-        $parent_category_education              = Education::where('slug','like','%other%')
+        //get the education having the others or other education category 
+        $parent_category_education              = Education::where('slug','others')
+                                                            ->orWhere('slug','other')
+                                                            ->where('parent','0')
                                                             ->first();
         // if found get the id
         if($parent_category_education):
@@ -431,11 +433,13 @@ class ProfileController extends BaseCareerAdvisorController
             $parent_category_education->name    = "Others";
             $parent_category_education->slug    = str_slug("Others");
             $parent_category_education->user_id = Auth::user()->id;
+            $parent_category_education->parent  = 0;
             $parent_category_education->save();
 
             $parent_category_id                 = $parent_category_education->id;
             $parent_title                       = "Others";       
         endif;
+
 
        $quishi_education                        = new Education();
        $quishi_education->name                  = $request->input('majorTitle');
@@ -455,15 +459,13 @@ class ProfileController extends BaseCareerAdvisorController
 
 
     public function addJob(Request $request){
+
         
         //get the parent industry
-        $parent_industry          = Career::where('slug','like','%other%')
-                                          ->first();
-
+        $parent_industry          = Career::findOrFail($request->input('parent_industry'));
         // if found get the id
         if($parent_industry):
             $parent_industry_id             = $parent_industry->id;
-            //$parent_title                   = $parent_industry->title;
         // else add new education category others
         else:
             //need to inser the parent education category first
@@ -476,7 +478,6 @@ class ProfileController extends BaseCareerAdvisorController
             $parent_industry_id              = $parent_category_education->id;
             //$parent_title                    = "Others";       
         endif;
-
         //store in the storage 
 
          $career                             = new Career();

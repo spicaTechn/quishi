@@ -186,7 +186,11 @@ class MyAccountController extends BaseCareerAdvisorController
     //show the form to change the password
 
     public function change_logged_in_user_password(){
-        return view('front.career-advisor.my-account.change-password');
+        if(Auth::user()->sign_in_type == '0'):
+            return view('front.career-advisor.my-account.change-password');
+        else:
+            return redirect()->route('profile');
+        endif;
     }
 
 
@@ -200,6 +204,8 @@ class MyAccountController extends BaseCareerAdvisorController
             $user->save();
             //logout from all devices and redirect to the login page with the session message
             Auth::logout();
+            //send email regarding the passowrd change
+            
             return redirect()->route('login');
         }else{
             return redirect()->back()->withErrors(['old_password'=> 'Old password is invalid!!']);
