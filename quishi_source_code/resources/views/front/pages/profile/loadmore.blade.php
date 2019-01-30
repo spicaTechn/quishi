@@ -1,12 +1,12 @@
 
 @if(count($users_lists) > 0)
 @foreach($users_lists as $user_list)
-<div class="col-lg-4">
+<div class="col-lg-4 isotopeSelector">
     <div class="trending-profiles-section">
         <div class="full-list-view">
             <div class="profile-image">
                 @if(empty($user_list['user_image']))
-                    <img src="{{asset('/front')}}/images/blog1.jpg">
+                    <img src="{{asset('/front')}}/images/default-profile.jpg">
                 @else
                     <img src="{{asset('/front')}}/images/profile/{{ $user_list['user_image'] }}">
                 @endif
@@ -22,9 +22,11 @@
         <div class="full-list-view">
             <div class="profile-slills">
                 <ul>
+                  @if(count($user_list['user_tag']) > 0)
                     @foreach($user_list['user_tag'] as $key=>$tag)
                     <li><a href="#">{{$tag['tag_title']}}</a></li>
                     @endforeach
+                  @endif
                 </ul>
             </div>
             <div class="profile-info">

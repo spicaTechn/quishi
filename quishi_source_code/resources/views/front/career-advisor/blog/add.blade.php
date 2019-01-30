@@ -28,7 +28,7 @@
 				<div class="published-date">
 					<label>Published Date: </label>
 					<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-					    <input class="form-control" name="_blog_published_date" type="text" readonly />
+					    <input class="form-control" name="_blog_published_date" type="text" readonly value="{{ Carbon\Carbon::parse(Carbon\Carbon::now())->format('m-d-Y')}}" />
 					    <span class="input-group-addon"><i class="icon-calendar"></i></span>
 					</div>
 				</div>
@@ -66,11 +66,11 @@
     <script>
 
 		$(function () {
-			$("#datepicker").datepicker({ 
-				autoclose: true, 
-				format  : 'yyyy-mm-dd',
-				todayHighlight: true
-			}).datepicker('update', new Date());
+			// $("#datepicker").datepicker({ 
+			// 	autoclose: true, 
+			// 	format  : 'yyyy-mm-dd',
+			// 	todayHighlight: true
+			// }).datepicker('update', new Date());
 		});
 
 		function readURL(input) {

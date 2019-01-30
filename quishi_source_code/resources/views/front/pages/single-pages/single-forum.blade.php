@@ -1,8 +1,14 @@
-@extends('front.layout.master') @section('content') @section('page_specific_css')
+@extends('front.layout.master') 
+@section('title')
+ {{$question->slug . ' | Quishi'}}
+@endsection
+@section('page_specific_css')
 <!-- Load the sweetalert css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/sweetalert/css/sweetalert.css') }}">
 <!-- Load the formvalidation css -->
-<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}"> @endsection
+<link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.min.css') }}"> 
+@endsection
+@section('content')
 <div class="forum-comment-section">
     <div class="container">
         <div class="forum-title-section forum-comment-title-section">

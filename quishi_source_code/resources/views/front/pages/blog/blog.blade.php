@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Quishi | Blog')
 @section('content')
 <div class="blog-page">
     <div class="container">

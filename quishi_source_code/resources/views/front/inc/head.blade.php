@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{$site_title}} | {{$page_title}}</title>
+    <title>@yield('title')</title>
 
     <!-- sharing data setup -->
     <?php if(isset($blog)): ?>

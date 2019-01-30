@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Quishi | Career Advisors')
 @section('page_specific_css')
 <!--select2 css-->
 <link rel="stylesheet" type="text/css" href="{{ asset('/admin_assets/bower_components/select2/css/select2.min.css') }}">
@@ -64,9 +65,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="section-title">
-
-                              <h2>{{ __('Search Results') }} (<span class="search_number">{{$total_record_shown}}</span> Profiles)</h2>
-
+                             <h2>Showing <span class="pagination_profile"> {{ $total_record_shown }} </span> of <span class="total_profile">{{ $total_record}}</span><span class="profile_text">@if($total_record > 1) {{ 'Profiles'}} @else {{ 'Profile' }} @endif</span>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -115,9 +114,11 @@
                             <div class="full-list-view">
                                 <div class="profile-slills">
                                     <ul>
+                                      @if(count($user_list['user_tag']) > 0)
                                         @foreach($user_list['user_tag'] as $key=>$tag)
                                         <li><a href="#">{{ucwords($tag['tag_title'])}}</a></li>
                                         @endforeach
+                                      @endif
                                     </ul>
                                 </div>
                                 <div class="profile-info">
@@ -302,7 +303,13 @@ $(document).ready(function () {
                     $('.show_more_career_advisior').html(data.html);
               }
 
-              $('span.search_number').html(data.total_record_shown);
+              $('span.pagination_profile').html(data.total_record_shown);
+              $("span.total_profile").html(data.total_record);
+              if(data.total_record > 1){
+                $("span.profile_text").html(' Profiles');
+              }else{
+                $("span.profile_text").html(' Profile');
+              }
             }
           },
           complete:function(data){

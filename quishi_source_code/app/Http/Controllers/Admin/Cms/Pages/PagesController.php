@@ -94,6 +94,7 @@ class PagesController extends Controller
             $contact_social_unserialize['twitter']     = '';
             $contact_social_unserialize['google_plus'] = '';
             $contact_social_unserialize['instragram']  = '';
+            $contact_social_unserialize['linkedin']    = '';
         endif;
 
 
@@ -588,6 +589,7 @@ class PagesController extends Controller
         $twitter        = $request->input('twitter');
         $google_plus    = $request->input('google_plus');
         $instragram     = $request->input('instragram');
+        $linkedin       = $request->input('linkedin');
 
         if($contact_page_id)
         {
@@ -603,6 +605,7 @@ class PagesController extends Controller
             $contact_unseralize['twitter']     = $twitter;
             $contact_unseralize['google_plus'] = $google_plus;
             $contact_unseralize['instragram']  = $instragram;
+            $contact_unseralize['linkedin']    = $linkedin;
 
             $new_contact_data     = serialize($contact_unseralize);
             $page_detail          = PageDetail::findOrFail($contact_page_id);
@@ -619,6 +622,7 @@ class PagesController extends Controller
             $new_value['twitter']     = $twitter;
             $new_value['google_plus'] = $google_plus;
             $new_value['instragram']  = $instragram;
+            $new_value['linkedin']    = $linkedin;
 
             $new_contact_data = serialize($new_value);
             $page_detail       = new PageDetail();

@@ -280,10 +280,10 @@
                                  </div>
                               </div>
                               <div class="row">
-                                 <div class="col-sm-12 col-xl-12 m-b-30">
+                                <!--  <div class="col-sm-12 col-xl-12 m-b-30">
                                      <h4 class="sub-title">Description *</h4>
-                                     <textarea id="contact_wysiwyg" style="height: 350px;"  class="form-control contact_description" name="contact_description" placeholder="Description" >{{ $contact->content }}</textarea>
-                                 </div>
+                                     <textarea id="contact_wysiwyg" style="height: 350px;"  class="form-control contact_description" name="contact_description" placeholder="Description" >{{--{{ $contact->content }}--}}</textarea>
+                                 </div> -->
 
 
                               </div>
@@ -322,9 +322,14 @@
                                  </div><div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Google Plus *</h4>
                                      <input type="text" class="form-control google_plus" name="google_plus" placeholder="Google Plus Link" value="{{ $contact_social_unserialize['google_plus'] }}">
-                                 </div><div class="col-sm-6 col-xl-6 m-b-30">
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
                                      <h4 class="sub-title">Instragram *</h4>
                                      <input type="text" class="form-control instragram" name="instragram" placeholder="Instragram Link" value="{{ $contact_social_unserialize['instragram'] }}">
+                                 </div>
+                                 <div class="col-sm-6 col-xl-6 m-b-30">
+                                     <h4 class="sub-title">LinkedIn *</h4>
+                                     <input type="text" class="form-control instragram" name="linkedin" placeholder="LinkedIn Link" value="{{ $contact_social_unserialize['linkedin'] }}">
                                  </div>
                               </div>
                               <button  class="btn btn-grd-primary contactSocialUpdate" id="contactSocialUpdate">Update</button>

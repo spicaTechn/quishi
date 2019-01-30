@@ -1,4 +1,7 @@
 @extends('front.layout.master')
+@section('title')
+ {{ $blog_details->slug . ' -Quishi'}}
+@endsection
 @section('content')
 <div class="blog-single-pg">
     <div class="container">
@@ -8,13 +11,17 @@
                     <div class="fixed-top-section" id="blogHeader">
                         
                         <div class="blog-single-post clearfix">
-                              @if($blog_details->user->user_profile()->select('image_path')->first())
+                              @if($blog_details->user->user_profile->image_path != "")
                                 <div class="post-img">
                                     <img src="{{ asset('/front/images/profile/'.$blog_details->user->user_profile->image_path)}}" alt="">
                                 </div>
                               @else
                                 <div class="post-img">
-                                   <img src="{{ asset('/front/images/profile/users.png') }}" >
+                                    @if($blog_details->type == '1')
+                                    <img src="{{ asset('/front/images/profile/users.png') }}" >
+                                    @else
+                                         <img src="{{ asset('/front/images/logo.png') }}" >
+                                    @endif
                                 </div>
                               @endif
                             <div class="post-date">
@@ -22,8 +29,7 @@
                                     <li>Published on
                                         <time><b>{{ Carbon\Carbon::parse($blog_details->published_date)->format('d M Y') }}</b></time>
                                     </li>
-                                    <li>By: <a href="{{URL::to('/career-advisor/'.$blog_details->user->id.'/'.$blog
-                                        _details->user->user_profile->first_name)}}" target="_blank">{{ucwords($blog_details->user->name)}}</a></li>
+                                    <li>By:  @if($blog_details->type == '1')<a href="{{URL::to('/career-advisor/'.$blog_details->user->id.'/'.$blog_details->user->user_profile->first_name)}}" target="_blank">{{ucwords($blog_details->user->name)}}@else {{ 'Quishi' }} @endif</a></li>
                                 </ul>
                             </div>
                         </div>

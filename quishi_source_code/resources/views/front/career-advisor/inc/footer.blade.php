@@ -36,14 +36,24 @@
 
                         <div class="col-md-4 col-lg-3">
                             <div class="footer-section">
-                                @if($contact_social)
+                               @if($contact_social)
                                 <div class="footer-social-media">
                                     <ul class="social-links">
-                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                      @if($contact_social['facebook'] != "")
+                                         <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                      @endif
+                                      @if($contact_social['twitter'] != "")
+                                         <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                      @endif
+                                      @if($contact_social['google_plus'] != "")
+                                        <li><a href="{{ $contact_social['google_plus'] }}"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                      @endif
+                                      @if($contact_social['linkedin'] != "")
+                                        <li><a href="{{ $contact_social['linkedin'] }}"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                      @endif
+                                      @if($contact_social['instragram'] != "")
+                                        <li><a href="{{ $contact_social['instragram'] }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                      @endif
                                     </ul>
                                 </div>
                                  @endif

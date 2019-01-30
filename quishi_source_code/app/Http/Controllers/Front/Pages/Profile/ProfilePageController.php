@@ -27,7 +27,7 @@ class ProfilePageController extends BaseCareerAdvisorController
      */
     protected $offset           = 0;
     protected $current_page     = 1;
-    protected $per_page         = 9;
+    protected $per_page         = 2;
     protected $total_record     = 0;
     protected $job_title        = '';
     protected $user_location    = '';
@@ -66,6 +66,7 @@ class ProfilePageController extends BaseCareerAdvisorController
             'show_more'             => ($this->total_record > ($this->per_page * ($this->current_page + 1))) ? true : false,
             'industries'            => $career,
             'total_record_shown'    => count($this->view_render_user_list),
+            'total_record'          => $this->total_record,
             'current_page'          => 1,
             'career_locations'      => $career_location,
 
@@ -255,7 +256,8 @@ class ProfilePageController extends BaseCareerAdvisorController
                                     'success'                   => true,
                                     'html'                      =>$returnHTML,
                                     'read_more'                 =>$show_read_more,
-                                    'total_record_shown'        => $this->total_record_shown
+                                    'total_record_shown'        => $this->total_record_shown,
+                                    'total_record'              => $this->total_record
                                 ),200);
 
 

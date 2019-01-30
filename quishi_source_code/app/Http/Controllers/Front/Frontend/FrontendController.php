@@ -28,7 +28,7 @@ class FrontendController extends Controller
     	    	if($registered_user_details->user_profile()->count() > 0):
     	    	// if setup completed update the status only
     	    		if($registered_user_details->user_profile->profile_setup_status == "1"):
-	    	    		$user_profile                     = UserProfile::where('user_id',$registered_user_details->id);
+	    	    		$user_profile                     = UserProfile::where('user_id',$registered_user_details->id)->firstOrFail();
 		    	    	$user_profile->status             = "1";
 		    	    	$user_profile->save();
 		    	    endif;
