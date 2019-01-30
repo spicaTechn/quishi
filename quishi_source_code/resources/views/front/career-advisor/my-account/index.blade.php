@@ -9,7 +9,7 @@
 @endsection
 @section('content')
     <div class="profile-main-section">
-        {{ (session('user_profile_update')) ? session('user_profile_update') : ''}}
+        <div class="success-message">{{ (session('user_profile_update')) ? session('user_profile_update') : ''}}</div>
         <form action="{{route('profile.my-account.udpate',['id'=> Auth::user()->id])}}" method="post" enctype="multipart/form-data" id="user_profile_udpate">
         <div class="profile-setup">
             <div class="container">

@@ -162,7 +162,9 @@
                     </div>
                 @endforeach
                 @else
+                <div class="col-md-12">
                       <p> {{ __('Sorry no career advisior were found, please try with others parameters') }}</p>
+                    </div>
                 @endif
 
                 </div>

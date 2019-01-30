@@ -1,181 +1,195 @@
 
+@if(!Auth::check())
+<div class="login-menu login-menu-mobile fixed-login-menu">
+    <ul>
+        <li class="nav-item">
+            <a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a>
+        </li>               
+    </ul>     
+</div>
+@endif
+<!-- fixed login -->
 <footer class="footer">
-            <div class="main-footer">
-                <div class="container">
-                    <div class="row">
+    <div class="main-footer">
+        <div class="container">
+            <div class="row">
+                @if($contact_social)
+                <!-- <div class="col-lg-3 col-sm-6">
+                    <div class="footer-section">
+                        <h4>Address</h4>
+
+                        <p>{{ $contact_social['address'] }}</p>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-3 col-sm-6">
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
+                        <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
+                    </div>
+                </div> -->
+                @endif
+                
+                <div class="col-lg-5 col-md-4">
+                    <div class="footer-section">
+                        <!-- <h4>Quick links</h4> -->
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="{{URL::to('/about')}}">About</a></li>
+                                <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
+                                <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
+                                <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-lg-3">
+                    <div class="footer-section">
                         @if($contact_social)
-                        <!-- <div class="col-lg-3 col-sm-6">
-                            <div class="footer-section">
-                                <h4>Address</h4>
-
-                                <p>{{ $contact_social['address'] }}</p>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-lg-3 col-sm-6">
-                            <div class="footer-section">
-                                <h4>Contact</h4>
-                                <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
-                                <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
-                            </div>
-                        </div> -->
-                        @endif
-                        
-                        <div class="col-lg-5 col-md-4">
-                            <div class="footer-section">
-                                <!-- <h4>Quick links</h4> -->
-                                <div class="footer-nav">
-                                    <ul>
-                                        <li><a href="{{URL::to('/about')}}">About</a></li>
-                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
-                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
-                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="footer-social-media">
+                            <ul class="social-links">
+                              <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                              <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                              <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                              <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            </ul>
                         </div>
-
-
-                        <div class="col-md-4 col-lg-3">
-                            <div class="footer-section">
-                                @if($contact_social)
-                                <div class="footer-social-media">
-                                    <ul class="social-links">
-                                      <li><a href="{{ $contact_social['facebook'] }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                      <li><a href="{{ $contact_social['twitter'] }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
-                                 @endif
-                            </div>
+                         @endif
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-section">
+                        <!-- <h4>Donate</h4> -->
+                        <div class="donate-image">
+                            <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
+                                Donate Now
+                            </a>
                         </div>
-                        
-                        <div class="col-lg-4 col-md-4">
-                            <div class="footer-section">
-                                <!-- <h4>Donate</h4> -->
-                                <div class="donate-image">
-                                    <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
-                                        Donate Now
-                                    </a>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal modal-quishi fade" id="donation-Modal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="paypal-logo">
-                                                    <img src="{{ asset('front/images/logo-paypal.png')}}" alt="#">
-                                                </div>
-                                                <h5 class="modal-title" id="exampleModalLabel">Donate us now</h5>
-                                                <h6>Payment Method</h6>
-                                                <div class="card-images">
-                                                    <div class="card-image">
-                                                        <img src="{{ asset('front/images/master-card.png')}}" alt="paypal">
-                                                    </div>
-                                                    <div class="card-image">
-                                                        <img src="{{asset('front/images/paypals.png')}}" alt="paypal">
-                                                    </div>
-                                                    <div class="card-image">
-                                                        <img src="{{ asset('front/images/visa.png')}}" alt="paypal">
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
+                        <!-- Modal -->
+                        <div class="modal modal-quishi fade" id="donation-Modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="paypal-logo">
+                                            <img src="{{ asset('front/images/logo-paypal.png')}}" alt="#">
+                                        </div>
+                                        <h5 class="modal-title" id="exampleModalLabel">Donate us now</h5>
+                                        <h6>Payment Method</h6>
+                                        <div class="card-images">
+                                            <div class="card-image">
+                                                <img src="{{ asset('front/images/master-card.png')}}" alt="paypal">
                                             </div>
-                                            <div class="modal-body">
-                                                
-                                                <form name="donate_now" id="donate_now" action="#" method="post">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Name on Card</label>
-                                                                <input type="text"  class="form-control" name="name_on_card" placeholder="Name on Card">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Card Number</label>
-                                                                <input type="text" class="form-control" name="card_number" placeholder="Card Number">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end col -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <!-- <label class="col-form-label">Expiration</label> -->
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-form-label">Expiration</label>
-                                                                        <input type="text"  class="form-control" placeholder="MM" name="expiration_month">
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-form-label" style="opacity: 0;">Year</label>
-                                                                        <input type="text"  class="form-control" placeholder="YYYY" name="expiration_year">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">CVC Number</label>
-                                                                <input type="text"  class="form-control" placeholder="cvv" name="card_code">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Amount</label>
-                                                                <input type="number"  class="form-control" placeholder="Amount" name="amount" step="0.2" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Currency</label>
-                                                                <select class="form-control" name="currency">
-                                                                    <option>USD</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        
-                                                    </div>
-                                                    <!-- end row -->
-                                                    
-                                                    
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-8 offset-sm-4">
-                                                            <button type="submit" class="btn btn-default donate_us">Dontate Now</button>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end form group -->
-                                                </form>
+                                            <div class="card-image">
+                                                <img src="{{asset('front/images/paypals.png')}}" alt="paypal">
+                                            </div>
+                                            <div class="card-image">
+                                                <img src="{{ asset('front/images/visa.png')}}" alt="paypal">
                                             </div>
                                         </div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <form name="donate_now" id="donate_now" action="#" method="post">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-form-label">Name on Card</label>
+                                                        <input type="text"  class="form-control" name="name_on_card" placeholder="Name on Card">
+                                                    </div>
+                                                </div>
+                                                <!-- end column -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-form-label">Card Number</label>
+                                                        <input type="text" class="form-control" name="card_number" placeholder="Card Number">
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <!-- <label class="col-form-label">Expiration</label> -->
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label class="col-form-label">Expiration</label>
+                                                                <input type="text"  class="form-control" placeholder="MM" name="expiration_month">
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label class="col-form-label" style="opacity: 0;">Year</label>
+                                                                <input type="text"  class="form-control" placeholder="YYYY" name="expiration_year">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end column -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-form-label">CVC Number</label>
+                                                        <input type="text"  class="form-control" placeholder="cvv" name="card_code">
+                                                    </div>
+                                                </div>
+                                                <!-- end column -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-form-label">Amount</label>
+                                                        <input type="number"  class="form-control" placeholder="Amount" name="amount" step="0.2" required="required">
+                                                    </div>
+                                                </div>
+                                                <!-- end column -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-form-label">Currency</label>
+                                                        <select class="form-control" name="currency">
+                                                            <option>USD</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end column -->
+                                                
+                                            </div>
+                                            <!-- end row -->
+                                            
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-8 offset-sm-4">
+                                                    <button type="submit" class="btn btn-default donate_us">Dontate Now</button>
+                                                </div>
+                                            </div>
+                                            <!-- end form group -->
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-
-
-                    </div>
-                    
-                </div>
-            </div>
-             
-            <div class="footer-copyright">
-                <div class="container">
-                    <div class="copyright text-center">
-                        &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
                     </div>
                 </div>
+                
+
+
             </div>
-           
-        </footer>
+            
+        </div>
+    </div>
+     
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="copyright text-center">
+                &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
+            </div>
+        </div>
+    </div>
+   
+</footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
