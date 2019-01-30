@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
     function mobileNav() {
 	    var node = $(".profile-sidemenu").clone();
 
-        $('.navbar-nav').after(node);
+        $('.navbar-nav').before(node);
 	  
 	    // $(".navbar-nav").append(
 	    //     "<li class='has-child mobile-profile-sidemenu'>" + node + "</li>"
@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
        }
 
        if ($(window).width() <= 767) {
-            $('.login-menu-mobile').prependTo('#navbarSupportedContent');
+            $('.static-login-menu').prependTo('#navbarSupportedContent');
 
            // Add slideDown animation to Bootstrap dropdown when expanding.
              $('.dropdown').on('show.bs.dropdown', function() {

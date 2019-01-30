@@ -8,6 +8,35 @@
                 <span class="navbar-icon"></span>
                 <span class="navbar-icon"></span>
             </button>
+
+            <div class="login-menu login-menu-mobile static-login-menu">
+                <ul>
+                    @if(!Auth::check())
+                    <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+                    <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+                    @endif
+
+                <!-- if user is logdin -->
+                        @if(Auth::check())
+                        <li class="nav-item dropdown logdin">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
+                               <li><a class="dropdown-item" href="{{route('profile.my-account.change-password')}}"> {{ __('Change Password') }}</a></li>
+                               <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a><form id="logout-form" method="post" action="{{route('logout')}}" style="display:none;">{{csrf_field()}}</form></li>
+                            </ul>
+                        </li>
+                    @endif
+                                  
+                </ul>
+
+                  <h4>My Menu</h4>      
+
+
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link">{{ __('Profiles')}}</a></li>
@@ -97,6 +126,7 @@
             <i class="dashboard-line"></i>
         </div>
         <div class="profile-sidemenu">
+
              <div class=" profile-sidemenu--hiden">
             <div class="dashboard-toggle-hide">
                 &times;
@@ -118,4 +148,6 @@
                 <li  class="{{Request::is('profile/followers*') ? 'active' : ''}}"><a href="{{route('careerAdviser.followers')}}"><i class="ti-user"></i>Followers</a></li>
                 <li  class="{{Request::is('profile/following*') ? 'active' : ''}}"><a href="{{route('careerAdviser.following')}}"><i class="ti-heart"></i>Following</a></li>
             </ul>
+
+            <h4 class="main-menu-xs">Main Menu</h4>
         </div>
