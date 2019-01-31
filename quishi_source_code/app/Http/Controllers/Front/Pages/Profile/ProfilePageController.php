@@ -27,7 +27,7 @@ class ProfilePageController extends BaseCareerAdvisorController
      */
     protected $offset           = 0;
     protected $current_page     = 1;
-    protected $per_page         = 1;
+    protected $per_page         = 3;
     protected $total_record     = 0;
     protected $job_title        = '';
     protected $user_location    = '';
