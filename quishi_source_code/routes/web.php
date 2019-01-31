@@ -368,6 +368,14 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 		'uses'   => 'Front\CareerAdvisor\Follower\FollowerController@index'
 	]);
 
+	
+	//send the email verification link again to the career advisor
+
+	Route::post('/resendVerificationLink',[
+		'as'    => 'careerAdvisor.resendVerificationLink',
+		'uses'  => 'Front\CareerAdvisor\Profile\MyAccountController@resendVerificationLink'
+	]);
+
 
 
 });

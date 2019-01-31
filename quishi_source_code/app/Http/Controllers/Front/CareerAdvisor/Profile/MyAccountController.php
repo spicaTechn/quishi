@@ -9,7 +9,9 @@ use App\Model\Career;
 use App\Model\Education, App\Model\Tag;
 use App\User, App\Model\UserProfile;
 use App\Model\Answer;
-use Auth,DB,File,Input,Session,Hash;
+use Auth,DB,File,Input,Session,Hash,URL,Mail;
+use App\Mail\emailConfirmation;
+use App\Model\UserActivation;
 
 class MyAccountController extends BaseCareerAdvisorController
 {
@@ -210,5 +212,33 @@ class MyAccountController extends BaseCareerAdvisorController
         }else{
             return redirect()->back()->withErrors(['old_password'=> 'Old password is invalid!!']);
         }
+    }
+
+
+    
+    /**
+     * function to resend the email verfication to the career advisor
+     *
+     * @param Illuminate\Htpp\Request
+     *
+     * @return Illuminate\Http\Response
+     *
+     *
+     */
+
+    public function resendVerificationLink(Request $request){
+       //get the current logged in user
+       $current_logged_in_career_advisor_id  = Auth::user()->id;
+       $email_token                          = str_random(40);
+       $user_activation                      = new UserActivation();
+       $user_activation->user_id             = $current_logged_in_career_advisor_id;
+       $user_activation->email_token         = $email_token;
+       $user_activation->save(); 
+       $callback_url                         = URL::to('/verify/'.Auth::user()->email.'/'.$email_token);
+       Mail::to(Auth::user()->email)->send(new emailConfirmation(Auth::user(),$email_token,$callback_url));
+
+       //return back the response
+       return response()->json(array('status'=>'success'),200);
+
     }
 }

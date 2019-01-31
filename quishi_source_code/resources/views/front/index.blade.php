@@ -379,7 +379,7 @@ $(document).ready(function () {
 
 
     //show the autocomplete option when the 
-    $('body').on('keyup','.search_by_location',function(e){
+    $('body').bind('keypress','.search_by_location',function(e){
         e.preventDefault();
         var search_query   =  $(this).val();
         var _token         = "{{csrf_token()}}";

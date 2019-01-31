@@ -3,9 +3,9 @@
 @section('content')
         <div class="profile-main-section">
             @if(Auth::user()->user_profile->status != 1)
-            <div class="email-verification alert alert-danger">
-                {{ __('Please verify your email address')}}
-                <a href="#">{{ __('Reset activation') }}</a>
+             <div class="email-verification alert alert-danger">
+                {{ __('Please verify your email address thus career seeker and find you')}}
+                <a href="javascript:void(0);" class="resend_verification_email">{{ __('Reset activation') }}</a>
                 <span id="close">×</span>
             </div> 
             @endif
@@ -325,6 +325,25 @@
 
 
 
+                }
+            });
+        });
+
+         //to resend email verification link again to the career advisor
+
+        $('body').on('click','.resend_verification_email',function(e){
+            //prevent the default action
+            e.preventDefault();
+            //now make the ajax request to send the email verfication link to the career advisor
+            $.post('/profile/resendVerificationLink', { _token : "{{csrf_token()}}" },function(response){
+                if(response.status == 'success'){
+                    //show the sweetalert about the verification has been send and reload the page
+                    swal({
+                      title: "Verification Email sent!!",
+                      text: "Verification email was sent in your email, please check your email and verify your email!",
+                      type: "success",
+                      closeOnConfirm: true,
+                    });
                 }
             });
         });

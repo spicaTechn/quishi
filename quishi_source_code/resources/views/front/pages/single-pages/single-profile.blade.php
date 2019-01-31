@@ -438,7 +438,11 @@ $(document).ready(function () {
                   $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
                   //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
                   $("#_answer_comment_" + _current_commented_id)[0].reset();
+                  $(this).parent().closest('div.form-group').find('textarea').prop('disabled',true);
 
+                },
+                complete:function(){
+                    $(this).parent().closest('div.form-group').find('textarea').prop('disabled',false);
                 }
 
            });

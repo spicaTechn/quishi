@@ -126,26 +126,32 @@ class ProfilePageController extends BaseCareerAdvisorController
         //echo "<pre>"; print_r($user_like); echo "</pre>";exit;
         $user_views->save();
         //echo "<pre>"; print_r($profile_view); echo "</pre>";exit;
-
-
         $i =0;
+        $question_answer   = array();
         foreach ($questions as $question) {
-
          $questions_id = $question['question_id'];
          $answers = DB::table('answers')
                       ->where('question_id',$question['question_id'])
                       ->where('user_id',$id)
+                      ->where('content','!=','')
                       ->select('id','content','total_likes')
                       ->first();
-         $answers_comments                 = UserProfileQueries::where('answer_id',$answers->id)->where('user_id',$id)->where('parent','0')->orderBy('created_at','desc')->get();
-         $questions[$i]['answer']          = $answers->content;
-         $questions[$i]['question_id']     = $question['question_id'];
-         $questions[$i]['total_likes']     = $answers->total_likes;
-         $questions[$i]['answer_id']       = $answers->id;
-         $questions[$i]['answer_comments'] = $answers_comments;
-         $questions[$i]['total_comments']  = $answers_comments->count();
-         $i++;
+
+         if($answers):
+           $answers_comments                 = UserProfileQueries::where('answer_id',$answers->id)->where('user_id',$id)->where('parent','0')->orderBy('created_at','desc')->get();
+           $question_answer[$i]['answer']          = $answers->content;
+           $question_answer[$i]['question_title']  = $question['question_title'];
+           $question_answer[$i]['type']            = $question['question_type'];
+           $question_answer[$i]['question_id']     = $question['question_id'];
+           $question_answer[$i]['total_likes']     = $answers->total_likes;
+           $question_answer[$i]['answer_id']       = $answers->id;
+           $question_answer[$i]['answer_comments'] = $answers_comments;
+           $question_answer[$i]['total_comments']  = $answers_comments->count();
+           $i++;
+          endif;
         }
+
+
 
 
 
@@ -160,7 +166,7 @@ class ProfilePageController extends BaseCareerAdvisorController
             'site_title'     => 'Quishi',
             'page_title'     => 'View Profile',
             'user'           => $user_single,
-            'questions'      => $questions,
+            'questions'      => $question_answer,
             'profile_view'   => $profile_view,
             'blogs'          => $career_advisior_blogs,
             'total_comments' => $total_comment_published

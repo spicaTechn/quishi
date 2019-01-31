@@ -93,7 +93,7 @@ class RegisterController extends Controller
         $user_activation->user_id       = $user->id;
         $user_activation->email_token   = $email_token;
         $user_activation->save(); 
-        $callback_url                   = URL::to('/register/verify/'.$user->email.'/'.$email_token);
+        $callback_url                   = URL::to('/verify/'.$user->email.'/'.$email_token);
 
         
         //Mail::to($user->email)->send(new emailConfirmation($user,$email_token,$callback_url));

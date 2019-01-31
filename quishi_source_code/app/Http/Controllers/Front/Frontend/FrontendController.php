@@ -70,12 +70,7 @@ class FrontendController extends Controller
      */
 
     protected function removeEmailToken($user_details){
-    	$user_token_details = UserActivation::where('user_id',$user_details->id)->first();
-    	$user_token_details->email_token = "";
-    	if($user_token_details->save()){
-    		return true;
-    	}else{
-    		return false;
-    	}
+    	$user_token_details = UserActivation::where('user_id',$user_details->id)->delete();
+    	return true;
     }
 }

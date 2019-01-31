@@ -190,22 +190,6 @@ class BaseCareerAdvisorController extends Controller
                                     'type'          => '0',
                                     'created_at'    => now(),
                                     'updated_at'    => now()
-                                ),
-                                array(
-                                    'user_id'       => $user_id,
-                                    'label'         => 'external_link1',
-                                    'link'          => 'https://www.google.com/',
-                                    'type'          => '1',
-                                    'created_at'    => now(),
-                                    'updated_at'    => now()
-                                ),
-                                array(
-                                    'user_id'       => $user_id,
-                                    'label'         => 'external_link2',
-                                    'link'          => 'https://www.youtube.com/',
-                                    'type'          => '1',
-                                    'created_at'    => now(),
-                                    'updated_at'    => now()
                                 )
                             );
 
