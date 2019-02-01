@@ -717,6 +717,9 @@ a {
     text-transform: capitalize;
     font-size: 16px;
     line-height: 1.2;
+    max-height: 40px;
+    overflow: hidden;
+    min-height: 40px;
 }
 
 .home-blog-section::after {
@@ -1071,6 +1074,13 @@ ul.social-links li {
     margin-right: 5px;
 }
 
+.top-filter-dropdown .btn-secondary {
+
+    position: relative;
+    top: -2px;
+
+}
+
 .change-list-view {
     height: auto !important;
 }
@@ -1223,6 +1233,8 @@ ul.social-links li {
     }
     .change-list-view .view-profile a {
         margin: 0;
+        width: 50%;
+
     }
 
     .view-profile.row.change-list-view a {
@@ -1416,6 +1428,20 @@ ul.social-links li {
     line-height: 30px;
     border-radius: 50%;
     opacity: 0;
+}
+
+.contact-left .social-medias {
+    display: none;
+}
+
+.team-section .link::before {
+    content: "";
+    height: 2000px;
+    width: 2000px;
+    position: absolute;
+    left: -500px;
+    top: -500px;
+
 }
 
 .team-section:hover .team-caption,
@@ -1826,6 +1852,13 @@ a.user-add-btn {
     min-height: 400px;
 }
 
+@media (min-width: 992px) {
+    .my-profile {
+        position: relative;
+        min-height: 71.9vh;
+    }
+}
+
 .my-profile .container {
     max-width: 100%;
     padding: 0;
@@ -1971,6 +2004,7 @@ a.user-add-btn {
 #add-skill {
     cursor: pointer;
     font-size: 18px;
+    color: #fff;
 }
 
 .social-media-body {
@@ -4250,6 +4284,7 @@ span.required {
     box-shadow: 0 5px 20px rgba(45, 45, 45, 0.3);
     border-radius: 4px;
     margin-bottom: 40px;
+    min-height: 370px;
 }
 
 .news-blog-section .blog-conten {
@@ -5114,9 +5149,20 @@ select::-ms-expand {
     font-size: 16px;
 }
 
-.follows-section h4 {
+.follows-section h4,
+.no_review h4 {
     color: #666;
     font-size: 18px;
+}
+ .no_review h4,
+ .follows-section h4 {
+    border-bottom: 2px solid #f0f7f9;
+    margin-bottom: 35px;
+    padding-bottom: 35px;
+}
+
+.follower-wrap ._no_result_founds p a {
+    color: #999;
 }
 
 h6 span {

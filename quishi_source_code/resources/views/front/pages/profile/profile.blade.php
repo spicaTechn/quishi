@@ -49,6 +49,9 @@
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
+                        <div class="top-filter-dropdown">
+                          <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="filter-right">
