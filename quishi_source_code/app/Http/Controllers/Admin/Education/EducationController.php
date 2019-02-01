@@ -51,6 +51,7 @@ class EducationController extends Controller
         $education->parent      = $request->input('parent_id');
         $education->description = $request->input('description');
         $education->slug        = str_slug($request->input('title'));
+        $education->status      = $request->input('status');
         $education->user_id     = Auth::user()->id;
         $education->save();
 
@@ -107,10 +108,24 @@ class EducationController extends Controller
     {
         //
         $education              = Education::findOrFail($id);
+
+        if($request->has('status') && $request->input('status') == '0'):
+          if($request->input('parent_id') <= 0):
+            if($education->children()->count() > 0):
+               //to delete the education major category need to check have the major or not
+              return response()->json(array('status'=>'error','message'=>'Cannot update major category becuase it contains the major'),200);
+            endif;
+          else:
+            if($education->user_profiles()->count() > 0):
+                return response()->json(array('status'=>'error','message'=>'Cannot update major becuase it used by the career advisior'),200);
+            endif; //end of education major
+          endif;
+        endif;
         $education->name        = $request->input('title');
         $education->parent      = $request->input('parent_id');
         $education->description = $request->input('description');
         $education->slug        = str_slug($request->input('title'));
+        $education->status      = $request->input('status');
         $education->save();
         return response()->json(array('status'=>'success','result'=>'successfully updated!!'),200);
     }

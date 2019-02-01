@@ -155,6 +155,25 @@
                             <textarea class="form-control description" name="description"></textarea>
                         </div> 
                     </div>
+                    <div class="row">
+                       <div class="col-sm-12 col-xl-12 m-b-30">
+                            <h4 class="sub-title">{{ __('Select status') }}</h4>
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="status" class="status" value="1" checked="checked">
+                                        <i class="helper"></i>{{ __('Active') }}
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="status" class="status" value="0">
+                                        <i class="helper"></i>{{ __('Inactive') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                     <input type="hidden" name="major_category_id" class="major_category_id" value=""/>
 	            </div>
 	            <div class="modal-footer">
@@ -447,6 +466,14 @@ $(document).ready(function () {
                     //var image="https://foodmario.com/images/food_icon.png";
                     //$("#type-image").attr('src',image);
                    //resetFormOnClose();
+                }else if(data.status == "error"){
+                  $('#add-edit-major-category').modal('hide');
+                   swal({
+                        title : "Cannot update Education!",
+                        text  : data.message,
+                        type  : "error",
+                        closeOnConfirm : true,
+                   });
                 }
             },
             error:function(event)
@@ -528,6 +555,11 @@ $(document).ready(function () {
             $('.description').val(data.result.description);
             $('.major_category_id').val(data.result.id);
             $(".parent-major-category").html(data.return_option);
+            $.each($('input[type="radio"]'),function(index,value){
+              if(value.value == data.result.status){
+                $(this).prop('checked',true);
+              }
+            });
         });
         $('.modal-title').html('Edit Major Category / Major');
         $('#add-edit-major-category').modal('show');

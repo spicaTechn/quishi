@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-
+@section('title','Quishi')
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="container">
