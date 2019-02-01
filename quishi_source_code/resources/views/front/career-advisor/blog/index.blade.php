@@ -1,4 +1,5 @@
 @extends('front.career-advisor.layout.master')
+@section('title','Quishi | Career Advsior Blogs')
 @section('content')
 
 <div class="profile-blog-page profile-main-section">

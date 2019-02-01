@@ -78,6 +78,7 @@ class QuestionController extends Controller
        $this->question->title    = $question;
        $this->question->type     = $question_type;
        $this->question->assigned_career    = $question_assigned_type;
+       $this->question->status             = $request->input('status');
        $this->question->save();
 
        //now save data in the pivot table 
@@ -132,6 +133,7 @@ class QuestionController extends Controller
         $question               = $request->input('question');
         $selected_job           = $request->input('parent-job');
         $question_type          = $request->input('question-type');
+        $status                 = $request->input('status');
         $question_assigned_type = '0';
         $career_id = array();
 
@@ -155,11 +157,12 @@ class QuestionController extends Controller
         }
 
        //initialize the question model 
-       $this->question           = Question::findOrFail($id);
-       $this->question->title    = $question;
-       $this->question->type     = $question_type;
+       $this->question                     = Question::findOrFail($id);
+       $this->question->title              = $question;
+       $this->question->type               = $question_type;
        $this->question->assigned_career    = $question_assigned_type;
-       $this->question->save();
+       $this->question->status             = $status;
+       $this->question->save(); 
 
        //now update data in the pivot table 
        $this->question->careers()->sync($career_id);
@@ -225,7 +228,7 @@ class QuestionController extends Controller
                     })->implode(',');   
                })
                ->addColumn('status',function($question){
-                    return ($question->type == 1) ? 'Active' : 'Inactive';
+                    return ($question->status == '1') ? 'Active' : 'Inactive';
                })->addColumn('action',function($question){
                 $return_html = "";
                 $return_html .= '<a href="#" class="m-r-15 text-muted edit-question" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" data-question-id="'.$question->id.'"><i class="icofont icofont-ui-edit"></i></a><a href="#" class="text-muted delete-question" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" data-question-id="'.$question->id.'"><i class="icofont icofont-delete-alt"></i></a>';

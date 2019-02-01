@@ -110,6 +110,25 @@
                             </div>
                         </div> 
                     </div>
+                    <div class="row">
+                       <div class="col-sm-12 col-xl-12 m-b-30">
+                            <h4 class="sub-title">{{ __('Select status') }}</h4>
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="status" class="status" value="1" checked="checked">
+                                        <i class="helper"></i>{{ __('Active') }}
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="status" class="status" value="0">
+                                        <i class="helper"></i>{{ __('Inactive') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
 
                     <input type="hidden" name="question_id" class="question_id" value=""/>
 	            </div>
@@ -370,7 +389,12 @@ $(document).ready(function () {
                               text:career.title 
                           } 
                   });
-              }  
+              } 
+               $.each($('input[type="radio"]'),function(index,value){
+                if(value.value == data.result.status){
+                  $(this).prop('checked',true);
+                }
+            }); 
           });
         });
         $('.modal-title').html('Edit Question');
