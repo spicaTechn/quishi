@@ -73,6 +73,7 @@
             </div>
             @else
                 <div class="_no_result_founds">
+                  <p>Looks like you have not following anyone yet! Please got to <a href="{{ url('/profiles') }}" class="new_forum_question_add">Profile</a> and start following career advisors</p>
                 </div>
             @endif
             <!-- end row -->

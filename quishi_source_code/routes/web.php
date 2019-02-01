@@ -377,6 +377,13 @@ Route::group(['middleware'=>array('auth','userType'),'prefix'=>'/profile'],funct
 	]);
 
 
+	//show the user added forum list here
+	Route::get('/forums',[
+		'as'   => 'profile.forum.index',
+		'uses' => 'Front\CareerAdvisor\Forum\ForumController@index'
+	]);
+
+
 
 });
 

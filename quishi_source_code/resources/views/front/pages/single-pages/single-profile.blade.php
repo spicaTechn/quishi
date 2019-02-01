@@ -369,7 +369,7 @@
 
 @section('page_specific_js')
 <script type="text/javascript">
-$(document).ready(function () {
+$(window).load(function () {
 
     //career profile like counter
     $( "#total_likes" ).on( "click", function() {

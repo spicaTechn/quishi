@@ -10,15 +10,15 @@
 @endif
 <?php $ogimage = asset('/front/images/blogs').'/'.$blog_details['image'];?>
 <!-- <meta property="fb:app_id" content="588023938211526" /> -->
-<meta property="og:title"        content="{{ $blog->title }}" />
+<meta property="og:title"        content="{{ $blog_details->title }}" />
 <meta property="og:abstract"     content="{{ $blog_details['abstract'] }}" />
 <meta property="og:date"         content="{{ $blog_details['date'] }}" />
 <meta property="og:type"         content="website" />
-<meta property="og:url"          content="{{ URL::to('/blog-share'.'/'.$blog->user_id.'/'.$blog->id) }}" />
+<meta property="og:url"          content="{{ URL::to('/blog-share'.'/'.$blog_details->user_id.'/'.$blog_details->id) }}" />
 <meta property="og:image"        content="{{ $ogimage }}" />
 <meta property="og:image:width"  content="100%" />
 <!-- <meta property="og:image:height" content="315px" /> -->
-<meta property="og:description"  content="{{ $blog->content }}" />
+<meta property="og:description"  content="{{ $blog_details->content }}" />
 @endsection
 @section('content')
 <div class="blog-single-pg">
@@ -270,7 +270,7 @@
 
 @section('page_specific_js')
  <script>
-    $(document).ready(function(){
+    $(window).load(function(){
          autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
     $('.blog-page-like').on('click', function(e){

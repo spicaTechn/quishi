@@ -154,7 +154,7 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <script type="text/javascript">
-   $(document).ready(function () {
+   $(window).load(function () {
 
       $.ajaxSetup({
         headers: {

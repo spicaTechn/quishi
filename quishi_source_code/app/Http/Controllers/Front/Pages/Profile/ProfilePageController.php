@@ -133,6 +133,7 @@ class ProfilePageController extends BaseCareerAdvisorController
          $answers = DB::table('answers')
                       ->where('question_id',$question['question_id'])
                       ->where('user_id',$id)
+                      ->where('status','1')
                       ->where('content','!=','')
                       ->select('id','content','total_likes')
                       ->first();

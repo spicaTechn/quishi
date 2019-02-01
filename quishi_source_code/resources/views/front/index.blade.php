@@ -269,7 +269,7 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function () {
+$(window).load(function () {
     //alert("hello");
     $('body').on('click', ".total_likes",function() {
       var user_profile_id = $(this).attr('data-profile-id');
@@ -379,7 +379,7 @@ $(document).ready(function () {
 
 
     //show the autocomplete option when the 
-    $('body').bind('keypress','.search_by_location',function(e){
+    $('body').on('keyup','.search_by_location',function(e){
         e.preventDefault();
         var search_query   =  $(this).val();
         var _token         = "{{csrf_token()}}";
@@ -389,7 +389,7 @@ $(document).ready(function () {
             if(data.status == "success"){
                 var return_lists = "";
                 $.each(data.result, function(index,value){
-                    return_lists += "<li data-location='" + value.full_address + "'><i class='icon-location-pin'></i>" + value.full_address + "</li>";
+                    return_lists += "<li data-location='" + value.full_address + "' style='cursor:pointer;'><i class='icon-location-pin'></i>" + value.full_address + "</li>";
                 });
                 //now append to ul 
                 $("#_location_search_list ul").html(return_lists);
@@ -427,7 +427,7 @@ $(document).ready(function () {
             if(data.status == "success"){
                var return_job_lists = "";
                $.each(data.result,function(index,value){
-                return_job_lists += "<li data-job-title='" + value.title + "'><i class='ti-light-bulb'></i>" + value.title + "</li>";
+                return_job_lists += "<li data-job-title='" + value.title + "' style='cursor:pointer;'><i class='ti-light-bulb'></i>" + value.title + "</li>";
                });
 
                $("#_job_title_search_list ul").html(return_job_lists);

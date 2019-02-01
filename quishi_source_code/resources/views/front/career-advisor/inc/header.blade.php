@@ -148,7 +148,7 @@
                     </ul>
                 </li>
                 
-                <li  class="{{Request::is('profile/forum*') ? 'active' : ''}}"><a href="{{route('profile.blog.create')}}"><i class="ti-comments"></i>Forum</a></li>
+                <li  class="{{Request::is('profile/forum*') ? 'active' : ''}}"><a href="{{route('profile.forum.index')}}"><i class="ti-comments"></i>Forum</a></li>
                 <li  class="{{Request::is('profile/followers*') ? 'active' : ''}}"><a href="{{route('careerAdviser.followers')}}"><i class="ti-user"></i>Followers</a></li>
                 <li  class="{{Request::is('profile/following*') ? 'active' : ''}}"><a href="{{route('careerAdviser.following')}}"><i class="ti-heart"></i>Following</a></li>
             </ul>

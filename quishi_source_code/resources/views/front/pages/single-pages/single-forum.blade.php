@@ -257,7 +257,7 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(window).load(function() {
 
         autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
              //add new comment on profile answer 

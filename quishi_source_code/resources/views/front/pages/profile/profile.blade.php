@@ -195,7 +195,7 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function () {
+$(window).load(function () {
     //alert("hello");
     $('body').on('click', ".total_likes", function() {
       var user_profile_id = $(this).attr('data-profile-id');
