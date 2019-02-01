@@ -56,7 +56,7 @@
                                     <div class="form-group accept-terms-conditions">
                                         <div class="custom-control custom-checkbox">
                                           <input type="checkbox" class="custom-control-input" id="terms_conditions" required="">
-                                          <label class="custom-control-label" for="terms_conditions">I accept <a href="{{ URL::to('/terms-and-condition') }}" target="_blank">terms and conditions</a></label>
+                                          <label class="custom-control-label" for="terms_conditions">By clicking register you agree to our <a href="{{ URL::to('/terms-and-condition') }}" target="_blank"><span class="terms_conditions">Terms and Conditions</span></a></label>
                                         </div>
                                     </div>
                                 </div>

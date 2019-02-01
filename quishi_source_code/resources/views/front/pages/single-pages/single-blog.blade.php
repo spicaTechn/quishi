@@ -27,7 +27,6 @@
 <meta property="og:title"              content="{{ $blog_details->title }} | By {{$blogBy}}" />
 <meta property="og:description"        content="{{ $ogDescription }}" />
 <meta property="og:image"              content="<?php echo $ogImage; ?>" />
-
 @endsection
 @section('content')
 <div class="blog-single-pg">
@@ -279,7 +278,7 @@
 
 @section('page_specific_js')
  <script>
-    $(document).ready(function(){
+    $(window).load(function(){
          autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
 
     $('.blog-page-like').on('click', function(e){

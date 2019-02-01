@@ -235,7 +235,7 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/formValidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 <script type="text/javascript">
-$(document).ready(function () {
+$(window).load(function () {
      // show answer field when click reply button
     $( ".btn-outline-secondary" ).click( function() {
       $('#reply-form')[0].reset();

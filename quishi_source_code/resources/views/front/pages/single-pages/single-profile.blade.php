@@ -27,9 +27,9 @@
                                 <!-- <span class="small">{{-- {{ $user->email }} --}}</span> -->
                             </div>
                             <!-- end profile-name-detail -->
-                            <div class="about-profile-detail">
-                                <p>{{ str_limit($user->user_profile->description,100) }}</p>
-                            </div>
+                            <!-- <div class="about-profile-detail">
+                                <p>{{--{{ str_limit($user->user_profile->description,100) }}--}}</p>
+                            </div> -->
                             <!-- end about-profile-detail -->
                             <div class="personal-contacts">
                                 <ul>
@@ -62,7 +62,7 @@
 
                                     @csrf
                                     <li>
-                                        <a href="javascript:void(0);" data-profile-id="{{$user->id}}" id="total_likes1">
+                                        <a href="javascript:void(0);"  id="total_likes1">
                                             <i class="icon-like"></i>Likes
                                         </a>
                                         <span class="like" id="like" value="{{ $user->user_profile->total_likes }}">{{ $user->user_profile->total_likes }}
@@ -70,8 +70,8 @@
                                     </li>
                                     <li><a href="javascript:void(0);"><i class="icon-eye"></i> Views</a><span>{{ $profile_view }}</span></li>
                                     <li><a href="javascript:void(0);"><i class="icon-bubble"></i> Comments</a><span>{{quishi_convert_number_to_human_readable($total_comments) }}</span></li>
-                                    <li><a href="#"><i class="icon-user"></i> Followers</a><span>{{quishi_convert_number_to_human_readable($user->followers()->count())}}</span></li>
-                                    <li><a href="{{URL::to('/blog/careerAdvisor/'.$user->id)}}"><i class="icon-feed"></i> Blog</a><span>{{$user->posts()->count()}}</span></li>
+                                    <li><a href="javascript:void(0);"><i class="icon-user"></i> Followers</a><span>{{quishi_convert_number_to_human_readable($user->followers()->count())}}</span></li>
+                                    <li><a href="javascript:void(0);"><i class="icon-feed"></i> Blog</a><span>{{$user->posts()->count()}}</span></li>
 
                                 </ul>
                             </div>
@@ -129,7 +129,7 @@
                             <div class="profile-slills">
                                 <ul>
                                     @foreach($user->tags as $tag)
-                                        <li><a href="#">{{ucwords($tag->title)}}</a></li>
+                                        <li><a href="javascript:void(0);">{{ucwords($tag->title)}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -446,7 +446,11 @@ $(window).load(function() {
                   $("#_answer_comment_" + _current_commented_id).find('textarea').css('height','37px');
                   //$("#_answer_comment_" + _current_commented_id).slideToggle(500);
                   $("#_answer_comment_" + _current_commented_id)[0].reset();
+                  $(this).parent().closest('div.form-group').find('textarea').prop('disabled',true);
 
+                },
+                complete:function(){
+                    $(this).parent().closest('div.form-group').find('textarea').prop('disabled',false);
                 }
 
            });

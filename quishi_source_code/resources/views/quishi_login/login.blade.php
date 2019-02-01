@@ -50,7 +50,7 @@
                                         <p>{{ __('New user?')}} <a href="{{URL::to('register')}}"> {{ __('Register now')}}</a></p>
                                     </div>
                                     <div class="form-group">
-                                        <p><a href="{{ route('password.request') }}">{{ _('Forget Password?')}}</a></p>
+                                        <p><a href="{{ route('password.request') }}">{{ _('Forgot Password?')}}</a></p>
                                         
                                     </div>
                                 </div>

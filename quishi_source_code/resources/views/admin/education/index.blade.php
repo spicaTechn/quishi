@@ -440,6 +440,7 @@ $(document).ready(function () {
 
                     
                      major_category_table.ajax.reload();
+                     unpproved_major_table.ajax.reload();
                      major_table.ajax.reload();
                     
                     

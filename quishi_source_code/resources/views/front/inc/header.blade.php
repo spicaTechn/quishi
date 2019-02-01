@@ -11,10 +11,11 @@
             @if(Auth::check())
             <li class="nav-item dropdown logdin">
                 <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     @if(Auth::user()->user_profile()->count() > 0)
-                        <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}
+
+                   @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
+                     <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}
                     @else
-                        <img src="{{  asset('/front/images/profile/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}
+                          <img src="{{  asset('/front/images/profile/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}
                     @endif
                 </a>
             <ul class="dropdown-menu">
@@ -53,10 +54,10 @@
                         @if(Auth::check())
                         <li class="nav-item dropdown logdin">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(Auth::user()->user_profile()->count() > 0)
-                                    <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}
+                                @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
+                                 <img src="{{  asset('/front/images/profile/').'/'.Auth::user()->user_profile->image_path }}"> Hi {{ucwords(auth()->user()->name) }}
                                 @else
-                                    <img src="{{  asset('/front/images/profile/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}
+                                      <img src="{{  asset('/front/images/profile/blog1.jpg')}}"> Hi {{ucwords(auth()->user()->name) }}
                                 @endif
                             </a>
                             <ul class="dropdown-menu">

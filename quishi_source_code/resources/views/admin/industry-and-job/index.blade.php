@@ -442,6 +442,7 @@ $(document).ready(function () {
                     
                      industry_table.ajax.reload();
                      job_table.ajax.reload();
+                     user_job_table.ajax.reload();
                     
                     
                     //var image="https://foodmario.com/images/food_icon.png";

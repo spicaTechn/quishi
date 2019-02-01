@@ -162,7 +162,7 @@
 
 
 <script type="text/javascript">
-$(document).ready(function () {
+$(window).load(function () {
 	// question add model pop up
 	  $( "#show-qusetion-modal" ).on( "click", function() {
       $('.modal-title').text('Add New Question'); // Set Title to Bootstrap modal title

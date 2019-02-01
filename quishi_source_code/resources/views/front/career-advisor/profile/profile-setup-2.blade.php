@@ -117,7 +117,7 @@
             </div>
 
             <div class="form-group">
-                <label>{{ __('Enter your skill') }}</label>
+                <label>{{ __('Enter your skill') }}<small><i>  (Press enter to add other skills)</i></small></label>
                  @if(Auth::user()->tags()->count() > 0)
                     @foreach(Auth::user()->tags as $user_tag)
                         <input type="hidden"  class="selected_user_tag" value="{{$user_tag->title}}"/>

@@ -322,6 +322,10 @@ class ProfileController extends BaseCareerAdvisorController
 
         //save the user questions answer at the end of the profile setup
 
+        //delete the user answer if have any
+
+       DB::table('answers')->where('user_id',Auth::user()->id)->delete();
+       $user = User::find(Auth::user()->id);
        $question_id   = $request->input('question_id');
        $answer_id     = $request->input('answer_id');
 
@@ -339,7 +343,6 @@ class ProfileController extends BaseCareerAdvisorController
 
        if(count($question_id) > 0){
         //now update the user profile table to make the profie setup as completed
-        $user = User::find(Auth::user()->id);
         $user->user_profile()->update([
                         'profile_setup_steps'    => '3',
                         'profile_setup_status'   => '1',
@@ -348,7 +351,9 @@ class ProfileController extends BaseCareerAdvisorController
        }
 
        //after the all the questions has been set up insert the dummy user links in the user_link table
-        $this->updateUserLinkTable(Auth::user()->id);
+       if($user->user_links()->count() == 0):
+            $this->updateUserLinkTable(Auth::user()->id);
+       endif;
 
        //after that redirect to the profile route after the complete of the profile setup
 
