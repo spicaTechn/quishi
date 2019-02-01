@@ -322,7 +322,7 @@
                                         <p>{{ $comment_reply->content }}</p>
                                         <div class="profile-author-comment">
                                              <ul>
-                                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $comment_reply->id}}"><i class="icon-like"></i> {{ $comment_reply->total_likes }} {{ ($comment_reply->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
+                                                <li><a href="javascript:void(0);" class="_comment_like" data-comment-id="{{ $comment_reply->id}}" onclick=""><i class="icon-like"></i> {{ $comment_reply->total_likes }} {{ ($comment_reply->total_likes > 1) ? 'Likes' : 'Like' }}</a></li>
                                             </ul>
                                         </div>
                                         
@@ -369,8 +369,16 @@
 
 @section('page_specific_js')
 <script type="text/javascript">
-$(document).ready(function () {
+$(window).load(function() {
+     $('.like-comment-view a.go-to-comment').click(function() {
+        setTimeout(function() {
+            $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').focus();
+            $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').css("border-color", "#8ac43f");
+        }, 0);
 
+        $(this).parent().closest('div.profile-question-answer-section').find('div.profile-leave-comment').slideToggle(500);
+    });
+    
     //career profile like counter
     $( "#total_likes" ).on( "click", function() {
       var user_profile_id = $(this).attr('data-profile-id');

@@ -1,7 +1,5 @@
-jQuery(document).ready(function($) {
-    //$("select.form-control").niceSelect();
-
-    function mobileNav() {
+$(window).load(function() {
+   function mobileNav() {
 	    var node = $(".profile-sidemenu").clone();
 
         $('.navbar-nav').before(node);
@@ -12,8 +10,6 @@ jQuery(document).ready(function($) {
 	}
 
 	mobileNav();
-
-
 
     $('.change-view').click(function() {
         $('.show_more_career_advisior').toggleClass('change-list-view');
@@ -118,8 +114,7 @@ jQuery(document).ready(function($) {
         $(this).parent().closest('div.profile-coment-comment').find('.form-group').slideToggle();
         //$('.profile-comment-section .form-group').slideToggle();
     });
-
-
+    
     //navbar-toggler
     $(document).on('click', '.navbar-toggler', function(event) {
         $('.navbar-collapse').toggleClass('slideIn');
@@ -127,30 +122,27 @@ jQuery(document).ready(function($) {
         $('.navbar-toggler').toggleClass('on');
         $('.dashboard-toggle').fadeOut();
     });
+    
+    if ($(window).width() <= 991) {
+       $('.notification-box').prependTo('.navbar .container-fluid');
+       $('.navbar-collapse').prepend('<span class="close">&times;</span>');
+   }
 
+   if ($(window).width() <= 767) {
+        $('.static-login-menu').prependTo('#navbarSupportedContent');
 
-       if ($(window).width() <= 991) {
-           $('.notification-box').prependTo('.navbar .container-fluid');
-           $('.navbar-collapse').prepend('<span class="close">&times;</span>');
-       }
+       // Add slideDown animation to Bootstrap dropdown when expanding.
+         $('.dropdown').on('show.bs.dropdown', function() {
+           $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+         });
 
-       if ($(window).width() <= 767) {
-            $('.static-login-menu').prependTo('#navbarSupportedContent');
-
-           // Add slideDown animation to Bootstrap dropdown when expanding.
-             $('.dropdown').on('show.bs.dropdown', function() {
-               $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-             });
-
-             // Add slideUp animation to Bootstrap dropdown when collapsing.
-             $('.dropdown').on('hide.bs.dropdown', function() {
-               $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-             });
-       }
-
-      
-
-    $(document).on('click', '.navbar-collapse .close', function(event) {
+         // Add slideUp animation to Bootstrap dropdown when collapsing.
+         $('.dropdown').on('hide.bs.dropdown', function() {
+           $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+         });
+   }
+   
+   $(document).on('click', '.navbar-collapse .close', function(event) {
         $('.navbar-collapse').toggleClass('slideIn');
         $('body').toggleClass('overflow-hidden');
         $('.navbar-toggler').toggleClass('on');
@@ -186,22 +178,7 @@ jQuery(document).ready(function($) {
     $(document).on('click', '.dashboard-toggle-hide', function(event) {
         $('.profile-sidemenu').toggleClass('show');
     });
-
-    //$('.notification-box').prependTo('.navbar-brand');
-
-    // window.onscroll = function() {myFunction()};
-
-    // var header = document.getElementById("myHeader");
-    // var sticky = header.offsetTop;
-
-    // function myFunction() {
-    //   if (window.pageYOffset > sticky) {
-    //     header.classList.add("sticky");
-    //   } else {
-    //     header.classList.remove("sticky");
-    //   }
-    // }
-
+    
     //blog masonary
     var blogMasonary = window.blogMasonary || {},
         $win = $(window);
@@ -216,14 +193,13 @@ jQuery(document).ready(function($) {
 
         });
     };
+    
     blogMasonary.Isotope();
-if ($(window).width() > 767) {
-    $('.fixed-top-section').scrollToFixed();
-}
-
-
-
-    $('.like-comment-view a.go-to-comment').click(function() {
+    if ($(window).width() > 767) {
+        $('.fixed-top-section').scrollToFixed();
+    }
+    
+   /* $('.like-comment-view a.go-to-comment').click(function() {
 
         setTimeout(function() {
             $('div.profile-question-answer-section').find('div.profile-leave-comment textarea').focus();
@@ -231,16 +207,16 @@ if ($(window).width() > 767) {
         }, 0);
 
         $(this).parent().closest('div.profile-question-answer-section').find('div.profile-leave-comment').slideToggle(500);
-    });
+    });*/
 
-    $(document).on('click', '.like-comment-view a[href^="#"]', function(event) {
+    $('body').on('click', '.like-comment-view a[href^="#"]', function(event) {
         event.preventDefault();
         //alert('clicked');
         $('html, body').animate({
             scrollTop: $($.attr(this, 'href')).offset().top - 100
         }, 500);
     });
-
+    
     // forum-leave-comment
 
     $('.forum-like-comment-view  a.go-to-comment').click(function() {
@@ -278,58 +254,17 @@ if ($(window).width() > 767) {
         $("#donation-Modal").modal('hide');
     });
 
-    /*$(document).on("click", function(event){
-        var $menu = $(".mobile-login-btn ");
-        if($menu !== event.target && !$menu.has(event.target).length){
-            $(".login-menu-mobile").slideUp();
-        }            
-    });*/
-
-    /*// notification
-    $(".navbar-light .navbar-nav li.notification-box a ").click(function() {
-        //alert("closed");
-        $(".notification-list").slideDown();
-        $(".navbar-light .navbar-nav li.notification-box .badge").hide();
-    });
-
-
-        $(document).on("click", function(event){
-            var $trigger = $(".notification-box");
-            if($trigger !== event.target && !$trigger.has(event.target).length){
-                $(".notification-list").slideUp();
-            }            
-        });*/
-
-    // Show hide notification
-    // $(".notification-box").click(function() {
-    //     $(this).find(".notification-list").slideToggle();
-    //     $(".navbar-light .navbar-nav li.notification-box .badge").hide();
-    // });
-
-    //     $(document).on("click", function(event) {
-    //         var $trigger = $(".notification-box");
-    //         if ($trigger !== event.target && !$trigger.has(event.target).length) {
-    //             $(".notification-list").slideUp();
-    //         }
-    //     });
-
     autosize(document.querySelectorAll('.forum-leave-comment textarea.form-control'));
     autosize(document.querySelectorAll('.blog-leave-comment textarea.form-control'));
     autosize(document.querySelectorAll('.profile-author-comment .form-group textarea.form-control'));
     autosize(document.querySelectorAll('.profile-author-comment .form-group textarea.form-control'));
 
 
-    // // read notification
-    // $(".notification-list li a").click(function() {
-    //     $(this).addClass("mark-as-read");
-    // });
-
-     //mobile login menu
+    //mobile login menu
     $(".mobile-login-btn").click(function() {
         $(".login-menu-mobile").slideToggle(500);
     });
-
-
+    
     //equal height
     equalheight = function(container) {
 
@@ -361,7 +296,7 @@ if ($(window).width() > 767) {
             }
         });
     }
-
+    
     //on scroll add  and remove class
     $(window).scroll(function() {
         var scroll = $(window).scrollTop();
@@ -371,9 +306,9 @@ if ($(window).width() > 767) {
         } else {
             $(".front-profile-menu").removeClass("darkHeader");
         }
-    });
+    }); 
 
-});
+}); // END WINDOW.LOAD FUNCTION
 
 
 // https://codepen.io/aaronvanston/pen/yNYOXR

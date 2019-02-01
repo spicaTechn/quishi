@@ -138,9 +138,8 @@
 
 @section('page_specific_js')
 <script>
-     $(document).ready(function(e){
+     $(window).load(function() {
         $('.location').select2();
-     });
-          
+     });    
 </script>
 @endsection

@@ -185,7 +185,7 @@
                                           @if(Auth::user()->user_profile->image_path != "")
                                             <img src="{{ asset('/front')}} /images/profile/{{Auth::user()->user_profile->image_path}}">
                                           @else
-                                            <img src="{{ asset('/front')}} /images/profile/default-profile.jpg">
+                                            <img src="{{ asset('/front')}} /images/default-profile.jpg">
                                           @endif
                                         @endif
                                     </div>

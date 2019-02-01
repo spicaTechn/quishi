@@ -268,9 +268,9 @@ $.ajaxSetup({
         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
     }
 });
+    
 
-$(document).ready(function () {
-    //alert("hello");
+$(window).load(function () {
     $('body').on('click', ".total_likes",function() {
       var user_profile_id = $(this).attr('data-profile-id');
       var _token          = $("input[name='_token']").val();
@@ -376,8 +376,6 @@ $(document).ready(function () {
         }
         
     });
-
-
     //show the autocomplete option when the 
     $('body').on('keyup','.search_by_location',function(e){
         e.preventDefault();
