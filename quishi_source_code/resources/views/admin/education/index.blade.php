@@ -596,6 +596,7 @@ $(document).ready(function () {
                         {
                             swal("Deleted!", data.message, "success");
                               major_category_table.ajax.reload();
+                              unpproved_major_table.ajax.reload();
                               major_table.ajax.reload();
                         }else{
                             swal('Not allowed!!',data.message,'error');

@@ -139,12 +139,16 @@ class IndustryController extends Controller
             return response()->json(array('status'=>'error','message'=>'The industry cannot be deleted because it contains the job in it'),200);
         }else{
              //to do check the job has the user or not before deleting it
-            if($career_industry->parent == 0)
-                $message = "Industry";
-            else
-                $message = "Job";
-            $career_industry->delete();
-            return response()->json(array('status'=>'success','message'=> $message .' has been deleted successfully!' ),200);
+            if($career_industry->users()->count() > 0):
+                return response()->json(array('status'=>'error', 'message' => 'Cannot be deleted because it contains the career advisor'),200);
+            else:
+                if($career_industry->parent == '0')
+                    $message = "Industry";
+                else
+                    $message = "Job";
+                $career_industry->delete();
+                return response()->json(array('status'=>'success','message'=> $message .' has been deleted successfully!' ),200);
+            endif;
         }
         //delete the parent 
 

@@ -14,8 +14,8 @@
                         @endforeach
                     @else
                      <div class="no_review">
-                        <h4>You have no reviews</h4>
-                        <p>You got no reviews from Quishi.</p>
+                        <h4>{{ __('You have no reviews') }}</h4>
+                        <p>{{ __('You got no reviews from Quishi.') }}</p>
                      </div>
                     @endif
                 </div>

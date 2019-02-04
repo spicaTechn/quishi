@@ -1,42 +1,55 @@
 
+@if(!Auth::check())
+<div class="login-menu login-menu-mobile fixed-login-menu">
+    <ul>
+        <li class="nav-item">
+            <a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a>
+        </li>               
+    </ul>     
+</div>
+@endif
+<!-- fixed login -->
 <footer class="footer">
-            <div class="main-footer">
-                <div class="container">
-                    <div class="row">
-                        @if($contact_social)
-                        <!-- <div class="col-lg-3 col-sm-6">
-                            <div class="footer-section">
-                                <h4>Address</h4>
+    <div class="main-footer">
+        <div class="container">
+            <div class="row">
+                @if($contact_social)
+                <!-- <div class="col-lg-3 col-sm-6">
+                    <div class="footer-section">
+                        <h4>Address</h4>
 
-                                <p>{{ $contact_social['address'] }}</p>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-lg-3 col-sm-6">
-                            <div class="footer-section">
-                                <h4>Contact</h4>
-                                <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
-                                <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
-                            </div>
-                        </div> -->
-                        @endif
-                        
-                        <div class="col-lg-5 col-md-4">
-                            <div class="footer-section">
-                                <!-- <h4>Quick links</h4> -->
-                                <div class="footer-nav">
-                                    <ul>
-                                        <li><a href="{{URL::to('/about')}}">About</a></li>
-                                        <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
-                                        <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
-                                        <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <p>{{ $contact_social['address'] }}</p>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-3 col-sm-6">
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <p>Phone: <a href="callto:{{ $contact_social['phone_number'] }}">{{ $contact_social['phone_number'] }}</a><br>Email: <a href="mailto:quishi@quishi.com">{{ $contact_social['email'] }}</a> <br>
+                        <a href="mailto:{{ $contact_social['email'] }}">{{ $contact_social['email'] }}</a></p>
+                    </div>
+                </div> -->
+                @endif
+                
+                <div class="col-lg-5 col-md-4">
+                    <div class="footer-section">
+                        <!-- <h4>Quick links</h4> -->
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="{{URL::to('/about')}}">About</a></li>
+                                <li><a href="{{ URL::to('/contact')}}">Contact</a></li>
+                                <li><a href="{{ URL::to('/privacy-policy') }}">Privacy policy</a></li>
+                                <li><a href="{{ URL::to('/terms-and-condition') }}">Terms of use</a></li>
+                            </ul>
                         </div>
-
+                    </div>
+                </div>
                         <div class="col-md-4 col-lg-3">
                             <div class="footer-section">
-                               @if($contact_social)
+                                @if($contact_social)
                                 <div class="footer-social-media">
                                     <ul class="social-links">
                                       @if($contact_social['facebook'] != "")
@@ -58,135 +71,45 @@
                                 </div>
                                  @endif
                             </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-section">
+                        <!-- <h4>Donate</h4> -->
+                        <div class="donate-image">
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                                <input type="hidden" name="cmd" value="_s-xclick" />
+                                <input type="hidden" name="hosted_button_id" value="7ANBWK2YU2LY4" />
+                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                            </form>
                         </div>
+                    </div>
+                </div>
+                
 
-                        <div class="col-lg-4 col-md-4">
-                            <div class="footer-section">
-                                <!-- <h4>Donate</h4> -->
-                                <div class="donate-image">
-                                    <a class="donation-modal-btn btn btn-default"><!-- <img src="{{asset('front/images/paypal.png')}}" alt="paypals"> -->
-                                        Donate Now
-                                    </a>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal modal-quishi fade" id="donation-Modal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="paypal-logo">
-                                                    <img src="{{ asset('front/images/logo-paypal.png')}}" alt="#">
-                                                </div>
-                                                <h5 class="modal-title" id="exampleModalLabel">Donate us now</h5>
-                                                <h6>Payment Method</h6>
-                                                <div class="card-images">
-                                                    <div class="card-image">
-                                                        <img src="{{ asset('front/images/master-card.png')}}" alt="paypal">
-                                                    </div>
-                                                    <div class="card-image">
-                                                        <img src="{{asset('front/images/paypals.png')}}" alt="paypal">
-                                                    </div>
-                                                    <div class="card-image">
-                                                        <img src="{{ asset('front/images/visa.png')}}" alt="paypal">
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                
-                                                <form name="donate_now" id="donate_now" action="#" method="post">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Name on Card</label>
-                                                                <input type="text"  class="form-control" name="name_on_card" placeholder="Name on Card">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Card Number</label>
-                                                                <input type="text" class="form-control" name="card_number" placeholder="Card Number">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end col -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <!-- <label class="col-form-label">Expiration</label> -->
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-form-label">Expiration</label>
-                                                                        <input type="text"  class="form-control" placeholder="MM" name="expiration_month">
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-form-label" style="opacity: 0;">Year</label>
-                                                                        <input type="text"  class="form-control" placeholder="YYYY" name="expiration_year">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">CVC Number</label>
-                                                                <input type="text"  class="form-control" placeholder="cvv" name="card_code">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Amount</label>
-                                                                <input type="number"  class="form-control" placeholder="Amount" name="amount" step="0.2" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group ">
-                                                                <label class="col-form-label">Currency</label>
-                                                                <select class="form-control" name="currency">
-                                                                    <option>USD</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end column -->
-                                                        
-                                                    </div>
-                                                    <!-- end row -->
-                                                    
-                                                    
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-8 offset-sm-4">
-                                                            <button type="submit" class="btn btn-default donate_us">Dontate Now</button>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end form group -->
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                    
-                </div>
+
             </div>
-             
-            <div class="footer-copyright">
-                <div class="container">
-                    <div class="copyright text-center">
-                        &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
-                    </div>
-                </div>
+            
+        </div>
+    </div>
+     
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="copyright text-center">
+                &copy; <?php echo date("Y"); ?> Quishi. All rights reserved.
             </div>
-           
-        </footer>
+        </div>
+    </div>
+   
+</footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--<script  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>-->
+<!--<script src="{{ asset('/front/js/ios9.js') }}"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="{{ asset('/front/js/bootstrap.min.js') }}"></script>
 <!-- <script src="{{ asset('/front/js/jquery-nice-select.min.js') }}"></script> -->
@@ -205,9 +128,10 @@
 <!-- Select 2 -->
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/select2/js/select2.full.min.js') }}"></script>
 
+
 @yield('page_specific_js')
 <script>
-    $(document).ready(function(){
+    $(window).load(function(){
         // //blog masonary
         //   var blogMasonary = window.blogMasonary || {},
         //       $win = $(window);
@@ -223,6 +147,7 @@
         //       });
         //   };
         //   blogMasonary.Isotope();
+        
         
         $(".notification-box").click(function() {
             $(this).find(".notification-list").slideToggle();
@@ -307,287 +232,6 @@
             }
             
         });
+ });
 
-
-
-
-        $("#donate_now").formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-refresh'
-            },
-            excluded: 'disabled',
-            fields: {
-                name_on_card: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The Name on card is required'
-                        }
-                    }
-                },
-                card_number: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The card number is required'
-                        },
-                    
-                    creditCard: {
-
-                                message: 'The credit card number is not valid'
-
-                    }
-                 }
-
-                },
-                card_code: {
-
-                        validators: {
-
-                            notEmpty: {
-
-                                message: 'The CVV is required'
-
-                            },
-
-                            card_code: {
-
-                                creditCardField: 'cardNumber',
-
-                                message: 'The CVV number is not valid'
-
-                            }
-
-                        }
-
-                },
-                expiration_month: {
-
-                        validators: {
-
-                            notEmpty: {
-
-                                message: 'The expiration month is required'
-
-                            },
-
-                            digits: {
-
-                                message: 'The expiration month can contain digits only'
-
-                            },
-
-                            callback: {
-
-                                message: 'Expired',
-
-                                callback: function(value, validator, $field) {
-
-                                    value = parseInt(value, 10);
-
-                                    var year         = validator.getFieldElements('expiration_year').val(),
-
-                                        currentMonth = new Date().getMonth() + 1,
-
-                                        currentYear  = new Date().getFullYear();
-
-                                    if (value < 0 || value > 12) {
-
-                                        return false;
-
-                                    }
-
-                                    if (year == '') {
-
-                                        return true;
-
-                                    }
-
-                                    year = parseInt(year, 10);
-
-                                    if (year > currentYear || (year == currentYear && value >= currentMonth)) {
-
-                                        validator.updateStatus('expYear', 'VALID');
-
-                                        return true;
-
-                                    } else {
-
-                                        return false;
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                },
-                expiration_year: {
-
-                        validators: {
-
-                            notEmpty: {
-
-                                message: 'The expiration year is required'
-
-                            },
-
-                            digits: {
-
-                                message: 'The expiration year can contain digits only'
-
-                            },
-
-                            callback: {
-
-                                message: 'Expired',
-
-                                callback: function(value, validator, $field) {
-
-                                    value = parseInt(value, 10);
-
-                                    var month        = validator.getFieldElements('expiration_month').val(),
-
-                                        currentMonth = new Date().getMonth() + 1,
-
-                                        currentYear  = new Date().getFullYear();
-
-                                    if (value < currentYear || value > currentYear + 10) {
-
-                                        return false;
-
-                                    }
-
-                                    if (month == '') {
-
-                                        return false;
-
-                                    }
-
-                                    month = parseInt(month, 10);
-
-                                    if (value > currentYear || (value == currentYear && month >= currentMonth)) {
-
-                                        validator.updateStatus('expiration_month', 'VALID');
-
-                                        return true;
-
-                                    } else {
-
-                                        return false;
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                },
-                amount:{
-                    validators:{
-                        notEmpty:{
-                            message : 'The amount is required'
-                        }
-                    }
-                }
-        }).on('success.field.fv', function(e, data) {
-            // Show card icons
-
-            if (data.field === 'card_number' && data.validator === 'creditCard') {
-
-                var $icon = data.element.data('fv.icon');
-
-                switch (data.result.type) {
-                    case 'MASTERCARD':
-                    case 'DINERS_CLUB_US':
-                        $icon.removeClass().addClass('form-control-feedback fa fa-cc-mastercard');
-                        break;
-                    case 'VISA':
-                        $icon.removeClass().addClass('form-control-feedback fa fa-cc-visa');
-                        break;
-                    case 'AMERICAN_EXPRESS':
-                        $icon.removeClass().addClass('form-control-feedback fa fa-cc-amex');
-                        break;
-                    case 'DISCOVER':
-                        $icon.removeClass().addClass('form-control-feedback fa fa-cc-discover');
-                        break;
-                    default:
-                        $icon.removeClass().addClass('form-control-feedback fa fa-times');
-                        break;
-
-                }
-
-            }
-
-        })
-
-        .on('err.field.fv', function(e, data) {
-
-            if (data.field === 'card_number') {
-
-                var $icon = data.element.data('fv.icon');
-
-                $icon.removeClass().addClass('form-control-feedback fa fa-times');
-
-            }
-
-        });
-    }).on('success.form.fv', function(e) {
-           
-            e.preventDefault();
-            var result = new FormData($("#donate_now")[0]);
-            result.append('_token',"{{csrf_token()}}");
-
-            //make the ajax request to get the result
-            $.ajax({
-                url         : "{{route('makePayment')}}",
-                data        : result,
-                type        : 'POST',
-                dataType    : 'JSON',
-                processData : false,
-                contentType : false,
-                success     : function(data){
-                    if(data.status == 'success'){
-                        swal({
-                            title           : 'Payment completed!!',
-                            text            : 'Thank you for your donation, the payment process has been completed successfully',
-                            type            : 'success',
-                            closeOnConfirm  : true
-                        },
-                            function(){
-                                location.reload();
-                        });
-
-                        //hide the modal 
-                        $('#donation-Modal').modal('hide');
-                    }else{
-                         swal({
-                            title           : 'Payment incomplete!!',
-                            text            : data.result,
-                            type            : 'error',
-                            closeOnConfirm  : true
-                        },
-                            function(){
-                                //location.reload()
-                        });
-
-                         //$('#donation-Modal').modal('hide');
-                    }
-                },
-                error       : function(e){
-
-                }
-
-
-            });
-
-
-    });
 </script>

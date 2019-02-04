@@ -43,13 +43,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link">{{ __('Profiles')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link">{{ __('Blog')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/career-advisor')}}" class="nav-link {{Request::is('career-advisior*') ? 'active ' : '' }}">{{ __('Profiles')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/blog')}}" class="nav-link {{Request::is('blog*') ? 'active ' : '' }}">{{ __('Blog')}}</a></li>
                     <li class="nav-item"><a href="{{URL::to('/forums')}}" class="nav-link {{Request::is('forums*') ? 'active ' : '' }}">{{ __('Forum')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link">{{ __('About')}}</a></li>
-                    <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link">{{ __('Contact')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/about')}}" class="nav-link {{Request::is('about*') ? 'active ' : '' }}">{{ __('About')}}</a></li>
+                    <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link {{Request::is('contact*') ? 'active ' : '' }}">{{ __('Contact')}}</a></li>
+                    @if(Auth::user())
                     @if(Auth::user()->notifications()->count() > 0)
-                    <li class="nav-item notification-box"><a href="#" class="nav-link"><i class="fa fa-globe"></i>@if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) <span class="badge">{{Auth::user()->unreadNotifications()->where('seen_flag','0')->count()}}@endif</span></a>
+                    <li class="nav-item notification-box  @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ '_all_not_seen'}} @endif"><a href="#" class="nav-link"><i class="fa fa-globe"></i> <span class="badge">@if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ Auth::user()->notifications()->where('seen_flag','0')->count() }} @endif</span></a>
                         <div class="notification-list">
                             <div class="notification-title">
                                 <span>{{ __('Notification') }} </span><a href="#" class="_quishi_mark_as_read @if(Auth::user()->unreadNotifications()->count() <= 0) {{ 'no_unread_notification' }} @endif">{{ __('Mark as read') }}</a>
@@ -58,8 +59,7 @@
                             <ul>
                                 @foreach(Auth::user()->notifications as $notifications)
                                 <li class="notification-list-item">
-                                    <a href="{{ $notifications->data['url'] }}" class="_quishi_mark_as_read_notification @if($notifications->read_at != '') ? {{ 'mark-as-read' }} : {{ ''}} @endif" data-notification-id="{{$notifications->id }}">
-
+                                     <a href="{{ $notifications->data['url'] }}" class="_quishi_mark_as_read_notification @if($notifications->read_at != '') ? {{ 'mark-as-read' }} : {{ ''}} @endif" data-notification-id="{{$notifications->id }}">
                                         <div class="notification-image">
                                              <img src="{{ $notifications->data['user_image'] }}" alt="#">
                                         </div>
@@ -68,15 +68,16 @@
                                         </div>
                                     </a>
                                 </li>
-                                <!-- end notification item -->
                                 @endforeach
+                                <!-- end notification item -->
                             </ul>
                             </div>       
                         </div>
                     </li>
-                    @endif
+                      @endif
+                @endif
+                   
                 </ul>
-
             </div>
             <div class="login-menu login-menu-sm">
                 <ul>

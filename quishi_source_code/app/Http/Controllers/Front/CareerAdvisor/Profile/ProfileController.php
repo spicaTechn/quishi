@@ -204,7 +204,7 @@ class ProfileController extends BaseCareerAdvisorController
                 return view('front.career-advisor.profile.profile-setup-2')->with([
                     'industries'      => $this->career,
                     'majors'          => Education::where('parent','>',0)
-                                                  ->where('status',1)
+                                                  ->where('status','1')
                                                   ->where('is_approved','1')
                                                   ->get(),
                 ])->with(array(
@@ -398,6 +398,7 @@ class ProfileController extends BaseCareerAdvisorController
                                             }
                                         })
                                         ->whereIn('user_id',$admin_ids)
+                                        ->where('status','1')
                                         ->select('id','name','parent')
                                         ->get();
         $return_major       = array();
