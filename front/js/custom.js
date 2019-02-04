@@ -1,4 +1,4 @@
-$(window).load(function() {
+
    function mobileNav() {
 	    var node = $(".profile-sidemenu").clone();
 
@@ -308,7 +308,7 @@ $(window).load(function() {
         }
     }); 
 
-}); // END WINDOW.LOAD FUNCTION
+
 
 
 // https://codepen.io/aaronvanston/pen/yNYOXR

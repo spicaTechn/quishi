@@ -17,7 +17,6 @@
                                 @else
                                   <img src="{{asset('/front')}}/images/profile/{{ $following_adviser->user_profile->image_path }}">
                             @endif
-                           
                         </div>
                         <div class="profile-desination">
                             <h3>{{$following_adviser->user_profile->first_name }}</h3>
@@ -86,7 +85,7 @@
 @endsection
 @section('page_specific_js')
 <script>
- $(document).ready(function(){
+ $(window).load(function(){
     $( ".total_likes" ).on( "click", function() {
       var user_profile_id = $(this).attr('data-profile-id');
       var _token          = $("input[name='_token']").val();

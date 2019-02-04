@@ -249,7 +249,7 @@
 @section('page_specific_js')
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
     <script>
-            $(document).ready(function(){
+            $(window).load(function(){
                 $('.industry').select2();
 
                 $('.industry').on('select2:select',function(e){

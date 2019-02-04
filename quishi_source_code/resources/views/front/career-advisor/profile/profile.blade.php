@@ -195,7 +195,7 @@
 
 @section('page_specific_js')
 <script>
-    $(document).ready(function(){
+    $(window).load(function(){
        
        //make the process back to normal when the user click the cancel button 
         $(document).on('click',".btn-cancel", function(e){

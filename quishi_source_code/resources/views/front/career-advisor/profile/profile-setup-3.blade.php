@@ -65,7 +65,7 @@
 @endsection
 @section('page_specific_js')
 <script>
-    $(document).ready(function(){
+    $(window).load(function(){
         $("#profile_setup_back").on('click',function(e){
             e.preventDefault();
             window.location.href = "{{URL::to('/profile/setup/step2/back')}}";

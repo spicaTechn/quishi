@@ -249,8 +249,6 @@ $(window).load(function () {
 
 
     function renderSearchDataAndAjaxCall(type){
-
-
         var search_by_location      = "{{(isset($_GET['search_by_location'])) ? $_GET['search_by_location'] : '' }}";
 
         //get the other field on-page search parameters

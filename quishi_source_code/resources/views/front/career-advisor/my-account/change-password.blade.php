@@ -41,7 +41,7 @@
 <script type="text/javascript" src="{{ asset('/admin_assets/bower_components/formvalidation/framework/bootstrap.js') }}"></script>
 
 <script>
-	$(document).ready(function(){
+	$(window).load(function(){
 		$('#change-password').on('init.field.fv', function(e, data) {
             e.preventDefault();
             var $parent = data.element.parents('.form-group'),

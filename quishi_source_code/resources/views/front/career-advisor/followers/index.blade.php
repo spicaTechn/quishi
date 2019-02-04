@@ -101,7 +101,7 @@
 @section('page_specific_js')
 
  <script>
-    $(document).ready(function(){
+    $(window).load(function(){
          //follow career advisor
     $('body').on('click','.follow_career_advisor', function(e){
         //prevent the default action
