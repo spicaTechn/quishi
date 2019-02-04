@@ -82,9 +82,9 @@
                                                     <div class="card-image">
                                                         <img src="{{ asset('front/images/master-card.png')}}" alt="paypal">
                                                     </div>
-                                                    <div class="card-image">
+                                                    <!-- <div class="card-image">
                                                         <img src="{{asset('front/images/paypals.png')}}" alt="paypal">
-                                                    </div>
+                                                    </div> -->
                                                     <div class="card-image">
                                                         <img src="{{ asset('front/images/visa.png')}}" alt="paypal">
                                                     </div>
@@ -162,6 +162,13 @@
                                                     </div>
                                                     <!-- end form group -->
                                                 </form>
+
+                                                <hr/>
+                                                <div class="payment-via-paypal text-center">
+                                                    <p>Payment via paypal</p>
+                                                    <a href="#"> <img src="{{asset('front/images/paypals.png')}}" alt="paypal"></a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

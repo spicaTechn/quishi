@@ -3,8 +3,8 @@
     <div class="login-menu login-menu-xs">
         <ul>
             @if(!Auth::check())
-            <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
-            <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+            <li class="nav-item @if(Request::is('login*')) {{ 'active'}}@endif"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+            <li class="nav-item @if(Request::is('register*')) {{ 'active'}}@endif"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
             @endif
 
             <!-- if user is logdin -->
@@ -46,8 +46,8 @@
             <div class="login-menu login-menu-mobile static-login-menu">
                 <ul>
                     @if(!Auth::check())
-                    <li class="nav-item"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
-                    <li class="nav-item"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+                    <li class="nav-item @if(Request::is('login*')) {{ 'active'}}@endif"><a href="{{route('login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+                    <li class="nav-item @if(Request::is('register*')) {{ 'active'}}@endif"><a href="{{route('register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
                     @endif
 
                 <!-- if user is logdin -->
@@ -115,8 +115,8 @@
             <div class="login-menu login-menu-sm">
                 <ul>
                     @guest
-                        <li class="nav-item"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
-                        <li class="nav-item"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
+                        <li class="nav-item @if(Request::is('login*')) {{ 'active'}} @endif"><a href="{{asset('/login')}}" class="nav-link"> {{ __('Sign In')}} <i class="icon-power"></i></a></li>
+                        <li class="nav-item @if(Request::is('register*')) {{ 'active'}} @endif"><a href="{{asset('/register')}}" class="nav-link"> {{ __('Sign Up')}} <i class="icon-user"></i></a></li>
                         
                     @else
                         @if( Auth::user()->user_profile()->count() > 0 && Auth::user()->user_profile->image_path != '')
