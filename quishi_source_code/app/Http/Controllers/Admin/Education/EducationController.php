@@ -113,11 +113,11 @@ class EducationController extends Controller
           if($request->input('parent_id') <= 0):
             if($education->children()->count() > 0):
                //to delete the education major category need to check have the major or not
-              return response()->json(array('status'=>'error','message'=>'Cannot update major category becuase it contains the major'),200);
+              return response()->json(array('status'=>'error','message'=>'Cannot update major category because it contains the major'),200);
             endif;
           else:
             if($education->user_profiles()->count() > 0):
-                return response()->json(array('status'=>'error','message'=>'Cannot update major becuase it used by the career advisior'),200);
+                return response()->json(array('status'=>'error','message'=>'Cannot update major because it used by the career advisior'),200);
             endif; //end of education major
           endif;
         endif;
@@ -149,12 +149,12 @@ class EducationController extends Controller
         if($this->education->children()->count() > 0){
              //to delete the education major category need to check have the major or not
 
-            return response()->json(array('status'=>'error','message'=>'Cannot delete major category becuase it contains the major'),200);
+            return response()->json(array('status'=>'error','message'=>'Cannot delete major category because it contains the major'),200);
         }else{
 
             //education major check for the user on it
             if($this->education->user_profiles()->count() > 0){
-                return response()->json(array('status'=>'error','message'=>'Cannot delete major becuase it used by the career advisior'),200);
+                return response()->json(array('status'=>'error','message'=>'Cannot delete major because it used by the career advisior'),200);
             }
         }
 
