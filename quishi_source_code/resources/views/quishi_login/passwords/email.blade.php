@@ -1,12 +1,14 @@
 @extends('front.layout.master')
 @section('title','Quishi | Reset Password')
 @section('content')
-<div class="frequently-question">
+<div class="frequently-question reset-password">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header">
+                    <h3>{{ __('Reset Password') }}</h3>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -19,10 +21,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                           <!--  <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> -->
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="E-Mail Address">
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -33,9 +35,9 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-default">
+                                    {{ __('Send') }}
                                 </button>
                             </div>
                         </div>
