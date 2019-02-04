@@ -1026,7 +1026,8 @@ ul.social-links li {
 }
 
 .inner-header .login-menu li.dropdown>a:hover,
-.inner-header .login-menu li>a:hover {
+.inner-header .login-menu li>a:hover,
+.inner-header .login-menu li.active a {
     background: #f59b43;
     color: #fff;
 }
@@ -1389,7 +1390,7 @@ ul.social-links li {
 }
 
 .team-section {
-    margin: 15px 0;
+    margin: 15px 4px;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -3528,7 +3529,7 @@ button#comment-toogle {
 }
 
 .modal-quishi {
-    background: rgba(0, 0, 0, 0.5);
+    /*background: rgba(0, 0, 0, 0.5);*/
 }
 
 #question-remove-link i {
@@ -5306,6 +5307,36 @@ span.terms_conditions {
 }
 
 
+.reset-password .card .card-header {
+
+    background: no-repeat;
+    padding: 0;
+    border: none;
+    margin-bottom: 10px;
+
+}
+
+.reset-password .card {
+padding: 30px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    border: none;
+
+}
+
+.reset-password .card-body {
+    border: none;
+    padding: 0;
+}
+.reset-password .form-control {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+}
+
+.reset-password .btn-default {
+    min-width: 1px;
+}
+
 /*
     show the reset button on forum questions section
 */
@@ -5319,4 +5350,5 @@ span.close.reset_question_search_close {
 
 .no_review a {
     color: #999;
+
 }
