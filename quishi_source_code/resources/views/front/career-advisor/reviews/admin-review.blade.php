@@ -2,15 +2,22 @@
 @section('title','Admin reviews')
 @section('content')
                 <div class="profile-main-section">
-                    @foreach($reviews as $review)
-                    <div class="profile-admin-review-section">
-                        <div class="profile-admin-review-answer">
-                            <p>{{$review->content}}</p>
+                    @if($reviews->count() > 0)
+                        @foreach($reviews as $review)
+                        <div class="profile-admin-review-section">
+                            <div class="profile-admin-review-answer">
+                                <p>{{$review->content}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- profile-first-section -->
+                        <!-- profile-first-section -->
 
-                    @endforeach
+                        @endforeach
+                    @else
+                     <div class="no_review">
+                        <h4>{{ __('You have no reviews') }}</h4>
+                        <p>{{ __('You got no reviews from Quishi.') }}</p>
+                     </div>
+                    @endif
                 </div>
                 <!-- profile-main-section -->
             </div>

@@ -49,6 +49,9 @@
                             </select>
                         </div>
                         <!-- top-filter-dropdown -->
+                        <div class="top-filter-dropdown">
+                          <button type="reset" class="btn btn-secondary btn-reset-form"  @if((Request::has('search_by_job_title') && Request::get('search_by_job_title') != "")) {{ 'style=display:block;'}} @else {{ 'style=display:none;'}} @endif>Reset</button>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="filter-right">
@@ -247,6 +250,13 @@ $(window).load(function () {
     });
 
 
+    //reset btn click
+
+    $('.btn-reset-form').click(function(e){
+       location.reload();
+    });
+
+
 
     function renderSearchDataAndAjaxCall(type){
         var search_by_location      = "{{(isset($_GET['search_by_location'])) ? $_GET['search_by_location'] : '' }}";
@@ -313,6 +323,10 @@ $(window).load(function () {
               }else{
                 $("span.profile_text").html(' Profile');
               }
+
+              //make the reset button visible
+              $(".btn-reset-form").css('display','block');
+              $('footer').removeClass('fixed-footer');
 
             }
 

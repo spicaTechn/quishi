@@ -58,7 +58,11 @@ class MyAccountController extends BaseCareerAdvisorController
     	foreach($user_questions as $user_question){
     		 $questions_id = $user_question['question_id'];
 	         $answers = DB::table('answers')->where('question_id',$questions_id)->where('user_id', Auth::user()->id)->select('content')->first();
-	         $user_questions[$i]['answer'] = $answers->content;
+             if($answers):
+	           $user_questions[$i]['answer'] = $answers->content;
+             else:
+                 $user_questions[$i]['answer'] = '';
+             endif;
 	         $i++;
 
     	}
@@ -170,9 +174,22 @@ class MyAccountController extends BaseCareerAdvisorController
     	$submitted_user_answer = $request->input('answer_id');
     	$submitted_question    = $request->input('question_id');
     	for($i=0; $i<count($submitted_question); $i++){
-    		$user_answer      = Answer::where('question_id',$submitted_question[$i])
+            //to check for the answer exists or not 
+            $user_answer      = Answer::where('question_id',$submitted_question[$i])
+                                        ->where('user_id',Auth::user()->id)->get();
+
+            if($user_answer->count() >= 1):
+    		  $user_answer      = Answer::where('question_id',$submitted_question[$i])
     									->where('user_id',Auth::user()->id)
     									->update(['content'=> $submitted_user_answer[$i]]);
+            else:
+                $user_answer              = new Answer();
+                $user_answer->question_id = $submitted_question[$i];
+                $user_answer->user_id     = Auth::user()->id;
+                $user_answer->content     = $submitted_user_answer[$i];
+                $user_answer->total_likes = 0;
+                $user_answer->save();
+            endif;
     	}
 
     	Session::flash('user_profile_update', 'Your profile has been updated successfully!!');

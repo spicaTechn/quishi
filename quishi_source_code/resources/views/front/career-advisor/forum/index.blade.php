@@ -43,7 +43,7 @@ a.new_forum_question_add{
                     <div class="forum-like-comment-view ">
                         <ul>
                             <li><a href="javascript:void(0);" class="_total_answer_likes" data-forum-question-id="{{$question->id}}"><span class="like-numbers">{{quishi_convert_number_to_human_readable($question->like) }}</span> <i class="icon-like"></i> @if($question->like <= 1) {{ 'Like' }} @else {{ 'Likes'}} @endif</a></li>
-                            <li><a href="javascript:void(0);" class="go-to-comment"><span class="like_forum_question">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->where('parent',0)->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }}@endif</a></li>
+                            <li><a href="{{ URL::to('/forums').'/'. $question->id .'/'. $question->slug  }}" class="go-to-comment"><span class="like_forum_question">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->where('parent',0)->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }}@endif</a></li>
                         </ul>
                     </div>
                 </div>

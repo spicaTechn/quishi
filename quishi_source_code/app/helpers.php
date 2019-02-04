@@ -13,31 +13,31 @@ if(!function_exists('show_career_advisior_salary_range')){
 				return '$0 - $10,000 / per annum';
 				break;
 			case '2':
-			 	return '$10000 - $20000 / per annum';
+			 	return '$10,000 - $20,000 / per annum';
 			    break;
 			 case '3':
-			    return '$20000 - $30000 / per annum';
+			    return '$20,000 - $30,000 / per annum';
 			 	break;
 			 case '4':
-			 	return '$30000 - $50000 / per annum';
+			 	return '$30,000 - $50,000 / per annum';
 			 	break;
 			 case '5':
-			 	return '$50000 - $80000 / per annum';
+			 	return '$50,000 - $80,000 / per annum';
 			    break;
 			 case '6':
-			 	return '$80000 - $120000 / per annum';
+			 	return '$80,000 - $120,000 / per annum';
 			    break;
 			 case '7':
-			 	return '$120000 - $170000 / per annum';
+			 	return '$120,000 - $170,000 / per annum';
 			    break;
 			 case '8':
-			 	return '$170000 - $230000 / per annum';
+			 	return '$170,000 - $230,000 / per annum';
 			    break;
 			 case '9':
-			 	return '$230000 - $500000 / per annum';
+			 	return '$230,000 - $500,000 / per annum';
 			    break;
 			 case '10':
-			    return '$500000+ / per annum';
+			    return '$500,000+ / per annum';
 			    break;
 			  default:
 			  	return 'unknown';

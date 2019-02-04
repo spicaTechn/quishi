@@ -14,7 +14,7 @@
             <div class="profile-desination">
                 <h3>{{ $user_list['first_name'] }}</h3>
                
-                <span>{{ $user_list['career']  }}</span>
+                <span>{{ ucwords($user_list['career'])  }}</span>
            
             </div>
         </div>

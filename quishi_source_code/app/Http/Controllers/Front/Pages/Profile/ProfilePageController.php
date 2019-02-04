@@ -54,7 +54,10 @@ class ProfilePageController extends BaseCareerAdvisorController
         $this->search_user_career_by_search_params($request);
 
 
-        $career                 = Career::where('parent','>','1')->get();
+        $career                 = Career::where('parent','>=','1')
+                                        ->where('status','1')
+                                        ->get();
+
         $career_location        = UserProfile::select(DB::raw('distinct(location) as address'))
                                               ->get();
         //return view

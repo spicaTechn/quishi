@@ -83,7 +83,7 @@
                     <li class="nav-item"><a href="{{URL::to('/contact')}}" class="nav-link {{Request::is('contact*') ? 'active ' : '' }}">{{ __('Contact')}}</a></li>
                     @if(Auth::user())
                     @if(Auth::user()->notifications()->count() > 0)
-                    <li class="nav-item notification-box  @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ '_all_not_seen'}} @endif"><a href="#" class="nav-link"><i class="fa fa-globe"></i> @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0)  <span class="badge">{{Auth::user()->notifications()->where('seen_flag','0')->count()}} @endif</span></a>
+                    <li class="nav-item notification-box  @if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ '_all_not_seen'}} @endif"><a href="#" class="nav-link"><i class="fa fa-globe"></i><span class="badge">@if(Auth::user()->notifications()->where('seen_flag','0')->count() > 0) {{ Auth::user()->notifications()->where('seen_flag','0')->count() }} @endif</span></a>
                         <div class="notification-list">
                             <div class="notification-title">
                                 <span>{{ __('Notification') }} </span><a href="#" class="_quishi_mark_as_read @if(Auth::user()->unreadNotifications()->count() <= 0) {{ 'no_unread_notification' }} @endif">{{ __('Mark as read') }}</a>

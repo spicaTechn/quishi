@@ -120,8 +120,8 @@
                             <!-- profile-viewers -->
                             <div class="add-remove-social-media">
                                 <div class="media-title-block">
-                                    <h6>My External Links</h6>
-                                    <span id="add-skill"><i class="icon-plus"></i></span>
+                                    <h6><span id="add-skill"><i class="icon-plus"></i></span> My External Links</h6>
+                                    
                                 </div>
                                 <div class="social-media-body">
                                     <div class="row link_row">

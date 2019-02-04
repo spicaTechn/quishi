@@ -19,8 +19,11 @@
 
 			<div class="abstract">
 				<h5>Abstract</h5>
-				<textarea class="form-control" placeholder="hello there, I am the abstract" name="blog_abstract"></textarea>
+				<textarea class="form-control" placeholder="Abstract only 20 characters" name="blog_abstract" maxlength="20"></textarea>
 				
+			</div>
+			<div class="form-group">
+				<button class="btn btn-default" type="submit">Publish</button>
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-4">
@@ -46,9 +49,9 @@
 			        </div>
 			    </div>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<button class="btn btn-default" type="submit">Create</button>
-				</div>
+				</div> -->
 		</div>
 	
 </div>
@@ -156,6 +159,8 @@
             e.preventDefault();
             $('#add-new-blog')[0].submit();
         });
+
+       
 
 
 

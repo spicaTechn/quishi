@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-
+@section('title','Quishi')
 @section('content')
 <div class="banner-bg" style="background: url({{asset('/front/images/banner.jpg')}}) no-repeat center; background-size: cover;">
     <div class="container">
@@ -62,7 +62,7 @@
                     <div class="profile-slills">
                         @if($user_profile->user->tags()->count() > 0)
                         <ul>
-                            @foreach($user_profile->user->tags->take(3) as $user_tag)
+                            @foreach($user_profile->user->tags->take(2) as $user_tag)
                                 <li><a href="javascript:void(0);">{{ucwords($user_tag->title)}}</a></li>
                             @endforeach
 
@@ -387,13 +387,16 @@ $(window).load(function () {
             if(data.status == "success"){
                 var return_lists = "";
                 $.each(data.result, function(index,value){
-                    return_lists += "<li data-location='" + value.full_address + "' style='cursor:pointer;'><i class='icon-location-pin'></i>" + value.full_address + "</li>";
+                    let full_address  = value.city + ', ' + value.state  + " " + value.country;
+                    return_lists += "<li data-location='" + full_address + "' style='cursor:pointer;'><i class='icon-location-pin'></i>" + full_address + "</li>";
                 });
                 //now append to ul 
                 $("#_location_search_list ul").html(return_lists);
                 $('#_location_search_list').show();
             }else{
-                $('#_location_search_list').hide();
+                var return_lists = "<li>No results found</li>";
+                 $("#_location_search_list ul").html(return_lists);
+                $('#_location_search_list').show();
             }
         });
     });
@@ -431,7 +434,9 @@ $(window).load(function () {
                $("#_job_title_search_list ul").html(return_job_lists);
                $("#_job_title_search_list").show();
             }else{
-                $("#_job_title_search_list").hide();
+                var return_lists = "<li>No results found</li>";
+                $("#_job_title_search_list ul").html(return_lists);
+                $("#_job_title_search_list").show();
             }
         });
     });

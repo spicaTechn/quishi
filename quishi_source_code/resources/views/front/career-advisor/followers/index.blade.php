@@ -85,7 +85,7 @@
             </div>
             @else
                 <div class="_no_result_founds">
-                 <p>Looks like you have no followers yet! Please improve your activity by creating new <a href="{{ route('profile.blog.create') }}" class="new_forum_question_add">Blog</a> or post a question to <a href="{{ url('/forum') }}" class="new_forum_question_add">Forum</a> to get attention from like minded peoples</p>
+                 <p>Looks like you have no followers yet! Please improve your activity by creating new <a href="{{ route('profile.blog.create') }}" class="new_forum_question_add">Blog</a> or post a question to <a href="{{ url('/forums') }}" class="new_forum_question_add">Forum</a> to get attention from like minded peoples</p>
                 </div>
             @endif
             <!-- end row -->
