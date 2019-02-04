@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="profile-blog-page profile-main-section">
+    @if($blogs->count() > 0)
     <div class="row isotopeContainer2">
         @foreach($blogs as $blog)
         <div class="col-md-4 isotopeSelector">
@@ -39,6 +40,12 @@
     <div class="blog_pagination">
      {{ $blogs->links() }}
     </div>
+    @else
+        <div class="no_review">
+            <h4>{{ __('You have no blogs') }}</h4>
+            <p>You have not posted any blogs yet, <a href="{{url('/profile/blogs/create')}}" class="new_forum_question_add">create now.</a></p>
+         </div>
+    @endif
    
 </div>
 <!-- profile-main-section -->

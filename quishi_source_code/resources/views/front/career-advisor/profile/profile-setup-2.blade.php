@@ -100,16 +100,16 @@
                         <label>Salary range (in Dollars)</label>
                         <select class="form-control" name="salary">
                             <option value="0" selected="selected" disabled="disabled">Select Salary Range</option>
-                            <option value="1" @if (auth::user()->user_profile->salary_range == 1)  {{ 'selected' }} @endif>0-10000</option>
-                            <option value="2" @if (auth::user()->user_profile->salary_range == 2)  {{ 'selected' }} @endif>10000-20000</option>
-                            <option value="3" @if (auth::user()->user_profile->salary_range == 3)  {{ 'selected' }} @endif>20000-30000</option>
-                            <option value="4" @if (auth::user()->user_profile->salary_range == 4)  {{ 'selected' }} @endif>30000-50000</option>
-                            <option value="5" @if (auth::user()->user_profile->salary_range == 5)  {{ 'selected' }} @endif>50000-80000</option>
-                            <option value="6" @if (auth::user()->user_profile->salary_range == 6)  {{ 'selected' }} @endif>80000-120000</option>
-                            <option value="7" @if (auth::user()->user_profile->salary_range == 7)  {{ 'selected' }} @endif>120000-170000</option>
-                            <option value="8" @if (auth::user()->user_profile->salary_range == 8)  {{ 'selected' }} @endif>170000-230000</option>
-                            <option value="9" @if (auth::user()->user_profile->salary_range == 9)  {{ 'selected' }} @endif>230000-500000</option>
-                            <option value="10" @if (auth::user()->user_profile->salary_range == 10)  {{ 'selected' }} @endif>500000+</option>
+                            <option value="1" @if (auth::user()->user_profile->salary_range == 1)  {{ 'selected' }} @endif>0-10,000</option>
+                            <option value="2" @if (auth::user()->user_profile->salary_range == 2)  {{ 'selected' }} @endif>10,000-20,000</option>
+                            <option value="3" @if (auth::user()->user_profile->salary_range == 3)  {{ 'selected' }} @endif>20,000-30,000</option>
+                            <option value="4" @if (auth::user()->user_profile->salary_range == 4)  {{ 'selected' }} @endif>30,000-50,000</option>
+                            <option value="5" @if (auth::user()->user_profile->salary_range == 5)  {{ 'selected' }} @endif>50,000-80,000</option>
+                            <option value="6" @if (auth::user()->user_profile->salary_range == 6)  {{ 'selected' }} @endif>80,000-120,000</option>
+                            <option value="7" @if (auth::user()->user_profile->salary_range == 7)  {{ 'selected' }} @endif>120,000-170,000</option>
+                            <option value="8" @if (auth::user()->user_profile->salary_range == 8)  {{ 'selected' }} @endif>170,000-230,000</option>
+                            <option value="9" @if (auth::user()->user_profile->salary_range == 9)  {{ 'selected' }} @endif>230,000-500,000</option>
+                            <option value="10" @if (auth::user()->user_profile->salary_range == 10)  {{ 'selected' }} @endif>500,000+</option>
                         </select>
                     </div>
 

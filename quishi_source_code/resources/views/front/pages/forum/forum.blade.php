@@ -21,6 +21,9 @@
                     <div class="search-form">
                         <button class="btn btn-transparent"><i class="icon-magnifier"></i></button>
                         <input name="search-form" class="form-control"  id="_quishi_forum_search" type="text" placeholder="Type and enter" value="{{\Request::get('forum_question_title')}}">
+                        <div class="reset_question_search" @if(Request::has('forum_question_title') && Request::get('forum_question_title') != "") {{ 'style=display:block;' }} @else {{ 'style =display:none;' }} @endif>
+                          <span class="close reset_question_search_close">&times;</span>
+                        </div>
                     </div>
                     <div class="new-questions"><a href="javascript:void(0);" class="btn btn-default" id="show-qusetion-modal">{{ _('New question') }}</a></div>
                     <div class="modal fade" id="add-new-question-modal">
@@ -120,7 +123,7 @@
                     <div class="forum-like-comment-view ">
                         <ul>
                             <li><a href="javascript:void(0);" class="_total_answer_likes" data-forum-question-id="{{$question->id}}"><span class="like-numbers">{{quishi_convert_number_to_human_readable($question->like) }}</span> <i class="icon-like"></i> @if($question->like <= 1) {{ 'Like' }} @else {{ 'Likes'}} @endif</a></li>
-                            <li><a href="javascript:void(0);" class="go-to-comment"><span class="like_forum_question">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->where('parent',0)->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }}@endif</a></li>
+                            <li><a href="{{ URL::to('/forums').'/'. $question->id .'/'. $question->slug  }}" class="go-to-comment"><span class="like_forum_question">{{quishi_convert_number_to_human_readable($question->forum_question_answers()->where('parent',0)->count()) }}</span> <i class="icon-bubble"></i> @if($question->forum_question_answers()->where('parent',0)->count() > 1) {{ 'Answers' }} @else {{ 'Answer' }}@endif</a></li>
                         </ul>
                     </div>
                 </div>
@@ -282,6 +285,11 @@ $(window).load(function () {
 
     $("#_quishi_forum_search").on('keyup',function(e){
       //prevent default action
+      if($(this).val().length >= 1){
+        $(".reset_question_search").css('display','block');
+      }else{
+        $(".reset_question_search").css('display','none');
+      }
       var _search_input  = $(this);
       //$(_search_input).parent('div.search-form').find('span').remove();
       var _search_value  = $(this).val();
@@ -302,6 +310,14 @@ $(window).load(function () {
         }
         return window.open(redirect_uri, "_self");
       }
+    });
+
+
+    //reset the form when the user click on the reset button and reload the page
+    $('span.reset_question_search_close').click(function(e){
+      $("#_quishi_forum_search").val('');
+      var redirect_uri = "{{URL::to('/forums')}}";
+      return window.open(redirect_uri, "_self");
     });
 });
 </script>

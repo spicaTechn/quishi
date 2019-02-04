@@ -1,4 +1,5 @@
 @extends('front.layout.master')
+@section('title','Quishi | Login')
 @section('content')
 <div class="customer-login">
             <div class="container">

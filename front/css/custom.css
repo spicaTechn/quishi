@@ -5306,6 +5306,7 @@ span.terms_conditions {
     color: #007bff;
 }
 
+
 .reset-password .card .card-header {
 
     background: no-repeat;
@@ -5334,4 +5335,20 @@ padding: 30px;
 
 .reset-password .btn-default {
     min-width: 1px;
+}
+
+/*
+    show the reset button on forum questions section
+*/
+
+span.close.reset_question_search_close {
+    position: absolute;
+    top: 10px;
+    right: 7px;
+    font-size: 15px;
+}
+
+.no_review a {
+    color: #999;
+
 }

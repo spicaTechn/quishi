@@ -564,6 +564,7 @@ $(document).ready(function () {
                         if(data.status == "success")
                         {
                             swal("Deleted!", data.message, "success");
+                             user_job_table.ajax.reload();
                              industry_table.ajax.reload();
                              job_table.ajax.reload();
                         }else{

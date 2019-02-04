@@ -205,14 +205,18 @@ class MainPageController extends Controller
 
     public function autocompleteByLocation(Request $request){
         $search_query   = $request->input('q');
+        $search_query   = str_replace(","," ",$search_query);
 
-        //check for the empty search result
-        if(!empty($search_query)):
         //make requst to DBMS
-            $search_results = Address::where('full_address','LIKE',"%{$search_query}%")
+            $search_results = Address::where(function($query) use($request,$search_query){
+                                        if($request->has('q') && $request->input('q') != ""):
+                                            $query->where('full_address','LIKE',"%{$search_query}%");
+                                        endif;
+                                        })
                                       ->orderBy('created_at','desc')
+                                      ->where('status','1')
                                       ->limit(7)
-                                      ->select('full_address')
+                                      ->select('full_address','city','state','country')
                                       ->get();
             if($search_results->count() > 0):
                 //send the success message to the client along with the results
@@ -221,10 +225,7 @@ class MainPageController extends Controller
                 //return failed response back to the client along with the message
                 return response()->json(array('status'=>'failed','message'=>'There are no matching records found in the quishi system'),200);
             endif;
-        else:
-            //return failed response back to the client along with the message
-            return response()->json(array('status'=>'failed','message'=>'Search query is empty!'),200);
-        endif;
+        
     }
 
 
@@ -240,10 +241,16 @@ class MainPageController extends Controller
     public function autocompleteByJobTitle(Request $request){
 
         $search_query    = $request->input('q');
-        if(!empty($search_query)):
+
             $search_results = Career::where('parent','>' , 0)
-                                    ->where('title','LIKE',"%{$search_query}%")
+                                    ->where(function($query) use($request,$search_query){
+                                        if($request->has('q') && $request->get('q') != ""):
+                                            $query->where('title','LIKE',"%{$search_query}%");
+                                        endif;
+                                    })
                                     ->orderBy('created_at','desc')
+                                    ->where('status','1')
+                                    ->where('is_approved','1')
                                     ->limit(7)
                                     ->select('title')
                                     ->get();
@@ -253,10 +260,6 @@ class MainPageController extends Controller
                 //return failed
                 return response()->json(array('status'=>'failed','message'=>'No job title matches'),200);
             endif;
-        else:
-            //return the failure message
-            return response()->json(array('status'=>'failed','message'=>'Search Query empty'),200);
-        endif;
     }
 
 

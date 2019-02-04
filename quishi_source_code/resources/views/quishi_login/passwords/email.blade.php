@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-
+@section('title','Quishi | Reset Password')
 @section('content')
 <div class="frequently-question reset-password">
 <div class="container">
